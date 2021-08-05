@@ -1,0 +1,28 @@
+﻿@model AlgoTecMvc.Models.ViewModels.ParkingListModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@using(Html.BeginForm("AddSpace", "Space", FormMethod.Post))
+{
+    <h1>Rent out parking</h1>
+    <p>Your email</p>
+    <p>@Html.TextBox("UserEmail")</p>
+    <p>Coordinate</p>
+    <p>@Html.TextBox("Coordinates")</p>
+    <p>Duration (in days)</p>
+    <p>@Html.TextBox("Duration")</p>
+    <p><input type="submit" value="Send"/></p>
+}
+
+@using(Html.BeginForm("", "Home", FormMethod.Post))
+{
+    <h1>Rent parking</h1>
+    <p>Your email</p>
+    <p>@Html.TextBox("UserEmail")</p>
+    //<p>Select parking @Html.DropDownListFor(m=>m.SelectedParkingCoordinates , Model.ParkingCoordinates, "Select Parking Coordinates")</p>
+    <p>Duration (in days)</p>
+    <p>@Html.TextBox("Duration")</p>
+    <p><input type="submit" value="Send"/></p>
+}
