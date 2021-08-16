@@ -62,11 +62,13 @@ namespace AlgoTecMvc.Migrations
                 name: "Contracts",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     OwnerUserId = table.Column<long>(type: "INTEGER", nullable: false),
                     TenantUserId = table.Column<long>(type: "INTEGER", nullable: false),
-                    SpaceId = table.Column<long>(type: "INTEGER", nullable: false)
+                    SpaceId = table.Column<long>(type: "INTEGER", nullable: false),
+                    SpacePropertyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ContractDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ContractDateStop = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

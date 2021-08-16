@@ -1,6 +1,8 @@
+using AlgoTecMvc.Models.RepositoryModels;
+
 namespace AlgoTecMvc.Core.Interfaces
 {
-    public interface IContractRepository
+    public interface IContractRepository : IGenericRepository<Contract>
     {
         
     }

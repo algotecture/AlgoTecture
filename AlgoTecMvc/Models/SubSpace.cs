@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace AlgoTecMvc.Models
@@ -8,6 +9,10 @@ namespace AlgoTecMvc.Models
         {
             _subSpaces = new List<SubSpace>();
         }
+
+        public Guid SubSpaceId { get; set; }
+
+        public long SpaceId { get; set; }
 
         private List<SubSpace> _subSpaces;
         

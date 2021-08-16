@@ -1,8 +1,10 @@
+using System;
+
 namespace AlgoTecMvc.Models.RepositoryModels
 {
     public class Contract
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         public long OwnerUserId { get; set; }
         
@@ -15,5 +17,11 @@ namespace AlgoTecMvc.Models.RepositoryModels
         public long SpaceId { get; set; }
 
         public Space Space { get; set; }
+
+        public Guid SpacePropertyId { get; set; }
+
+        public DateTime ContractDateStart { get; set; }
+
+        public DateTime ContractDateStop { get; set; }
     }
 }

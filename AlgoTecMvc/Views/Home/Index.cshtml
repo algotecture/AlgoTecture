@@ -16,12 +16,13 @@
     <p><input type="submit" value="Send"/></p>
 }
 
-@using(Html.BeginForm("", "Home", FormMethod.Post))
+@using(Html.BeginForm("AddContract", "Contract", FormMethod.Post))
 {
     <h1>Rent parking</h1>
     <p>Your email</p>
     <p>@Html.TextBox("UserEmail")</p>
-    //<p>Select parking @Html.DropDownListFor(m=>m.SelectedParkingCoordinates , Model.ParkingCoordinates, "Select Parking Coordinates")</p>
+    <p>Select parking</p>
+    <p>@Html.DropDownListFor(m=>m.SelectedSpaceProperty , Model.ParkingCoordinates, "Select Parking")</p>
     <p>Duration (in days)</p>
     <p>@Html.TextBox("Duration")</p>
     <p><input type="submit" value="Send"/></p>

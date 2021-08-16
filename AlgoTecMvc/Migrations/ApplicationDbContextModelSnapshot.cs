@@ -33,15 +33,24 @@ namespace AlgoTecMvc.Migrations
 
             modelBuilder.Entity("AlgoTecMvc.Models.RepositoryModels.Contract", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ContractDateStart")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ContractDateStop")
+                        .HasColumnType("TEXT");
 
                     b.Property<long>("OwnerUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("SpaceId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("SpacePropertyId")
+                        .HasColumnType("TEXT");
 
                     b.Property<long>("TenantUserId")
                         .HasColumnType("INTEGER");

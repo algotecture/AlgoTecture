@@ -18,7 +18,7 @@ namespace AlgoTecMvc.Controllers
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<IActionResult> AddSpace(AddSpaceModel addSpaceModel)
+        public async Task<ActionResult<Space>> AddSpace(AddSpaceModel addSpaceModel)
         {
             addSpaceModel.TypeOfSpaceId = 1;
             var targetUser = await _unitOfWork.Users.GetByEmail(addSpaceModel.UserEmail);
@@ -34,21 +34,30 @@ namespace AlgoTecMvc.Controllers
                
             }
             targetUserId = targetUser.Id;
+           
+            var newSpace = new Space
+            {
+                TypeOfSpaceId = addSpaceModel.TypeOfSpaceId
+            };
+            var createdSpace = await _unitOfWork.Spaces.Add(newSpace); 
+            await _unitOfWork.CompleteAsync();
+            var createdSpaceId = createdSpace.Id;
+
+            var targetSpaceToUpdate = await _unitOfWork.Spaces.GetById(createdSpaceId);
+            
             var spaceProperty = new SpaceProperty
             {
+                SpacePropertyId = Guid.NewGuid(),
+                SpaceId = createdSpaceId,
                 Coordinates = addSpaceModel.Coordinates,
                 TypeOfSpace = addSpaceModel.TypeOfSpaceId,
                 OwnerId = targetUserId
             };
-            var newSpace = new Space
-            {
-                TypeOfSpaceId = addSpaceModel.TypeOfSpaceId,
-                SpaceProperty = JsonConvert.SerializeObject(spaceProperty)
-            };
-            var targetSpace = await _unitOfWork.Spaces.Add(newSpace);
-            await _unitOfWork.CompleteAsync();
+
+            targetSpaceToUpdate.SpaceProperty = JsonConvert.SerializeObject(spaceProperty);
             
-            return Ok();
+            await _unitOfWork.CompleteAsync();
+            return targetSpaceToUpdate;
         }
     }
 }

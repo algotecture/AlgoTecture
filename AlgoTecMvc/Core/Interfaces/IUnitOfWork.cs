@@ -7,6 +7,8 @@ namespace AlgoTecMvc.Core.Interfaces
         IUserRepository Users {get;}
         
         ISpaceRepository Spaces {get;}
+        
+        IContractRepository Contracts { get; }
 
         Task CompleteAsync();
     }

@@ -14,6 +14,8 @@ namespace AlgoTecMvc.Data
         public IUserRepository Users { get; private set; }
         
         public ISpaceRepository Spaces { get; private set; }
+        
+        public IContractRepository Contracts { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -22,6 +24,7 @@ namespace AlgoTecMvc.Data
 
             Users = new UserRepository(context, _logger);
             Spaces = new SpaceRepository(context, _logger);
+            Contracts = new ContractRepository(context, _logger);
         }
 
         public async Task CompleteAsync()
