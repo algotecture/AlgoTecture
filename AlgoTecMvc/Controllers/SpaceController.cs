@@ -49,7 +49,6 @@ namespace AlgoTecMvc.Controllers
             {
                 SpacePropertyId = Guid.NewGuid(),
                 SpaceId = createdSpaceId,
-                Coordinates = addSpaceModel.Coordinates,
                 TypeOfSpace = addSpaceModel.TypeOfSpaceId,
                 OwnerId = targetUserId
             };

@@ -45,6 +45,9 @@ namespace AlgoTecMvc.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TypeOfSpaceId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SpaceAddress = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Latitude = table.Column<double>(type: "REAL", nullable: false),
+                    Longitude = table.Column<double>(type: "REAL", nullable: false),
                     SpaceProperty = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -112,6 +115,11 @@ namespace AlgoTecMvc.Migrations
                 name: "IX_Spaces_TypeOfSpaceId",
                 table: "Spaces",
                 column: "TypeOfSpaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

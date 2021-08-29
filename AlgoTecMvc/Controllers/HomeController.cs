@@ -32,7 +32,7 @@ namespace AlgoTecMvc.Controllers
 
             model.ParkingCoordinates = targetParkingList.Select(x => new SelectListItem
             {
-                Text = JsonConvert.DeserializeObject<SpaceProperty>(x.SpaceProperty)?.Coordinates,
+                Text = "",
                 Value =  x.SpaceProperty
             }).ToList();
 

@@ -1,29 +1,59 @@
-﻿@model AlgoTecMvc.Models.ViewModels.ParkingListModel
-@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+        <script>
+               function stripHTML(oldString) { 	return oldString.replace(/(<([^>]+)>)/ig,""); } 
+        </script>
+        <script>
+        jQuery(document).ready(function ($) {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("GeoAdminSearch", "SearchAddress")',
+                select: function(event, ui) {
+                      const e = ui.item;
+                      let latitude= e.lat;
+                      let longitude= e.lon; 
+                      $(function () {
+                        $('#latitude').val(latitude);
+                         $('#longitude').val(longitude);
+                      });
+                      }
+            });           
+            $("#txtSearch").autocomplete("option", "appendTo", "#Searchdata");
+        });
+        </script>
+    
+    </head>
+<body>
+<div class="form-group column">
+    <div class="form-group">
+        <div>
+            <div class="alert alert-dismissible alert-info col-10">
+                <strong>Rent parking</strong>
+            </div>
+            <form id="myForm">
+                <label>Address</label> &nbsp;&nbsp;
+                <input type="text" class="form-control col-5" name="searchTerm" id="txtSearch"/>
+                @*add this div*@
+        
+                <div id="Searchdata"></div>
+                <input hidden id="latitude"></input>
+                <input hidden id="longitude"></input>
+            </form>
+        </div>
+    </div>
+    <div class="form-group">
+            <div>
+                <div class="alert alert-danger alert-info col-10">
+                    <strong>Rent out parking</strong>
+                </div>
+            </div>
+        </div>
+</div>
 
-
-@using(Html.BeginForm("AddSpace", "Space", FormMethod.Post))
-{
-    <h1>Rent out parking</h1>
-    <p>Your email</p>
-    <p>@Html.TextBox("UserEmail")</p>
-    <p>Coordinate</p>
-    <p>@Html.TextBox("Coordinates")</p>
-    <p>Duration (in days)</p>
-    <p>@Html.TextBox("Duration")</p>
-    <p><input type="submit" value="Send"/></p>
-}
-
-@using(Html.BeginForm("AddContract", "Contract", FormMethod.Post))
-{
-    <h1>Rent parking</h1>
-    <p>Your email</p>
-    <p>@Html.TextBox("UserEmail")</p>
-    <p>Select parking</p>
-    <p>@Html.DropDownListFor(m=>m.SelectedSpaceProperty , Model.ParkingCoordinates, "Select Parking")</p>
-    <p>Duration (in days)</p>
-    <p>@Html.TextBox("Duration")</p>
-    <p><input type="submit" value="Send"/></p>
-}
+</body>
+    </html>

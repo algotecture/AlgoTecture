@@ -12,8 +12,6 @@ namespace AlgoTecMvc.Models
         
         public double TotalArea { get; set; }
         
-        public string Coordinates { get; set; }
-
         public long OwnerId { get; set; }
 
         public long ContractId { get; set; }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgoTecMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210816155528_Initial migration and Adding the Users, Spaces, typeOfSpaces, Contracts table")]
+    [Migration("20210829081350_Initial migration and Adding the Users, Spaces, typeOfSpaces, Contracts table")]
     partial class InitialmigrationandAddingtheUsersSpacestypeOfSpacesContractstable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,16 @@ namespace AlgoTecMvc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("SpaceAddress")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SpaceProperty")
                         .HasColumnType("TEXT");
 
@@ -117,6 +127,8 @@ namespace AlgoTecMvc.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email");
 
                     b.ToTable("Users");
                 });

@@ -38,12 +38,14 @@ namespace AlgoTecMvc.Data
             modelBuilder.Entity<User>().Property(x => x.Patronymic).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(500);
+            modelBuilder.Entity<User>().HasIndex(x => x.Email);
         }
         
         private static void ConfigureSpacesModelCreation(ModelBuilder modelBuilder)
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Space>().HasKey(x => new { x.Id});
+            modelBuilder.Entity<Space>().Property(x => x.SpaceAddress).HasMaxLength(500);
         }
         
         private static void ConfigureTypeOfSpacesModelCreation(ModelBuilder modelBuilder)
