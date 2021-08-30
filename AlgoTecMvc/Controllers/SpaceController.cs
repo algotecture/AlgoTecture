@@ -42,7 +42,7 @@ namespace AlgoTecMvc.Controllers
             targetUserId = targetUser.Id;
 
             var isLatitude = double.TryParse(addSpaceModel.Latitude, out var latitude);
-            var isLongitude = double.TryParse(addSpaceModel.Latitude, out var longitude);
+            var isLongitude = double.TryParse(addSpaceModel.Longitude, out var longitude);
             var newSpace = new Space
             {
                 TypeOfSpaceId = addSpaceModel.TypeOfSpaceId,
