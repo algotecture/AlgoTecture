@@ -11,19 +11,37 @@
         </script>
         <script>
         jQuery(document).ready(function ($) {
-            $("#txtSearch").autocomplete({
+            $("#txtSearchRent").autocomplete({
                 source: '@Url.Action("GeoAdminSearch", "SearchAddress")',
                 select: function(event, ui) {
                       const e = ui.item;
-                      let latitude= e.lat;
-                      let longitude= e.lon; 
+                      let latitudeRent = e.lat;
+                      let longitudeRent = e.lon; 
+                      let addressRent = e.label;
                       $(function () {
-                        $('#latitude').val(latitude);
-                         $('#longitude').val(longitude);
+                        $('#latitudeRent').val(latitudeRent);
+                         $('#longitudeRent').val(longitudeRent);
+                         $('#addressRent').val(addressRent);
                       });
                       }
             });           
-            $("#txtSearch").autocomplete("option", "appendTo", "#Searchdata");
+            $("#txtSearchRent").autocomplete("option", "appendTo", "#Searchdata");
+            
+            $("#txtSearchRentOut").autocomplete({
+                            source: '@Url.Action("GeoAdminSearch", "SearchAddress")',
+                            select: function(event, ui) {
+                                  const e = ui.item;
+                                  let latitudeRentOut = e.lat;
+                                  let longitudeRentOut = e.lon; 
+                                  let addressRentOut = e.label;
+                                  $(function () {
+                                    $('#latitudeRentOut').val(latitudeRentOut);
+                                     $('#longitudeRentOut').val(longitudeRentOut);
+                                     $('#addressRentOut').val(addressRentOut);
+                                  });
+                                  }
+                        });           
+            $("#txtSearchRentOut").autocomplete("option", "appendTo", "#SearchdataRentOut");
         });
         </script>
     
@@ -35,24 +53,56 @@
             <div class="alert alert-dismissible alert-info col-10">
                 <strong>Rent parking</strong>
             </div>
-            <form id="myForm">
-                <label>Address</label> &nbsp;&nbsp;
-                <input type="text" class="form-control col-5" name="searchTerm" id="txtSearch"/>
-                @*add this div*@
-        
-                <div id="Searchdata"></div>
-                <input hidden id="latitude"></input>
-                <input hidden id="longitude"></input>
-            </form>
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-success col-10">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>@TempData["Success"]</strong>
+                </div>
+            }
+            @using(Html.BeginForm("AddSpace", "Space", FormMethod.Post))
+            {
+                <fieldset>
+                    <label>Find Address</label> &nbsp;&nbsp;
+                    <input type="text" class="form-control col-5" name="searchTerm" id="txtSearchRent"/>
+                    <div id="Searchdata"></div>
+                    <input hidden id="addressRent" name="Address"/>
+                    <input hidden id="latitudeRent" name="Latitude"/>
+                    <input hidden id="longitudeRent" name="Longitude"/>
+                    <label>Email</label> &nbsp;&nbsp;
+                    <input class="form-control col-3" name="UserEmail"/>
+                    <label>Date start</label> &nbsp;&nbsp;
+                    <input class="form-control col-2" name="DateStart"/>
+                    <label>Date stop</label> &nbsp;&nbsp;
+                    <input class="form-control col-2" name="DateStop"/>
+                    <div style="margin-top: 15px">
+                        <input type="submit" value="Send" class="btn btn-info" id="btnSubmit" />  
+                    </div>
+                </fieldset>
+            }
         </div>
     </div>
     <div class="form-group">
-            <div>
-                <div class="alert alert-danger alert-info col-10">
-                    <strong>Rent out parking</strong>
+        <div>
+            <div class="alert alert-danger alert-info col-10">
+                <strong>Rent out parking</strong>
                 </div>
-            </div>
+            @using (Html.BeginForm("SearchSpace", "Space", FormMethod.Post))
+            {
+                <fieldset>
+                    <label>Find Address</label> &nbsp;&nbsp;
+                    <input type="text" class="form-control col-5" name="searchTerm" id="txtSearchRentOut"/>
+                    <div id="SearchdataRentOut"></div>
+                    <input hidden id="addressRentOut" name="Address"/>
+                    <input hidden id="latitudeRentOut" name="Latitude"/>
+                    <input hidden id="longitudeRentOut" name="Longitude"/>
+                    <div style="margin-top: 15px">
+                        <input type="submit" value="Search" class="btn btn-danger" id="btnSubmit"/>
+                    </div>
+                </fieldset>
+            }
         </div>
+    </div>
 </div>
 
 </body>

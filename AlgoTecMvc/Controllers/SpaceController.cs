@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Models;
@@ -18,6 +19,11 @@ namespace AlgoTecMvc.Controllers
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
+        public async Task<List<string>> SearchSpace()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ActionResult<Space>> AddSpace(AddSpaceModel addSpaceModel)
         {
             addSpaceModel.TypeOfSpaceId = 1;
@@ -34,10 +40,15 @@ namespace AlgoTecMvc.Controllers
                
             }
             targetUserId = targetUser.Id;
-           
+
+            var isLatitude = double.TryParse(addSpaceModel.Latitude, out var latitude);
+            var isLongitude = double.TryParse(addSpaceModel.Latitude, out var longitude);
             var newSpace = new Space
             {
-                TypeOfSpaceId = addSpaceModel.TypeOfSpaceId
+                TypeOfSpaceId = addSpaceModel.TypeOfSpaceId,
+                SpaceAddress = addSpaceModel.Address,
+                Latitude = isLatitude ? latitude : default,
+                Longitude = isLongitude ? longitude : default
             };
             var createdSpace = await _unitOfWork.Spaces.Add(newSpace); 
             await _unitOfWork.CompleteAsync();
@@ -56,7 +67,8 @@ namespace AlgoTecMvc.Controllers
             targetSpaceToUpdate.SpaceProperty = JsonConvert.SerializeObject(spaceProperty);
             
             await _unitOfWork.CompleteAsync();
-            return targetSpaceToUpdate;
+            TempData["Success"] = "Added Successfully!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

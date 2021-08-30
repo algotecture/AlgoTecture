@@ -26,6 +26,7 @@ namespace AlgoTecMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             var typeOfSpaceId = 1;
             ParkingListModel model = new ParkingListModel();
             var targetParkingList = await _unitOfWork.Spaces.Find(x=>x.TypeOfSpaceId == 1);

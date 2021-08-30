@@ -11,7 +11,5 @@ namespace AlgoTecMvc.Models.Dto
         public string Longitude { get; set; }
 
         public int TypeOfSpaceId { get; set; }
-
-        public string Duration { get; set; }
     }
 }
