@@ -18,6 +18,8 @@ namespace AlgoTecMvc.Models
         
         public double Area { get; set; }
 
+        public int TypeOfSpaceId { get; set; }
+
         public long OwnerId { get; set; }
 
         public List<SubSpace> Subspaces

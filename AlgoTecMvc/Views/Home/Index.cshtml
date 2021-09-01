@@ -60,7 +60,7 @@
                     <strong>@TempData["Success"]</strong>
                 </div>
             }
-            @using(Html.BeginForm("AddSpace", "Space", FormMethod.Post))
+            @using(Html.BeginForm("AddSpaceDeclaration", "Space", FormMethod.Post))
             {
                 <fieldset>
                     <label>Find Address</label> &nbsp;&nbsp;
@@ -97,7 +97,7 @@
                     <input hidden id="latitudeRentOut" name="Latitude"/>
                     <input hidden id="longitudeRentOut" name="Longitude"/>
                     <div style="margin-top: 15px">
-                        <input type="submit" value="Search" class="btn btn-danger" id="btnSubmit"/>
+                        <input type="submit" disabled value="Search" class="btn btn-danger" id="btnSubmit"/>
                     </div>
                 </fieldset>
             }

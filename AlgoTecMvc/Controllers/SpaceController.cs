@@ -24,11 +24,13 @@ namespace AlgoTecMvc.Controllers
             throw new NotImplementedException();
         }
 
-        public async Task<ActionResult<Space>> AddSpace(AddSpaceModel addSpaceModel)
+        public async Task<ActionResult<Space>> AddSpaceDeclaration(AddSpaceModel addSpaceModel)
         {
             addSpaceModel.TypeOfSpaceId = 1;
+            addSpaceModel.DateStart = "12.02.2021";
+            addSpaceModel.DateStop = "12.03.2021";
+            addSpaceModel.SubSpace = new SubSpace {Area = 12, TypeOfSpaceId = 2};
             var targetUser = await _unitOfWork.Users.GetByEmail(addSpaceModel.UserEmail);
-            var targetUserId = default(long);
             if (targetUser == null)
             {
                 var newUser = new User
@@ -37,12 +39,12 @@ namespace AlgoTecMvc.Controllers
                 };
                targetUser = await _unitOfWork.Users.Add(newUser);
                await _unitOfWork.CompleteAsync();
-               
             }
-            targetUserId = targetUser.Id;
+            var targetUserId = targetUser.Id;
 
             var isLatitude = double.TryParse(addSpaceModel.Latitude, out var latitude);
             var isLongitude = double.TryParse(addSpaceModel.Longitude, out var longitude);
+            
             var newSpace = new Space
             {
                 TypeOfSpaceId = addSpaceModel.TypeOfSpaceId,
@@ -61,12 +63,42 @@ namespace AlgoTecMvc.Controllers
                 SpacePropertyId = Guid.NewGuid(),
                 SpaceId = createdSpaceId,
                 TypeOfSpace = addSpaceModel.TypeOfSpaceId,
-                OwnerId = targetUserId
+                OwnerId = targetUserId,
+                SubSpaces = new List<SubSpace>()
             };
+            if (addSpaceModel.SubSpace != null)
+            {
+                spaceProperty.SubSpaces.Add(new SubSpace
+                {
+                    SpaceId = createdSpaceId, SubSpaceId = Guid.NewGuid(), Area = addSpaceModel.SubSpace.Area, OwnerId = targetUserId,
+                    TypeOfSpaceId = addSpaceModel.SubSpace.TypeOfSpaceId
+                });
+            }
 
             targetSpaceToUpdate.SpaceProperty = JsonConvert.SerializeObject(spaceProperty);
             
             await _unitOfWork.CompleteAsync();
+
+            var isDateStart = DateTime.TryParse(addSpaceModel.DateStart, out var dateStart);
+            var isDateStop = DateTime.TryParse(addSpaceModel.DateStop, out var dateStop);
+            
+            var newContract = new Contract
+            {
+                OwnerUserId = targetUserId,
+                SpaceId = createdSpaceId,
+                SpacePropertyId = spaceProperty.SpacePropertyId,
+                ContractDateStart = isDateStart ? dateStart : default,
+                ContractDateStop = isDateStop ? dateStop : default
+            };
+            
+            var createdContract = await _unitOfWork.Contracts.Add(newContract);
+            await _unitOfWork.CompleteAsync();
+
+            if (addSpaceModel.RestApi)
+            {
+                return targetSpaceToUpdate;
+            }
+            
             TempData["Success"] = "Added Successfully!";
             return RedirectToAction("Index", "Home");
         }

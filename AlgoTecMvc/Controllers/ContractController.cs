@@ -31,7 +31,6 @@ namespace AlgoTecMvc.Controllers
                 };
                 targetUser = await _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.CompleteAsync();
-               
             }
             targetUserId = targetUser.Id;
             var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(addContractModel.SelectedSpaceProperty);
