@@ -27,6 +27,11 @@ namespace AlgoTecMvc.Core.Repositories
         {
             return await dbSet.FindAsync(id);
         }
+        
+        public virtual async Task<T> GetByGuid(Guid id)
+        {
+            return await dbSet.FindAsync(id);
+        }
 
         public virtual async Task<T> Add(T entity)
         {

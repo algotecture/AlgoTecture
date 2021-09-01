@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace AlgoTecMvc.Models.Dto
 {
     public class AddSpaceModel
@@ -10,9 +12,9 @@ namespace AlgoTecMvc.Models.Dto
 
         public string Longitude { get; set; }
 
-        public int TypeOfSpaceId { get; set; }
-
-        public SubSpace SubSpace { get; set; }
+        //public int TypeOfSpaceId { get; set; }
+    
+        //public List<SubSpace> SubSpaces { get; set; }
 
         public string DateStart { get; set; }
 

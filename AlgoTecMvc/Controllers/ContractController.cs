@@ -1,14 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
-using AlgoTecMvc.Models;
 using AlgoTecMvc.Models.Dto;
 using AlgoTecMvc.Models.RepositoryModels;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace AlgoTecMvc.Controllers
 {
+    [Route("[controller]")]
     public class ContractController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,40 +17,35 @@ namespace AlgoTecMvc.Controllers
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<ActionResult<Contract>> AddContract(AddContractModel addContractModel)
+        [HttpPost("CompleteContract")]
+        public async Task<ActionResult<Contract>> CompleteContract([FromBody]CompleteContractModel completeContractModel)
         {
-            
-            var targetUser = await _unitOfWork.Users.GetByEmail(addContractModel.UserEmail);
+            var targetUser = await _unitOfWork.Users.GetByEmail(completeContractModel.UserEmail);
             var targetUserId = default(long);
             if (targetUser == null)
             {
                 var newUser = new User
                 {
-                    Email =  addContractModel.UserEmail
+                    Email =  completeContractModel.UserEmail
                 };
                 targetUser = await _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.CompleteAsync();
             }
-            targetUserId = targetUser.Id;
-            var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(addContractModel.SelectedSpaceProperty);
-            var targetSpaceId = targetSpaceProperty.SpaceId;
-            var targetSpacePropertyId = targetSpaceProperty.SpacePropertyId;
-            var targetOwnerId = targetSpaceProperty.OwnerId;
-            var isValidDurationInDays = int.TryParse(addContractModel.Duration, out var targetDurationInDays);
-            var newContract = new Contract
-            {
-                OwnerUserId = targetOwnerId,
-                TenantUserId = targetUserId,
-                SpaceId = targetSpaceId,
-                SpacePropertyId = targetSpacePropertyId,
-                ContractDateStart = DateTime.UtcNow,
-                ContractDateStop = DateTime.UtcNow.AddDays(targetDurationInDays)
-            };
+
+            var targetContract = await _unitOfWork.Contracts.GetByGuid(completeContractModel.ContractId);
+            targetContract.TenantUserId = targetUser.Id;
+
+            var updatedContract = await _unitOfWork.Contracts.Upsert(targetContract);
             
-            var createdContract = await _unitOfWork.Contracts.Add(newContract);
             await _unitOfWork.CompleteAsync();
 
-            return createdContract;
+            if (completeContractModel.RestApi)
+            {
+                return updatedContract;
+            }
+            
+            TempData["Success"] = "Contract updated successfully!";
+            return RedirectToAction("Index", "Home");
         }
         
     }

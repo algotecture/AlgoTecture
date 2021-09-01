@@ -26,6 +26,11 @@ namespace AlgoTecMvc.Core.Repositories
                 return new List<Contract>();
             }
         }
+        
+        public override async Task<Contract> GetByGuid(Guid id)
+        {
+            return await dbSet.FirstOrDefaultAsync(x=>x.Id == id);
+        }
 
         public override async Task<Contract> Upsert(Contract entity)
         {
@@ -36,6 +41,8 @@ namespace AlgoTecMvc.Core.Repositories
 
                 if (existingContract == null)
                     return await Add(entity);
+
+                existingContract.TenantUserId = entity.TenantUserId;
                 
                 return existingContract;
             }

@@ -31,11 +31,11 @@ namespace AlgoTecMvc.Controllers
                 var responseFromServer = await reader.ReadToEndAsync();
             
                 response.Close();
+                
                 var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
                 var labels = addressResults?.results.Select(x=>x.attrs);
+                
                 return Json(labels?.ToList());
-
-
             }
             catch (WebException ex)
             {

@@ -9,6 +9,7 @@ namespace AlgoTecMvc.Core.Interfaces
     {
         Task<IEnumerable<T>> All();
         Task<T> GetById(long id);
+        Task<T> GetByGuid(Guid id);
         Task<T> Add(T entity);
         Task<bool> Delete(long id);
         Task<T> Upsert(T entity);

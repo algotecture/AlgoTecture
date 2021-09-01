@@ -27,6 +27,11 @@ namespace AlgoTecMvc.Core.Repositories
             }
         }
 
+        public async Task<Space> GetByCoordinates(double latitude, double longitude)
+        {
+            return await dbSet.FirstOrDefaultAsync(x=>Math.Abs(x.Latitude - latitude) < 0.000000001 && Math.Abs(x.Longitude - longitude) < 0.000000001);
+        }
+
         public override async Task<Space> Upsert(Space entity)
         {
             try
