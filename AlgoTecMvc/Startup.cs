@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Data;
+using AlgoTecMvc.Implementations;
+using AlgoTecMvc.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace AlgoTecMvc
@@ -30,8 +33,11 @@ namespace AlgoTecMvc
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            
+            services.TryAddTransient<ISpaceGetter, SpaceGetter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

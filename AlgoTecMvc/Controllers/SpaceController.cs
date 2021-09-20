@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
+using AlgoTecMvc.Interfaces;
 using AlgoTecMvc.Models;
 using AlgoTecMvc.Models.Dto;
 using AlgoTecMvc.Models.RepositoryModels;
@@ -15,15 +15,18 @@ namespace AlgoTecMvc.Controllers
     public class SpaceController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISpaceGetter _spaceGetter;
 
-        public SpaceController(IUnitOfWork unitOfWork)
+        public SpaceController(IUnitOfWork unitOfWork, ISpaceGetter spaceGetter)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         }
 
-        public async Task<List<string>> SearchSpace()
+        [HttpGet("GetByCoordinates")]
+        public async Task<Space> GetSpaceByCoordinates([FromQuery] double latitude, [FromQuery] double longitude)
         {
-            throw new NotImplementedException();
+            return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
         [HttpPost("AddSpaceDeclaration")]
         public async Task<ActionResult<Contract>> AddSpaceDeclaration([FromBody]AddContractModel addContractModel)
