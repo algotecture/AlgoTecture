@@ -47,7 +47,7 @@ namespace AlgoTecMvc.Controllers
 
             if (addContractModel.SpacePropertyId != spaceProperty.SpacePropertyId)
             {
-               //recursive 
+               //recursive 1
             }
           
 
