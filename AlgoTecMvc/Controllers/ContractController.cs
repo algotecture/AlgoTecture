@@ -19,7 +19,8 @@ namespace AlgoTecMvc.Controllers
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _contractService = contractService ?? throw new ArgumentNullException(nameof(contractService));
         }
-
+        
+        [HttpPost("ContractDeclaration")]
         public async Task<ActionResult<Contract>> ContractDeclaration([FromBody] ContractDeclarationModel contractDeclarationModel)
         {
             return await _contractService.DeclareContract(contractDeclarationModel);
