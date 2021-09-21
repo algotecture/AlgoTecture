@@ -32,6 +32,11 @@ namespace AlgoTecMvc.Core.Repositories
             return await dbSet.FirstOrDefaultAsync(x=>x.Id == id);
         }
 
+        public async Task<bool> IsActiveContract(Guid spacePropertyId, DateTime dateStart)
+        {
+            return await dbSet.AnyAsync(x => x.SpacePropertyId == spacePropertyId && x.ContractDateStart <= dateStart && x.ContractDateStop >= dateStart);
+        }
+
         public override async Task<Contract> Upsert(Contract entity)
         {
             try

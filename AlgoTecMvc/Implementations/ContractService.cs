@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Interfaces;
@@ -21,7 +22,11 @@ namespace AlgoTecMvc.Implementations
             var targetUser = await _unitOfWork.Users.GetByEmail(contractDeclarationModel.UserEmail);
 
             if (targetUser == null) throw new ArgumentNullException(nameof(targetUser));
-            
+
+            var isExistContract = await _unitOfWork.Contracts.IsActiveContract(contractDeclarationModel.SpacePropertyId, contractDeclarationModel.DateStop);
+
+            if (isExistContract) throw new ValidationException("This space has a contract");
+
             var newContractDeclaration = new Contract
             {
                 OwnerUserId = targetUser.Id,

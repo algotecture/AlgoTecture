@@ -25,5 +25,7 @@ namespace AlgoTecMvc.Models.RepositoryModels
         public DateTime ContractDateStop { get; set; }
 
         public decimal Cost { get; set; }
+
+        //public DateTime CreatedDate { get; set; }
     }
 }
