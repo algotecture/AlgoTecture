@@ -43,6 +43,9 @@ namespace AlgoTecMvc.Migrations
                     b.Property<DateTime>("ContractDateStop")
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("OwnerUserId")
                         .HasColumnType("INTEGER");
 
@@ -89,6 +92,10 @@ namespace AlgoTecMvc.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Latitude");
+
+                    b.HasIndex("Longitude");
 
                     b.HasIndex("TypeOfSpaceId");
 

@@ -46,6 +46,8 @@ namespace AlgoTecMvc.Data
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Space>().HasKey(x => new { x.Id});
             modelBuilder.Entity<Space>().Property(x => x.SpaceAddress).HasMaxLength(500);
+            modelBuilder.Entity<Space>().HasIndex(x => x.Latitude);
+            modelBuilder.Entity<Space>().HasIndex(x => x.Longitude);
         }
         
         private static void ConfigureTypeOfSpacesModelCreation(ModelBuilder modelBuilder)

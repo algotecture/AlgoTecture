@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
+using AlgoTecMvc.Interfaces;
 using AlgoTecMvc.Models.Dto;
 using AlgoTecMvc.Models.RepositoryModels;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,17 @@ namespace AlgoTecMvc.Controllers
     public class ContractController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IContractService _contractService;
 
-        public ContractController(IUnitOfWork unitOfWork)
+        public ContractController(IUnitOfWork unitOfWork, IContractService contractService)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _contractService = contractService ?? throw new ArgumentNullException(nameof(contractService));
+        }
+
+        public async Task<ActionResult<Contract>> ContractDeclaration([FromBody] ContractDeclarationModel contractDeclarationModel)
+        {
+            return await _contractService.DeclareContract(contractDeclarationModel);
         }
 
         [HttpPost("CompleteContract")]

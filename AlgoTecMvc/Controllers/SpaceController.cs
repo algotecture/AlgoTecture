@@ -29,7 +29,7 @@ namespace AlgoTecMvc.Controllers
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
         [HttpPost("AddSpaceDeclaration")]
-        public async Task<ActionResult<Contract>> AddSpaceDeclaration([FromBody]AddContractModel addContractModel)
+        public async Task<ActionResult<Contract>> AddSpaceDeclaration([FromBody]ContractDeclarationModel addContractModel)
         {
             //add test user
             var targetUser = await _unitOfWork.Users.GetByEmail(addContractModel.UserEmail);
@@ -98,8 +98,6 @@ namespace AlgoTecMvc.Controllers
             //
             // await _unitOfWork.CompleteAsync();
             //create contract
-            var isDateStart = DateTime.TryParse(addContractModel.DateStart, out var dateStart);
-            var isDateStop = DateTime.TryParse(addContractModel.DateStop, out var dateStop);
 
             var newContract = new Contract
             {
@@ -107,8 +105,8 @@ namespace AlgoTecMvc.Controllers
                 TenantUserId = null,
                 SpaceId = addContractModel.SpaceId,
                 SpacePropertyId = spaceProperty.SpacePropertyId,
-                ContractDateStart = isDateStart ? dateStart : default,
-                ContractDateStop = isDateStop ? dateStop : default
+                ContractDateStart = addContractModel.DateStart,
+                ContractDateStop = addContractModel.DateStop
             };
 
             var createdContract = await _unitOfWork.Contracts.Add(newContract);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AlgoTecMvc.Migrations
 {
-    public partial class InitialmigrationandAddingtheUsersSpacestypeOfSpacesContractstable : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,7 +71,8 @@ namespace AlgoTecMvc.Migrations
                     SpaceId = table.Column<long>(type: "INTEGER", nullable: false),
                     SpacePropertyId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ContractDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ContractDateStop = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    ContractDateStop = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Cost = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,6 +111,16 @@ namespace AlgoTecMvc.Migrations
                 name: "IX_Contracts_TenantUserId",
                 table: "Contracts",
                 column: "TenantUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spaces_Latitude",
+                table: "Spaces",
+                column: "Latitude");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spaces_Longitude",
+                table: "Spaces",
+                column: "Longitude");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Spaces_TypeOfSpaceId",

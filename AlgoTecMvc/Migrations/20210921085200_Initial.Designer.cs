@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgoTecMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210901101745_Initial migration and Adding the Users, Spaces, typeOfSpaces, Contracts table")]
-    partial class InitialmigrationandAddingtheUsersSpacestypeOfSpacesContractstable
+    [Migration("20210921085200_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,9 @@ namespace AlgoTecMvc.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ContractDateStop")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Cost")
                         .HasColumnType("TEXT");
 
                     b.Property<long>("OwnerUserId")
@@ -91,6 +94,10 @@ namespace AlgoTecMvc.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Latitude");
+
+                    b.HasIndex("Longitude");
 
                     b.HasIndex("TypeOfSpaceId");
 

@@ -12,7 +12,7 @@ namespace AlgoTecMvc.Models.RepositoryModels
 
         public long? TenantUserId { get; set; }
         
-        public User? TenantUser { get; set; }
+        public User TenantUser { get; set; }
 
         public long SpaceId { get; set; }
 
@@ -23,5 +23,7 @@ namespace AlgoTecMvc.Models.RepositoryModels
         public DateTime ContractDateStart { get; set; }
 
         public DateTime ContractDateStop { get; set; }
+
+        public decimal Cost { get; set; }
     }
 }
