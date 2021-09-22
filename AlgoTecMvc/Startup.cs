@@ -39,6 +39,7 @@ namespace AlgoTecMvc
             
             services.TryAddTransient<ISpaceGetter, SpaceGetter>();
             services.TryAddTransient<IContractService, ContractService>();
+            services.TryAddTransient<ISubSpaceService, SubSpaceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

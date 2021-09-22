@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Interfaces;
@@ -16,11 +15,13 @@ namespace AlgoTecMvc.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISpaceGetter _spaceGetter;
+        private readonly ISubSpaceService _subSpaceService;
 
-        public SpaceController(IUnitOfWork unitOfWork, ISpaceGetter spaceGetter)
+        public SpaceController(IUnitOfWork unitOfWork, ISpaceGetter spaceGetter, ISubSpaceService subSpaceService)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
+            _subSpaceService = subSpaceService ?? throw new ArgumentNullException(nameof(subSpaceService));
         }
 
         [HttpGet("GetByCoordinates")]
@@ -28,6 +29,13 @@ namespace AlgoTecMvc.Controllers
         {
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
+
+        [HttpPost("AddSubSpace")]
+        public async Task<ActionResult<SubSpace>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
+        {
+            return await _subSpaceService.AddSubSpace(addSubSpaceModel);
+        }
+        
         [HttpPost("AddSpaceDeclaration")]
         public async Task<ActionResult<Contract>> AddSpaceDeclaration([FromBody]ContractDeclarationModel addContractModel)
         {
