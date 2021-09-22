@@ -5,7 +5,6 @@ namespace AlgoTecMvc.Models.Dto
     public class ContractDeclarationModel
     {
         public string UserEmail { get; set; }
-        //public string SelectedSpaceProperty { get; set; }
 
         public long SpaceId { get; set; }
 

@@ -7,7 +7,5 @@ namespace AlgoTecMvc.Models.Dto
         public string UserEmail { get; set; }
         
         public Guid ContractId { get; set; }
-
-        public bool RestApi { get; set; }
     }
 }

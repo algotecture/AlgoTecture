@@ -19,6 +19,8 @@ namespace AlgoTecMvc.Implementations
 
         public async Task<Contract> DeclareContract(ContractDeclarationModel contractDeclarationModel)
         {
+            if (contractDeclarationModel == null) throw new ArgumentNullException(nameof(contractDeclarationModel));
+
             var targetUser = await _unitOfWork.Users.GetByEmail(contractDeclarationModel.UserEmail);
 
             if (targetUser == null) throw new ArgumentNullException(nameof(targetUser));
@@ -42,6 +44,22 @@ namespace AlgoTecMvc.Implementations
             await _unitOfWork.CompleteAsync();
 
             return createdContractDeclaration;
+        }
+
+        public async Task<Contract> Contract(CompleteContractModel completeContractModel)
+        {
+            if (completeContractModel == null) throw new ArgumentNullException(nameof(completeContractModel));
+
+            var targetUser = await _unitOfWork.Users.GetByEmail(completeContractModel.UserEmail);
+
+            var targetContract = await _unitOfWork.Contracts.GetByGuid(completeContractModel.ContractId);
+            targetContract.TenantUserId = targetUser.Id;
+
+            var updatedContract = await _unitOfWork.Contracts.Upsert(targetContract);
+
+            await _unitOfWork.CompleteAsync();
+
+            return updatedContract;
         }
     }
 }
