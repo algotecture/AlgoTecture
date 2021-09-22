@@ -25,6 +25,7 @@ namespace AlgoTecMvc.Models
         public List<SubSpace> Subspaces
         {
             get { return _subSpaces; }
+            set { _subSpaces = value; }
         }
     }
 }

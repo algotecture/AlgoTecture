@@ -42,7 +42,7 @@ namespace AlgoTecMvc.Core.Repositories
                 if (existingSpace == null)
                     return await Add(entity);
 
-                existingSpace.SpaceProperty= entity.SpaceProperty;
+                existingSpace.SpaceProperty = entity.SpaceProperty;
 
                 return existingSpace;
             }

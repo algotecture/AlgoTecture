@@ -30,10 +30,10 @@ namespace AlgoTecMvc.Controllers
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
 
-        [HttpPost("AddSubSpace")]
-        public async Task<ActionResult<SubSpace>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
+        [HttpPost("AddSubSpaceToSpace")]
+        public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
         {
-            return await _subSpaceService.AddSubSpace(addSubSpaceModel);
+            return await _subSpaceService.AddSubSpaceToSpace(addSubSpaceModel);
         }
         
         [HttpPost("AddSpaceDeclaration")]

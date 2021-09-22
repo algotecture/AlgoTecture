@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Interfaces;
 using AlgoTecMvc.Models;
 using AlgoTecMvc.Models.Dto;
+using AlgoTecMvc.Models.RepositoryModels;
 using Newtonsoft.Json;
 
 namespace AlgoTecMvc.Implementations
@@ -17,7 +20,7 @@ namespace AlgoTecMvc.Implementations
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<SubSpace> AddSubSpace(AddSubSpaceModel addSubSpaceModel)
+        public async Task<Space> AddSubSpaceToSpace(AddSubSpaceModel addSubSpaceModel)
         {
             var targetSpace = await _unitOfWork.Spaces.GetById(addSubSpaceModel.SpaceId);
             
@@ -27,29 +30,34 @@ namespace AlgoTecMvc.Implementations
 
             if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
 
-            var targetSubSpace = targetSpaceProperty.SubSpaces[0];
+            var targetSubSpaces = targetSpaceProperty.SubSpaces;
 
-            var subSpaceToUpdate = Find(targetSubSpace, addSubSpaceModel.SubSpaceId);
+            RecursiveFindAndUpdateTargetSubSpace(targetSubSpaces, addSubSpaceModel.SubSpaceId, addSubSpaceModel.SubSpace);
+
+            targetSpaceProperty.SubSpaces = targetSubSpaces;
+
+            var serializedSpaceProperty = JsonConvert.SerializeObject(targetSpaceProperty);
+
+            targetSpace.SpaceProperty = serializedSpaceProperty;
             
-            return null;
+            var updatedSpace = await _unitOfWork.Spaces.Upsert(targetSpace);
+            
+            await _unitOfWork.CompleteAsync();
+
+            return updatedSpace;
         }
-        
-        private static SubSpace Find(SubSpace node, Guid subSpaceId)
+
+        private static void RecursiveFindAndUpdateTargetSubSpace(List<SubSpace> subSpaces, Guid subSpaceId, SubSpace newSubSpace)
         {
-            if (node == null)
-                return null;
-
-            if (node.SubSpaceId == subSpaceId)
-                return node;
-
-            foreach (var child in node.Subspaces)
+            for (var i = 0; i < subSpaces.Count; i++)
             {
-                var found = Find(child, subSpaceId);
-                if (found != null)
-                    return found;
+                if (subSpaces[i].SubSpaceId == subSpaceId)
+                {
+                    subSpaces[i].Subspaces = new List<SubSpace> {newSubSpace};
+                    return;
+                }
+                RecursiveFindAndUpdateTargetSubSpace(subSpaces[i].Subspaces, subSpaceId, newSubSpace);
             }
-
-            return null;
         }
     }
 }
