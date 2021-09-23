@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AlgoTecMvc.Core.Interfaces;
 using AlgoTecMvc.Interfaces;
 using AlgoTecMvc.Models.RepositoryModels;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecMvc.Implementations
 {

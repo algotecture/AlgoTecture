@@ -12,14 +12,8 @@ namespace AlgoTecMvc.Models.Dto
 
         public string Longitude { get; set; }
 
-        //public int TypeOfSpaceId { get; set; }
-    
-        //public List<SubSpace> SubSpaces { get; set; }
-
         public string DateStart { get; set; }
 
         public string DateStop { get; set; }
-
-        public bool RestApi { get; set; }
     }
 }
