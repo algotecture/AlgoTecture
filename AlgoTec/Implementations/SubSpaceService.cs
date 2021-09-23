@@ -21,6 +21,8 @@ namespace AlgoTec.Implementations
 
         public async Task<Space> AddSubSpaceToSpace(AddSubSpaceModel addSubSpaceModel)
         {
+            if (addSubSpaceModel == null) throw new ArgumentNullException(nameof(addSubSpaceModel));
+            
             var targetSpace = await _unitOfWork.Spaces.GetById(addSubSpaceModel.SpaceId);
             
             if (targetSpace == null) throw new ArgumentNullException(nameof(targetSpace));
@@ -31,7 +33,7 @@ namespace AlgoTec.Implementations
 
             var targetSubSpaces = targetSpaceProperty.SubSpaces;
 
-            RecursiveFindAndUpdateTargetSubSpace(targetSubSpaces, addSubSpaceModel.SubSpaceId, addSubSpaceModel.SubSpace);
+            RecursiveFindAndAddSubSpace(targetSubSpaces, addSubSpaceModel.SubSpaceId, addSubSpaceModel.SubSpace);
 
             targetSpaceProperty.SubSpaces = targetSubSpaces;
 
@@ -46,7 +48,7 @@ namespace AlgoTec.Implementations
             return updatedSpace;
         }
 
-        private static void RecursiveFindAndUpdateTargetSubSpace(List<SubSpace> subSpaces, Guid subSpaceId, SubSpace newSubSpace)
+        private static void RecursiveFindAndAddSubSpace(List<SubSpace> subSpaces, Guid subSpaceId, SubSpace newSubSpace)
         {
             for (var i = 0; i < subSpaces.Count; i++)
             {
@@ -55,7 +57,7 @@ namespace AlgoTec.Implementations
                     subSpaces[i].Subspaces = new List<SubSpace> {newSubSpace};
                     return;
                 }
-                RecursiveFindAndUpdateTargetSubSpace(subSpaces[i].Subspaces, subSpaceId, newSubSpace);
+                RecursiveFindAndAddSubSpace(subSpaces[i].Subspaces, subSpaceId, newSubSpace);
             }
         }
     }
