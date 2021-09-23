@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,9 +9,11 @@ using Newtonsoft.Json;
 
 namespace AlgoTec.Controllers
 {
+    [Route("[controller]")]
     public class SearchAddressController : Controller
     {
-        public async Task<JsonResult> GeoAdminSearch([FromQuery]string term)
+        [HttpGet("GeoAdminSearch")]
+        public async Task<IEnumerable<Attrs>> GeoAdminSearch([FromQuery]string term)
         {
             if (string.IsNullOrEmpty(term)) return null;
             
@@ -34,8 +37,8 @@ namespace AlgoTec.Controllers
                 
                 var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
                 var labels = addressResults?.results.Select(x=>x.attrs);
-                
-                return Json(labels?.ToList());
+
+                return labels;
             }
             catch (WebException ex)
             {
