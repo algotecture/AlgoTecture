@@ -54,7 +54,8 @@ namespace AlgoTec.Implementations
             {
                 if (subSpaces[i].SubSpaceId == subSpaceId)
                 {
-                    subSpaces[i].Subspaces = new List<SubSpace> {newSubSpace};
+                    if (subSpaces[i].Subspaces != null)
+                        subSpaces[i].Subspaces.Add(newSubSpace);
                     return;
                 }
                 RecursiveFindAndAddSubSpace(subSpaces[i].Subspaces, subSpaceId, newSubSpace);
