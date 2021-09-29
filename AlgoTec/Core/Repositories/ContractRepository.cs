@@ -34,7 +34,7 @@ namespace AlgoTec.Core.Repositories
 
         public async Task<bool> IsActiveContract(Guid spacePropertyId, DateTime dateStart)
         {
-            return await dbSet.AnyAsync(x => x.SpacePropertyId == spacePropertyId && x.ContractDateStart <= dateStart && x.ContractDateStop >= dateStart);
+            return await dbSet.AnyAsync(x => x.SubSpaceId == spacePropertyId && x.ContractDateStart <= dateStart && x.ContractDateStop >= dateStart);
         }
 
         public override async Task<Contract> Upsert(Contract entity)

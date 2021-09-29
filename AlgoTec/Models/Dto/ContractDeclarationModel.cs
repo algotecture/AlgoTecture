@@ -8,7 +8,7 @@ namespace AlgoTec.Models.Dto
 
         public long SpaceId { get; set; }
 
-        public Guid SpacePropertyId { get; set; }
+        public Guid SubSpaceId { get; set; }
         
         public DateTime DateStart { get; set; }
 

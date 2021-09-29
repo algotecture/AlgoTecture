@@ -25,7 +25,7 @@ namespace AlgoTec.Implementations
 
             if (targetUser == null) throw new ArgumentNullException(nameof(targetUser));
 
-            var isExistContract = await _unitOfWork.Contracts.IsActiveContract(contractDeclarationModel.SpacePropertyId, contractDeclarationModel.DateStop);
+            var isExistContract = await _unitOfWork.Contracts.IsActiveContract(contractDeclarationModel.SubSpaceId, contractDeclarationModel.DateStop);
 
             if (isExistContract) throw new ValidationException("This space has a contract");
 
@@ -34,7 +34,7 @@ namespace AlgoTec.Implementations
                 OwnerUserId = targetUser.Id,
                 TenantUserId = null,
                 SpaceId = contractDeclarationModel.SpaceId,
-                SpacePropertyId = contractDeclarationModel.SpacePropertyId,
+                SubSpaceId = contractDeclarationModel.SubSpaceId,
                 ContractDateStart = contractDeclarationModel.DateStart,
                 ContractDateStop = contractDeclarationModel.DateStop,
                 Cost = contractDeclarationModel.Cost,

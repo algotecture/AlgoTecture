@@ -19,7 +19,7 @@ namespace AlgoTec.Models.RepositoryModels
 
         public Space Space { get; set; }
 
-        public Guid SpacePropertyId { get; set; }
+        public Guid SubSpaceId { get; set; }
 
         public DateTime ContractDateStart { get; set; }
 
