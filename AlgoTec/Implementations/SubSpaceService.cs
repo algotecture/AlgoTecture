@@ -33,7 +33,7 @@ namespace AlgoTec.Implementations
 
             var targetSubSpaces = targetSpaceProperty.SubSpaces;
 
-            RecursiveFindAndAddSubSpace(targetSubSpaces, addSubSpaceModel.SubSpaceId, addSubSpaceModel.SubSpace);
+            RecursiveFindAndAddSubSpace(targetSubSpaces, addSubSpaceModel.SubSpaceIdToUpdate, addSubSpaceModel.SubSpace);
 
             targetSpaceProperty.SubSpaces = targetSubSpaces;
 

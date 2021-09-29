@@ -15,6 +15,8 @@ namespace AlgoTec.Data
         
         public virtual DbSet<Contract> Contracts { get; set; }
         
+        public virtual DbSet<UtilizationType> UtilizationTypes { get; set; }
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -27,6 +29,23 @@ namespace AlgoTec.Data
             ConfigureSpacesModelCreation(modelBuilder);
             ConfigureTypeOfSpacesModelCreation(modelBuilder);
             ConfigureContractsModelCreation(modelBuilder);
+            ConfigureUtilizationTypesModelCreation(modelBuilder);
+            
+            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 1, Name = "Public buildings and structures"});
+            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 2, Name = "Residential buildings"});
+            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 3, Name = "Industrial buildings and structures"});
+            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 4, Name = "Buildings and structures intended for the needs of agriculture"});
+            
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 1, Name = "Residential"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 2, Name = "Сommercial"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 3, Name = "Production"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 4, Name = "Warehouse"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 5, Name = "Public catering"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 6, Name = "Utility"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 7, Name = "Office space"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 8, Name = "Education"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 9, Name = "Sports"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 10, Name = "Free target"});
         }
         
         private static void ConfigureUsersModelCreation(ModelBuilder modelBuilder)
@@ -61,6 +80,13 @@ namespace AlgoTec.Data
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Contract>().HasKey(x => new { x.Id});
+        }
+        
+        private static void ConfigureUtilizationTypesModelCreation(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<UtilizationType>().HasKey(x => new { x.Id});
+            modelBuilder.Entity<UtilizationType>().Property(x => x.Name).HasMaxLength(500);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using AlgoTec.Models.Entities;
 
 namespace AlgoTec.Models.RepositoryModels
 {
@@ -25,7 +26,11 @@ namespace AlgoTec.Models.RepositoryModels
         public DateTime ContractDateStop { get; set; }
 
         public decimal Cost { get; set; }
+        
+        public int? UtilizationTypeId { get; set; }
 
-        //public DateTime CreatedDate { get; set; }
+        public UtilizationType UtilizationType { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace AlgoTec.Models
         
         public double Area { get; set; }
 
-        public int TypeOfSpaceId { get; set; }
+        public int UtilizationTypeId { get; set; }
 
         public long OwnerId { get; set; }
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgoTec.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210921085200_Initial")]
+    [Migration("20210929125548_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,95 @@ namespace AlgoTec.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypeOfSpaces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Public buildings and structures"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Residential buildings"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Industrial buildings and structures"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Buildings and structures intended for the needs of agriculture"
+                        });
+                });
+
+            modelBuilder.Entity("AlgoTec.Models.Entities.UtilizationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UtilizationTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Residential"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Сommercial"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Production"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Warehouse"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Public catering"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Utility"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Office space"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Education"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Sports"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Free target"
+                        });
                 });
 
             modelBuilder.Entity("AlgoTec.Models.RepositoryModels.Contract", b =>
@@ -48,6 +137,9 @@ namespace AlgoTec.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<long>("OwnerUserId")
                         .HasColumnType("INTEGER");
 
@@ -60,6 +152,9 @@ namespace AlgoTec.Migrations
                     b.Property<long?>("TenantUserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UtilizationTypeId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerUserId");
@@ -67,6 +162,8 @@ namespace AlgoTec.Migrations
                     b.HasIndex("SpaceId");
 
                     b.HasIndex("TenantUserId");
+
+                    b.HasIndex("UtilizationTypeId");
 
                     b.ToTable("Contracts");
                 });
@@ -158,11 +255,17 @@ namespace AlgoTec.Migrations
                         .WithMany()
                         .HasForeignKey("TenantUserId");
 
+                    b.HasOne("AlgoTec.Models.Entities.UtilizationType", "UtilizationType")
+                        .WithMany()
+                        .HasForeignKey("UtilizationTypeId");
+
                     b.Navigation("OwnerUser");
 
                     b.Navigation("Space");
 
                     b.Navigation("TenantUser");
+
+                    b.Navigation("UtilizationType");
                 });
 
             modelBuilder.Entity("AlgoTec.Models.RepositoryModels.Space", b =>

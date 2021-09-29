@@ -39,6 +39,19 @@ namespace AlgoTec.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UtilizationTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UtilizationTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Spaces",
                 columns: table => new
                 {
@@ -72,7 +85,9 @@ namespace AlgoTec.Migrations
                     SpacePropertyId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ContractDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ContractDateStop = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Cost = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Cost = table.Column<decimal>(type: "TEXT", nullable: false),
+                    UtilizationTypeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,7 +110,83 @@ namespace AlgoTec.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contracts_UtilizationTypes_UtilizationTypeId",
+                        column: x => x.UtilizationTypeId,
+                        principalTable: "UtilizationTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "TypeOfSpaces",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Public buildings and structures" });
+
+            migrationBuilder.InsertData(
+                table: "TypeOfSpaces",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Residential buildings" });
+
+            migrationBuilder.InsertData(
+                table: "TypeOfSpaces",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Industrial buildings and structures" });
+
+            migrationBuilder.InsertData(
+                table: "TypeOfSpaces",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 4, "Buildings and structures intended for the needs of agriculture" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Residential" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Сommercial" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Production" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 4, "Warehouse" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 5, "Public catering" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 6, "Utility" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 7, "Office space" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 8, "Education" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 9, "Sports" });
+
+            migrationBuilder.InsertData(
+                table: "UtilizationTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 10, "Free target" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contracts_OwnerUserId",
@@ -111,6 +202,11 @@ namespace AlgoTec.Migrations
                 name: "IX_Contracts_TenantUserId",
                 table: "Contracts",
                 column: "TenantUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_UtilizationTypeId",
+                table: "Contracts",
+                column: "UtilizationTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Spaces_Latitude",
@@ -143,6 +239,9 @@ namespace AlgoTec.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "UtilizationTypes");
 
             migrationBuilder.DropTable(
                 name: "TypeOfSpaces");

@@ -6,7 +6,7 @@ namespace AlgoTec.Models.Dto
     {
         public long SpaceId { get; set; }
 
-        public Guid SubSpaceId { get; set; }
+        public Guid SubSpaceIdToUpdate { get; set; }
 
         public SubSpace SubSpace { get; set; }
     }
