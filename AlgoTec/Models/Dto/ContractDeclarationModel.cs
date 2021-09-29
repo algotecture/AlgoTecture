@@ -16,6 +16,7 @@ namespace AlgoTec.Models.Dto
 
         public decimal Cost { get; set; }
 
-        public bool RestApi { get; set; }
+        public int UtilizationTypeId { get; set; }
+        
     }
 }

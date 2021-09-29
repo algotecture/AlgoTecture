@@ -31,6 +31,8 @@ namespace AlgoTec.Models.RepositoryModels
 
         public UtilizationType UtilizationType { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime DeclarationDateTime { get; set; }
+
+        public DateTime? ContractDateTime { get; set; }
     }
 }

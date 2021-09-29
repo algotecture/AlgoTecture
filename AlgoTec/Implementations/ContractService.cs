@@ -37,7 +37,10 @@ namespace AlgoTec.Implementations
                 SpacePropertyId = contractDeclarationModel.SpacePropertyId,
                 ContractDateStart = contractDeclarationModel.DateStart,
                 ContractDateStop = contractDeclarationModel.DateStop,
-                Cost = contractDeclarationModel.Cost
+                Cost = contractDeclarationModel.Cost,
+                UtilizationTypeId = contractDeclarationModel.UtilizationTypeId,
+                DeclarationDateTime = DateTime.UtcNow,
+                ContractDateTime = null
             };
 
             var createdContractDeclaration = await _unitOfWork.Contracts.Add(newContractDeclaration);
@@ -54,6 +57,7 @@ namespace AlgoTec.Implementations
 
             var targetContract = await _unitOfWork.Contracts.GetByGuid(completeContractModel.ContractId);
             targetContract.TenantUserId = targetUser.Id;
+            targetContract.ContractDateTime = DateTime.UtcNow;
 
             var updatedContract = await _unitOfWork.Contracts.Upsert(targetContract);
 

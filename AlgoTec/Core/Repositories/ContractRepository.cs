@@ -48,6 +48,7 @@ namespace AlgoTec.Core.Repositories
                     return await Add(entity);
 
                 existingContract.TenantUserId = entity.TenantUserId;
+                existingContract.ContractDateTime = entity.ContractDateTime;
                 
                 return existingContract;
             }
