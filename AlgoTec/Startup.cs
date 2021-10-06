@@ -1,4 +1,5 @@
 using AlgoTec.Core.Interfaces;
+using AlgoTec.CustomExceptionMiddleware;
 using AlgoTec.Data;
 using AlgoTec.Implementations;
 using AlgoTec.Interfaces;
@@ -38,6 +39,8 @@ namespace AlgoTec
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionMiddleware>();
+            
             app.UseStaticFiles();
 
             app.UseRouting();
