@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using AlgoTec.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace AlgoTec.Controllers
@@ -12,6 +14,13 @@ namespace AlgoTec.Controllers
     [Route("[controller]")]
     public class SearchAddressController : Controller
     {
+        private readonly ILogger<SearchAddressController> _logger;
+
+        public SearchAddressController(ILogger<SearchAddressController> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpGet("GeoAdminSearch")]
         public async Task<IEnumerable<Attrs>> GeoAdminSearch([FromQuery]string term)
         {
@@ -40,9 +49,9 @@ namespace AlgoTec.Controllers
 
                 return labels;
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                //logging
+                _logger.LogError(ex.ToString());
                 throw;
             }
         }
