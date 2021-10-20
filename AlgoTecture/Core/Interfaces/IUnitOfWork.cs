@@ -9,6 +9,8 @@ namespace AlgoTecture.Core.Interfaces
         ISpaceRepository Spaces {get;}
         
         IContractRepository Contracts { get; }
+        
+        IUserAuthenticationRepository UserAuthentications { get; }
 
         Task CompleteAsync();
     }

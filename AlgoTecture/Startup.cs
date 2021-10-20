@@ -3,12 +3,15 @@ using AlgoTecture.CustomExceptionMiddleware;
 using AlgoTecture.Data;
 using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AlgoTecture
 {
@@ -33,6 +36,25 @@ namespace AlgoTecture
             services.TryAddTransient<ISpaceGetter, SpaceGetter>();
             services.TryAddTransient<IContractService, ContractService>();
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();
+            services.TryAddTransient<IBearerAuthenticationService, BearerAuthenticationService>();
+            services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();
+            services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
+            
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthenticationOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = AuthenticationOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthenticationOptions.SymmetricSecurityKey,
+                        ValidateIssuerSigningKey = true
+                    };
+                });
             
             services.AddControllers();
         }
@@ -40,11 +62,10 @@ namespace AlgoTecture
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
-            
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseAuthentication();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

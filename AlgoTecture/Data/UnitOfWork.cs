@@ -16,6 +16,8 @@ namespace AlgoTecture.Data
         public ISpaceRepository Spaces { get; private set; }
         
         public IContractRepository Contracts { get; private set; }
+        
+        public IUserAuthenticationRepository UserAuthentications { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -25,6 +27,7 @@ namespace AlgoTecture.Data
             Users = new UserRepository(context, _logger);
             Spaces = new SpaceRepository(context, _logger);
             Contracts = new ContractRepository(context, _logger);
+            UserAuthentications = new UserAuthenticationRepository(context, _logger);
         }
 
         public async Task CompleteAsync()
