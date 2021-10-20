@@ -75,6 +75,26 @@ namespace AlgoTecture.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserAuthentications",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<long>(type: "INTEGER", nullable: false),
+                    HashedPassword = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAuthentications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserAuthentications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contracts",
                 columns: table => new
                 {
@@ -82,12 +102,13 @@ namespace AlgoTecture.Migrations
                     OwnerUserId = table.Column<long>(type: "INTEGER", nullable: false),
                     TenantUserId = table.Column<long>(type: "INTEGER", nullable: true),
                     SpaceId = table.Column<long>(type: "INTEGER", nullable: false),
-                    SpacePropertyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubSpaceId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ContractDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ContractDateStop = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Cost = table.Column<decimal>(type: "TEXT", nullable: false),
                     UtilizationTypeId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DeclarationDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ContractDateTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,6 +245,11 @@ namespace AlgoTecture.Migrations
                 column: "TypeOfSpaceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserAuthentications_UserId",
+                table: "UserAuthentications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email");
@@ -235,13 +261,16 @@ namespace AlgoTecture.Migrations
                 name: "Contracts");
 
             migrationBuilder.DropTable(
+                name: "UserAuthentications");
+
+            migrationBuilder.DropTable(
                 name: "Spaces");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UtilizationTypes");
 
             migrationBuilder.DropTable(
-                name: "UtilizationTypes");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "TypeOfSpaces");

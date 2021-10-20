@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
@@ -14,6 +15,7 @@ namespace AlgoTecture
     {
         public static void Main(string[] args)
         {
+            //CreateHostBuilder(args).Build().Run();
             var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             LogManager.Configuration.Variables["fileNameDir"] = OperatingSystem.IsWindows() ? "\\AlgoTecture\\AlgoTectureMvp\\" : "/AlgoTecture/AlgoTectureMvp/";
             LogManager.Configuration.Variables["archiveFileNameDir"] = OperatingSystem.IsWindows() ? "\\AlgoTecture\\AlgoTectureMvp\\log\\" : "/AlgoTecture/AlgoTectureMvp/";
@@ -46,5 +48,9 @@ namespace AlgoTecture
                 LogManager.Shutdown();
             }
         }
+        
+        // private static IHostBuilder CreateHostBuilder(string[] args) =>
+        //     Host.CreateDefaultBuilder(args)
+        //         .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

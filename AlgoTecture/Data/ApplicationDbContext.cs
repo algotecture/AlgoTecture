@@ -18,7 +18,7 @@ namespace AlgoTecture.Data
         public virtual DbSet<UtilizationType> UtilizationTypes { get; set; }
         
         public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
-        
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -96,7 +96,7 @@ namespace AlgoTecture.Data
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<UserAuthentication>().HasKey(x => new { x.Id});
-            modelBuilder.Entity<UserAuthentication>().HasIndex(x => x.UserId).IsUnique();
+            modelBuilder.Entity<UserAuthentication>().HasIndex(x => x.UserId);
             modelBuilder.Entity<UserAuthentication>().Property(x => x.HashedPassword).HasMaxLength(500);
         }
     }
