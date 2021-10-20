@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecture.Controllers
 {
+    [Route("[controller]")]
     public class AuthenticationController : Controller
     {
         private readonly IBearerAuthenticationService _bearerAuthenticationService;
