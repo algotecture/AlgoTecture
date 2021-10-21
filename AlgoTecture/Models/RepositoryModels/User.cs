@@ -17,5 +17,7 @@ namespace AlgoTecture.Models.RepositoryModels
         public string Email { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+
+        public DateTime CreateDateTime { get; set; }
     }
 }
