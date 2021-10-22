@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgoTecture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210929125548_Initial")]
-    partial class Initial
+    [Migration("20211021122311_RemovedUnusedFieldsInUsersTable")]
+    partial class RemovedUnusedFieldsInUsersTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.8");
+                .HasAnnotation("ProductVersion", "5.0.11");
 
             modelBuilder.Entity("AlgoTecture.Models.Entities.TypeOfSpace", b =>
                 {
@@ -134,10 +134,13 @@ namespace AlgoTecture.Migrations
                     b.Property<DateTime>("ContractDateStop")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("ContractDateTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Cost")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("DeclarationDateTime")
                         .HasColumnType("TEXT");
 
                     b.Property<long>("OwnerUserId")
@@ -146,7 +149,7 @@ namespace AlgoTecture.Migrations
                     b.Property<long>("SpaceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("SpacePropertyId")
+                    b.Property<Guid>("SubSpaceId")
                         .HasColumnType("TEXT");
 
                     b.Property<long?>("TenantUserId")
@@ -207,26 +210,14 @@ namespace AlgoTecture.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Patronymic")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Phone")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Surname")
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
@@ -235,6 +226,26 @@ namespace AlgoTecture.Migrations
                     b.HasIndex("Email");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AlgoTecture.Models.RepositoryModels.UserAuthentication", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HashedPassword")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAuthentications");
                 });
 
             modelBuilder.Entity("AlgoTecture.Models.RepositoryModels.Contract", b =>
@@ -277,6 +288,17 @@ namespace AlgoTecture.Migrations
                         .IsRequired();
 
                     b.Navigation("TypeOfSpace");
+                });
+
+            modelBuilder.Entity("AlgoTecture.Models.RepositoryModels.UserAuthentication", b =>
+                {
+                    b.HasOne("AlgoTecture.Models.RepositoryModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

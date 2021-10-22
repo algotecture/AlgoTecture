@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AlgoTec": {
+    "AlgoTecture": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

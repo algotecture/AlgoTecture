@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Models.Dto;
 using AlgoTecture.Models.RepositoryModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecture.Controllers
@@ -17,12 +18,14 @@ namespace AlgoTecture.Controllers
             _contractService = contractService ?? throw new ArgumentNullException(nameof(contractService));
         }
         
+        [Authorize]
         [HttpPost("ContractDeclaration")]
         public async Task<ActionResult<Contract>> ContractDeclaration([FromBody] ContractDeclarationModel contractDeclarationModel)
         {
             return await _contractService.DeclareContract(contractDeclarationModel);
         }
 
+        [Authorize]
         [HttpPost("Contract")]
         public async Task<ActionResult<Contract>> Contract([FromBody]CompleteContractModel completeContractModel)
         {

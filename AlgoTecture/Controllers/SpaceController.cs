@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Models.Dto;
 using AlgoTecture.Models.RepositoryModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecture.Controllers
@@ -19,12 +20,14 @@ namespace AlgoTecture.Controllers
             _subSpaceService = subSpaceService ?? throw new ArgumentNullException(nameof(subSpaceService));
         }
 
+        [Authorize]
         [HttpGet("GetByCoordinates")]
         public async Task<Space> GetSpaceByCoordinates([FromQuery] double latitude, [FromQuery] double longitude)
         {
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
-
+        
+        [Authorize]
         [HttpPost("AddSubSpaceToSpace")]
         public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
         {

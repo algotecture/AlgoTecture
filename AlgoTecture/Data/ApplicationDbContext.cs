@@ -17,6 +17,8 @@ namespace AlgoTecture.Data
         
         public virtual DbSet<UtilizationType> UtilizationTypes { get; set; }
         
+        public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -30,6 +32,7 @@ namespace AlgoTecture.Data
             ConfigureTypeOfSpacesModelCreation(modelBuilder);
             ConfigureContractsModelCreation(modelBuilder);
             ConfigureUtilizationTypesModelCreation(modelBuilder);
+            ConfigureUserAuthenticationsModelCreation(modelBuilder);
             
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 1, Name = "Public buildings and structures"});
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 2, Name = "Residential buildings"});
@@ -52,9 +55,6 @@ namespace AlgoTecture.Data
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<User>().HasKey(x => new { x.Id});
-            modelBuilder.Entity<User>().Property(x => x.Name).HasMaxLength(500);
-            modelBuilder.Entity<User>().Property(x => x.Surname).HasMaxLength(500);
-            modelBuilder.Entity<User>().Property(x => x.Patronymic).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(500);
             modelBuilder.Entity<User>().HasIndex(x => x.Email);
@@ -87,6 +87,14 @@ namespace AlgoTecture.Data
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<UtilizationType>().HasKey(x => new { x.Id});
             modelBuilder.Entity<UtilizationType>().Property(x => x.Name).HasMaxLength(500);
+        }
+        
+        private static void ConfigureUserAuthenticationsModelCreation(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<UserAuthentication>().HasKey(x => new { x.Id});
+            modelBuilder.Entity<UserAuthentication>().HasIndex(x => x.UserId);
+            modelBuilder.Entity<UserAuthentication>().Property(x => x.HashedPassword).HasMaxLength(500);
         }
     }
 }

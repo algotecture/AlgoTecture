@@ -20,20 +20,7 @@ namespace AlgoTecture
             
             try
             {
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("hosting.json", true)
-                    .Build();
-                WebHost.CreateDefaultBuilder(args)
-                    .UseConfiguration(config)
-                    .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseStartup<Startup>()
-                    .ConfigureLogging(logging =>
-                    {
-                        logging.ClearProviders();
-                        logging.SetMinimumLevel(LogLevel.Trace);
-                    })
-                    .UseNLog().Build().Run();
+                CreateHostBuilder(args).Build().Run();
                 logger.Debug("init main");
             }
             catch (Exception exception)
@@ -45,6 +32,26 @@ namespace AlgoTecture
             {
                 LogManager.Shutdown();
             }
+        }
+
+        private static IWebHostBuilder CreateHostBuilder(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", true)
+                .Build();
+            var host = WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(config)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
+
+            return host;
         }
     }
 }

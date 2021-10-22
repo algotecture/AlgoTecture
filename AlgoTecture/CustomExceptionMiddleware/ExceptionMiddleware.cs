@@ -24,6 +24,7 @@ namespace AlgoTecture.CustomExceptionMiddleware
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong: {ex}");
+                Console.WriteLine(ex);
                 await HandleExceptionAsync(httpContext, ex);
             }
         }
@@ -34,7 +35,7 @@ namespace AlgoTecture.CustomExceptionMiddleware
             await context.Response.WriteAsync(new ErrorDetails()
             {
                 StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error from the custom middleware."
+                Message = exception.Message
             }.ToString());
         }
     }
