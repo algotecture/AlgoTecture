@@ -26,7 +26,8 @@ namespace AlgoTecture.Controllers
         {
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
-
+        
+        [Authorize]
         [HttpPost("AddSubSpaceToSpace")]
         public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
         {

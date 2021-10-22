@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
@@ -15,27 +14,13 @@ namespace AlgoTecture
     {
         public static void Main(string[] args)
         {
-            //CreateHostBuilder(args).Build().Run();
             var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             LogManager.Configuration.Variables["fileNameDir"] = OperatingSystem.IsWindows() ? "\\AlgoTecture\\AlgoTectureMvp\\" : "/AlgoTecture/AlgoTectureMvp/";
             LogManager.Configuration.Variables["archiveFileNameDir"] = OperatingSystem.IsWindows() ? "\\AlgoTecture\\AlgoTectureMvp\\log\\" : "/AlgoTecture/AlgoTectureMvp/";
             
             try
             {
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("hosting.json", true)
-                    .Build();
-                WebHost.CreateDefaultBuilder(args)
-                    .UseConfiguration(config)
-                    .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseStartup<Startup>()
-                    .ConfigureLogging(logging =>
-                    {
-                        logging.ClearProviders();
-                        logging.SetMinimumLevel(LogLevel.Trace);
-                    })
-                    .UseNLog().Build().Run();
+                CreateHostBuilder(args).Build().Run();
                 logger.Debug("init main");
             }
             catch (Exception exception)
@@ -48,9 +33,25 @@ namespace AlgoTecture
                 LogManager.Shutdown();
             }
         }
-        
-        // private static IHostBuilder CreateHostBuilder(string[] args) =>
-        //     Host.CreateDefaultBuilder(args)
-        //         .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+
+        private static IWebHostBuilder CreateHostBuilder(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", true)
+                .Build();
+            var host = WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(config)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
+
+            return host;
+        }
     }
 }

@@ -41,12 +41,8 @@ namespace AlgoTecture.Core.Repositories
 
                 if (existingUser == null)
                     return await Add(entity);
-
-                existingUser.Name = entity.Name;
-                existingUser.Surname = entity.Surname;
-                existingUser.Patronymic= entity.Patronymic;
+                
                 existingUser.Phone = entity.Phone;
-                existingUser.DateOfBirth = entity.DateOfBirth;
 
                 return existingUser;
             }

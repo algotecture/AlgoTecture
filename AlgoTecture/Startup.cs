@@ -36,9 +36,10 @@ namespace AlgoTecture
             services.TryAddTransient<ISpaceGetter, SpaceGetter>();
             services.TryAddTransient<IContractService, ContractService>();
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();
-            services.TryAddTransient<IBearerAuthenticationService, BearerAuthenticationService>();
+            services.TryAddTransient<IBearerAuthenticator, BearerAuthenticator>();
             services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();
             services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
+            services.TryAddTransient<IUserService, UserService>();
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

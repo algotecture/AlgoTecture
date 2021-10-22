@@ -9,7 +9,5 @@ namespace AlgoTecture.Models.Dto
         public string EmailLogin { get; set; }
         [JsonRequired]
         public string UserPassword { get; set; }
-
-        public bool IsRegistration { get; set; }
     }
 }

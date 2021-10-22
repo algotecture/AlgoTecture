@@ -10,11 +10,11 @@ namespace AlgoTecture.Controllers
     [Route("[controller]")]
     public class AuthenticationController : Controller
     {
-        private readonly IBearerAuthenticationService _bearerAuthenticationService;
+        private readonly IBearerAuthenticator _bearerAuthenticator;
 
-        public AuthenticationController(IBearerAuthenticationService bearerAuthenticationService)
+        public AuthenticationController(IBearerAuthenticator bearerAuthenticator)
         {
-            _bearerAuthenticationService = bearerAuthenticationService ?? throw new ArgumentNullException(nameof(bearerAuthenticationService));
+            _bearerAuthenticator = bearerAuthenticator ?? throw new ArgumentNullException(nameof(bearerAuthenticator));
         }
 
         [HttpPost("bearerAuthentication")]
@@ -22,7 +22,7 @@ namespace AlgoTecture.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            return await _bearerAuthenticationService.BearerAuthentication(userCredentialModel);
+            return await _bearerAuthenticator.BearerAuthentication(userCredentialModel);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AlgoTecture.Models
     {
         public const string Issuer = "AlgoTectureAuthenticationServer";
         public const string Audience = "http://localhost:5000/";
-         const string Key = "algotecturesecret_secretkey";
+        const string Key = "test";
         public static SymmetricSecurityKey SymmetricSecurityKey { get; set; } = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key));
         public const int LifeTimeMinutes = 43800;
         public const string PatternToValidatePassword = @"^[a-zA-Z0-9@#$%&*+\-_(),+':;?.,!\[\]\s\\/]+$";

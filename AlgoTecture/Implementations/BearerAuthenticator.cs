@@ -13,13 +13,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AlgoTecture.Implementations
 {
-    public class BearerAuthenticationService : IBearerAuthenticationService
+    public class BearerAuthenticator : IBearerAuthenticator
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserCredentialsValidator _userCredentialsValidator;
         private readonly IPasswordEncryptor _passwordEncryptor;
 
-        public BearerAuthenticationService(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor)
+        public BearerAuthenticator(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor)
         {
             _userCredentialsValidator = userCredentialsValidator ?? throw new ArgumentNullException(nameof(userCredentialsValidator));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -51,7 +51,7 @@ namespace AlgoTecture.Implementations
             return new BearerTokenResponseModel {Token = encodedJwt, Login = user.Email};
         }
         
-        private static ClaimsIdentity GetIdentity(User user)
+        public ClaimsIdentity GetIdentity(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -65,7 +65,7 @@ namespace AlgoTecture.Implementations
             return claimsIdentity;
         }
         
-        private static JwtSecurityToken GetJwtToken(ClaimsIdentity claimsIdentity)
+        public JwtSecurityToken GetJwtToken(ClaimsIdentity claimsIdentity)
         {
             if (claimsIdentity == null)
                 throw new ArgumentNullException(nameof(claimsIdentity));
