@@ -1,3 +1,4 @@
+using System.Linq;
 using AlgoTecture.Core.Interfaces;
 using AlgoTecture.CustomExceptionMiddleware;
 using AlgoTecture.Data;
@@ -31,6 +32,9 @@ namespace AlgoTecture
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             
+            services.AddOptions();
+            services.Configure<Models.AppsettingsModels.AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.TryAddTransient<ISpaceGetter, SpaceGetter>();
@@ -41,6 +45,9 @@ namespace AlgoTecture
             services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
             services.TryAddTransient<IUserService, UserService>();
             
+            var jwtIssuer = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
+            var jwtAlgotectureSecret = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -48,11 +55,11 @@ namespace AlgoTecture
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = AuthenticationOptions.Issuer,
+                        ValidIssuer = jwtIssuer,
                         ValidateAudience = true,
-                        ValidAudience = AuthenticationOptions.Audience,
+                        ValidAudience = AuthenticationConstants.Audience,
                         ValidateLifetime = true,
-                        IssuerSigningKey = AuthenticationOptions.SymmetricSecurityKey,
+                        IssuerSigningKey = AuthenticationConstants.GetSymmetricSecurityKey(jwtAlgotectureSecret),
                         ValidateIssuerSigningKey = true
                     };
                 });

@@ -8,12 +8,12 @@ namespace AlgoTecture.Implementations
     {
         public bool IsValidUserName(string login)
         {
-            return !string.IsNullOrEmpty(login) && Regex.IsMatch(login, AuthenticationOptions.PatternToValidateLogin);
+            return !string.IsNullOrEmpty(login) && Regex.IsMatch(login, AuthenticationConstants.PatternToValidateLogin);
         }
 
         public bool IsValidPassword(string password)
         {
-            return !string.IsNullOrEmpty(password) && Regex.IsMatch(password, AuthenticationOptions.PatternToValidatePassword);
+            return !string.IsNullOrEmpty(password) && Regex.IsMatch(password, AuthenticationConstants.PatternToValidatePassword);
         }
     }
 }

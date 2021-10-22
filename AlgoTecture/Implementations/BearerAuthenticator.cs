@@ -9,6 +9,7 @@ using AlgoTecture.Interfaces;
 using AlgoTecture.Models;
 using AlgoTecture.Models.Dto;
 using AlgoTecture.Models.RepositoryModels;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AlgoTecture.Implementations
@@ -18,12 +19,14 @@ namespace AlgoTecture.Implementations
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserCredentialsValidator _userCredentialsValidator;
         private readonly IPasswordEncryptor _passwordEncryptor;
+        private readonly IOptions<Models.AppsettingsModels.AuthenticationOptions> _options;
 
-        public BearerAuthenticator(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor)
+        public BearerAuthenticator(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor, IOptions<Models.AppsettingsModels.AuthenticationOptions> options)
         {
             _userCredentialsValidator = userCredentialsValidator ?? throw new ArgumentNullException(nameof(userCredentialsValidator));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _passwordEncryptor = passwordEncryptor ?? throw new ArgumentNullException(nameof(passwordEncryptor));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
         public async Task<BearerTokenResponseModel> BearerAuthentication(UserCredentialModel userCredentialModel)
@@ -69,12 +72,12 @@ namespace AlgoTecture.Implementations
         {
             if (claimsIdentity == null)
                 throw new ArgumentNullException(nameof(claimsIdentity));
-            var jwt = new JwtSecurityToken(issuer: AuthenticationOptions.Issuer,
-                audience: AuthenticationOptions.Audience,
+            var jwt = new JwtSecurityToken(issuer: _options.Value.JwtIssuer,
+                audience: AuthenticationConstants.Audience,
                 notBefore: DateTime.UtcNow,
                 claims: claimsIdentity.Claims,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(AuthenticationOptions.LifeTimeMinutes)),
-                signingCredentials: new SigningCredentials(AuthenticationOptions.SymmetricSecurityKey,
+                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(AuthenticationConstants.LifeTimeMinutes)),
+                signingCredentials: new SigningCredentials(AuthenticationConstants.GetSymmetricSecurityKey(_options.Value.JwtAlgotectureSecret),
                     SecurityAlgorithms.HmacSha256));
             return jwt;
         }
