@@ -1,9 +1,9 @@
 using System.Linq;
 using AlgoTecture.Core.Interfaces;
-using AlgoTecture.CustomExceptionMiddleware;
 using AlgoTecture.Data;
 using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
