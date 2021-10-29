@@ -44,6 +44,7 @@ namespace AlgoTecture
             services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();
             services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
             services.TryAddTransient<IUserService, UserService>();
+            services.TryAddTransient<IGeoAdminSearcher, GeoAdminSearcher>();
             
             var jwtIssuer = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
             var jwtAlgotectureSecret = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;

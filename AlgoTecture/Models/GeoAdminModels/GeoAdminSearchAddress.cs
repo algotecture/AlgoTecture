@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AlgoTecture.Models
+namespace AlgoTecture.Models.GeoAdminModels
 {
     public class Attrs
     {

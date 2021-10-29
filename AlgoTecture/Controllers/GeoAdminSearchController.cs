@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlgoTecture.Assistants;
-using AlgoTecture.Models;
+using AlgoTecture.Interfaces;
+using AlgoTecture.Models.Dto;
+using AlgoTecture.Models.GeoAdminModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -12,6 +14,13 @@ namespace AlgoTecture.Controllers
     [Route("[controller]")]
     public class GeoAdminSearchController : Controller
     {
+        private readonly IGeoAdminSearcher _geoAdminSearcher;
+
+        public GeoAdminSearchController(IGeoAdminSearcher geoAdminSearcher)
+        {
+            _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
+        }
+
         [HttpGet("SearchAddress")]
         public async Task<ActionResult<IEnumerable<Attrs>>> SearchAddress([FromQuery] string term)
         {
@@ -27,19 +36,14 @@ namespace AlgoTecture.Controllers
             return new ActionResult<IEnumerable<Attrs>>(labels);
         }
         
-        [HttpGet("SearchTargetBuilding")]
-        public async Task<ActionResult<IEnumerable<Attrs>>> SearchTargetBuilding([FromQuery] string latitude, string longitude)
+        [HttpPost("SearchTargetBuilding")]
+        public async Task<ActionResult<GeoAdminBuilding>> SearchTargetBuilding([FromBody] GeoAdminSearchBuildingModel geoAdminSearchBuildingModel)
         {
-            if (string.IsNullOrEmpty(latitude) || string.IsNullOrEmpty(longitude)) return BadRequest();
+            if (geoAdminSearchBuildingModel == null) return BadRequest();
 
-            
-            // var responseFromServer = await HttpWebRequestAssistant.GetResponse(baseUrl);
-            //
-            // var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
-            // var labels = addressResults?.results.Select(x => x.attrs);
-            //
-            // return labels;
-            throw new NotImplementedException();
+            var targetBuilding =  await _geoAdminSearcher.GetBuildingModel(geoAdminSearchBuildingModel);
+
+            return targetBuilding;
         }
     }
 }
