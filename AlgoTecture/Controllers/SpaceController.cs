@@ -21,8 +21,10 @@ namespace AlgoTecture.Controllers
         }
         
         [HttpGet("GetByCoordinates")]
-        public async Task<Space> GetSpaceByCoordinates([FromQuery] double latitude, [FromQuery] double longitude)
+        public async Task<ActionResult<Space>> GetSpaceByCoordinates([FromQuery] double latitude, [FromQuery] double longitude)
         {
+            if (!ModelState.IsValid) return BadRequest();
+            
             return await _spaceGetter.GetByCoordinates(latitude, longitude);
         }
         
@@ -30,6 +32,8 @@ namespace AlgoTecture.Controllers
         [HttpPost("AddSubSpaceToSpace")]
         public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
         {
+            if (!ModelState.IsValid) return BadRequest();
+            
             return await _subSpaceService.AddSubSpaceToSpace(addSubSpaceModel);
         }
     }

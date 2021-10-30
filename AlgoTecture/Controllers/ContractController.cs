@@ -22,6 +22,8 @@ namespace AlgoTecture.Controllers
         [HttpPost("ContractDeclaration")]
         public async Task<ActionResult<Contract>> ContractDeclaration([FromBody] ContractDeclarationModel contractDeclarationModel)
         {
+            if (!ModelState.IsValid) return BadRequest();
+            
             return await _contractService.DeclareContract(contractDeclarationModel);
         }
 
@@ -29,6 +31,8 @@ namespace AlgoTecture.Controllers
         [HttpPost("Contract")]
         public async Task<ActionResult<Contract>> Contract([FromBody]CompleteContractModel completeContractModel)
         {
+            if (!ModelState.IsValid) return BadRequest();
+            
             return await _contractService.Contract(completeContractModel);
         }
     }
