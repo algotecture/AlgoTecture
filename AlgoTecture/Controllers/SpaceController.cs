@@ -19,8 +19,7 @@ namespace AlgoTecture.Controllers
             _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
             _subSpaceService = subSpaceService ?? throw new ArgumentNullException(nameof(subSpaceService));
         }
-
-        [Authorize]
+        
         [HttpGet("GetByCoordinates")]
         public async Task<Space> GetSpaceByCoordinates([FromQuery] double latitude, [FromQuery] double longitude)
         {
