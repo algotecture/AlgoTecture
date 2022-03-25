@@ -5,6 +5,7 @@ using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
+using AlgoTecture.Libraries.GeoAdminSearch;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace AlgoTecture
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.UseGeoAdminLibrary();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -44,8 +46,7 @@ namespace AlgoTecture
             services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();
             services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
             services.TryAddTransient<IUserService, UserService>();
-            services.TryAddTransient<IGeoAdminSearcher, GeoAdminSearcher>();
-            
+
             var jwtIssuer = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
             var jwtAlgotectureSecret = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;
             

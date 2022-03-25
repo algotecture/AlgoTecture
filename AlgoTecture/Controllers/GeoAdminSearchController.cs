@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AlgoTecture.Assistants;
-using AlgoTecture.Interfaces;
-using AlgoTecture.Models.Dto;
-using AlgoTecture.Models.GeoAdminModels;
+using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.Libraries.GeoAdminSearch.Models;
+using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace AlgoTecture.Controllers
 {
@@ -26,12 +23,7 @@ namespace AlgoTecture.Controllers
         {
             if (string.IsNullOrEmpty(term)) return BadRequest();
 
-            var baseUrl = $"https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText={term}&type=locations&origins=address&limit=10";
-
-            var responseFromServer = await HttpWebRequestAssistant.GetResponse(baseUrl);
-
-            var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
-            var labels = addressResults?.results.Select(x => x.attrs);
+            var labels = await _geoAdminSearcher.GetAddress(term);
 
             return new ActionResult<IEnumerable<Attrs>>(labels);
         }

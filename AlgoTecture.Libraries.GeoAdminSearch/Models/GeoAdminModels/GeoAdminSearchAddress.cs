@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace AlgoTecture.Models.GeoAdminModels
+namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
 {
     public class Attrs
     {

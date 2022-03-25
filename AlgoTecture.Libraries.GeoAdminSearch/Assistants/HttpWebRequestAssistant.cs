@@ -1,8 +1,6 @@
-﻿using System.IO;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 
-namespace AlgoTecture.Assistants
+namespace AlgoTecture.Libraries.GeoAdminSearch.Assistants
 {
     public class HttpWebRequestAssistant
     {

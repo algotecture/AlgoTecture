@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace AlgoTecture.Models.GeoAdminModels
+namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
 {
-
     public static class GwrCodeLookup
     {
         public static string GetCode(string code)
@@ -722,11 +721,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
-    [System.Xml.Serialization.XmlRootAttribute("maddRequest", Namespace = "http://www.ech.ch/xmlns/eCH-0206/2", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlRoot("maddRequest", Namespace = "http://www.ech.ch/xmlns/eCH-0206/2", IsNullable = false)]
     public partial class maddRequestType
     {
 
@@ -808,10 +807,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class requestHeaderType
     {
 
@@ -826,7 +825,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private System.DateTime requestDateField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string messageId
         {
             get
@@ -840,7 +839,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string businessReferenceId
         {
             get
@@ -867,7 +866,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string comment
         {
             get
@@ -896,10 +895,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class sendingApplicationType
     {
 
@@ -910,7 +909,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string productVersionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string manufacturer
         {
             get
@@ -924,7 +923,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string product
         {
             get
@@ -938,7 +937,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string productVersion
         {
             get
@@ -954,17 +953,17 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
     public partial class countryShortType
     {
 
         private string countryNameShortField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string countryNameShort
         {
             get
@@ -980,10 +979,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class personOnlyType
     {
 
@@ -1005,18 +1004,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class personOnlyTypeIdentification
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("organisationIdentification", typeof(organisationIdentificationType))]
-        [System.Xml.Serialization.XmlElementAttribute("personIdentification", typeof(personIdentificationLightType))]
+        [XmlElement("organisationIdentification", typeof(organisationIdentificationType))]
+        [XmlElement("personIdentification", typeof(personIdentificationLightType))]
         public object Item
         {
             get
@@ -1032,10 +1031,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
     public partial class organisationIdentificationType
     {
 
@@ -1080,7 +1079,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("OtherOrganisationId")]
+        [XmlElement("OtherOrganisationId")]
         public namedOrganisationIdType[] OtherOrganisationId
         {
             get
@@ -1094,7 +1093,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationName
         {
             get
@@ -1108,7 +1107,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationLegalName
         {
             get
@@ -1122,7 +1121,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationAdditionalName
         {
             get
@@ -1151,10 +1150,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
     public partial class uidStructureType
     {
 
@@ -1176,7 +1175,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string uidOrganisationId
         {
             get
@@ -1192,8 +1191,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
     public enum uidOrganisationIdCategorieType
     {
 
@@ -1206,10 +1205,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
     public partial class namedOrganisationIdType
     {
 
@@ -1218,7 +1217,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string organisationIdField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationIdCategory
         {
             get
@@ -1232,7 +1231,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationId
         {
             get
@@ -1248,10 +1247,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public partial class personIdentificationLightType
     {
 
@@ -1289,7 +1288,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool vnSpecified
         {
             get
@@ -1316,7 +1315,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("otherPersonId")]
+        [XmlElement("otherPersonId")]
         public namedPersonIdType[] otherPersonId
         {
             get
@@ -1330,7 +1329,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialName
         {
             get
@@ -1344,7 +1343,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string firstName
         {
             get
@@ -1358,7 +1357,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string originalName
         {
             get
@@ -1385,7 +1384,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool sexSpecified
         {
             get
@@ -1414,10 +1413,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public partial class namedPersonIdType
     {
 
@@ -1426,7 +1425,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string personIdField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string personIdCategory
         {
             get
@@ -1440,7 +1439,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string personId
         {
             get
@@ -1456,30 +1455,30 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public enum sexType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public partial class datePartiallyKnownType
     {
 
@@ -1488,10 +1487,10 @@ namespace AlgoTecture.Models.GeoAdminModels
         private ItemChoiceType itemElementNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("year", typeof(string), DataType = "gYear")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonth", typeof(string), DataType = "gYearMonth")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonthDay", typeof(System.DateTime), DataType = "date")]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        [XmlElement("year", typeof(string), DataType = "gYear")]
+        [XmlElement("yearMonth", typeof(string), DataType = "gYearMonth")]
+        [XmlElement("yearMonthDay", typeof(System.DateTime), DataType = "date")]
+        [XmlChoiceIdentifier("ItemElementName")]
         public object Item
         {
             get
@@ -1505,7 +1504,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public ItemChoiceType ItemElementName
         {
             get
@@ -1521,8 +1520,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4", IncludeInSchema = false)]
     public enum ItemChoiceType
     {
 
@@ -1538,10 +1537,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class personType
     {
 
@@ -1578,18 +1577,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class personTypeIdentification
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("organisationIdentification", typeof(organisationIdentificationType))]
-        [System.Xml.Serialization.XmlElementAttribute("personIdentification", typeof(personIdentificationLightType))]
+        [XmlElement("organisationIdentification", typeof(organisationIdentificationType))]
+        [XmlElement("personIdentification", typeof(personIdentificationLightType))]
         public object Item
         {
             get
@@ -1605,10 +1604,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public partial class addressInformationType
     {
 
@@ -1639,7 +1638,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private countryType countryField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string addressLine1
         {
             get
@@ -1653,7 +1652,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string addressLine2
         {
             get
@@ -1667,7 +1666,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string street
         {
             get
@@ -1681,7 +1680,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string houseNumber
         {
             get
@@ -1695,7 +1694,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string dwellingNumber
         {
             get
@@ -1722,7 +1721,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool postOfficeBoxNumberSpecified
         {
             get
@@ -1736,7 +1735,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string postOfficeBoxText
         {
             get
@@ -1750,7 +1749,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string locality
         {
             get
@@ -1764,7 +1763,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string town
         {
             get
@@ -1778,11 +1777,11 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("foreignZipCode", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("swissZipCode", typeof(uint))]
-        [System.Xml.Serialization.XmlElementAttribute("swissZipCodeAddOn", typeof(string))]
-        [System.Xml.Serialization.XmlElementAttribute("swissZipCodeId", typeof(int))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+        [XmlElement("foreignZipCode", typeof(string), DataType = "token")]
+        [XmlElement("swissZipCode", typeof(uint))]
+        [XmlElement("swissZipCodeAddOn", typeof(string))]
+        [XmlElement("swissZipCodeId", typeof(int))]
+        [XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items
         {
             get
@@ -1796,8 +1795,8 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlElement("ItemsElementName")]
+        [XmlIgnore()]
         public ItemsChoiceType[] ItemsElementName
         {
             get
@@ -1826,8 +1825,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IncludeInSchema = false)]
     public enum ItemsChoiceType
     {
 
@@ -1846,10 +1845,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public partial class countryType
     {
 
@@ -1860,7 +1859,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string countryNameShortField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
+        [XmlElement(DataType = "integer")]
         public string countryId
         {
             get
@@ -1874,7 +1873,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string countryIdISO2
         {
             get
@@ -1888,7 +1887,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string countryNameShort
         {
             get
@@ -1904,10 +1903,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class contactType
     {
 
@@ -1958,12 +1957,12 @@ namespace AlgoTecture.Models.GeoAdminModels
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(buildingAuthorityOnlyType))]
+    [XmlInclude(typeof(buildingAuthorityOnlyType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingAuthorityType
     {
 
@@ -1993,7 +1992,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string description
         {
             get
@@ -2007,7 +2006,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string shortDescription
         {
             get
@@ -2062,18 +2061,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingAuthorityTypeContactPerson
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("organisationIdentification", typeof(organisationIdentificationType))]
-        [System.Xml.Serialization.XmlElementAttribute("personIdentification", typeof(personIdentificationLightType))]
+        [XmlElement("organisationIdentification", typeof(organisationIdentificationType))]
+        [XmlElement("personIdentification", typeof(personIdentificationLightType))]
         public object Item
         {
             get
@@ -2089,22 +2088,22 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingAuthorityOnlyType : buildingAuthorityType
     {
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(estimationObjectOnlyType))]
+    [XmlInclude(typeof(estimationObjectOnlyType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("estimationObject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("estimationObject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class estimationObjectType
     {
 
@@ -2138,7 +2137,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string volume
         {
             get
@@ -2152,7 +2151,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "gYear")]
+        [XmlElement(DataType = "gYear")]
         public string yearOfConstruction
         {
             get
@@ -2166,7 +2165,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string description
         {
             get
@@ -2180,7 +2179,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime validFrom
         {
             get
@@ -2194,7 +2193,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool validFromSpecified
         {
             get
@@ -2208,7 +2207,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string estimationReason
         {
             get
@@ -2222,7 +2221,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("estimationValue")]
+        [XmlElement("estimationValue")]
         public estimationValueType[] estimationValue
         {
             get
@@ -2238,10 +2237,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class namedIdType
     {
 
@@ -2250,7 +2249,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string idField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string IdCategory
         {
             get
@@ -2264,7 +2263,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string Id
         {
             get
@@ -2280,10 +2279,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class estimationValueType
     {
 
@@ -2317,7 +2316,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string baseYear
         {
             get
@@ -2331,7 +2330,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime validFrom
         {
             get
@@ -2345,7 +2344,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool validFromSpecified
         {
             get
@@ -2372,7 +2371,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool indexValueSpecified
         {
             get
@@ -2414,10 +2413,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class valueType
     {
 
@@ -2426,9 +2425,9 @@ namespace AlgoTecture.Models.GeoAdminModels
         private ItemChoiceType4 itemElementNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("amount", typeof(decimal))]
-        [System.Xml.Serialization.XmlElementAttribute("percentage", typeof(decimal))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        [XmlElement("amount", typeof(decimal))]
+        [XmlElement("percentage", typeof(decimal))]
+        [XmlChoiceIdentifier("ItemElementName")]
         public decimal Item
         {
             get
@@ -2442,7 +2441,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public ItemChoiceType4 ItemElementName
         {
             get
@@ -2458,8 +2457,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
     public enum ItemChoiceType4
     {
 
@@ -2472,97 +2471,97 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum typeOfvalueType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1007")]
+        [XmlEnum("1007")]
         Item1007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2001")]
+        [XmlEnum("2001")]
         Item2001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2002")]
+        [XmlEnum("2002")]
         Item2002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2003")]
+        [XmlEnum("2003")]
         Item2003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2004")]
+        [XmlEnum("2004")]
         Item2004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2005")]
+        [XmlEnum("2005")]
         Item2005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2006")]
+        [XmlEnum("2006")]
         Item2006,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2007")]
+        [XmlEnum("2007")]
         Item2007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2008")]
+        [XmlEnum("2008")]
         Item2008,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2009")]
+        [XmlEnum("2009")]
         Item2009,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2010")]
+        [XmlEnum("2010")]
         Item2010,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2011")]
+        [XmlEnum("2011")]
         Item2011,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2012")]
+        [XmlEnum("2012")]
         Item2012,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2013")]
+        [XmlEnum("2013")]
         Item2013,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2014")]
+        [XmlEnum("2014")]
         Item2014,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2015")]
+        [XmlEnum("2015")]
         Item2015,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2016")]
+        [XmlEnum("2016")]
         Item2016,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class estimationObjectOnlyType : estimationObjectType
     {
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "kindOfConstructionWorkType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("kindOfConstructionWork", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "kindOfConstructionWorkType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("kindOfConstructionWork", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class kindOfConstructionWorkType1
     {
 
@@ -2631,7 +2630,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool energeticRestaurationSpecified
         {
             get
@@ -2658,7 +2657,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool renovationHeatingsystemSpecified
         {
             get
@@ -2685,7 +2684,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool innerConversionRenovationSpecified
         {
             get
@@ -2712,7 +2711,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool conversionSpecified
         {
             get
@@ -2739,7 +2738,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool extensionHeighteningHeatedSpecified
         {
             get
@@ -2766,7 +2765,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool extensionHeighteningNotHeatedSpecified
         {
             get
@@ -2793,7 +2792,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool thermicSolarFacilitySpecified
         {
             get
@@ -2820,7 +2819,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool photovoltaicSolarFacilitySpecified
         {
             get
@@ -2847,7 +2846,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool otherWorksSpecified
         {
             get
@@ -2863,31 +2862,31 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum kindOfWorkType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6001")]
+        [XmlEnum("6001")]
         Item6001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6002")]
+        [XmlEnum("6002")]
         Item6002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6007")]
+        [XmlEnum("6007")]
         Item6007,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("partialAreaOfBuilding", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("partialAreaOfBuilding", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class partialAreaOfBuildingType
     {
 
@@ -2909,7 +2908,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool squareMeasureSpecified
         {
             get
@@ -2925,11 +2924,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("coveringAreaOfSDR", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("coveringAreaOfSDR", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class coveringAreaOfSDRType
     {
 
@@ -2966,10 +2965,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "realestateIdentificationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "realestateIdentificationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class realestateIdentificationType1
     {
 
@@ -2984,7 +2983,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string lotField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string EGRID
         {
             get
@@ -2998,7 +2997,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string number
         {
             get
@@ -3012,7 +3011,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string numberSuffix
         {
             get
@@ -3026,7 +3025,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string subDistrict
         {
             get
@@ -3040,7 +3039,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string lot
         {
             get
@@ -3056,11 +3055,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("placeName", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("placeName", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class placeNameType
     {
 
@@ -3069,7 +3068,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string localGeographicalNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("placeNameType")]
+        [XmlElement("placeNameType")]
         public placeNameTypeType placeNameType1
         {
             get
@@ -3083,7 +3082,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string localGeographicalName
         {
             get
@@ -3099,35 +3098,35 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum placeNameTypeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        [XmlEnum("0")]
         Item0,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("cadastralSurveyorRemark", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("cadastralSurveyorRemark", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class cadastralSurveyorRemarkType
     {
 
@@ -3153,7 +3152,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string remarkOtherType
         {
             get
@@ -3167,7 +3166,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string remarkText
         {
             get
@@ -3181,7 +3180,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string objectID
         {
             get
@@ -3197,43 +3196,43 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum remarkTypeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        [XmlEnum("4")]
         Item4,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        [XmlEnum("5")]
         Item5,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        [XmlEnum("6")]
         Item6,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("cadastralMap", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("cadastralMap", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class cadastralMapType
     {
 
@@ -3242,7 +3241,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string identDNField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string mapNumber
         {
             get
@@ -3256,7 +3255,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string identDN
         {
             get
@@ -3272,18 +3271,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("right", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("right", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class rightType
     {
 
         private string eREIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "normalizedString")]
+        [XmlElement(DataType = "normalizedString")]
         public string EREID
         {
             get
@@ -3299,10 +3298,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class streetDescriptionType
     {
 
@@ -3315,7 +3314,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string[] descriptionIndexField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("language")]
+        [XmlElement("language")]
         public streetLanguageType[] language
         {
             get
@@ -3329,7 +3328,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("descriptionLong", DataType = "token")]
+        [XmlElement("descriptionLong", DataType = "token")]
         public string[] descriptionLong
         {
             get
@@ -3343,7 +3342,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("descriptionShort", DataType = "token")]
+        [XmlElement("descriptionShort", DataType = "token")]
         public string[] descriptionShort
         {
             get
@@ -3357,7 +3356,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("descriptionIndex", DataType = "token")]
+        [XmlElement("descriptionIndex", DataType = "token")]
         public string[] descriptionIndex
         {
             get
@@ -3373,35 +3372,35 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum streetLanguageType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9901")]
+        [XmlEnum("9901")]
         Item9901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9902")]
+        [XmlEnum("9902")]
         Item9902,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9903")]
+        [XmlEnum("9903")]
         Item9903,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9904")]
+        [XmlEnum("9904")]
         Item9904,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "streetType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("street", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "streetType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("street", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class streetType2
     {
 
@@ -3428,7 +3427,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object streetGeometryField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string ESID
         {
             get
@@ -3455,7 +3454,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isOfficialDescriptionSpecified
         {
             get
@@ -3469,7 +3468,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string officialStreetNumber
         {
             get
@@ -3509,7 +3508,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool streetKindSpecified
         {
             get
@@ -3549,7 +3548,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool streetStatusSpecified
         {
             get
@@ -3578,60 +3577,60 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum streetKindType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9801")]
+        [XmlEnum("9801")]
         Item9801,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9802")]
+        [XmlEnum("9802")]
         Item9802,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9803")]
+        [XmlEnum("9803")]
         Item9803,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9809")]
+        [XmlEnum("9809")]
         Item9809,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum streetStatusType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9811")]
+        [XmlEnum("9811")]
         Item9811,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9812")]
+        [XmlEnum("9812")]
         Item9812,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9813")]
+        [XmlEnum("9813")]
         Item9813,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9814")]
+        [XmlEnum("9814")]
         Item9814,
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(insuranceObjectOnlyType))]
+    [XmlInclude(typeof(insuranceObjectOnlyType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("insuranceObject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("insuranceObject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class insuranceObjectType
     {
 
@@ -3671,7 +3670,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime startDate
         {
             get
@@ -3685,7 +3684,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool startDateSpecified
         {
             get
@@ -3699,7 +3698,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime endDate
         {
             get
@@ -3713,7 +3712,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool endDateSpecified
         {
             get
@@ -3727,7 +3726,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string insuranceNumber
         {
             get
@@ -3754,7 +3753,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool usageCodeSpecified
         {
             get
@@ -3768,7 +3767,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string usageDescription
         {
             get
@@ -3810,78 +3809,78 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum usageCodeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1199")]
+        [XmlEnum("1199")]
         Item1199,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1219")]
+        [XmlEnum("1219")]
         Item1219,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1220")]
+        [XmlEnum("1220")]
         Item1220,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1230")]
+        [XmlEnum("1230")]
         Item1230,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1241")]
+        [XmlEnum("1241")]
         Item1241,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1242")]
+        [XmlEnum("1242")]
         Item1242,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1252")]
+        [XmlEnum("1252")]
         Item1252,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1259")]
+        [XmlEnum("1259")]
         Item1259,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1263")]
+        [XmlEnum("1263")]
         Item1263,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1264")]
+        [XmlEnum("1264")]
         Item1264,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1265")]
+        [XmlEnum("1265")]
         Item1265,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1269")]
+        [XmlEnum("1269")]
         Item1269,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1271")]
+        [XmlEnum("1271")]
         Item1271,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1272")]
+        [XmlEnum("1272")]
         Item1272,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1274")]
+        [XmlEnum("1274")]
         Item1274,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class insuranceValueType
     {
 
@@ -3907,7 +3906,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime validFrom
         {
             get
@@ -3949,42 +3948,42 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum changeReasonType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1001")]
+        [XmlEnum("1001")]
         Item1001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1002")]
+        [XmlEnum("1002")]
         Item1002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1003")]
+        [XmlEnum("1003")]
         Item1003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1004")]
+        [XmlEnum("1004")]
         Item1004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1005")]
+        [XmlEnum("1005")]
         Item1005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1006")]
+        [XmlEnum("1006")]
         Item1006,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class insuranceSumType
     {
 
@@ -3993,9 +3992,9 @@ namespace AlgoTecture.Models.GeoAdminModels
         private ItemChoiceType3 itemElementNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("amount", typeof(decimal))]
-        [System.Xml.Serialization.XmlElementAttribute("percentage", typeof(decimal))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        [XmlElement("amount", typeof(decimal))]
+        [XmlElement("percentage", typeof(decimal))]
+        [XmlChoiceIdentifier("ItemElementName")]
         public decimal Item
         {
             get
@@ -4009,7 +4008,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public ItemChoiceType3 ItemElementName
         {
             get
@@ -4025,8 +4024,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
     public enum ItemChoiceType3
     {
 
@@ -4039,10 +4038,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class insuranceVolumeType
     {
 
@@ -4051,7 +4050,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private buildingVolumeNormType normField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string volume
         {
             get
@@ -4080,41 +4079,41 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum buildingVolumeNormType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("961")]
+        [XmlEnum("961")]
         Item961,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("962")]
+        [XmlEnum("962")]
         Item962,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("969")]
+        [XmlEnum("969")]
         Item969,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class insuranceObjectOnlyType : insuranceObjectType
     {
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("area", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("area", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class areaType
     {
 
@@ -4127,7 +4126,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private decimal areaValueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("areaType")]
+        [XmlElement("areaType")]
         public areaTypeType areaType1
         {
             get
@@ -4154,7 +4153,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string areaDescription
         {
             get
@@ -4183,143 +4182,143 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum areaTypeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum areaDescriptionCodeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        [XmlEnum("0")]
         Item0,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        [XmlEnum("4")]
         Item4,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        [XmlEnum("5")]
         Item5,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        [XmlEnum("6")]
         Item6,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        [XmlEnum("7")]
         Item7,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        [XmlEnum("8")]
         Item8,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        [XmlEnum("9")]
         Item9,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        [XmlEnum("10")]
         Item10,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("11")]
+        [XmlEnum("11")]
         Item11,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        [XmlEnum("12")]
         Item12,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("13")]
+        [XmlEnum("13")]
         Item13,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("14")]
+        [XmlEnum("14")]
         Item14,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("15")]
+        [XmlEnum("15")]
         Item15,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("16")]
+        [XmlEnum("16")]
         Item16,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("17")]
+        [XmlEnum("17")]
         Item17,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("18")]
+        [XmlEnum("18")]
         Item18,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("19")]
+        [XmlEnum("19")]
         Item19,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("20")]
+        [XmlEnum("20")]
         Item20,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("21")]
+        [XmlEnum("21")]
         Item21,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("22")]
+        [XmlEnum("22")]
         Item22,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("23")]
+        [XmlEnum("23")]
         Item23,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("24")]
+        [XmlEnum("24")]
         Item24,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("25")]
+        [XmlEnum("25")]
         Item25,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("fiscalOwnership", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("fiscalOwnership", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class fiscalOwnershipType
     {
 
@@ -4344,7 +4343,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private bool tallyFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime accessionDate
         {
             get
@@ -4371,7 +4370,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime validFrom
         {
             get
@@ -4385,7 +4384,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool validFromSpecified
         {
             get
@@ -4399,7 +4398,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime validTill
         {
             get
@@ -4413,7 +4412,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool validTillSpecified
         {
             get
@@ -4440,7 +4439,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool denominatorSpecified
         {
             get
@@ -4467,7 +4466,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool tallySpecified
         {
             get
@@ -4483,31 +4482,31 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum fiscalOwnershipTypeFiscalRelationship
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "localityType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("locality", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "localityType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("locality", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class localityType1
     {
 
@@ -4533,7 +4532,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool swissZipCodeSpecified
         {
             get
@@ -4575,10 +4574,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class localityNameType
     {
 
@@ -4589,7 +4588,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string[] nameShortField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("language")]
+        [XmlElement("language")]
         public streetLanguageType[] language
         {
             get
@@ -4603,7 +4602,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("nameLong", DataType = "token")]
+        [XmlElement("nameLong", DataType = "token")]
         public string[] nameLong
         {
             get
@@ -4617,7 +4616,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("nameShort", DataType = "token")]
+        [XmlElement("nameShort", DataType = "token")]
         public string[] nameShort
         {
             get
@@ -4633,11 +4632,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("realestate", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("realestate", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class realestateType
     {
 
@@ -4687,7 +4686,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string authority
         {
             get
@@ -4701,7 +4700,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime date
         {
             get
@@ -4715,7 +4714,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool dateSpecified
         {
             get
@@ -4729,7 +4728,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("realestateType")]
+        [XmlElement("realestateType")]
         public realestateTypeType realestateType1
         {
             get
@@ -4743,7 +4742,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string cantonalSubKind
         {
             get
@@ -4770,7 +4769,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool statusSpecified
         {
             get
@@ -4784,7 +4783,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string mutnumber
         {
             get
@@ -4798,7 +4797,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string identDN
         {
             get
@@ -4825,7 +4824,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool squareMeasureSpecified
         {
             get
@@ -4852,7 +4851,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool realestateIncompleteSpecified
         {
             get
@@ -4879,7 +4878,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("namedMetaData")]
+        [XmlElement("namedMetaData")]
         public namedMetaDataType1[] namedMetaData
         {
             get
@@ -4895,74 +4894,74 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum realestateTypeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        [XmlEnum("4")]
         Item4,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        [XmlEnum("5")]
         Item5,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        [XmlEnum("6")]
         Item6,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        [XmlEnum("7")]
         Item7,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        [XmlEnum("8")]
         Item8,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum realestateStatusType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        [XmlEnum("0")]
         Item0,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class coordinatesType
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("LV03", typeof(coordinatesTypeLV03))]
-        [System.Xml.Serialization.XmlElementAttribute("LV95", typeof(coordinatesTypeLV95))]
+        [XmlElement("LV03", typeof(coordinatesTypeLV03))]
+        [XmlElement("LV95", typeof(coordinatesTypeLV95))]
         public object Item
         {
             get
@@ -4978,10 +4977,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class coordinatesTypeLV03
     {
 
@@ -5033,46 +5032,46 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum originOfCoordinatesType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("901")]
+        [XmlEnum("901")]
         Item901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("902")]
+        [XmlEnum("902")]
         Item902,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("903")]
+        [XmlEnum("903")]
         Item903,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("904")]
+        [XmlEnum("904")]
         Item904,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("905")]
+        [XmlEnum("905")]
         Item905,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("906")]
+        [XmlEnum("906")]
         Item906,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("909")]
+        [XmlEnum("909")]
         Item909,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class coordinatesTypeLV95
     {
 
@@ -5124,10 +5123,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "namedMetaDataType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "namedMetaDataType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class namedMetaDataType1
     {
 
@@ -5136,7 +5135,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string metaDataValueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string metaDataName
         {
             get
@@ -5150,7 +5149,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string metaDataValue
         {
             get
@@ -5166,11 +5165,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "dwellingType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("dwelling", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "dwellingType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("dwelling", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class dwellingType1
     {
 
@@ -5215,7 +5214,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string[] dwellingFreeTextField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("localID")]
+        [XmlElement("localID")]
         public namedIdType[] localID
         {
             get
@@ -5229,7 +5228,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string administrativeDwellingNo
         {
             get
@@ -5243,7 +5242,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EWID
         {
             get
@@ -5257,7 +5256,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string physicalDwellingNo
         {
             get
@@ -5297,7 +5296,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string noOfHabitableRooms
         {
             get
@@ -5311,7 +5310,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string floor
         {
             get
@@ -5325,7 +5324,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string locationOfDwellingOnFloor
         {
             get
@@ -5352,7 +5351,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool multipleFloorSpecified
         {
             get
@@ -5379,7 +5378,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool usageLimitationSpecified
         {
             get
@@ -5406,7 +5405,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool kitchenSpecified
         {
             get
@@ -5420,7 +5419,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string surfaceAreaOfDwelling
         {
             get
@@ -5447,7 +5446,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool statusSpecified
         {
             get
@@ -5474,7 +5473,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("dwellingFreeText", DataType = "token")]
+        [XmlElement("dwellingFreeText", DataType = "token")]
         public string[] dwellingFreeText
         {
             get
@@ -5490,10 +5489,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "datePartiallyKnownType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "datePartiallyKnownType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class datePartiallyKnownType1
     {
 
@@ -5502,10 +5501,10 @@ namespace AlgoTecture.Models.GeoAdminModels
         private ItemChoiceType1 itemElementNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("year", typeof(string), DataType = "gYear")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonth", typeof(string), DataType = "gYearMonth")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonthDay", typeof(System.DateTime), DataType = "date")]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        [XmlElement("year", typeof(string), DataType = "gYear")]
+        [XmlElement("yearMonth", typeof(string), DataType = "gYearMonth")]
+        [XmlElement("yearMonthDay", typeof(System.DateTime), DataType = "date")]
+        [XmlChoiceIdentifier("ItemElementName")]
         public object Item
         {
             get
@@ -5519,7 +5518,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public ItemChoiceType1 ItemElementName
         {
             get
@@ -5535,8 +5534,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
     public enum ItemChoiceType1
     {
 
@@ -5552,74 +5551,74 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum usageLimitationType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3401")]
+        [XmlEnum("3401")]
         Item3401,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3402")]
+        [XmlEnum("3402")]
         Item3402,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3403")]
+        [XmlEnum("3403")]
         Item3403,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3404")]
+        [XmlEnum("3404")]
         Item3404,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum dwellingStatusType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3001")]
+        [XmlEnum("3001")]
         Item3001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3002")]
+        [XmlEnum("3002")]
         Item3002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3003")]
+        [XmlEnum("3003")]
         Item3003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3004")]
+        [XmlEnum("3004")]
         Item3004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3005")]
+        [XmlEnum("3005")]
         Item3005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3007")]
+        [XmlEnum("3007")]
         Item3007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3008")]
+        [XmlEnum("3008")]
         Item3008,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3009")]
+        [XmlEnum("3009")]
         Item3009,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class dwellingUsageType
     {
 
@@ -5667,7 +5666,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool usageCodeSpecified
         {
             get
@@ -5694,7 +5693,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool informationSourceSpecified
         {
             get
@@ -5708,7 +5707,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime revisionDate
         {
             get
@@ -5722,7 +5721,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool revisionDateSpecified
         {
             get
@@ -5736,7 +5735,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string remark
         {
             get
@@ -5763,7 +5762,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool personWithMainResidenceSpecified
         {
             get
@@ -5790,7 +5789,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool personWithSecondaryResidenceSpecified
         {
             get
@@ -5804,7 +5803,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime dateFirstOccupancy
         {
             get
@@ -5818,7 +5817,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool dateFirstOccupancySpecified
         {
             get
@@ -5832,7 +5831,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime dateLastOccupancy
         {
             get
@@ -5846,7 +5845,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool dateLastOccupancySpecified
         {
             get
@@ -5862,90 +5861,90 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum dwellingUsageCodeType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3010")]
+        [XmlEnum("3010")]
         Item3010,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3020")]
+        [XmlEnum("3020")]
         Item3020,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3030")]
+        [XmlEnum("3030")]
         Item3030,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3031")]
+        [XmlEnum("3031")]
         Item3031,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3032")]
+        [XmlEnum("3032")]
         Item3032,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3033")]
+        [XmlEnum("3033")]
         Item3033,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3034")]
+        [XmlEnum("3034")]
         Item3034,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3035")]
+        [XmlEnum("3035")]
         Item3035,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3036")]
+        [XmlEnum("3036")]
         Item3036,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3037")]
+        [XmlEnum("3037")]
         Item3037,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3038")]
+        [XmlEnum("3038")]
         Item3038,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3070")]
+        [XmlEnum("3070")]
         Item3070,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum dwellingInformationSourceType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3090")]
+        [XmlEnum("3090")]
         Item3090,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3091")]
+        [XmlEnum("3091")]
         Item3091,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3092")]
+        [XmlEnum("3092")]
         Item3092,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3093")]
+        [XmlEnum("3093")]
         Item3093,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class dwellingIdentificationType
     {
 
@@ -5958,7 +5957,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private namedIdType localIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -5972,7 +5971,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EDID
         {
             get
@@ -5986,7 +5985,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EWID
         {
             get
@@ -6015,11 +6014,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("buildingEntranceOnly", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("buildingEntranceOnly", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class buildingEntranceOnlyType
     {
 
@@ -6038,7 +6037,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private bool isOfficialAddressFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGAID
         {
             get
@@ -6052,7 +6051,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EDID
         {
             get
@@ -6066,7 +6065,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string buildingEntranceNo
         {
             get
@@ -6119,7 +6118,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isOfficialAddressSpecified
         {
             get
@@ -6135,10 +6134,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingEntranceIdentificationType
     {
 
@@ -6151,7 +6150,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private namedIdType localIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -6165,7 +6164,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGAID
         {
             get
@@ -6179,7 +6178,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EDID
         {
             get
@@ -6208,10 +6207,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class streetSectionType
     {
 
@@ -6222,7 +6221,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string swissZipCodeAddOnField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string ESID
         {
             get
@@ -6264,11 +6263,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "buildingEntranceType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("buildingEntrance", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "buildingEntranceType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("buildingEntrance", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class buildingEntranceType1
     {
 
@@ -6289,7 +6288,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private streetSectionType steetSectionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGAID
         {
             get
@@ -6303,7 +6302,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EDID
         {
             get
@@ -6317,7 +6316,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string buildingEntranceNo
         {
             get
@@ -6370,7 +6369,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isOfficialAddressSpecified
         {
             get
@@ -6398,13 +6397,13 @@ namespace AlgoTecture.Models.GeoAdminModels
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(buildingOnlyType))]
+    [XmlInclude(typeof(buildingOnlyType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "buildingType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("building", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "buildingType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("building", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class buildingType1
     {
 
@@ -6480,7 +6479,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -6494,7 +6493,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialBuildingNo
         {
             get
@@ -6508,7 +6507,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string name
         {
             get
@@ -6561,7 +6560,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfFloors
         {
             get
@@ -6575,7 +6574,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfSeparateHabitableRooms
         {
             get
@@ -6589,7 +6588,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string surfaceAreaOfBuilding
         {
             get
@@ -6603,7 +6602,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string subSurfaceAreaOfBuilding
         {
             get
@@ -6617,7 +6616,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string surfaceAreaOfBuildingSignaleObject
         {
             get
@@ -6644,7 +6643,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string buildingClass
         {
             get
@@ -6671,7 +6670,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool statusSpecified
         {
             get
@@ -6698,7 +6697,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("otherID")]
+        [XmlElement("otherID")]
         public namedIdType[] otherID
         {
             get
@@ -6725,7 +6724,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool civilDefenseShelterSpecified
         {
             get
@@ -6739,7 +6738,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string neighbourhood
         {
             get
@@ -6753,7 +6752,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("localCode", DataType = "token")]
+        [XmlElement("localCode", DataType = "token")]
         public string[] localCode
         {
             get
@@ -6767,7 +6766,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string energyRelevantSurface
         {
             get
@@ -6794,7 +6793,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("heating")]
+        [XmlElement("heating")]
         public heatingType[] heating
         {
             get
@@ -6808,7 +6807,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("hotWater")]
+        [XmlElement("hotWater")]
         public hotWaterType[] hotWater
         {
             get
@@ -6822,7 +6821,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("buildingEntrance")]
+        [XmlElement("buildingEntrance")]
         public buildingEntranceType1[] buildingEntrance
         {
             get
@@ -6836,7 +6835,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("namedMetaData")]
+        [XmlElement("namedMetaData")]
         public namedMetaDataType1[] namedMetaData
         {
             get
@@ -6850,7 +6849,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("buildingFreeText", DataType = "token")]
+        [XmlElement("buildingFreeText", DataType = "token")]
         public string[] buildingFreeText
         {
             get
@@ -6866,10 +6865,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingIdentificationType
     {
 
@@ -6882,17 +6881,17 @@ namespace AlgoTecture.Models.GeoAdminModels
         private int municipalityField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("EGID", typeof(string), DataType = "nonNegativeInteger")]
-        [System.Xml.Serialization.XmlElementAttribute("EGRID", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("cadasterAreaNumber", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("houseNumber", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("nameOfBuilding", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("number", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("officialBuildingNo", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("realestateType", typeof(realestateTypeType))]
-        [System.Xml.Serialization.XmlElementAttribute("street", typeof(string), DataType = "token")]
-        [System.Xml.Serialization.XmlElementAttribute("zipCode", typeof(uint))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+        [XmlElement("EGID", typeof(string), DataType = "nonNegativeInteger")]
+        [XmlElement("EGRID", typeof(string), DataType = "token")]
+        [XmlElement("cadasterAreaNumber", typeof(string), DataType = "token")]
+        [XmlElement("houseNumber", typeof(string), DataType = "token")]
+        [XmlElement("nameOfBuilding", typeof(string), DataType = "token")]
+        [XmlElement("number", typeof(string), DataType = "token")]
+        [XmlElement("officialBuildingNo", typeof(string), DataType = "token")]
+        [XmlElement("realestateType", typeof(realestateTypeType))]
+        [XmlElement("street", typeof(string), DataType = "token")]
+        [XmlElement("zipCode", typeof(uint))]
+        [XmlChoiceIdentifier("ItemsElementName")]
         public object[] Items
         {
             get
@@ -6906,8 +6905,8 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlElement("ItemsElementName")]
+        [XmlIgnore()]
         public ItemsChoiceType1[] ItemsElementName
         {
             get
@@ -6921,7 +6920,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("localID")]
+        [XmlElement("localID")]
         public namedIdType[] localID
         {
             get
@@ -6950,8 +6949,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
     public enum ItemsChoiceType1
     {
 
@@ -6988,10 +6987,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "buildingDateType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "buildingDateType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingDateType1
     {
 
@@ -7000,11 +6999,11 @@ namespace AlgoTecture.Models.GeoAdminModels
         private ItemChoiceType2 itemElementNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("periodOfConstruction", typeof(periodOfConstructionType))]
-        [System.Xml.Serialization.XmlElementAttribute("year", typeof(string), DataType = "gYear")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonth", typeof(string), DataType = "gYearMonth")]
-        [System.Xml.Serialization.XmlElementAttribute("yearMonthDay", typeof(System.DateTime), DataType = "date")]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        [XmlElement("periodOfConstruction", typeof(periodOfConstructionType))]
+        [XmlElement("year", typeof(string), DataType = "gYear")]
+        [XmlElement("yearMonth", typeof(string), DataType = "gYearMonth")]
+        [XmlElement("yearMonthDay", typeof(System.DateTime), DataType = "date")]
+        [XmlChoiceIdentifier("ItemElementName")]
         public object Item
         {
             get
@@ -7018,7 +7017,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public ItemChoiceType2 ItemElementName
         {
             get
@@ -7034,68 +7033,68 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum periodOfConstructionType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8011")]
+        [XmlEnum("8011")]
         Item8011,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8012")]
+        [XmlEnum("8012")]
         Item8012,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8013")]
+        [XmlEnum("8013")]
         Item8013,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8014")]
+        [XmlEnum("8014")]
         Item8014,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8015")]
+        [XmlEnum("8015")]
         Item8015,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8016")]
+        [XmlEnum("8016")]
         Item8016,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8017")]
+        [XmlEnum("8017")]
         Item8017,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8018")]
+        [XmlEnum("8018")]
         Item8018,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8019")]
+        [XmlEnum("8019")]
         Item8019,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8020")]
+        [XmlEnum("8020")]
         Item8020,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8021")]
+        [XmlEnum("8021")]
         Item8021,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8022")]
+        [XmlEnum("8022")]
         Item8022,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8023")]
+        [XmlEnum("8023")]
         Item8023,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IncludeInSchema = false)]
     public enum ItemChoiceType2
     {
 
@@ -7114,82 +7113,82 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum buildingCategoryType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1010")]
+        [XmlEnum("1010")]
         Item1010,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1020")]
+        [XmlEnum("1020")]
         Item1020,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1030")]
+        [XmlEnum("1030")]
         Item1030,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1040")]
+        [XmlEnum("1040")]
         Item1040,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1060")]
+        [XmlEnum("1060")]
         Item1060,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1080")]
+        [XmlEnum("1080")]
         Item1080,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum buildingStatusType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1001")]
+        [XmlEnum("1001")]
         Item1001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1002")]
+        [XmlEnum("1002")]
         Item1002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1003")]
+        [XmlEnum("1003")]
         Item1003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1004")]
+        [XmlEnum("1004")]
         Item1004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1005")]
+        [XmlEnum("1005")]
         Item1005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1007")]
+        [XmlEnum("1007")]
         Item1007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1008")]
+        [XmlEnum("1008")]
         Item1008,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1009")]
+        [XmlEnum("1009")]
         Item1009,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "buildingVolumeType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "buildingVolumeType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class buildingVolumeType1
     {
 
@@ -7202,7 +7201,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private buildingVolumeNormType normField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string volume
         {
             get
@@ -7229,7 +7228,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool informationSourceSpecified
         {
             get
@@ -7258,54 +7257,54 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum buildingVolumeInformationSourceType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("869")]
+        [XmlEnum("869")]
         Item869,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("858")]
+        [XmlEnum("858")]
         Item858,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("853")]
+        [XmlEnum("853")]
         Item853,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("852")]
+        [XmlEnum("852")]
         Item852,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("857")]
+        [XmlEnum("857")]
         Item857,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("851")]
+        [XmlEnum("851")]
         Item851,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("870")]
+        [XmlEnum("870")]
         Item870,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("878")]
+        [XmlEnum("878")]
         Item878,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("859")]
+        [XmlEnum("859")]
         Item859,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class heatingType
     {
 
@@ -7350,7 +7349,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool energySourceHeatingSpecified
         {
             get
@@ -7377,7 +7376,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool informationSourceHeatingSpecified
         {
             get
@@ -7391,7 +7390,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime revisionDate
         {
             get
@@ -7405,7 +7404,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool revisionDateSpecified
         {
             get
@@ -7421,242 +7420,242 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum heatGeneratorHeatingType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7400")]
+        [XmlEnum("7400")]
         Item7400,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7410")]
+        [XmlEnum("7410")]
         Item7410,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7411")]
+        [XmlEnum("7411")]
         Item7411,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7420")]
+        [XmlEnum("7420")]
         Item7420,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7421")]
+        [XmlEnum("7421")]
         Item7421,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7430")]
+        [XmlEnum("7430")]
         Item7430,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7431")]
+        [XmlEnum("7431")]
         Item7431,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7432")]
+        [XmlEnum("7432")]
         Item7432,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7433")]
+        [XmlEnum("7433")]
         Item7433,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7434")]
+        [XmlEnum("7434")]
         Item7434,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7435")]
+        [XmlEnum("7435")]
         Item7435,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7436")]
+        [XmlEnum("7436")]
         Item7436,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7440")]
+        [XmlEnum("7440")]
         Item7440,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7441")]
+        [XmlEnum("7441")]
         Item7441,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7450")]
+        [XmlEnum("7450")]
         Item7450,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7451")]
+        [XmlEnum("7451")]
         Item7451,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7452")]
+        [XmlEnum("7452")]
         Item7452,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7460")]
+        [XmlEnum("7460")]
         Item7460,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7461")]
+        [XmlEnum("7461")]
         Item7461,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7499")]
+        [XmlEnum("7499")]
         Item7499,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum energySourceType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7500")]
+        [XmlEnum("7500")]
         Item7500,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7501")]
+        [XmlEnum("7501")]
         Item7501,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7510")]
+        [XmlEnum("7510")]
         Item7510,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7511")]
+        [XmlEnum("7511")]
         Item7511,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7512")]
+        [XmlEnum("7512")]
         Item7512,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7513")]
+        [XmlEnum("7513")]
         Item7513,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7520")]
+        [XmlEnum("7520")]
         Item7520,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7530")]
+        [XmlEnum("7530")]
         Item7530,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7540")]
+        [XmlEnum("7540")]
         Item7540,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7541")]
+        [XmlEnum("7541")]
         Item7541,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7542")]
+        [XmlEnum("7542")]
         Item7542,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7543")]
+        [XmlEnum("7543")]
         Item7543,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7550")]
+        [XmlEnum("7550")]
         Item7550,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7560")]
+        [XmlEnum("7560")]
         Item7560,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7570")]
+        [XmlEnum("7570")]
         Item7570,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7580")]
+        [XmlEnum("7580")]
         Item7580,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7581")]
+        [XmlEnum("7581")]
         Item7581,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7582")]
+        [XmlEnum("7582")]
         Item7582,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7598")]
+        [XmlEnum("7598")]
         Item7598,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7599")]
+        [XmlEnum("7599")]
         Item7599,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum informationSourceType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("852")]
+        [XmlEnum("852")]
         Item852,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("853")]
+        [XmlEnum("853")]
         Item853,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("855")]
+        [XmlEnum("855")]
         Item855,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("857")]
+        [XmlEnum("857")]
         Item857,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("858")]
+        [XmlEnum("858")]
         Item858,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("859")]
+        [XmlEnum("859")]
         Item859,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("860")]
+        [XmlEnum("860")]
         Item860,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("864")]
+        [XmlEnum("864")]
         Item864,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("865")]
+        [XmlEnum("865")]
         Item865,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("869")]
+        [XmlEnum("869")]
         Item869,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("870")]
+        [XmlEnum("870")]
         Item870,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("871")]
+        [XmlEnum("871")]
         Item871,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class hotWaterType
     {
 
@@ -7701,7 +7700,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool energySourceHeatingSpecified
         {
             get
@@ -7728,7 +7727,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool informationSourceHeatingSpecified
         {
             get
@@ -7742,7 +7741,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime revisionDate
         {
             get
@@ -7756,7 +7755,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool revisionDateSpecified
         {
             get
@@ -7772,74 +7771,74 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum heatGeneratorHotWaterType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7600")]
+        [XmlEnum("7600")]
         Item7600,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7610")]
+        [XmlEnum("7610")]
         Item7610,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7620")]
+        [XmlEnum("7620")]
         Item7620,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7630")]
+        [XmlEnum("7630")]
         Item7630,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7632")]
+        [XmlEnum("7632")]
         Item7632,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7634")]
+        [XmlEnum("7634")]
         Item7634,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7640")]
+        [XmlEnum("7640")]
         Item7640,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7650")]
+        [XmlEnum("7650")]
         Item7650,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7651")]
+        [XmlEnum("7651")]
         Item7651,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7660")]
+        [XmlEnum("7660")]
         Item7660,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7699")]
+        [XmlEnum("7699")]
         Item7699,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("buildingOnly", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("buildingOnly", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class buildingOnlyType : buildingType1
     {
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "constructionProjectType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
-    [System.Xml.Serialization.XmlRootAttribute("constructionProject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
+    [XmlType(TypeName = "constructionProjectType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlRoot("constructionProject", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5", IsNullable = false)]
     public partial class constructionProjectType1
     {
 
@@ -7938,7 +7937,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfConstructionProjectSpecified
         {
             get
@@ -7978,7 +7977,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfPermitSpecified
         {
             get
@@ -7992,7 +7991,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime buildingPermitIssueDate
         {
             get
@@ -8006,7 +8005,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool buildingPermitIssueDateSpecified
         {
             get
@@ -8020,7 +8019,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectAnnouncementDate
         {
             get
@@ -8034,7 +8033,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectAnnouncementDateSpecified
         {
             get
@@ -8048,7 +8047,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime constructionAuthorisationDeniedDate
         {
             get
@@ -8062,7 +8061,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool constructionAuthorisationDeniedDateSpecified
         {
             get
@@ -8076,7 +8075,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectStartDate
         {
             get
@@ -8090,7 +8089,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectStartDateSpecified
         {
             get
@@ -8104,7 +8103,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectCompletionDate
         {
             get
@@ -8118,7 +8117,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectCompletionDateSpecified
         {
             get
@@ -8132,7 +8131,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectSuspensionDate
         {
             get
@@ -8146,7 +8145,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectSuspensionDateSpecified
         {
             get
@@ -8160,7 +8159,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime withdrawalDate
         {
             get
@@ -8174,7 +8173,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool withdrawalDateSpecified
         {
             get
@@ -8188,7 +8187,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime nonRealisationDate
         {
             get
@@ -8202,7 +8201,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool nonRealisationDateSpecified
         {
             get
@@ -8216,7 +8215,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string totalCostsOfProject
         {
             get
@@ -8256,7 +8255,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfClientSpecified
         {
             get
@@ -8283,7 +8282,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfConstructionSpecified
         {
             get
@@ -8297,7 +8296,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string description
         {
             get
@@ -8311,7 +8310,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string durationOfConstructionPhase
         {
             get
@@ -8325,7 +8324,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfConcernedBuildings
         {
             get
@@ -8339,7 +8338,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfConcernedDwellings
         {
             get
@@ -8353,7 +8352,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("projectFreeText", DataType = "token")]
+        [XmlElement("projectFreeText", DataType = "token")]
         public string[] projectFreeText
         {
             get
@@ -8367,7 +8366,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("municipality")]
+        [XmlElement("municipality")]
         public swissAndFlMunicipalityType[] municipality
         {
             get
@@ -8383,10 +8382,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class constructionProjectIdentificationType
     {
 
@@ -8399,7 +8398,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string extensionOfOfficialConstructionProjectFileNoField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("localID")]
+        [XmlElement("localID")]
         public namedIdType[] localID
         {
             get
@@ -8413,7 +8412,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EPROID
         {
             get
@@ -8427,7 +8426,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialConstructionProjectFileNo
         {
             get
@@ -8441,7 +8440,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string extensionOfOfficialConstructionProjectFileNo
         {
             get
@@ -8457,35 +8456,35 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum typeOfConstructionProjectType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6010")]
+        [XmlEnum("6010")]
         Item6010,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6011")]
+        [XmlEnum("6011")]
         Item6011,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "constructionLocalisationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "constructionLocalisationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class constructionLocalisationType1
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("canton", typeof(cantonAbbreviationType))]
-        [System.Xml.Serialization.XmlElementAttribute("country", typeof(countryType1))]
-        [System.Xml.Serialization.XmlElementAttribute("municipality", typeof(swissMunicipalityType1))]
+        [XmlElement("canton", typeof(cantonAbbreviationType))]
+        [XmlElement("country", typeof(countryType1))]
+        [XmlElement("municipality", typeof(swissMunicipalityType1))]
         public object Item
         {
             get
@@ -8501,8 +8500,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
     public enum cantonAbbreviationType
     {
 
@@ -8587,10 +8586,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "countryType", Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
+    [XmlType(TypeName = "countryType", Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
     public partial class countryType1
     {
 
@@ -8601,7 +8600,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string countryNameShortField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "integer")]
+        [XmlElement(DataType = "integer")]
         public string countryId
         {
             get
@@ -8615,7 +8614,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string countryIdISO2
         {
             get
@@ -8629,7 +8628,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string countryNameShort
         {
             get
@@ -8645,10 +8644,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "swissMunicipalityType", Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
+    [XmlType(TypeName = "swissMunicipalityType", Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
     public partial class swissMunicipalityType1
     {
 
@@ -8680,7 +8679,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool municipalityIdSpecified
         {
             get
@@ -8694,7 +8693,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string municipalityName
         {
             get
@@ -8721,7 +8720,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool cantonAbbreviationSpecified
         {
             get
@@ -8748,7 +8747,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool historyMunicipalityIdSpecified
         {
             get
@@ -8764,466 +8763,466 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum typeOfPermitType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5000")]
+        [XmlEnum("5000")]
         Item5000,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5001")]
+        [XmlEnum("5001")]
         Item5001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5002")]
+        [XmlEnum("5002")]
         Item5002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5003")]
+        [XmlEnum("5003")]
         Item5003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5004")]
+        [XmlEnum("5004")]
         Item5004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5005")]
+        [XmlEnum("5005")]
         Item5005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5006")]
+        [XmlEnum("5006")]
         Item5006,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5007")]
+        [XmlEnum("5007")]
         Item5007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5008")]
+        [XmlEnum("5008")]
         Item5008,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5009")]
+        [XmlEnum("5009")]
         Item5009,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5011")]
+        [XmlEnum("5011")]
         Item5011,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5012")]
+        [XmlEnum("5012")]
         Item5012,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5015")]
+        [XmlEnum("5015")]
         Item5015,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5021")]
+        [XmlEnum("5021")]
         Item5021,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5022")]
+        [XmlEnum("5022")]
         Item5022,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5023")]
+        [XmlEnum("5023")]
         Item5023,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5031")]
+        [XmlEnum("5031")]
         Item5031,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5041")]
+        [XmlEnum("5041")]
         Item5041,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5043")]
+        [XmlEnum("5043")]
         Item5043,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5044")]
+        [XmlEnum("5044")]
         Item5044,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5051")]
+        [XmlEnum("5051")]
         Item5051,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5061")]
+        [XmlEnum("5061")]
         Item5061,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5062")]
+        [XmlEnum("5062")]
         Item5062,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5063")]
+        [XmlEnum("5063")]
         Item5063,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5064")]
+        [XmlEnum("5064")]
         Item5064,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5071")]
+        [XmlEnum("5071")]
         Item5071,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum projectStatusType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6701")]
+        [XmlEnum("6701")]
         Item6701,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6702")]
+        [XmlEnum("6702")]
         Item6702,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6703")]
+        [XmlEnum("6703")]
         Item6703,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6704")]
+        [XmlEnum("6704")]
         Item6704,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6706")]
+        [XmlEnum("6706")]
         Item6706,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6707")]
+        [XmlEnum("6707")]
         Item6707,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6708")]
+        [XmlEnum("6708")]
         Item6708,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6709")]
+        [XmlEnum("6709")]
         Item6709,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum typeOfClientType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6101")]
+        [XmlEnum("6101")]
         Item6101,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6103")]
+        [XmlEnum("6103")]
         Item6103,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6104")]
+        [XmlEnum("6104")]
         Item6104,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6107")]
+        [XmlEnum("6107")]
         Item6107,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6108")]
+        [XmlEnum("6108")]
         Item6108,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6110")]
+        [XmlEnum("6110")]
         Item6110,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6111")]
+        [XmlEnum("6111")]
         Item6111,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6115")]
+        [XmlEnum("6115")]
         Item6115,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6116")]
+        [XmlEnum("6116")]
         Item6116,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6121")]
+        [XmlEnum("6121")]
         Item6121,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6122")]
+        [XmlEnum("6122")]
         Item6122,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6123")]
+        [XmlEnum("6123")]
         Item6123,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6124")]
+        [XmlEnum("6124")]
         Item6124,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6131")]
+        [XmlEnum("6131")]
         Item6131,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6132")]
+        [XmlEnum("6132")]
         Item6132,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6133")]
+        [XmlEnum("6133")]
         Item6133,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6141")]
+        [XmlEnum("6141")]
         Item6141,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6142")]
+        [XmlEnum("6142")]
         Item6142,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6143")]
+        [XmlEnum("6143")]
         Item6143,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6161")]
+        [XmlEnum("6161")]
         Item6161,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6151")]
+        [XmlEnum("6151")]
         Item6151,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6152")]
+        [XmlEnum("6152")]
         Item6152,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6162")]
+        [XmlEnum("6162")]
         Item6162,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6163")]
+        [XmlEnum("6163")]
         Item6163,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public enum typeOfConstructionType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6211")]
+        [XmlEnum("6211")]
         Item6211,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6212")]
+        [XmlEnum("6212")]
         Item6212,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6213")]
+        [XmlEnum("6213")]
         Item6213,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6214")]
+        [XmlEnum("6214")]
         Item6214,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6219")]
+        [XmlEnum("6219")]
         Item6219,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6221")]
+        [XmlEnum("6221")]
         Item6221,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6222")]
+        [XmlEnum("6222")]
         Item6222,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6223")]
+        [XmlEnum("6223")]
         Item6223,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6231")]
+        [XmlEnum("6231")]
         Item6231,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6232")]
+        [XmlEnum("6232")]
         Item6232,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6233")]
+        [XmlEnum("6233")]
         Item6233,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6234")]
+        [XmlEnum("6234")]
         Item6234,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6235")]
+        [XmlEnum("6235")]
         Item6235,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6241")]
+        [XmlEnum("6241")]
         Item6241,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6242")]
+        [XmlEnum("6242")]
         Item6242,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6243")]
+        [XmlEnum("6243")]
         Item6243,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6244")]
+        [XmlEnum("6244")]
         Item6244,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6245")]
+        [XmlEnum("6245")]
         Item6245,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6249")]
+        [XmlEnum("6249")]
         Item6249,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6251")]
+        [XmlEnum("6251")]
         Item6251,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6252")]
+        [XmlEnum("6252")]
         Item6252,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6253")]
+        [XmlEnum("6253")]
         Item6253,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6254")]
+        [XmlEnum("6254")]
         Item6254,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6255")]
+        [XmlEnum("6255")]
         Item6255,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6256")]
+        [XmlEnum("6256")]
         Item6256,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6257")]
+        [XmlEnum("6257")]
         Item6257,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6258")]
+        [XmlEnum("6258")]
         Item6258,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6259")]
+        [XmlEnum("6259")]
         Item6259,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6261")]
+        [XmlEnum("6261")]
         Item6261,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6262")]
+        [XmlEnum("6262")]
         Item6262,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6269")]
+        [XmlEnum("6269")]
         Item6269,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6271")]
+        [XmlEnum("6271")]
         Item6271,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6272")]
+        [XmlEnum("6272")]
         Item6272,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6273")]
+        [XmlEnum("6273")]
         Item6273,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6274")]
+        [XmlEnum("6274")]
         Item6274,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6276")]
+        [XmlEnum("6276")]
         Item6276,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6278")]
+        [XmlEnum("6278")]
         Item6278,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6279")]
+        [XmlEnum("6279")]
         Item6279,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6281")]
+        [XmlEnum("6281")]
         Item6281,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6282")]
+        [XmlEnum("6282")]
         Item6282,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6283")]
+        [XmlEnum("6283")]
         Item6283,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6291")]
+        [XmlEnum("6291")]
         Item6291,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6292")]
+        [XmlEnum("6292")]
         Item6292,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6293")]
+        [XmlEnum("6293")]
         Item6293,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6294")]
+        [XmlEnum("6294")]
         Item6294,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6295")]
+        [XmlEnum("6295")]
         Item6295,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6296")]
+        [XmlEnum("6296")]
         Item6296,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6299")]
+        [XmlEnum("6299")]
         Item6299,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
     public partial class swissAndFlMunicipalityType
     {
 
@@ -9251,7 +9250,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string municipalityName
         {
             get
@@ -9291,7 +9290,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool historyMunicipalityIdSpecified
         {
             get
@@ -9307,8 +9306,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
     public enum cantonFlAbbreviationType
     {
 
@@ -9396,18 +9395,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "personIdentificationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
+    [XmlType(TypeName = "personIdentificationType", Namespace = "http://www.ech.ch/xmlns/eCH-0129/5")]
     public partial class personIdentificationType1
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("individual", typeof(personIdentificationLightType))]
-        [System.Xml.Serialization.XmlElementAttribute("organisation", typeof(organisationIdentificationType))]
+        [XmlElement("individual", typeof(personIdentificationLightType))]
+        [XmlElement("organisation", typeof(organisationIdentificationType))]
         public object Item
         {
             get
@@ -9423,18 +9422,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class infoType
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("negativeReport", typeof(infoTypeNegativeReport))]
-        [System.Xml.Serialization.XmlElementAttribute("positiveReport", typeof(infoTypePositiveReport))]
+        [XmlElement("negativeReport", typeof(infoTypeNegativeReport))]
+        [XmlElement("positiveReport", typeof(infoTypePositiveReport))]
         public object Item
         {
             get
@@ -9450,10 +9449,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class infoTypeNegativeReport
     {
 
@@ -9490,10 +9489,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class infoTypePositiveReport
     {
 
@@ -9530,10 +9529,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class partialDeliveryType
     {
 
@@ -9544,7 +9543,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string numberOfActualPackageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string uniqueIdDelivery
         {
             get
@@ -9558,7 +9557,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string totalNumberOfPackages
         {
             get
@@ -9572,7 +9571,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfActualPackage
         {
             get
@@ -9588,11 +9587,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
-    [System.Xml.Serialization.XmlRootAttribute("header", Namespace = "http://www.ech.ch/xmlns/eCH-0058/5", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlRoot("header", Namespace = "http://www.ech.ch/xmlns/eCH-0058/5", IsNullable = false)]
     public partial class headerType
     {
 
@@ -9661,7 +9660,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "anyURI")]
+        [XmlElement(DataType = "anyURI")]
         public string senderId
         {
             get
@@ -9675,7 +9674,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "anyURI")]
+        [XmlElement(DataType = "anyURI")]
         public string originalSenderId
         {
             get
@@ -9689,7 +9688,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string declarationLocalReference
         {
             get
@@ -9703,7 +9702,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("recipientId", DataType = "anyURI")]
+        [XmlElement("recipientId", DataType = "anyURI")]
         public string[] recipientId
         {
             get
@@ -9717,7 +9716,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string messageId
         {
             get
@@ -9731,7 +9730,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string referenceMessageId
         {
             get
@@ -9745,7 +9744,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string businessProcessId
         {
             get
@@ -9759,7 +9758,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string ourBusinessReferenceId
         {
             get
@@ -9773,7 +9772,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string yourBusinessReferenceId
         {
             get
@@ -9787,7 +9786,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string uniqueIdBusinessTransaction
         {
             get
@@ -9801,7 +9800,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "anyURI")]
+        [XmlElement(DataType = "anyURI")]
         public string messageType
         {
             get
@@ -9815,7 +9814,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string subMessageType
         {
             get
@@ -9855,7 +9854,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string subject
         {
             get
@@ -9869,7 +9868,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string comment
         {
             get
@@ -9909,7 +9908,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool initialMessageDateSpecified
         {
             get
@@ -9923,7 +9922,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime eventDate
         {
             get
@@ -9937,7 +9936,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool eventDateSpecified
         {
             get
@@ -9951,7 +9950,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime modificationDate
         {
             get
@@ -9965,7 +9964,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool modificationDateSpecified
         {
             get
@@ -9992,7 +9991,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("attachment")]
+        [XmlElement("attachment")]
         public object[] attachment
         {
             get
@@ -10032,7 +10031,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool responseExpectedSpecified
         {
             get
@@ -10059,7 +10058,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool businessCaseClosedSpecified
         {
             get
@@ -10073,7 +10072,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("namedMetaData")]
+        [XmlElement("namedMetaData")]
         public namedMetaDataType[] namedMetaData
         {
             get
@@ -10102,54 +10101,54 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public enum actionType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        [XmlEnum("4")]
         Item4,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        [XmlEnum("5")]
         Item5,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        [XmlEnum("6")]
         Item6,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        [XmlEnum("8")]
         Item8,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        [XmlEnum("9")]
         Item9,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        [XmlEnum("10")]
         Item10,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        [XmlEnum("12")]
         Item12,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
     public partial class namedMetaDataType
     {
 
@@ -10158,7 +10157,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string metaDataValueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string metaDataName
         {
             get
@@ -10172,7 +10171,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string metaDataValue
         {
             get
@@ -10188,10 +10187,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public partial class personIdentificationKeyOnlyType
     {
 
@@ -10219,7 +10218,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool vnSpecified
         {
             get
@@ -10246,7 +10245,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("otherPersonId")]
+        [XmlElement("otherPersonId")]
         public namedPersonIdType[] otherPersonId
         {
             get
@@ -10260,7 +10259,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("euPersonId")]
+        [XmlElement("euPersonId")]
         public namedPersonIdType[] euPersonId
         {
             get
@@ -10276,10 +10275,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
     public partial class personIdentificationType
     {
 
@@ -10317,7 +10316,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool vnSpecified
         {
             get
@@ -10344,7 +10343,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("otherPersonId")]
+        [XmlElement("otherPersonId")]
         public namedPersonIdType[] otherPersonId
         {
             get
@@ -10358,7 +10357,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("euPersonId")]
+        [XmlElement("euPersonId")]
         public namedPersonIdType[] euPersonId
         {
             get
@@ -10372,7 +10371,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialName
         {
             get
@@ -10386,7 +10385,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string firstName
         {
             get
@@ -10400,7 +10399,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string originalName
         {
             get
@@ -10442,10 +10441,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public partial class swissAddressInformationType
     {
 
@@ -10474,7 +10473,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private countryType countryField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string addressLine1
         {
             get
@@ -10488,7 +10487,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string addressLine2
         {
             get
@@ -10502,7 +10501,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string street
         {
             get
@@ -10516,7 +10515,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string houseNumber
         {
             get
@@ -10530,7 +10529,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string dwellingNumber
         {
             get
@@ -10544,7 +10543,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string locality
         {
             get
@@ -10558,7 +10557,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string town
         {
             get
@@ -10611,7 +10610,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool swissZipCodeIdSpecified
         {
             get
@@ -10640,11 +10639,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
-    [System.Xml.Serialization.XmlRootAttribute("organisationMailAdress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlRoot("organisationMailAdress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
     public partial class organisationMailAddressType
     {
 
@@ -10681,10 +10680,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public partial class organisationMailAddressInfoType
     {
 
@@ -10705,7 +10704,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string lastNameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationName
         {
             get
@@ -10719,7 +10718,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationNameAddOn1
         {
             get
@@ -10733,7 +10732,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string organisationNameAddOn2
         {
             get
@@ -10760,7 +10759,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool mrMrsSpecified
         {
             get
@@ -10774,7 +10773,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string title
         {
             get
@@ -10788,7 +10787,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string firstName
         {
             get
@@ -10802,7 +10801,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string lastName
         {
             get
@@ -10818,31 +10817,31 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [Serializable()]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public enum mrMrsType
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        [XmlEnum("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        [XmlEnum("2")]
         Item2,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        [XmlEnum("3")]
         Item3,
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
-    [System.Xml.Serialization.XmlRootAttribute("personMailAddress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlRoot("personMailAddress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
     public partial class personMailAddressType
     {
 
@@ -10879,10 +10878,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
     public partial class personMailAddressInfoType
     {
 
@@ -10910,7 +10909,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool mrMrsSpecified
         {
             get
@@ -10924,7 +10923,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string title
         {
             get
@@ -10938,7 +10937,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string firstName
         {
             get
@@ -10952,7 +10951,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string lastName
         {
             get
@@ -10968,11 +10967,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
-    [System.Xml.Serialization.XmlRootAttribute("mailAddress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0010/6")]
+    [XmlRoot("mailAddress", Namespace = "http://www.ech.ch/xmlns/eCH-0010/6", IsNullable = false)]
     public partial class mailAddressType
     {
 
@@ -10981,8 +10980,8 @@ namespace AlgoTecture.Models.GeoAdminModels
         private addressInformationType addressInformationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("organisation", typeof(organisationMailAddressInfoType))]
-        [System.Xml.Serialization.XmlElementAttribute("person", typeof(personMailAddressInfoType))]
+        [XmlElement("organisation", typeof(organisationMailAddressInfoType))]
+        [XmlElement("person", typeof(personMailAddressInfoType))]
         public object Item
         {
             get
@@ -11011,18 +11010,18 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class constructionLocalisationType
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("municipality", typeof(swissMunicipalityType))]
-        [System.Xml.Serialization.XmlElementAttribute("other", typeof(object))]
+        [XmlElement("municipality", typeof(swissMunicipalityType))]
+        [XmlElement("other", typeof(object))]
         public object Item
         {
             get
@@ -11038,10 +11037,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class swissMunicipalityType
     {
 
@@ -11065,7 +11064,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string municipalityName
         {
             get
@@ -11094,10 +11093,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class constructionProjectType
     {
 
@@ -11174,7 +11173,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private recordModificationType recordModificationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialConstructionProjectFileNo
         {
             get
@@ -11188,7 +11187,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string extensionOfOfficialConstructionProjectFileNo
         {
             get
@@ -11202,7 +11201,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string constructionProjectDescription
         {
             get
@@ -11242,7 +11241,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfPermitSpecified
         {
             get
@@ -11269,7 +11268,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfClientSpecified
         {
             get
@@ -11296,7 +11295,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfConstructionProjectSpecified
         {
             get
@@ -11323,7 +11322,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool typeOfConstructionSpecified
         {
             get
@@ -11337,7 +11336,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string totalCostsOfProject
         {
             get
@@ -11351,7 +11350,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectAnnouncementDate
         {
             get
@@ -11365,7 +11364,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectAnnouncementDateSpecified
         {
             get
@@ -11379,7 +11378,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime buildingPermitIssueDate
         {
             get
@@ -11393,7 +11392,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool buildingPermitIssueDateSpecified
         {
             get
@@ -11407,7 +11406,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectStartDate
         {
             get
@@ -11421,7 +11420,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectStartDateSpecified
         {
             get
@@ -11435,7 +11434,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectCompletionDate
         {
             get
@@ -11449,7 +11448,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectCompletionDateSpecified
         {
             get
@@ -11463,7 +11462,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime projectSuspensionDate
         {
             get
@@ -11477,7 +11476,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectSuspensionDateSpecified
         {
             get
@@ -11491,7 +11490,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime constructionAuthorisationDeniedDate
         {
             get
@@ -11505,7 +11504,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool constructionAuthorisationDeniedDateSpecified
         {
             get
@@ -11519,7 +11518,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime nonRealisationDate
         {
             get
@@ -11533,7 +11532,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool nonRealisationDateSpecified
         {
             get
@@ -11547,7 +11546,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime withdrawalDate
         {
             get
@@ -11561,7 +11560,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool withdrawalDateSpecified
         {
             get
@@ -11575,7 +11574,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string durationOfConstructionPhase
         {
             get
@@ -11602,7 +11601,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool projectStatusSpecified
         {
             get
@@ -11616,7 +11615,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfConcernedBuildings
         {
             get
@@ -11630,7 +11629,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfConcernedDwellings
         {
             get
@@ -11672,10 +11671,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class recordModificationType
     {
 
@@ -11684,7 +11683,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private System.DateTime updateDateField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime createDate
         {
             get
@@ -11698,7 +11697,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
+        [XmlElement(DataType = "date")]
         public System.DateTime updateDate
         {
             get
@@ -11714,10 +11713,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class kindOfConstructionWorkType
     {
 
@@ -11779,7 +11778,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool kindOfWorkSpecified
         {
             get
@@ -11806,7 +11805,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool energeticRestaurationSpecified
         {
             get
@@ -11833,7 +11832,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool renovationHeatingSystemSpecified
         {
             get
@@ -11860,7 +11859,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool innerConversionRenovationSpecified
         {
             get
@@ -11887,7 +11886,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool conversionSpecified
         {
             get
@@ -11914,7 +11913,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool extensionHeighteningHeatedSpecified
         {
             get
@@ -11941,7 +11940,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool extensionHeighteningNotHeatedSpecified
         {
             get
@@ -11968,7 +11967,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool thermicSolarFacilitySpecified
         {
             get
@@ -11995,7 +11994,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool photovoltaicSolarFacilitySpecified
         {
             get
@@ -12022,7 +12021,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool otherWorksSpecified
         {
             get
@@ -12064,10 +12063,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class dwellingType
     {
 
@@ -12110,7 +12109,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private recordModificationType recordModificationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string administrativeDwellingNo
         {
             get
@@ -12124,7 +12123,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string physicalDwellingNo
         {
             get
@@ -12138,7 +12137,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "gYear")]
+        [XmlElement(DataType = "gYear")]
         public string yearOfConstruction
         {
             get
@@ -12152,7 +12151,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "gYear")]
+        [XmlElement(DataType = "gYear")]
         public string yearOfDemolition
         {
             get
@@ -12166,7 +12165,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string noOfHabitableRooms
         {
             get
@@ -12180,7 +12179,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string floor
         {
             get
@@ -12207,7 +12206,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool multipleFloorSpecified
         {
             get
@@ -12221,7 +12220,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string locationOfDwellingOnFloor
         {
             get
@@ -12248,7 +12247,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool usageLimitationSpecified
         {
             get
@@ -12275,7 +12274,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool kitchenSpecified
         {
             get
@@ -12289,7 +12288,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string surfaceAreaOfDwelling
         {
             get
@@ -12316,7 +12315,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool dwellingStatusSpecified
         {
             get
@@ -12371,10 +12370,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class localityType
     {
 
@@ -12411,7 +12410,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string placeName
         {
             get
@@ -12427,10 +12426,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class streetNameType
     {
 
@@ -12456,7 +12455,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string descriptionLong
         {
             get
@@ -12470,7 +12469,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string descriptionShort
         {
             get
@@ -12484,7 +12483,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string descriptionIndex
         {
             get
@@ -12500,10 +12499,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class streetType
     {
 
@@ -12516,7 +12515,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private streetNameType[] streetNameListField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string ESID
         {
             get
@@ -12543,7 +12542,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isOfficialDescriptionSpecified
         {
             get
@@ -12557,7 +12556,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("streetNameItem", IsNullable = false)]
+        [XmlArrayItem("streetNameItem", IsNullable = false)]
         public streetNameType[] streetNameList
         {
             get
@@ -12573,10 +12572,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class coordinatesEntranceType
     {
 
@@ -12613,10 +12612,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class buildingEntranceType
     {
 
@@ -12639,7 +12638,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGAID
         {
             get
@@ -12653,7 +12652,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string buildingEntranceNo
         {
             get
@@ -12693,7 +12692,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool isOfficialAddressSpecified
         {
             get
@@ -12761,10 +12760,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class buildingVolumeType
     {
 
@@ -12779,7 +12778,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private bool normFieldSpecified;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string volume
         {
             get
@@ -12806,7 +12805,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool informationSourceSpecified
         {
             get
@@ -12833,7 +12832,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool normSpecified
         {
             get
@@ -12849,10 +12848,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class buildingDateType
     {
 
@@ -12889,7 +12888,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool periodOfConstructionSpecified
         {
             get
@@ -12905,10 +12904,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class coordinatesBuildingType
     {
 
@@ -12960,10 +12959,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class buildingType
     {
 
@@ -13026,7 +13025,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private recordModificationType recordModificationField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string officialBuildingNo
         {
             get
@@ -13040,7 +13039,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string nameOfBuilding
         {
             get
@@ -13067,7 +13066,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string localCode1
         {
             get
@@ -13081,7 +13080,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string localCode2
         {
             get
@@ -13095,7 +13094,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string localCode3
         {
             get
@@ -13109,7 +13108,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string localCode4
         {
             get
@@ -13123,7 +13122,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string neighbourhood
         {
             get
@@ -13150,7 +13149,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool buildingStatusSpecified
         {
             get
@@ -13177,7 +13176,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool buildingCategorySpecified
         {
             get
@@ -13191,7 +13190,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string buildingClass
         {
             get
@@ -13218,7 +13217,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "gYear")]
+        [XmlElement(DataType = "gYear")]
         public string yearOfRenovation
         {
             get
@@ -13232,7 +13231,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "gYear")]
+        [XmlElement(DataType = "gYear")]
         public string yearOfDemolition
         {
             get
@@ -13246,7 +13245,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string surfaceAreaOfBuilding
         {
             get
@@ -13273,7 +13272,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfFloors
         {
             get
@@ -13287,7 +13286,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string numberOfSeparateHabitableRooms
         {
             get
@@ -13314,7 +13313,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [XmlIgnore()]
         public bool civilDefenseShelterSpecified
         {
             get
@@ -13328,7 +13327,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string energyRelevantSurface
         {
             get
@@ -13422,10 +13421,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class responseHeaderType
     {
 
@@ -13442,7 +13441,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private System.DateTime responseDateField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string messageId
         {
             get
@@ -13456,7 +13455,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string requestMessageId
         {
             get
@@ -13470,7 +13469,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string businessReferenceId
         {
             get
@@ -13497,7 +13496,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string comment
         {
             get
@@ -13526,10 +13525,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class keyValuePairType
     {
 
@@ -13538,7 +13537,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string key
         {
             get
@@ -13552,7 +13551,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string value
         {
             get
@@ -13568,10 +13567,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class realestateIdentificationType
     {
 
@@ -13586,7 +13585,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string lotField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string EGRID
         {
             get
@@ -13600,7 +13599,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string number
         {
             get
@@ -13614,7 +13613,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string numberSuffix
         {
             get
@@ -13628,7 +13627,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string subDistrict
         {
             get
@@ -13642,7 +13641,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string lot
         {
             get
@@ -13658,8 +13657,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public enum maddRequestTypeRequestContext
     {
 
@@ -13672,10 +13671,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddRequestTypeRequestQuery
     {
 
@@ -13688,7 +13687,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -13702,7 +13701,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EPROID
         {
             get
@@ -13716,7 +13715,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("condition")]
+        [XmlElement("condition")]
         public maddRequestTypeRequestQueryCondition[] condition
         {
             get
@@ -13745,10 +13744,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddRequestTypeRequestQueryCondition
     {
 
@@ -13785,7 +13784,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("attributeValue", DataType = "token")]
+        [XmlElement("attributeValue", DataType = "token")]
         public string[] attributeValue
         {
             get
@@ -13801,8 +13800,8 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public enum maddRequestTypeRequestQueryConditionOperator
     {
 
@@ -13839,10 +13838,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddRequestTypeOptions
     {
 
@@ -13851,7 +13850,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string flagsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("parameterItem", IsNullable = false)]
+        [XmlArrayItem("parameterItem", IsNullable = false)]
         public keyValuePairType[] parameterList
         {
             get
@@ -13865,7 +13864,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "NMTOKENS")]
+        [XmlElement(DataType = "NMTOKENS")]
         public string flags
         {
             get
@@ -13881,11 +13880,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
-    [System.Xml.Serialization.XmlRootAttribute("maddResponse", Namespace = "http://www.ech.ch/xmlns/eCH-0206/2", IsNullable = false)]
+    [XmlType(Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlRoot("maddResponse", Namespace = "http://www.ech.ch/xmlns/eCH-0206/2", IsNullable = false)]
     public partial class maddResponseType
     {
 
@@ -13956,8 +13955,8 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("buildingList", typeof(maddResponseTypeBuildingList))]
-        [System.Xml.Serialization.XmlElementAttribute("constructionProjectList", typeof(maddResponseTypeConstructionProjectList))]
+        [XmlElement("buildingList", typeof(maddResponseTypeBuildingList))]
+        [XmlElement("constructionProjectList", typeof(maddResponseTypeConstructionProjectList))]
         public object Item
         {
             get
@@ -13999,10 +13998,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeStatus
     {
 
@@ -14011,7 +14010,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string messageField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+        [XmlElement(DataType = "positiveInteger")]
         public string code
         {
             get
@@ -14025,7 +14024,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "token")]
+        [XmlElement(DataType = "token")]
         public string message
         {
             get
@@ -14041,20 +14040,20 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeResponseHeader : responseHeaderType
     {
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeMaddAuthorization
     {
 
@@ -14076,7 +14075,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "positiveInteger")]
+        [XmlElement(DataType = "positiveInteger")]
         public string maddDataSet
         {
             get
@@ -14092,17 +14091,17 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeBuildingList
     {
 
         private maddResponseTypeBuildingListBuildingItem[] buildingItemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("buildingItem")]
+        [XmlElement("buildingItem")]
         public maddResponseTypeBuildingListBuildingItem[] buildingItem
         {
             get
@@ -14118,10 +14117,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeBuildingListBuildingItem
     {
 
@@ -14140,7 +14139,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -14167,7 +14166,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("buildingEntranceItem", IsNullable = false)]
+        [XmlArrayItem("buildingEntranceItem", IsNullable = false)]
         public maddResponseTypeBuildingListBuildingItemBuildingEntranceItem[] buildingEntranceList
         {
             get
@@ -14194,7 +14193,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("constructionWorkItem", IsNullable = false)]
+        [XmlArrayItem("constructionWorkItem", IsNullable = false)]
         public constructionWorkListTypeConstructionWorkItem[] constructionWorkList
         {
             get
@@ -14208,7 +14207,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("realestateIdentificationItem", IsNullable = false)]
+        [XmlArrayItem("realestateIdentificationItem", IsNullable = false)]
         public realestateIdentificationType[] realestateIdentificationList
         {
             get
@@ -14237,10 +14236,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeBuildingListBuildingItemBuildingEntranceItem
     {
 
@@ -14253,7 +14252,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EDID
         {
             get
@@ -14280,7 +14279,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("dwellingItem", IsNullable = false)]
+        [XmlArrayItem("dwellingItem", IsNullable = false)]
         public maddResponseTypeBuildingListBuildingItemBuildingEntranceItemDwellingItem[] dwellingList
         {
             get
@@ -14309,10 +14308,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeBuildingListBuildingItemBuildingEntranceItemDwellingItem
     {
 
@@ -14325,7 +14324,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EWID
         {
             get
@@ -14380,10 +14379,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class constructionWorkListTypeConstructionWorkItem
     {
 
@@ -14398,7 +14397,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EPROID
         {
             get
@@ -14412,7 +14411,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string ARBID
         {
             get
@@ -14426,7 +14425,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EGID
         {
             get
@@ -14468,17 +14467,17 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeConstructionProjectList
     {
 
         private maddResponseTypeConstructionProjectListConstructionProjectItem[] constructionProjectItemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("constructionProjectItem")]
+        [XmlElement("constructionProjectItem")]
         public maddResponseTypeConstructionProjectListConstructionProjectItem[] constructionProjectItem
         {
             get
@@ -14494,10 +14493,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeConstructionProjectListConstructionProjectItem
     {
 
@@ -14512,7 +14511,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string EPROID
         {
             get
@@ -14539,7 +14538,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("constructionWorkItem", IsNullable = false)]
+        [XmlArrayItem("constructionWorkItem", IsNullable = false)]
         public constructionWorkListTypeConstructionWorkItem[] constructionWorkList
         {
             get
@@ -14553,7 +14552,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("realestateIdentificationItem", IsNullable = false)]
+        [XmlArrayItem("realestateIdentificationItem", IsNullable = false)]
         public realestateIdentificationType[] realestateIdentificationList
         {
             get
@@ -14582,10 +14581,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeResponseMetadata
     {
 
@@ -14600,7 +14599,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private object extensionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("statisticsItem", IsNullable = false)]
+        [XmlArrayItem("statisticsItem", IsNullable = false)]
         public maddResponseTypeResponseMetadataStatisticsItem[] statisticsList
         {
             get
@@ -14640,7 +14639,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("remarkItem", DataType = "token", IsNullable = false)]
+        [XmlArrayItem("remarkItem", DataType = "token", IsNullable = false)]
         public string[] remarkList
         {
             get
@@ -14669,10 +14668,10 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0206/2")]
     public partial class maddResponseTypeResponseMetadataStatisticsItem
     {
 
@@ -14681,7 +14680,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         private string objectCountField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "NMTOKEN")]
+        [XmlElement(DataType = "NMTOKEN")]
         public string objectType
         {
             get
@@ -14695,7 +14694,7 @@ namespace AlgoTecture.Models.GeoAdminModels
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        [XmlElement(DataType = "nonNegativeInteger")]
         public string objectCount
         {
             get
@@ -14711,19 +14710,19 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0007/6")]
+    [XmlRoot(Namespace = "http://www.ech.ch/xmlns/eCH-0007/6", IsNullable = false)]
     public partial class municipalityRoot
     {
 
         private object itemField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("swissAndFlMunicipality", typeof(swissAndFlMunicipalityType))]
-        [System.Xml.Serialization.XmlElementAttribute("swissMunicipality", typeof(swissMunicipalityType1))]
+        [XmlElement("swissAndFlMunicipality", typeof(swissAndFlMunicipalityType))]
+        [XmlElement("swissMunicipality", typeof(swissMunicipalityType1))]
         public object Item
         {
             get
@@ -14739,11 +14738,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0044/4")]
+    [XmlRoot(Namespace = "http://www.ech.ch/xmlns/eCH-0044/4", IsNullable = false)]
     public partial class personIdentificationRoot
     {
 
@@ -14765,11 +14764,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0058/5")]
+    [XmlRoot(Namespace = "http://www.ech.ch/xmlns/eCH-0058/5", IsNullable = false)]
     public partial class eventReport
     {
 
@@ -14806,11 +14805,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0097/2")]
+    [XmlRoot(Namespace = "http://www.ech.ch/xmlns/eCH-0097/2", IsNullable = false)]
     public partial class organisationIdentificationRoot
     {
 
@@ -14832,11 +14831,11 @@ namespace AlgoTecture.Models.GeoAdminModels
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-    [System.SerializableAttribute()]
+    [Serializable()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.ech.ch/xmlns/eCH-0008/3", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.ech.ch/xmlns/eCH-0008/3")]
+    [XmlRoot(Namespace = "http://www.ech.ch/xmlns/eCH-0008/3", IsNullable = false)]
     public partial class countryRoot
     {
 

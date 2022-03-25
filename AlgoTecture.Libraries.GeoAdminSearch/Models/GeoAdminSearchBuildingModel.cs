@@ -1,4 +1,4 @@
-namespace AlgoTecture.Models.Dto
+namespace AlgoTecture.Libraries.GeoAdminSearch.Models
 {
     public class GeoAdminSearchBuildingModel
     {

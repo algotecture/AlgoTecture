@@ -1,17 +1,27 @@
-using System;
-using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using AlgoTecture.Interfaces;
-using AlgoTecture.Models.Dto;
-using AlgoTecture.Models.GeoAdminModels;
+using AlgoTecture.Libraries.GeoAdminSearch.Assistants;
+using AlgoTecture.Libraries.GeoAdminSearch.Models;
+using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
+using Newtonsoft.Json;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.GeoAdminSearch
 {
     public class GeoAdminSearcher : IGeoAdminSearcher
     {
+        public async Task<IEnumerable<Attrs>> GetAddress(string term)
+        {
+            var baseUrl = $"https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText={term}&type=locations&origins=address&limit=10";
+
+            var responseFromServer = await HttpWebRequestAssistant.GetResponse(baseUrl);
+
+            var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
+            var labels = addressResults?.results.Select(x => x.attrs);
+
+            return labels;
+        }
+        
         public async Task<GeoAdminBuilding> GetBuildingModel(GeoAdminSearchBuildingModel geoAdminSearchBuildingModel)
         {
             if (geoAdminSearchBuildingModel == null) throw new ArgumentNullException(nameof(geoAdminSearchBuildingModel));
