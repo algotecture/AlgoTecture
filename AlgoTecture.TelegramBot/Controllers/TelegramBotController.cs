@@ -16,18 +16,28 @@ public class TelegramBotController : BotController
     public async Task Start()
     {
         PushL("Hi! This bot will allow you to quickly rent a parking space (test mode)");
-        RowButton("Try to find!", Q(PressTryToFind));
+        RowButton("Try to find!", Q(PressTryToFindButton));
     }
 
     [Action]
-    private async Task PressTryToFind()
+    private async Task PressTryToFindButton()
     {
-        PushL("Start typing the address");
+        PushL("Enter the address or part of the address");
         await Send(); 
         var term =  await AwaitText();
-        
-        
-        // return new ActionResult<IEnumerable<Attrs>>(labels);
-        await Send("Your text: " + term);
+
+        var labels = await _geoAdminSearcher.GetAddress(term);
+        foreach (var label in labels)
+        {
+            RowButton(label.label, Q(PressAddressButton));
+        }
+        await Send("You won");
+    }
+
+    [Action]
+    private async Task PressAddressButton()
+    {
+        PushL("Have a good day");  
+        await Send();
     }
 }
