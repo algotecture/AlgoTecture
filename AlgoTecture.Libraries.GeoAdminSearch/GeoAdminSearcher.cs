@@ -19,7 +19,7 @@ namespace AlgoTecture.Libraries.GeoAdminSearch
             var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
             var labels = addressResults?.results.Select(x => x.attrs);
 
-            return labels;
+            return GetNormalizedLabels(labels);
         }
         
         public async Task<GeoAdminBuilding> GetBuildingModel(GeoAdminSearchBuildingModel geoAdminSearchBuildingModel)
@@ -37,6 +37,20 @@ namespace AlgoTecture.Libraries.GeoAdminSearch
             }
 
             return geoAdminBuilding;
+        }
+
+        private IEnumerable<Attrs> GetNormalizedLabels(IEnumerable<Attrs> attrs)
+        {
+            var normalizedLabelsInAttrs = new List<Attrs>();
+            
+            foreach (var attr in attrs)
+            {
+                var normalizedLabel = attr.label.Replace("<b>", string.Empty).Replace("</b>", string.Empty);
+                attr.label = normalizedLabel;
+                normalizedLabelsInAttrs.Add(attr);
+            }
+
+            return normalizedLabelsInAttrs;
         }
 
         private GeoAdminBuilding BuildingFiller(maddResponseType maddResponseTypeBuildings)
