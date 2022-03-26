@@ -15,7 +15,7 @@ public class TelegramBotController : BotController
     [Action("/start", "start the bot")]
     public async Task Start()
     {
-        PushL("Hi! This bot will allow you to quickly rent a parking space (test mode)");
+        PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
         RowButton("Try to find!", Q(PressTryToFindButton));
     }
 
