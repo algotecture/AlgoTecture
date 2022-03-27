@@ -6,6 +6,7 @@ using AlgoTecture.Interfaces;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
 using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.Models.AppsettingsModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +36,7 @@ namespace AlgoTecture
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddOptions();
-            services.Configure<Models.AppsettingsModels.AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
+            services.Configure<AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace AlgoTecture.Models.Dto
+namespace AlgoTecture.Domain.Models.Dto
 {
     public class AddSpaceModel
     {

@@ -5,10 +5,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AlgoTecture.Core.Interfaces;
+using AlgoTecture.Domain.Models.Dto;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Models;
-using AlgoTecture.Models.Dto;
-using AlgoTecture.Models.RepositoryModels;
+using AlgoTecture.Models.AppsettingsModels;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,9 +20,9 @@ namespace AlgoTecture.Implementations
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserCredentialsValidator _userCredentialsValidator;
         private readonly IPasswordEncryptor _passwordEncryptor;
-        private readonly IOptions<Models.AppsettingsModels.AuthenticationOptions> _options;
+        private readonly IOptions<AuthenticationOptions> _options;
 
-        public BearerAuthenticator(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor, IOptions<Models.AppsettingsModels.AuthenticationOptions> options)
+        public BearerAuthenticator(IUserCredentialsValidator userCredentialsValidator, IUnitOfWork unitOfWork, IPasswordEncryptor passwordEncryptor, IOptions<AuthenticationOptions> options)
         {
             _userCredentialsValidator = userCredentialsValidator ?? throw new ArgumentNullException(nameof(userCredentialsValidator));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));

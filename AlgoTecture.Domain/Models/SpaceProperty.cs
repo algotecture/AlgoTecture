@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace AlgoTecture.Models
+namespace AlgoTecture.Domain.Models
 {
     public class SpaceProperty
     {

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using AlgoTecture.Models.Dto;
+using AlgoTecture.Domain.Models.Dto;
 
 namespace AlgoTecture.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using System;
-using AlgoTecture.Models.Entities;
-using AlgoTecture.Models.RepositoryModels;
+using AlgoTecture.Domain.Models.Entities;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlgoTecture.Data

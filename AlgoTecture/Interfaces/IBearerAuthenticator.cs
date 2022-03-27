@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AlgoTecture.Models.Dto;
-using AlgoTecture.Models.RepositoryModels;
+using AlgoTecture.Domain.Models.Dto;
+using AlgoTecture.Domain.Models.RepositoryModels;
 
 namespace AlgoTecture.Interfaces
 {

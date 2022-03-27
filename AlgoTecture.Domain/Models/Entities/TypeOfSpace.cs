@@ -1,6 +1,6 @@
-﻿namespace AlgoTecture.Models.Entities
+namespace AlgoTecture.Domain.Models.Entities
 {
-    public class UtilizationType
+    public class TypeOfSpace
     {
         public int Id { get; set; }
 

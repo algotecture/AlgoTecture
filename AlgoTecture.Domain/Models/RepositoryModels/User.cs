@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgoTecture.Models.RepositoryModels
+﻿namespace AlgoTecture.Domain.Models.RepositoryModels
 {
     public class User
     {

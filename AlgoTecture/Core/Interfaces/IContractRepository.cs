@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using AlgoTecture.Models.RepositoryModels;
+using AlgoTecture.Domain.Models.RepositoryModels;
 
 namespace AlgoTecture.Core.Interfaces
 {

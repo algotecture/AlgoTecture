@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AlgoTecture.Core.Interfaces;
 using AlgoTecture.Data;
-using AlgoTecture.Models.RepositoryModels;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

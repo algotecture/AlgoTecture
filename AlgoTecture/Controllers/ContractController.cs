@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using AlgoTecture.Domain.Models.Dto;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
-using AlgoTecture.Models.Dto;
-using AlgoTecture.Models.RepositoryModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

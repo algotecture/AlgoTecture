@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Models.Dto
+﻿namespace AlgoTecture.Domain.Models.Dto
 {
     public class BearerTokenResponseModel
     {

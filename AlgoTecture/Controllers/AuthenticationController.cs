@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Interfaces;
-using AlgoTecture.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecture.Controllers
