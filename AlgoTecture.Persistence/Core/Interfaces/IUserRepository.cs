@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.RepositoryModels;
+﻿using AlgoTecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Core.Interfaces
+namespace AlgoTecture.Persistence.Core.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {

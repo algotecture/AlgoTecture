@@ -1,16 +1,15 @@
 using System.Linq;
-using AlgoTecture.Core.Interfaces;
-using AlgoTecture.Data;
+using AlgoTecture.EfCli;
 using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Models.AppsettingsModels;
+using AlgoTecture.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -29,17 +28,14 @@ namespace AlgoTecture
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.UseEfCliLibrary();
+            services.UsePersistenceLibrary();
             services.UseGeoAdminLibrary();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddOptions();
             services.Configure<AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.TryAddTransient<ISpaceGetter, SpaceGetter>();
             services.TryAddTransient<IContractService, ContractService>();
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();

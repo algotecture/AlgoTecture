@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace AlgoTecture.Core.Interfaces
+﻿namespace AlgoTecture.Persistence.Core.Interfaces
 {
     public interface IUnitOfWork
     {

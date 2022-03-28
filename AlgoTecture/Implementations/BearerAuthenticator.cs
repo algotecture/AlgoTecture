@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AlgoTecture.Core.Interfaces;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Models;
 using AlgoTecture.Models.AppsettingsModels;
+using AlgoTecture.Persistence.Core.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

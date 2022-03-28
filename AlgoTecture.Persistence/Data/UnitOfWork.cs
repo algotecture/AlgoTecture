@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AlgoTecture.Core.Interfaces;
-using AlgoTecture.Core.Repositories;
+﻿using AlgoTecture.EfCli;
+using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Persistence.Core.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Data
+namespace AlgoTecture.Persistence.Data
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using AlgoTecture.Core.Interfaces;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Persistence.Core.Interfaces;
 
 namespace AlgoTecture.Implementations
 {

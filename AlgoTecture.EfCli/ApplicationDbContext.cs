@@ -1,9 +1,9 @@
-﻿using System;
 using AlgoTecture.Domain.Models.Entities;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.Data
+namespace AlgoTecture.EfCli
 {
     public class ApplicationDbContext : DbContext
     {
@@ -19,10 +19,27 @@ namespace AlgoTecture.Data
         
         public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext()
+        {
+            //  Database.EnsureCreated();
+        }
+
+        public ApplicationDbContext(int timeOut)
+        {
+            Database.SetCommandTimeout(timeOut);
+        }
+
+        public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
-        } 
+            //  Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlite(appConnectionString);
+        }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

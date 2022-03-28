@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace AlgoTecture.Core.Interfaces
+namespace AlgoTecture.Persistence.Core.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

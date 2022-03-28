@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AlgoTecture.Core.Interfaces;
-using AlgoTecture.Data;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.EfCli;
+using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Core.Repositories
+namespace AlgoTecture.Persistence.Core.Repositories
 {
     public class SpaceRepository : GenericRepository<Space>, ISpaceRepository
     {

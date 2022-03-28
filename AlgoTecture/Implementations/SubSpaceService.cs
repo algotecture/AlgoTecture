@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AlgoTecture.Core.Interfaces;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Persistence.Core.Interfaces;
 using Newtonsoft.Json;
 
 namespace AlgoTecture.Implementations

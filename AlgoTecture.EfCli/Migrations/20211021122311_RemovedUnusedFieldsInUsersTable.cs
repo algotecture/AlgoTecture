@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AlgoTecture.Migrations
+namespace AlgoTecture.Database.Migrations
 {
     public partial class RemovedUnusedFieldsInUsersTable : Migration
     {

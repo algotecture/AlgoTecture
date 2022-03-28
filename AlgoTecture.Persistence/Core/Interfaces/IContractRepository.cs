@@ -1,8 +1,8 @@
-using System;
-using System.Threading.Tasks;
+
+
 using AlgoTecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Core.Interfaces
+namespace AlgoTecture.Persistence.Core.Interfaces
 {
     public interface IContractRepository : IGenericRepository<Contract>
     {
