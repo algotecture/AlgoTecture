@@ -1,4 +1,6 @@
+using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.TelegramBot.Interfaces;
 using Deployf.Botf;
 
 namespace AlgoTecture.TelegramBot.Controllers;
@@ -7,14 +9,30 @@ public class TelegramBotController : BotController
 {
     private readonly IGeoAdminSearcher _geoAdminSearcher;
     readonly BotfOptions _options;
+    private readonly ITelegramUserInfoService _telegramUserInfoService;
 
-    public TelegramBotController(IGeoAdminSearcher geoAdminSearcher)
+    public TelegramBotController(IGeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService)
     {
         _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
+        _telegramUserInfoService = telegramUserInfoService ?? throw new ArgumentNullException(nameof(telegramUserInfoService));
     }
     [Action("/start", "start the bot")]
     public async Task Start()
     {
+        var chatId = Context.GetSafeChatId();
+        var userId = Context.GetSafeUserId();
+        var userName = Context.GetUsername();
+        var fullUserName = Context.GetUserFullName();
+        var addTelegramUserInfoModel = new AddTelegramUserInfoModel
+        {
+            TelegramUserId = userId,
+            TelegramChatId = chatId,
+            TelegramUserName = userName,
+            TelegramUserFullName = fullUserName
+        };
+
+        var targetTelegramUserInfo = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
+        
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
         RowButton("Try to find!", Q(PressTryToFindButton));
     }

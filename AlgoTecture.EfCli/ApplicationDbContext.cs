@@ -19,6 +19,8 @@ namespace AlgoTecture.EfCli
         
         public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
 
+        public virtual DbSet<TelegramUserInfo> TelegramUserInfos { get; set; }
+
         public ApplicationDbContext()
         {
             //  Database.EnsureCreated();
@@ -50,6 +52,7 @@ namespace AlgoTecture.EfCli
             ConfigureContractsModelCreation(modelBuilder);
             ConfigureUtilizationTypesModelCreation(modelBuilder);
             ConfigureUserAuthenticationsModelCreation(modelBuilder);
+            ConfigureTelegramUserInfosModelCreation(modelBuilder);
             
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 1, Name = "Public buildings and structures"});
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 2, Name = "Residential buildings"});
@@ -75,6 +78,7 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(500);
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(500);
             modelBuilder.Entity<User>().HasIndex(x => x.Email);
+            modelBuilder.Entity<User>().HasIndex(x => x.TelegramUserInfoId);
         }
         
         private static void ConfigureSpacesModelCreation(ModelBuilder modelBuilder)
@@ -112,6 +116,15 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<UserAuthentication>().HasKey(x => new { x.Id});
             modelBuilder.Entity<UserAuthentication>().HasIndex(x => x.UserId);
             modelBuilder.Entity<UserAuthentication>().Property(x => x.HashedPassword).HasMaxLength(500);
+        }
+        
+        private static void ConfigureTelegramUserInfosModelCreation(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<TelegramUserInfo>().HasKey(x => new { x.Id});
+            modelBuilder.Entity<TelegramUserInfo>().Property(x => x.TelegramUserName).HasMaxLength(500);
+            modelBuilder.Entity<TelegramUserInfo>().Property(x => x.TelegramUserFullName).HasMaxLength(500);
+
         }
     }
 }

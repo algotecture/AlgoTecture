@@ -1,4 +1,5 @@
-﻿using AlgoTecture.EfCli;
+﻿using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.EfCli;
 using AlgoTecture.Persistence.Core.Interfaces;
 using AlgoTecture.Persistence.Core.Repositories;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,8 @@ namespace AlgoTecture.Persistence.Data
         public IContractRepository Contracts { get; private set; }
         
         public IUserAuthenticationRepository UserAuthentications { get; private set; }
+        
+        public ITelegramUserInfoRepository TelegramUserInfos { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -27,6 +30,7 @@ namespace AlgoTecture.Persistence.Data
             Spaces = new SpaceRepository(context, _logger);
             Contracts = new ContractRepository(context, _logger);
             UserAuthentications = new UserAuthenticationRepository(context, _logger);
+            TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
         }
 
         public async Task CompleteAsync()

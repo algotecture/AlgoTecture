@@ -1,7 +1,6 @@
 ﻿using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.EfCli;
 using AlgoTecture.Persistence.Core.Interfaces;
-using AlgoTecture.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -40,6 +39,7 @@ namespace AlgoTecture.Persistence.Core.Repositories
                     return await Add(entity);
                 
                 existingUser.Phone = entity.Phone;
+                existingUser.TelegramUserInfoId = entity.TelegramUserInfoId;
 
                 return existingUser;
             }
