@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Deployf.Botf" Version="0.7.2" />
+      <PackageReference Include="Volo.Abp.Core" Version="5.2.0-rc.2" />
     </ItemGroup>
 
     <ItemGroup>

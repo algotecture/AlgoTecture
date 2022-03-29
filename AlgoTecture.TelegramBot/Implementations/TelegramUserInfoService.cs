@@ -1,5 +1,6 @@
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Persistence.Core.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
 
@@ -17,7 +18,16 @@ public class TelegramUserInfoService : ITelegramUserInfoService
     public async Task<TelegramUserInfo> Create(AddTelegramUserInfoModel addTelegramUserInfoModel)
     {
         if (addTelegramUserInfoModel == null) throw new ArgumentNullException(nameof(addTelegramUserInfoModel));
+        if (addTelegramUserInfoModel.TelegramChatId == null) throw new ArgumentNullException(nameof(addTelegramUserInfoModel.TelegramChatId));
 
+        var targetTelegramUserInfo = await _unitOfWork.TelegramUserInfos.GetByTelegramChatId(addTelegramUserInfoModel.TelegramChatId.Value);
+        if (targetTelegramUserInfo != null)
+        {
+            var targetUser = await _unitOfWork.Users.GetById(targetTelegramUserInfo.Id);
+            if (targetUser != null)
+                return targetTelegramUserInfo;
+        }
+        
         var telegramUserInfoEntity = new TelegramUserInfo
         {
             TelegramUserId = addTelegramUserInfoModel.TelegramUserId,
@@ -39,7 +49,7 @@ public class TelegramUserInfoService : ITelegramUserInfoService
             TelegramUserInfoId = telegramUserInfo.Id
         };
 
-        var user = await _unitOfWork.Users.Upsert(userEntity);
+        _ = await _unitOfWork.Users.Upsert(userEntity);
         await _unitOfWork.CompleteAsync();
 
         return telegramUserInfo;

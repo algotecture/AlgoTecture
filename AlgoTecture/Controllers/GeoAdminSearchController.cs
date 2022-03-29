@@ -5,15 +5,17 @@ using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.GeoAdminSearch.Models;
 using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.Modularity;
 
 namespace AlgoTecture.Controllers
 {
     [Route("[controller]")]
+    [DependsOn(typeof(GeoAdminSearcher))]
     public class GeoAdminSearchController : Controller
     {
-        private readonly IGeoAdminSearcher _geoAdminSearcher;
+        private readonly GeoAdminSearcher _geoAdminSearcher;
 
-        public GeoAdminSearchController(IGeoAdminSearcher geoAdminSearcher)
+        public GeoAdminSearchController(GeoAdminSearcher geoAdminSearcher)
         {
             _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
         }

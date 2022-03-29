@@ -16,7 +16,7 @@ public class Program
             service.UseEfCliLibrary();
             service.UsePersistenceLibrary();
             service.AddTransient<ITelegramUserInfoService, TelegramUserInfoService>();
-            service.UseGeoAdminLibrary();
+            service.AddApplication<GeoAdminSearcherModule>();
         });
     }
 }

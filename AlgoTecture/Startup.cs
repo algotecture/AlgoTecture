@@ -30,7 +30,7 @@ namespace AlgoTecture
         {
             services.UseEfCliLibrary();
             services.UsePersistenceLibrary();
-            services.UseGeoAdminLibrary();
+            services.AddApplication<GeoAdminSearcherModule>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             

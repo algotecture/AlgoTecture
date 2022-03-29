@@ -12,11 +12,17 @@ public class TelegramUserInfoRepository : GenericRepository<TelegramUserInfo>, I
     {
     }
 
+    public async Task<TelegramUserInfo?> GetByTelegramChatId(long chatId)
+    {
+        
+        return await dbSet.FirstOrDefaultAsync(x => x.TelegramChatId == chatId);
+    }
+
     public override async Task<TelegramUserInfo> Upsert(TelegramUserInfo entity)
     {
         try
         {
-            var existingTelegramUserInfo = await dbSet.Where(x => x.Id == entity.Id)
+            var existingTelegramUserInfo = await dbSet.Where(x => x.TelegramChatId == entity.TelegramChatId)
                 .FirstOrDefaultAsync();
 
             if (existingTelegramUserInfo == null)

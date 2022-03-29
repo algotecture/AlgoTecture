@@ -20,7 +20,7 @@ namespace AlgoTecture.Persistence.Core.Repositories
             _logger = logger;
         }
 
-        public virtual async Task<T> GetById(long id)
+        public virtual async Task<T?> GetById(long id)
         {
             return await dbSet.FindAsync(id);
         }

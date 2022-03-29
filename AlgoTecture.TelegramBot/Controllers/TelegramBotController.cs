@@ -2,16 +2,18 @@ using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.TelegramBot.Interfaces;
 using Deployf.Botf;
+using Volo.Abp.Modularity;
 
 namespace AlgoTecture.TelegramBot.Controllers;
 
+[DependsOn(typeof(GeoAdminSearcher))]
 public class TelegramBotController : BotController
 {
-    private readonly IGeoAdminSearcher _geoAdminSearcher;
+    private readonly GeoAdminSearcher _geoAdminSearcher;
     readonly BotfOptions _options;
     private readonly ITelegramUserInfoService _telegramUserInfoService;
-
-    public TelegramBotController(IGeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService)
+    
+    public TelegramBotController(GeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService)
     {
         _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
         _telegramUserInfoService = telegramUserInfoService ?? throw new ArgumentNullException(nameof(telegramUserInfoService));

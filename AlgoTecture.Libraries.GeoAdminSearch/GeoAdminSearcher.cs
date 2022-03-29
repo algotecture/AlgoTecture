@@ -5,10 +5,11 @@ using AlgoTecture.Libraries.GeoAdminSearch.Assistants;
 using AlgoTecture.Libraries.GeoAdminSearch.Models;
 using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using Newtonsoft.Json;
+using Volo.Abp.DependencyInjection;
 
 namespace AlgoTecture.Libraries.GeoAdminSearch
 {
-    public class GeoAdminSearcher : IGeoAdminSearcher
+    public class GeoAdminSearcher : IGeoAdminSearcher, ITransientDependency
     {
         public async Task<IEnumerable<Attrs>> GetAddress(string term)
         {
