@@ -13,7 +13,7 @@ namespace AlgoTecture.Libraries.GeoAdminSearch
     {
         public async Task<IEnumerable<Attrs>> GetAddress(string term)
         {
-            var baseUrl = $"https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText={term}&type=locations&origins=address&limit=10";
+            var baseUrl = $"https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText={term}&type=locations&origins=address&limit=5";
 
             var responseFromServer = await HttpWebRequestAssistant.GetResponse(baseUrl);
 

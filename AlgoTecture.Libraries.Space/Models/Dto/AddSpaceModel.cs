@@ -1,4 +1,4 @@
-namespace AlgoTecture.Domain.Models.Dto
+namespace AlgoTecture.Libraries.Space.Models.Dto
 {
     public class AddSpaceModel
     {

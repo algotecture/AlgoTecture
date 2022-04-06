@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{03
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.EfCli", "AlgoTecture.EfCli\AlgoTecture.EfCli.csproj", "{9596F180-BC93-49A5-9BEF-C00BE2864613}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Space", "AlgoTecture.Libraries.Space\AlgoTecture.Libraries.Space.csproj", "{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,9 +48,14 @@ Global
 		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF969273-58F3-4C80-9C93-FB5C456C9BC2} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 		{9596F180-BC93-49A5-9BEF-C00BE2864613} = {0318C5EA-A6C7-4A42-9386-B4A83B48C76A}
+		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 	EndGlobalSection
 EndGlobal
