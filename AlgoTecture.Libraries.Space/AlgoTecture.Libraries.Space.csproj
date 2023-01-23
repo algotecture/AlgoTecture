@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Persistence\AlgoTecture.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

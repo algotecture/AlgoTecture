@@ -1,10 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
+﻿using AlgoTecture.Libraries.Space.Interfaces;
 using AlgoTecture.Persistence.Core.Interfaces;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.Space.Implementations
 {
     public class SpaceGetter : ISpaceGetter
     {
@@ -15,7 +12,7 @@ namespace AlgoTecture.Implementations
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<Space> GetByCoordinates(double latitude, double longitude)
+        public async Task<Domain.Models.RepositoryModels.Space> GetByCoordinates(double latitude, double longitude)
         {
             var targetSpace = await _unitOfWork.Spaces.GetByCoordinates(latitude, longitude);
 

@@ -69,6 +69,7 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 8, Name = "Education"});
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 9, Name = "Sports"});
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 10, Name = "Free target"});
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 11, Name = "Parking"});
         }
         
         private static void ConfigureUsersModelCreation(ModelBuilder modelBuilder)

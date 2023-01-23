@@ -9,6 +9,8 @@ namespace AlgoTecture.Domain.Models
 
         public Guid SubSpaceId { get; set; }
 
+        public int SubSpaceIdHash { get; set; }
+
         public long SpaceId { get; set; }
 
         private List<SubSpace> _subSpaces;

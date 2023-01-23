@@ -6,8 +6,8 @@ namespace AlgoTecture.Libraries.Space.Implementations;
 
 public class SpaceService : ISpaceService, ITransientDependency
 {
-    Task<Domain.Models.RepositoryModels.Space> AddOrUpdateSpace(AddSpaceModel addSpaceModel)
+    public Task<Domain.Models.RepositoryModels.Space> AddOrUpdateSpace(AddSpaceModel addSpaceModel)
     {
-        
+        return null;
     }
 }

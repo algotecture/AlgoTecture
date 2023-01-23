@@ -5,6 +5,7 @@ using AlgoTecture.Interfaces;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
 using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.Libraries.Space;
 using AlgoTecture.Models.AppsettingsModels;
 using AlgoTecture.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,6 +30,7 @@ namespace AlgoTecture
         public void ConfigureServices(IServiceCollection services)
         {
             services.UseEfCliLibrary();
+            services.UseSpaceLibrary();
             services.UsePersistenceLibrary();
             services.AddApplication<GeoAdminSearcherModule>();
 
@@ -36,7 +38,6 @@ namespace AlgoTecture
             
             services.AddOptions();
             services.Configure<AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
-            services.TryAddTransient<ISpaceGetter, SpaceGetter>();
             services.TryAddTransient<IContractService, ContractService>();
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();
             services.TryAddTransient<IBearerAuthenticator, BearerAuthenticator>();

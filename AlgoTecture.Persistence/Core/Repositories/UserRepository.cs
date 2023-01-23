@@ -15,6 +15,11 @@ namespace AlgoTecture.Persistence.Core.Repositories
             return await dbSet.FirstOrDefaultAsync(x=>x.Email == email);
         }
         
+        public virtual async Task<User> GetByTelegramChatId(long telegramChatId)
+        {
+            return await dbSet.Include(x=>x.TelegramUserInfo).FirstOrDefaultAsync(x=>x.TelegramUserInfo.TelegramChatId == telegramChatId);
+        }
+        
         public override async Task<IEnumerable<User>> All()
         {
             try
