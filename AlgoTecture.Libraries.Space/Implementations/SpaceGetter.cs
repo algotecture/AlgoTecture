@@ -18,5 +18,12 @@ namespace AlgoTecture.Libraries.Space.Implementations
 
             return targetSpace;
         }
+        
+        public async Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int typeOfSpaceId)
+        {
+            var targetSpaces = await _unitOfWork.Spaces.GetByType(typeOfSpaceId);
+
+            return targetSpaces;
+        }
     }
 }

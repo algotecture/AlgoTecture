@@ -1,7 +1,9 @@
+using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Entities;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace AlgoTecture.EfCli
 {
@@ -57,7 +59,7 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 1, Name = "Public buildings and structures"});
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 2, Name = "Residential buildings"});
             modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 3, Name = "Industrial buildings and structures"});
-            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 4, Name = "Buildings and structures intended for the needs of agriculture"});
+            modelBuilder.Entity<TypeOfSpace>().HasData(new TypeOfSpace{ Id = 4, Name = "Boat"});
             
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 1, Name = "Residential"});
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 2, Name = "Сommercial"});
@@ -70,6 +72,71 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 9, Name = "Sports"});
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 10, Name = "Free target"});
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType{ Id = 11, Name = "Parking"});
+            
+            var newSubSpaceId1 = Guid.NewGuid();
+            var newSpaceProperty1 = new SpaceProperty
+            {
+                SpaceId = 1,
+                Name = "Pedro boat",
+                SpacePropertyId = Guid.NewGuid(),
+                SubSpaces = new List<SubSpace>
+                {
+                    new()
+                    {
+                        OwnerId = 1,
+                        SubSpaceId = newSubSpaceId1,
+                        SubSpaceIdHash = newSubSpaceId1.GetHashCode(),
+                        UtilizationTypeId = 10,
+                    }
+                }
+            };
+            modelBuilder.Entity<Space>().HasData(new Space
+            {
+                Id = 1, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+                SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty1), TypeOfSpaceId = 4
+            });
+            var newSubSpaceId2 = Guid.NewGuid();
+            var newSpaceProperty2 = new SpaceProperty
+            {
+                SpaceId = 2,
+                Name = "Bartolomeu boat",
+                SpacePropertyId = Guid.NewGuid(),
+                SubSpaces = new List<SubSpace>
+                {
+                    new()
+                    {
+                        OwnerId = 1,
+                        SubSpaceId = newSubSpaceId2,
+                        SubSpaceIdHash = newSubSpaceId2.GetHashCode(),
+                        UtilizationTypeId = 10,
+                    }
+                }
+            };
+            modelBuilder.Entity<Space>().HasData(new Space
+            {
+                Id = 2, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas", SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty2), TypeOfSpaceId = 4
+            });
+            var newSubSpaceId3 = Guid.NewGuid();
+            var newSpaceProperty3 = new SpaceProperty
+            {
+                SpaceId = 3,
+                Name = "Vashka boat",
+                SpacePropertyId = Guid.NewGuid(),
+                SubSpaces = new List<SubSpace>
+                {
+                    new()
+                    {
+                        OwnerId = 1,
+                        SubSpaceId = newSubSpaceId3,
+                        SubSpaceIdHash = newSubSpaceId3.GetHashCode(),
+                        UtilizationTypeId = 10,
+                    }
+                }
+            };
+            modelBuilder.Entity<Space>().HasData(new Space
+            {
+                Id = 3, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas", SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty3), TypeOfSpaceId = 4
+            });
         }
         
         private static void ConfigureUsersModelCreation(ModelBuilder modelBuilder)

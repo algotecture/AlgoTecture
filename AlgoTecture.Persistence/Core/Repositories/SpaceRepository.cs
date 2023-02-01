@@ -1,7 +1,6 @@
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.EfCli;
 using AlgoTecture.Persistence.Core.Interfaces;
-using AlgoTecture.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +26,11 @@ namespace AlgoTecture.Persistence.Core.Repositories
         public async Task<Space> GetByCoordinates(double latitude, double longitude)
         {
             return await dbSet.FirstOrDefaultAsync(x=>Math.Abs(x.Latitude - latitude) < 0.000000001 && Math.Abs(x.Longitude - longitude) < 0.000000001);
+        }
+        
+        public async Task<List<Space>> GetByType(int typeOfSpaceId)
+        {
+            return await dbSet.Where(x=>x.TypeOfSpaceId == typeOfSpaceId).ToListAsync();
         }
 
         public override async Task<Space> Upsert(Space entity)

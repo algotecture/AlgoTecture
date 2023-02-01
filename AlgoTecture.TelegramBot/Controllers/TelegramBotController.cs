@@ -2,7 +2,6 @@ using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using AlgoTecture.Libraries.Space.Interfaces;
 using AlgoTecture.Persistence.Core.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
@@ -10,7 +9,6 @@ using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
 using Newtonsoft.Json;
 using Telegram.Bot;
-using Telegram.Bot.Requests;
 using Telegram.Bot.Types.Enums;
 using Volo.Abp.Modularity;
 
@@ -49,15 +47,44 @@ public class TelegramBotController : BotController
             TelegramUserFullName = fullUserName
         };
 
-        var targetTelegramUserInfo = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
+        _ = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
         
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
         Button("I want to rent", Q(PressToRentButton));
-        Button("I want to find", Q(PressTryToFindButton));
+        //Button("I want to find", Q(PressTryToFindButton));
     }
     
     [Action]
     private async Task PressToRentButton()
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+
+        const int boatTargetOfSpaceId = 5;
+
+        var targetSpaces = await _spaceGetter.GetByType(boatTargetOfSpaceId);
+
+        var spaceToTelegramOutList = new List<SpaceToTelegramOut>();
+
+        foreach (var space in targetSpaces)
+        {
+            var spaceToTelegramOut = new SpaceToTelegramOut
+            {
+                Name = JsonConvert.DeserializeObject<SpaceProperty>(space.SpaceProperty)?.Name,
+                SpaceId = space.Id
+            };
+
+            spaceToTelegramOutList.Add(spaceToTelegramOut);
+
+            RowButton(spaceToTelegramOut.Name, Q(PressAddressToRentButton, space.Id));
+        }
+        await Send("Choose the right address");   
+    }
+    
+    
+    [Obsolete]
+    [Action]
+    private async Task PressToRentButton1()
     {
         PushL("Enter the address or part of the address");
         await Send(); 
