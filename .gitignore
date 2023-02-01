@@ -276,3 +276,4 @@ __pycache__
 appsettings.json
 app.db-shm
 app.db-wal
+.DS_Store
