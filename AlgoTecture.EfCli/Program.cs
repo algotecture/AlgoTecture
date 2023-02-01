@@ -1,13 +1,14 @@
-﻿using AlgoTecture.EfCli;
-using Microsoft.Extensions.Configuration;
-
-namespace AlgoTecture.Database.EfCli
+﻿namespace AlgoTecture.EfCli
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             Console.WriteLine("EfCli has been started");
+            var context = new ApplicationDbContext();
+            await context.Database.EnsureCreatedAsync();
+            return 0;
+
         }
     }
 }

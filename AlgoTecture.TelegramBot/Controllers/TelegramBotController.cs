@@ -60,7 +60,7 @@ public class TelegramBotController : BotController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        const int boatTargetOfSpaceId = 5;
+        const int boatTargetOfSpaceId = 4;
 
         var targetSpaces = await _spaceGetter.GetByType(boatTargetOfSpaceId);
 
@@ -78,7 +78,7 @@ public class TelegramBotController : BotController
 
             RowButton(spaceToTelegramOut.Name, Q(PressAddressToRentButton, space.Id));
         }
-        await Send("Choose the right address");   
+        await Send("Choose your boat");   
     }
     
     
