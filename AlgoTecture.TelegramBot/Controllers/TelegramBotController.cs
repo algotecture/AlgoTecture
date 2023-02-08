@@ -60,9 +60,15 @@ public class TelegramBotController : BotController
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        Button("I want to rent", Q(PressToCalendarButton));
+        Button("I want to rent", Q(PressToChangingUtilizationType));
         //Button("I want to rent", Q(PressToRentButton, default(int)));
         Button("I have a booking", Q(PressTryToFindButton));
+    }
+    
+    [Action]
+    private async Task PressToChangingUtilizationType()
+    {
+       
     }
 
     [Action]
@@ -237,7 +243,7 @@ public class TelegramBotController : BotController
         {
             var newSpace = new Space
             {
-                TypeOfSpaceId = 1,
+                UtilizationTypeId = 1,
                 Latitude = targetAddress.latitude,
                 Longitude = targetAddress.longitude,
                 SpaceAddress = targetAddress.Address

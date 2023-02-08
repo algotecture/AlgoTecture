@@ -28,9 +28,9 @@ namespace AlgoTecture.Persistence.Core.Repositories
             return await dbSet.FirstOrDefaultAsync(x=>Math.Abs(x.Latitude - latitude) < 0.000000001 && Math.Abs(x.Longitude - longitude) < 0.000000001);
         }
         
-        public async Task<List<Space>> GetByType(int typeOfSpaceId)
+        public async Task<List<Space>> GetByType(int utilizationTypeId)
         {
-            return await dbSet.Where(x=>x.TypeOfSpaceId == typeOfSpaceId).ToListAsync();
+            return await dbSet.Where(x=>x.UtilizationTypeId == utilizationTypeId).ToListAsync();
         }
 
         public override async Task<Space> Upsert(Space entity)

@@ -19,9 +19,9 @@ namespace AlgoTecture.Libraries.Space.Implementations
             return targetSpace;
         }
         
-        public async Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int typeOfSpaceId)
+        public async Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int utilizationTypeId)
         {
-            var targetSpaces = await _unitOfWork.Spaces.GetByType(typeOfSpaceId);
+            var targetSpaces = await _unitOfWork.Spaces.GetByType(utilizationTypeId);
 
             return targetSpaces;
         }

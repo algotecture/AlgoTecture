@@ -34,4 +34,8 @@
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

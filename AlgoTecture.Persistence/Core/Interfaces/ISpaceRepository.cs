@@ -6,6 +6,6 @@ namespace AlgoTecture.Persistence.Core.Interfaces
     {
         Task<Space> GetByCoordinates(double latitude, double longitude);
         
-        Task<List<Space>> GetByType(int typeOfSpaceId);
+        Task<List<Space>> GetByType(int utilizationTypeId);
     }
 }

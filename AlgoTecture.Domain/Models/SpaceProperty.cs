@@ -10,7 +10,7 @@ namespace AlgoTecture.Domain.Models
 
         public string Description { get; set; }
         
-        public int TypeOfSpace { get; set; }
+        public int UtilizationTypeId { get; set; }
         
         public double TotalArea { get; set; }
         

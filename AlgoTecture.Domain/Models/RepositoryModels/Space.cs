@@ -6,9 +6,9 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
     {
         public long Id { get; set; }
 
-        public int TypeOfSpaceId { get; set; }
+        public int UtilizationTypeId { get; set; }
 
-        public TypeOfSpace TypeOfSpace { get; set; }
+        public UtilizationType UtilizationType { get; set; }
 
         public string SpaceAddress { get; set; }
 

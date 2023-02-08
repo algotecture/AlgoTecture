@@ -4,7 +4,7 @@
     {
         Task<Domain.Models.RepositoryModels.Space> GetByCoordinates(double latitude, double longitude);
         
-        Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int typeOfSpaceId);
+        Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int utilizationTypeId);
 
         Task<Domain.Models.RepositoryModels.Space> GetById(long spaceId);
     }
