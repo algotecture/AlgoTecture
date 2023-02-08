@@ -27,15 +27,20 @@ public class TelegramBotController : BotController
     private readonly ITelegramToAddressResolver _telegramToAddressResolver;
     private readonly ISpaceGetter _spaceGetter;
     private readonly IUnitOfWork _unitOfWork;
-    
-    public TelegramBotController(GeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService, ITelegramToAddressResolver telegramToAddressResolver, ISpaceGetter spaceGetter, IUnitOfWork unitOfWork)
+
+    readonly PagingService _pagingService;
+
+    public TelegramBotController(GeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService,
+        ITelegramToAddressResolver telegramToAddressResolver, ISpaceGetter spaceGetter, IUnitOfWork unitOfWork, PagingService pagingService)
     {
         _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
         _telegramUserInfoService = telegramUserInfoService ?? throw new ArgumentNullException(nameof(telegramUserInfoService));
         _telegramToAddressResolver = telegramToAddressResolver ?? throw new ArgumentNullException(nameof(telegramToAddressResolver));
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _unitOfWork = unitOfWork;
+        _pagingService = pagingService;
     }
+
     [Action("/start", "start the bot")]
     public async Task Start()
     {
@@ -52,13 +57,20 @@ public class TelegramBotController : BotController
         };
 
         _ = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
-        
+
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        Button("I want to rent", Q(PressToRentButton, default(int)));
+        Button("I want to rent", Q(PressToCalendarButton));
+        //Button("I want to rent", Q(PressToRentButton, default(int)));
         Button("I have a booking", Q(PressTryToFindButton));
     }
-    
+
+    [Action]
+    private async Task PressToCalendarButton()
+    {
+        await Calendar("");
+    }
+
     [Action]
     private async Task PressToRentButton(int messageId)
     {
@@ -67,7 +79,7 @@ public class TelegramBotController : BotController
 
         if (messageId != default(int))
         {
-            await Client.DeleteMessageAsync( chatId, messageId);
+            await Client.DeleteMessageAsync(chatId, messageId);
         }
 
         const int boatTargetOfSpaceId = 4;
@@ -88,12 +100,55 @@ public class TelegramBotController : BotController
 
             Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, space.Id));
         }
+
         RowButton("Go Back", Q(Start));
-        
+
         PushL("Choose your boat");
-        await SendOrUpdate();   
+        await SendOrUpdate();
     }
-    
+
+    [Action]
+    private async Task Calendar(string state)
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+
+        PushL("Pick the time");
+
+        var now = DateTime.Now;
+        new CalendarMessageBuilder()
+            .Year(now.Year).Month(now.Month).Day(now.Day)
+            .Depth(CalendarDepth.Days)
+            .SetState(state)
+            .OnNavigatePath(s => Q(Calendar, s))
+            .OnSelectPath(d => Q(DT, d.ToBinary().Base64()))
+            .SkipHour(d => d.Hour < 10 || d.Hour > 19)
+            .SkipDay(d => d.DayOfWeek == DayOfWeek.Sunday || d.DayOfWeek == DayOfWeek.Saturday)
+            .SkipMinute(d => (d.Minute % 15) != 0)
+            .SkipYear(y => y < DateTime.Now.Year)
+            .FormatMinute(d => $"{d:HH:mm}")
+            .FormatText((dt, depth, b) =>
+            {
+                b.PushL($"Select {depth}");
+                b.PushL($"Current state: {dt}");
+            })
+            .Build(Message, new PagingService());
+
+        RowButton("Go Back", Q(Start));
+        PushL("Choose date");
+        await SendOrUpdate();
+    }
+
+    [Action]
+    private async Task DT(string dt)
+    {
+        var datetime = DateTime.FromBinary(dt.Base64());
+        Button("Select new", "/start");
+        Push(datetime.ToString());
+        await SendOrUpdate();
+    }
+
+
     [Action]
     private async Task PressToSelectTheBoatButton(long spaceId)
     {
@@ -107,38 +162,39 @@ public class TelegramBotController : BotController
         if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
 
         //find the file without extension
-        var pathToBoatImage = System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Boats", $"{targetSpaceProperty.SpacePropertyId}.jpeg");
-        
+        var pathToBoatImage =
+            System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Boats", $"{targetSpaceProperty.SpacePropertyId}.jpeg");
+
         await using var stream = System.IO.File.OpenRead(pathToBoatImage);
         var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
-        
+
         var message = await Client.SendPhotoAsync(
             chatId: chatId,
             photo: inputOnlineFile,
             caption: $"<b>{targetSpaceProperty.Description}</b>",
             ParseMode.Html
         );
-        
+
         PushL($"{targetSpaceProperty.Name}");
         RowButton("Go Back", Q(PressToRentButton, message.MessageId));
-        await SendOrUpdate(); 
+        await SendOrUpdate();
     }
-    
-    
+
+
     [Obsolete]
     [Action]
     private async Task PressToRentButton1()
     {
         PushL("Enter the address or part of the address");
-        await Send(); 
+        await Send();
 
-        var term =  await AwaitText(); 
+        var term = await AwaitText();
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
         var telegramToAddressList = new List<TelegramToAddressModel>();
-        
-        
+
+
         var labels = await _geoAdminSearcher.GetAddress(term);
         foreach (var label in labels)
         {
@@ -161,11 +217,10 @@ public class TelegramBotController : BotController
         else
         {
             _telegramToAddressResolver.TryAddCurrentAddressList(chatId.Value, telegramToAddressList);
-            await Send("Choose the right address");   
+            await Send("Choose the right address");
         }
-       
     }
-    
+
     [Obsolete]
     [Action]
     private async Task PressAddressToRentButton(string geoAdminFeatureId)
@@ -173,7 +228,7 @@ public class TelegramBotController : BotController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x=>x.FeatureId == geoAdminFeatureId);
+        var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
 
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
         var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
@@ -205,7 +260,7 @@ public class TelegramBotController : BotController
                     }
                 }
             };
-            newSpace.SpaceProperty =  JsonConvert.SerializeObject(newSpaceProperty);
+            newSpace.SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty);
             await _unitOfWork.CompleteAsync();
             _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
             PressGetSubSpacePropertiesButton(spaceEntity.Id, newSpaceProperty.SubSpaces.First().SubSpaceIdHash);
@@ -223,12 +278,13 @@ public class TelegramBotController : BotController
                     Button($"({counter})", Q(PressGetSubSpacePropertiesButton, targetSpace.Id, userSubSpace.SubSpaceIdHash));
                 }
             }
+
             _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
 
             await Send("Your parking spaces at this address");
         }
     }
-    
+
     [Action]
     private async Task PressGetSubSpacePropertiesButton(long spaceId, int subSpaceIdHash)
     {
@@ -238,48 +294,49 @@ public class TelegramBotController : BotController
         var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
         var targetSubSpace = targetSpaceProperty.SubSpaces.FirstOrDefault(x => x.SubSpaceIdHash == subSpaceIdHash);
         if (targetSubSpace == null) return;
-        
+
         Button("Update", Q(PressToRentButton));
         Button("Upload photo", Q(PressToRentButton));
         Button("Remove", Q(PressToRentButton));
         await Send($"{targetSpace.SpaceAddress}{Environment.NewLine}Area: {targetSubSpace.Area}{Environment.NewLine}Contract: none ");
     }
-    
+
 
     [Action]
     private async Task PressTryToFindButton()
     {
         PushL("Enter the address or part of the address");
-        await Send(); 
-        var term =  await AwaitText();
+        await Send();
+        var term = await AwaitText();
 
         var labels = await _geoAdminSearcher.GetAddress(term);
         foreach (var label in labels)
         {
             RowButton(label.label, Q(PressAddressButton));
         }
+
         await Send("You won");
     }
-    
-    
+
 
     [Action]
     private async Task PressAddressButton()
     {
-        PushL("Have a good day");  
+        PushL("Have a good day");
         await Send();
     }
-    
+
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
         var z = Context.Update.Message.Photo;
-         var stream = System.IO.File.Open($"/Users/sipakov/Documents/repositories/MyProjects/AlgoTecture/AlgoTecture.TelegramBot/1.jpg", FileMode.OpenOrCreate);
+        var stream = System.IO.File.Open($"/Users/sipakov/Documents/repositories/MyProjects/AlgoTecture/AlgoTecture.TelegramBot/1.jpg",
+            FileMode.OpenOrCreate);
         await Client.GetInfoAndDownloadFileAsync(z[2].FileId, stream);
         if (Context.Update.Type == UpdateType.Message && Context.Update.Message.Type == MessageType.Document)
         {
             // var stream = System.IO.File.Open("file.txt");
             // await Client.GetInfoAndDownloadFileAsync(Context.Update.Message.Document.FileId, stream);
-        }  
+        }
     }
 }
