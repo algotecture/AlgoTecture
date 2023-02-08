@@ -1,6 +1,7 @@
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.Environments;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.Space.Interfaces;
 using AlgoTecture.Persistence.Core.Interfaces;
@@ -9,7 +10,10 @@ using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
 using Newtonsoft.Json;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
+using Telegram.Bot.Types.ReplyMarkups;
 using Volo.Abp.Modularity;
 
 namespace AlgoTecture.TelegramBot.Controllers;
@@ -50,15 +54,21 @@ public class TelegramBotController : BotController
         _ = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
         
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
-        Button("I want to rent", Q(PressToRentButton));
-        //Button("I want to find", Q(PressTryToFindButton));
+
+        Button("I want to rent", Q(PressToRentButton, default(int)));
+        Button("I have a booking", Q(PressTryToFindButton));
     }
     
     [Action]
-    private async Task PressToRentButton()
+    private async Task PressToRentButton(int messageId)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
+
+        if (messageId != default(int))
+        {
+            await Client.DeleteMessageAsync( chatId, messageId);
+        }
 
         const int boatTargetOfSpaceId = 4;
 
@@ -76,9 +86,42 @@ public class TelegramBotController : BotController
 
             spaceToTelegramOutList.Add(spaceToTelegramOut);
 
-            RowButton(spaceToTelegramOut.Name, Q(PressAddressToRentButton, space.Id));
+            Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, space.Id));
         }
-        await Send("Choose your boat");   
+        RowButton("Go Back", Q(Start));
+        
+        PushL("Choose your boat");
+        await SendOrUpdate();   
+    }
+    
+    [Action]
+    private async Task PressToSelectTheBoatButton(long spaceId)
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+
+        var targetSpace = await _spaceGetter.GetById(spaceId);
+
+        var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
+
+        if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
+
+        //find the file without extension
+        var pathToBoatImage = System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Boats", $"{targetSpaceProperty.SpacePropertyId}.jpeg");
+        
+        await using var stream = System.IO.File.OpenRead(pathToBoatImage);
+        var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
+        
+        var message = await Client.SendPhotoAsync(
+            chatId: chatId,
+            photo: inputOnlineFile,
+            caption: $"<b>Description</b>",
+            ParseMode.Html
+        );
+        
+        PushL($"{targetSpaceProperty.Name}");
+        RowButton("Go Back", Q(PressToRentButton, message.MessageId));
+        await SendOrUpdate(); 
     }
     
     
@@ -123,6 +166,7 @@ public class TelegramBotController : BotController
        
     }
     
+    [Obsolete]
     [Action]
     private async Task PressAddressToRentButton(string geoAdminFeatureId)
     {

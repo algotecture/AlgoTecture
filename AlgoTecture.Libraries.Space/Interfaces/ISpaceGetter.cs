@@ -6,5 +6,6 @@
         
         Task<List<Domain.Models.RepositoryModels.Space>> GetByType(int typeOfSpaceId);
 
+        Task<Domain.Models.RepositoryModels.Space> GetById(long spaceId);
     }
 }

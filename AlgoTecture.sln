@@ -18,6 +18,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.EfCli", "AlgoTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Space", "AlgoTecture.Libraries.Space\AlgoTecture.Libraries.Space.csproj", "{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{580AF6E1-3AEE-47EC-85E6-64F358795AC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Images", "AlgoTecture.Images\AlgoTecture.Images.csproj", "{190FDE51-FA83-40FD-8D07-4E2119870D00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Environments", "AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj", "{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,10 +58,20 @@ Global
 		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF969273-58F3-4C80-9C93-FB5C456C9BC2} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 		{9596F180-BC93-49A5-9BEF-C00BE2864613} = {0318C5EA-A6C7-4A42-9386-B4A83B48C76A}
 		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
+		{190FDE51-FA83-40FD-8D07-4E2119870D00} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
+		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 	EndGlobalSection
 EndGlobal
