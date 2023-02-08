@@ -115,7 +115,7 @@ public class TelegramBotController : BotController
         var message = await Client.SendPhotoAsync(
             chatId: chatId,
             photo: inputOnlineFile,
-            caption: $"<b>Description</b>",
+            caption: $"<b>{targetSpaceProperty.Description}</b>",
             ParseMode.Html
         );
         

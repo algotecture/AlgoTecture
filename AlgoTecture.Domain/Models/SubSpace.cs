@@ -21,6 +21,8 @@ namespace AlgoTecture.Domain.Models
 
         public long OwnerId { get; set; }
 
+        public string Description { get; set; }
+
         public List<SubSpace> Subspaces
         {
             get { return _subSpaces; }

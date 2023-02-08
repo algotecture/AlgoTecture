@@ -7,6 +7,8 @@ namespace AlgoTecture.Domain.Models
         public long SpaceId { get; set; }
 
         public string Name { get; set; }
+
+        public string Description { get; set; }
         
         public int TypeOfSpace { get; set; }
         
