@@ -60,8 +60,8 @@ public class TelegramBotController : BotController
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        Button("I want to rent", Q(PressToChangingUtilizationType));
-        //Button("I want to rent", Q(PressToRentButton, default(int)));
+        //Button("I want to rent", Q(PressToChangingUtilizationType));
+        Button("I want to rent", Q(PressToRentButton, default(int)));
         Button("I have a booking", Q(PressTryToFindButton));
     }
     
@@ -88,7 +88,7 @@ public class TelegramBotController : BotController
             await Client.DeleteMessageAsync(chatId, messageId);
         }
 
-        const int boatTargetOfSpaceId = 4;
+        const int boatTargetOfSpaceId = 12;
 
         var targetSpaces = await _spaceGetter.GetByType(boatTargetOfSpaceId);
 
