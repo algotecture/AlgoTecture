@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AlgoTecture.TelegramBot.Models;
 
 namespace AlgoTecture.TelegramBot.Interfaces;

@@ -5,6 +5,7 @@ using AlgoTecture.Persistence;
 using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
 using Deployf.Botf;
+using Microsoft.AspNetCore;
 
 BotfProgram.StartBot(args, false, onConfigure: (service, cfg) =>
 {
