@@ -20,6 +20,8 @@ namespace AlgoTecture.Persistence.Data
         public IUserAuthenticationRepository UserAuthentications { get; private set; }
         
         public ITelegramUserInfoRepository TelegramUserInfos { get; private set; }
+        
+        public IUtilizationTypeRepository UtilizationTypes { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -31,6 +33,7 @@ namespace AlgoTecture.Persistence.Data
             Contracts = new ContractRepository(context, _logger);
             UserAuthentications = new UserAuthenticationRepository(context, _logger);
             TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
+            UtilizationTypes = new UtilizationTypeRepository(context, _logger);
         }
 
         public async Task CompleteAsync()

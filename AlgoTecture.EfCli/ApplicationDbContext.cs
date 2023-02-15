@@ -1,5 +1,4 @@
 using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.Entities;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

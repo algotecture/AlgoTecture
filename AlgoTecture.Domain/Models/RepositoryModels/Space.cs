@@ -1,5 +1,3 @@
-using AlgoTecture.Domain.Models.Entities;
-
 namespace AlgoTecture.Domain.Models.RepositoryModels
 {
     public class Space

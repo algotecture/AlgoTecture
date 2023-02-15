@@ -1,6 +1,7 @@
 using AlgoTecture.EfCli;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.Space;
+using AlgoTecture.Libraries.UtilizationType;
 using AlgoTecture.Persistence;
 using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore;
 BotfProgram.StartBot(args, false, onConfigure: (service, cfg) =>
 {
     service.UseEfCliLibrary();
+    service.UseUtilizationTypeLibrary();
     service.UseSpaceLibrary();
     service.UsePersistenceLibrary();
     service.AddTransient<ITelegramUserInfoService, TelegramUserInfoService>();

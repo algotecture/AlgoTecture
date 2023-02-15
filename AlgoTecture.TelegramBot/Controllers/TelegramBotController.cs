@@ -9,6 +9,7 @@ using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.Environments;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.Space.Interfaces;
+using AlgoTecture.Libraries.UtilizationType;
 using AlgoTecture.Persistence.Core.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
 using AlgoTecture.TelegramBot.Models;
@@ -29,12 +30,13 @@ public class TelegramBotController : BotController
     private readonly ITelegramUserInfoService _telegramUserInfoService;
     private readonly ITelegramToAddressResolver _telegramToAddressResolver;
     private readonly ISpaceGetter _spaceGetter;
+    private readonly IUtilizationTypeGetter _utilizationTypeGetter;
     private readonly IUnitOfWork _unitOfWork;
 
     readonly PagingService _pagingService;
 
     public TelegramBotController(GeoAdminSearcher geoAdminSearcher, ITelegramUserInfoService telegramUserInfoService,
-        ITelegramToAddressResolver telegramToAddressResolver, ISpaceGetter spaceGetter, IUnitOfWork unitOfWork, PagingService pagingService)
+        ITelegramToAddressResolver telegramToAddressResolver, ISpaceGetter spaceGetter, IUnitOfWork unitOfWork, PagingService pagingService, IUtilizationTypeGetter utilizationTypeGetter)
     {
         _geoAdminSearcher = geoAdminSearcher ?? throw new ArgumentNullException(nameof(geoAdminSearcher));
         _telegramUserInfoService = telegramUserInfoService ?? throw new ArgumentNullException(nameof(telegramUserInfoService));
@@ -42,6 +44,7 @@ public class TelegramBotController : BotController
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _unitOfWork = unitOfWork;
         _pagingService = pagingService;
+        _utilizationTypeGetter = utilizationTypeGetter;
     }
 
     [Action("/start", "start the bot")]
@@ -63,11 +66,34 @@ public class TelegramBotController : BotController
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        //Button("I want to rent", Q(PressToChangingUtilizationType));
-        Button("I want to rent", Q(PressToRentButton, default(int)));
+        Button("I want to rent", Q(PressToRentButton));
         Button("I have a booking", Q(PressTryToFindButton));
     }
-    
+
+    [Action]
+    private async Task PressToRentButton()
+    {
+        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Skip(6).ToList();
+
+        var utilizationTypeToTelegramList = new List<UtilizationTypeToTelegramOut>();
+        foreach (var utilizationType in utilizationTypes)
+        {
+            var utilizationTypeOut = new UtilizationTypeToTelegramOut
+            {
+                Name = utilizationType.Name,
+                Id = utilizationType.Id
+            };
+
+            utilizationTypeToTelegramList.Add(utilizationTypeOut);
+
+            RowButton(utilizationType.Name, Q(PressToRentTargetUtilizationButton, utilizationType.Id, default(int)));   
+        }
+        RowButton("Go Back", Q(Start));
+
+        PushL("Choose your boat");
+        await SendOrUpdate();
+    }
+
     [Action]
     private async Task PressToChangingUtilizationType()
     {
@@ -81,7 +107,7 @@ public class TelegramBotController : BotController
     }
 
     [Action]
-    private async Task PressToRentButton(int messageId)
+    private async Task PressToRentTargetUtilizationButton(int utilizationType, int messageId)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
@@ -110,7 +136,7 @@ public class TelegramBotController : BotController
             Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, space.Id));
         }
 
-        RowButton("Go Back", Q(Start));
+        RowButton("Go Back", Q(PressToRentButton));
 
         PushL("Choose your boat");
         await SendOrUpdate();
@@ -185,7 +211,7 @@ public class TelegramBotController : BotController
         );
 
         PushL($"{targetSpaceProperty.Name}");
-        RowButton("Go Back", Q(PressToRentButton, message.MessageId));
+        RowButton("Go Back", Q(PressToRentTargetUtilizationButton,default(int), message.MessageId));
         await SendOrUpdate();
     }
 

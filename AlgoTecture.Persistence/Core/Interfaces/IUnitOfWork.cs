@@ -11,6 +11,8 @@
         IUserAuthenticationRepository UserAuthentications { get; }
         
         ITelegramUserInfoRepository TelegramUserInfos { get; }
+        
+        IUtilizationTypeRepository UtilizationTypes { get; }
 
         Task CompleteAsync();
     }
