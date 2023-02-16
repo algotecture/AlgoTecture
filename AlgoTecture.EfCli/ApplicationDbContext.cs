@@ -39,6 +39,10 @@ namespace AlgoTecture.EfCli
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+            if (OperatingSystem.IsLinux())
+            {
+                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");;
+            }
             optionsBuilder.UseSqlite(appConnectionString);
         }
 

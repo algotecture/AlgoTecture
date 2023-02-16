@@ -38,4 +38,10 @@
       <Folder Include="Migrations" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="app.db">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

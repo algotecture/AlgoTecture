@@ -10,4 +10,16 @@
       <Folder Include="Boats" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Boats\4c4f455c-bc98-47da-9f4b-9dcc25a17fe5.jpeg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Boats\7d2dc2f3-4f52-4244-8ade-73eba2772a51.jpeg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Boats\a5f8e388-0c2f-491c-82ff-d4c92da97aaa.jpeg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
