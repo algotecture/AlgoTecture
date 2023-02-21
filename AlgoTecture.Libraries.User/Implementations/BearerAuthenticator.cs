@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
-using AlgoTecture.Models;
-using AlgoTecture.Models.AppsettingsModels;
+using AlgoTecture.Libraries.User.Interfaces;
+using AlgoTecture.Libraries.User.Models;
+using AlgoTecture.Libraries.User.Models.AppsettingsModels;
 using AlgoTecture.Persistence.Core.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.User.Implementations
 {
     public class BearerAuthenticator : IBearerAuthenticator
     {
@@ -55,7 +51,7 @@ namespace AlgoTecture.Implementations
             return new BearerTokenResponseModel {Token = encodedJwt, Login = user.Email};
         }
         
-        public ClaimsIdentity GetIdentity(User user)
+        public ClaimsIdentity GetIdentity(Domain.Models.RepositoryModels.User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 

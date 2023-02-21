@@ -1,13 +1,11 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
+using AlgoTecture.Libraries.User.Interfaces;
 using AlgoTecture.Persistence.Core.Interfaces;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.User.Implementations
 {
     public class UserService : IUserService
     {
@@ -31,9 +29,9 @@ namespace AlgoTecture.Implementations
             if (!_userCredentialsValidator.IsValidPassword(userCredentialModel.UserPassword)) throw new ValidationException("Password is not valid");
 
             var user = await _unitOfWork.Users.GetByEmail(userCredentialModel.EmailLogin);
-            if (user !=null) throw new ValidationException("User with the same email was registered");
+            if (user == null) throw new ValidationException("User with the same email was registered");
 
-            var newUser = new User
+            var newUser = new Domain.Models.RepositoryModels.User
             {
                 Email = userCredentialModel.EmailLogin,
                 CreateDateTime = DateTime.UtcNow

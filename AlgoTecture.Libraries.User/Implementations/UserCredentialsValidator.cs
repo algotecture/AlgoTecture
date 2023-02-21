@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
-using AlgoTecture.Interfaces;
-using AlgoTecture.Models;
+using AlgoTecture.Libraries.User.Interfaces;
+using AlgoTecture.Libraries.User.Models;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.User.Implementations
 {
     public class UserCredentialsValidator : IUserCredentialsValidator
     {

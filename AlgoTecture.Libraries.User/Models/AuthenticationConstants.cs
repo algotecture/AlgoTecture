@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AlgoTecture.Models
+namespace AlgoTecture.Libraries.User.Models
 {
     public class AuthenticationConstants
     {

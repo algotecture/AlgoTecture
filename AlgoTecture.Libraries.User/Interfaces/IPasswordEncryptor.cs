@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Interfaces
+﻿namespace AlgoTecture.Libraries.User.Interfaces
 {
     public interface IPasswordEncryptor
     {

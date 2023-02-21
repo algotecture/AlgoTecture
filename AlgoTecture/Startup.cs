@@ -4,9 +4,10 @@ using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
 using AlgoTecture.Libraries.Contract;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
-using AlgoTecture.Models;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.Space;
+using AlgoTecture.Libraries.User;
+using AlgoTecture.Libraries.User.Models;
 using AlgoTecture.Models.AppsettingsModels;
 using AlgoTecture.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,16 +36,13 @@ namespace AlgoTecture
             services.UsePersistenceLibrary();
             services.AddApplication<GeoAdminSearcherModule>();
             services.UseContractLibrary();
+            services.UseUserLibrary();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddOptions();
             services.Configure<AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();
-            services.TryAddTransient<IBearerAuthenticator, BearerAuthenticator>();
-            services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();
-            services.TryAddTransient<IPasswordEncryptor, PasswordEncryptor>();
-            services.TryAddTransient<IUserService, UserService>();
 
             var jwtIssuer = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
             var jwtAlgotectureSecret = Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;

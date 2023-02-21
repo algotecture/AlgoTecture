@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 
-namespace AlgoTecture.Interfaces
+namespace AlgoTecture.Libraries.User.Interfaces
 {
     public interface IUserService
     {
