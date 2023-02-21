@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Libraries.Contract.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

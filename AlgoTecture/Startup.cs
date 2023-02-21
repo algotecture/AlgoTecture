@@ -2,6 +2,7 @@ using System.Linq;
 using AlgoTecture.EfCli;
 using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
+using AlgoTecture.Libraries.Contract;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Models;
 using AlgoTecture.Libraries.GeoAdminSearch;
@@ -33,12 +34,12 @@ namespace AlgoTecture
             services.UseSpaceLibrary();
             services.UsePersistenceLibrary();
             services.AddApplication<GeoAdminSearcherModule>();
+            services.UseContractLibrary();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddOptions();
             services.Configure<AuthenticationOptions>(Configuration.GetSection("AuthenticationOptions"));
-            services.TryAddTransient<IContractService, ContractService>();
             services.TryAddTransient<ISubSpaceService, SubSpaceService>();
             services.TryAddTransient<IBearerAuthenticator, BearerAuthenticator>();
             services.TryAddTransient<IUserCredentialsValidator, UserCredentialsValidator>();

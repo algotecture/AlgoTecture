@@ -1,12 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
+using AlgoTecture.Libraries.Contract.Interfaces;
 using AlgoTecture.Persistence.Core.Interfaces;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.Libraries.Contract.Implementations
 {
     public class ContractService : IContractService
     {
@@ -17,7 +14,7 @@ namespace AlgoTecture.Implementations
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<Contract> DeclareContract(ContractDeclarationModel contractDeclarationModel)
+        public async Task<Domain.Models.RepositoryModels.Contract> DeclareContract(ContractDeclarationModel contractDeclarationModel)
         {
             if (contractDeclarationModel == null) throw new ArgumentNullException(nameof(contractDeclarationModel));
 
@@ -29,7 +26,7 @@ namespace AlgoTecture.Implementations
 
             if (isExistContract) throw new ValidationException("This space has a contract");
 
-            var newContractDeclaration = new Contract
+            var newContractDeclaration = new Domain.Models.RepositoryModels.Contract
             {
                 OwnerUserId = targetUser.Id,
                 TenantUserId = null,
@@ -49,7 +46,7 @@ namespace AlgoTecture.Implementations
             return createdContractDeclaration;
         }
 
-        public async Task<Contract> Contract(CompleteContractModel completeContractModel)
+        public async Task<Domain.Models.RepositoryModels.Contract> Contract(CompleteContractModel completeContractModel)
         {
             if (completeContractModel == null) throw new ArgumentNullException(nameof(completeContractModel));
 

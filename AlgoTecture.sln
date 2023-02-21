@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Envir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.UtilizationType", "AlgoTecture.Libraries.UtilizationType\AlgoTecture.Libraries.UtilizationType.csproj", "{0793333A-C6CF-4B65-AFE1-1187C51EA954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Contract", "AlgoTecture.Libraries.Contract\AlgoTecture.Libraries.Contract.csproj", "{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF969273-58F3-4C80-9C93-FB5C456C9BC2} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
@@ -80,5 +86,6 @@ Global
 		{190FDE51-FA83-40FD-8D07-4E2119870D00} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
 		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 		{0793333A-C6CF-4B65-AFE1-1187C51EA954} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
+		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 	EndGlobalSection
 EndGlobal
