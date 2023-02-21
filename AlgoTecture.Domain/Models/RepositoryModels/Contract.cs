@@ -31,5 +31,7 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
         public DateTime DeclarationDateTime { get; set; }
 
         public DateTime? ContractDateTime { get; set; }
+
+        public DateTime? BookedDateTime { get; set; }
     }
 }
