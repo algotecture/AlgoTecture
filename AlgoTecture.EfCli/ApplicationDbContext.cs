@@ -68,8 +68,9 @@ namespace AlgoTecture.EfCli
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 10, Name = "Free target" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 11, Name = "Parking" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 12, Name = "Boat" });
+            
+            modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023,02,21)});
 
-            var newSpaceId1 = Guid.NewGuid();
             var newSpaceProperty1 = new SpaceProperty
             {
                 SpaceId = 1,
@@ -82,7 +83,6 @@ namespace AlgoTecture.EfCli
                 Id = 1, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty1), UtilizationTypeId = 12
             });
-            var newSpaceId2 = Guid.NewGuid();
             var newSpaceProperty2 = new SpaceProperty
             {
                 SpaceId = 2,
@@ -95,7 +95,6 @@ namespace AlgoTecture.EfCli
                 Id = 2, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty2), UtilizationTypeId = 12
             });
-            var newSpaceId3 = Guid.NewGuid();
             var newSpaceProperty3 = new SpaceProperty
             {
                 SpaceId = 3,
