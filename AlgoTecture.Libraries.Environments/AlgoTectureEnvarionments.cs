@@ -10,7 +10,7 @@ public static class AlgoTectureEnvironments
         var pathToSolution = GetPathToSolution();
         if (string.IsNullOrEmpty(pathToSolution)) throw new ArgumentNullException(nameof(pathToSolution));
 
-        var pathToImages = Path.Combine(pathToSolution, "AlgoTecture.Images");
+        var pathToImages = Path.Combine(pathToSolution, "AlgoTecture.Data.Images");
         
         if (OperatingSystem.IsLinux())
         {

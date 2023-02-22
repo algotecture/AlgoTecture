@@ -1,10 +1,11 @@
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.EfCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.EfCli
+namespace AlgoTecture.Data.Persistence.Ef
 {
     public class ApplicationDbContext : DbContext
     {
@@ -22,18 +23,12 @@ namespace AlgoTecture.EfCli
 
         public ApplicationDbContext()
         {
-            //  Database.EnsureCreated();
-        }
-
-        public ApplicationDbContext(int timeOut)
-        {
-            Database.SetCommandTimeout(timeOut);
+            
         }
 
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
-            //  Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,4 +1,4 @@
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 
 namespace AlgoTecture.Libraries.UtilizationType;
 

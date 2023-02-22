@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.User.Interfaces;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 
 namespace AlgoTecture.Libraries.User.Implementations
 {

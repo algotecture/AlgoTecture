@@ -1,4 +1,6 @@
-﻿namespace AlgoTecture.EfCli
+﻿using AlgoTecture.Data.Persistence.Ef;
+
+namespace AlgoTecture.EfCli
 {
     class Program
     {

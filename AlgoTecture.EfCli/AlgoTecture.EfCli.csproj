@@ -31,11 +31,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Data.Persistence.Ef\AlgoTecture.Data.Persistence.Ef.csproj" />
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Migrations" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,10 +1,10 @@
-﻿using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.EfCli;
-using AlgoTecture.Persistence.Core.Interfaces;
+﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Ef;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Persistence.Core.Repositories
+namespace AlgoTecture.Data.Persistence.Core.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {

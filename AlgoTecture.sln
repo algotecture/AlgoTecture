@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.GeoAd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Domain", "AlgoTecture.Domain\AlgoTecture.Domain.csproj", "{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Persistence", "AlgoTecture.Persistence\AlgoTecture.Persistence.csproj", "{3633532B-91D0-4908-AD21-291E4D9106A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Persistence", "AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj", "{3633532B-91D0-4908-AD21-291E4D9106A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0318C5EA-A6C7-4A42-9386-B4A83B48C76A}"
 EndProject
@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Space
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{580AF6E1-3AEE-47EC-85E6-64F358795AC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Images", "AlgoTecture.Images\AlgoTecture.Images.csproj", "{190FDE51-FA83-40FD-8D07-4E2119870D00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Images", "AlgoTecture.Data.Images\AlgoTecture.Data.Images.csproj", "{190FDE51-FA83-40FD-8D07-4E2119870D00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Environments", "AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj", "{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Contract", "AlgoTecture.Libraries.Contract\AlgoTecture.Libraries.Contract.csproj", "{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.User", "AlgoTecture.Libraries.User\AlgoTecture.Libraries.User.csproj", "{F878E6FA-9460-46FF-9EDE-1878A5163EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Persistence.Ef", "AlgoTecture.Data.Persistence.Ef\AlgoTecture.Data.Persistence.Ef.csproj", "{259B4676-4EFA-461D-B727-2E9FD01AD904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF969273-58F3-4C80-9C93-FB5C456C9BC2} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
@@ -94,5 +100,7 @@ Global
 		{0793333A-C6CF-4B65-AFE1-1187C51EA954} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 		{BA79C6DB-C8D0-45CA-BA5D-66C469673C09} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
 		{F878E6FA-9460-46FF-9EDE-1878A5163EC5} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
+		{259B4676-4EFA-461D-B727-2E9FD01AD904} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
+		{3633532B-91D0-4908-AD21-291E4D9106A6} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
 	EndGlobalSection
 EndGlobal

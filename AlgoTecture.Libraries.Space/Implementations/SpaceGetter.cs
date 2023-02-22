@@ -1,5 +1,5 @@
 ﻿using AlgoTecture.Libraries.Space.Interfaces;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 
 namespace AlgoTecture.Libraries.Space.Implementations
 {

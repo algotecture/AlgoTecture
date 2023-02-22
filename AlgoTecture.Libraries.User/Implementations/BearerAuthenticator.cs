@@ -5,7 +5,7 @@ using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.User.Interfaces;
 using AlgoTecture.Libraries.User.Models;
 using AlgoTecture.Libraries.User.Models.AppsettingsModels;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

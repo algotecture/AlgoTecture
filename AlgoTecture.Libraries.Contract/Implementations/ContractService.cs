@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.Contract.Interfaces;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 
 namespace AlgoTecture.Libraries.Contract.Implementations
 {

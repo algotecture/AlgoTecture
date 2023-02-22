@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
 
 namespace AlgoTecture.TelegramBot.Implementations;

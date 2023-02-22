@@ -43,7 +43,7 @@
       <ProjectReference Include="..\AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Space\AlgoTecture.Libraries.Space.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.User\AlgoTecture.Libraries.User.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Persistence\AlgoTecture.Persistence.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

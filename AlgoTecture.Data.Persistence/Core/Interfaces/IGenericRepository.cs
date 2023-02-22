@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace AlgoTecture.Persistence.Core.Interfaces
+namespace AlgoTecture.Data.Persistence.Core.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

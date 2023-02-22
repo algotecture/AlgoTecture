@@ -1,11 +1,10 @@
 ﻿using System.Linq.Expressions;
-using AlgoTecture.EfCli;
-using AlgoTecture.Persistence.Core.Interfaces;
-using AlgoTecture.Persistence.Data;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Persistence.Core.Repositories
+namespace AlgoTecture.Data.Persistence.Core.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

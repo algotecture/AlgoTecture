@@ -1,6 +1,6 @@
 ﻿using AlgoTecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Persistence.Core.Interfaces
+namespace AlgoTecture.Data.Persistence.Core.Interfaces
 {
     public interface IUserAuthenticationRepository : IGenericRepository<UserAuthentication>
     {

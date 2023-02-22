@@ -9,7 +9,7 @@ using AlgoTecture.Libraries.Space;
 using AlgoTecture.Libraries.User;
 using AlgoTecture.Libraries.User.Models;
 using AlgoTecture.Models.AppsettingsModels;
-using AlgoTecture.Persistence;
+using AlgoTecture.Data.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +31,6 @@ namespace AlgoTecture
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.UseEfCliLibrary();
             services.UseSpaceLibrary();
             services.UsePersistenceLibrary();
             services.AddApplication<GeoAdminSearcherModule>();

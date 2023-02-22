@@ -5,7 +5,7 @@ using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Interfaces;
-using AlgoTecture.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 using Newtonsoft.Json;
 
 namespace AlgoTecture.Implementations

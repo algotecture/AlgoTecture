@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Data.Persistence.Ef\AlgoTecture.Data.Persistence.Ef.csproj" />
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
-      <ProjectReference Include="..\AlgoTecture.EfCli\AlgoTecture.EfCli.csproj" />
     </ItemGroup>
 
     <ItemGroup>
