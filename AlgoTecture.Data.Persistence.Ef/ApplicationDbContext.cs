@@ -83,7 +83,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 SpaceId = 1,
                 Name = "Pedro boat",
-                SpacePropertyId = Guid.NewGuid(),
+                SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
                 Description = "Description"
             };
             modelBuilder.Entity<Space>().HasData(new Space
@@ -95,7 +95,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 SpaceId = 2,
                 Name = "Bartolomeu boat",
-                SpacePropertyId = Guid.NewGuid(),
+                SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
                 Description = "Description"
             };
             modelBuilder.Entity<Space>().HasData(new Space
@@ -107,7 +107,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 SpaceId = 3,
                 Name = "Vashka boat",
-                SpacePropertyId = Guid.NewGuid(),
+                SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
                 Description = "Description"
             };
             modelBuilder.Entity<Space>().HasData(new Space
