@@ -1,6 +1,5 @@
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.EfCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -9,6 +8,8 @@ namespace AlgoTecture.Data.Persistence.Ef
 {
     public class ApplicationDbContext : DbContext
     {
+        private readonly string _connectionString = string.Empty;
+        
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<Space> Spaces { get; set; }
@@ -25,6 +26,11 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
             
         }
+        
+        public ApplicationDbContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
@@ -33,12 +39,19 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
-            if (OperatingSystem.IsLinux())
+            if (!string.IsNullOrEmpty(_connectionString))
             {
-                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");;
+                optionsBuilder.UseSqlite(_connectionString); 
             }
-            optionsBuilder.UseSqlite(appConnectionString);
+            else
+            {
+                var appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+                if (OperatingSystem.IsLinux())
+                {
+                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");;
+                }
+                optionsBuilder.UseSqlite(appConnectionString);   
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

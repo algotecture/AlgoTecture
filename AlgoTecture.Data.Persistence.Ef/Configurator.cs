@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.EfCli
+namespace AlgoTecture.Data.Persistence.Ef
 {
     public class Configurator
     {
