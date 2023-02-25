@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Deployf.Botf" Version="0.10.0" />
+      <PackageReference Include="Deployf.Botf" Version="0.16.0" />
       <PackageReference Include="Volo.Abp.Core" Version="5.2.0-rc.2" />
     </ItemGroup>
 

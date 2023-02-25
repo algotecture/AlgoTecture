@@ -81,24 +81,26 @@ public class TelegramBotController : BotController
 
             utilizationTypeToTelegramList.Add(utilizationTypeOut);
 
-            RowButton(utilizationType.Name, Q(PressToRentTargetUtilizationButton, utilizationType.Id, default(int)));   
+           // RowButton(utilizationType.Name, Q(PressToRentTargetUtilizationButton, utilizationType.Id, default(int)));   
+          RowButton(utilizationType.Name, Q(PressToMainBookingPage, utilizationType.Id, default(int)));   
         }
         RowButton("Go Back", Q(Start));
 
         PushL("Choose your boat");
         await SendOrUpdate();
     }
-
+    
     [Action]
-    private async Task PressToChangingUtilizationType()
+    private async Task PressToMainBookingPage(int utilizationTypeId, int messageId)
     {
-       
-    }
+        RowButton("See available time", Q(PressToSeeAvailableTimeToRent, utilizationTypeId));
+        RowButton("See available boats", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
+        RowButton("Book", Q(PressToBook, utilizationTypeId));
 
-    [Action]
-    private async Task PressToCalendarButton()
-    {
-        await Calendar("");
+        RowButton("Go Back", Q(PressToRentButton));
+
+        PushL("Booking");
+        await SendOrUpdate();
     }
 
     [Action]
@@ -131,14 +133,26 @@ public class TelegramBotController : BotController
             Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, space.Id));
         }
 
-        RowButton("Go Back", Q(PressToRentButton));
+        RowButton("Go Back", Q(PressToMainBookingPage, utilizationType, default(int)));
 
-        PushL("Choose your boat");
+        PushL("Look what boats");
         await SendOrUpdate();
+    }
+    
+    [Action]
+    private async Task PressToSeeAvailableTimeToRent(int utilizationTypeId)
+    {
+        await Calendar("", utilizationTypeId);
+    }
+    
+    [Action]
+    private async Task PressToBook(int utilizationTypeId)
+    {
+        await Calendar("", utilizationTypeId);
     }
 
     [Action]
-    private async Task Calendar(string state)
+    private async Task Calendar(string state, int utilizationTypeId)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
@@ -146,25 +160,27 @@ public class TelegramBotController : BotController
         PushL("Pick the time");
 
         var now = DateTime.Now;
+        var endOfMonth = now.Day + (DateTime.DaysInMonth(now.Year, now.Month) - now.Day);
         new CalendarMessageBuilder()
-            .Year(now.Year).Month(now.Month).Day(now.Day)
-            .Depth(CalendarDepth.Days)
+            .Year(now.Year).Month(now.Month)
+            .Depth(CalendarDepth.Time)
             .SetState(state)
-            .OnNavigatePath(s => Q(Calendar, s))
-            .OnSelectPath(d => Q(DT, d.ToBinary().Base64()))
-            .SkipHour(d => d.Hour < 10 || d.Hour > 19)
-            .SkipDay(d => d.DayOfWeek == DayOfWeek.Sunday || d.DayOfWeek == DayOfWeek.Saturday)
-            .SkipMinute(d => (d.Minute % 15) != 0)
-            .SkipYear(y => y < DateTime.Now.Year)
-            .FormatMinute(d => $"{d:HH:mm}")
-            .FormatText((dt, depth, b) =>
-            {
-                b.PushL($"Select {depth}");
-                b.PushL($"Current state: {dt}");
-            })
+            .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId))
+            .OnSelectPath(d => Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)))
+            .SkipDay(d => d.Day < now.Day)
+            .SkipHour(d => d.Day == now.Day ? d.Hour < now.Hour : d.Hour < 8 || d.Hour > 24)
+            //.SkipMinute(d => (d.Minute % 15) != 0)
+            
+            
+            // .FormatMinute(d => $"{d:HH:mm}")
+            // .FormatText((dt, depth, b) =>
+            // {
+            //     b.PushL($"Select {depth}");
+            //     b.PushL($"Current state: {dt}");
+            // })
             .Build(Message, new PagingService());
 
-        RowButton("Go Back", Q(Start));
+        RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
         PushL("Choose date");
         await SendOrUpdate();
     }
