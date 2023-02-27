@@ -32,7 +32,7 @@ namespace AlgoTecture
         {
             services.UseSpaceLibrary();
             services.UsePersistenceLibrary();
-            services.AddApplication<GeoAdminSearcherModule>();
+            services.UseGeoAdminSearchLibrary();
             services.UseContractLibrary();
             services.UseUserLibrary();
 
