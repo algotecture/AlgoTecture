@@ -164,6 +164,8 @@ public class BoatController : BotController, IBoatController
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
-      
+        var s = Context.Items;
+        PushL("I'm sorry but I don't understand this command yet");
+        await SendOrUpdate();
     }
 }
