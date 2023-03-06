@@ -10,6 +10,20 @@ namespace AlgoTecture.Domain.Models
 
         public string Description { get; set; }
         
+        public decimal CostPerMinute { get; set; }
+        
+        public decimal CostPerHour { get; set; }
+        
+        public decimal CostPerDay { get; set; }
+        
+        public decimal CostPerWeek { get; set; }
+        
+        public decimal CostPerMonth { get; set; }
+        
+        public decimal CostPerYear { get; set; }
+
+        public string UnitOfPay { get; set; }
+
         public int UtilizationTypeId { get; set; }
         
         public double TotalArea { get; set; }
