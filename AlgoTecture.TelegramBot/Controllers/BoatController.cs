@@ -165,7 +165,7 @@ public class BoatController : BotController, IBoatController
     public async Task Unknown()
     {
         var s = Context.Items;
-        PushL("I'm sorry but I don't understand this command yet");
+        PushL("I'm sorry, but I'm not yet able to understand natural language requests at the moment. Please provide specific instructions using the AlgoTecture bot interface for me to execute tasks.");
         await SendOrUpdate();
     }
 }
