@@ -34,7 +34,7 @@ namespace AlgoTecture.Libraries.Contract.Implementations
                 SubSpaceId = contractDeclarationModel.SubSpaceId,
                 ContractFrom = contractDeclarationModel.DateStart,
                 ContractTo = contractDeclarationModel.DateStop,
-                Cost = contractDeclarationModel.Cost,
+                TotalPrice = contractDeclarationModel.TotalPrice,
                 UtilizationTypeId = contractDeclarationModel.UtilizationTypeId,
                 DeclarationDateTime = DateTime.UtcNow,
                 ContractDateTime = null

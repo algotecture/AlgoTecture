@@ -18,7 +18,9 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
 
         public Guid SubSpaceId { get; set; }
         
-        public decimal Cost { get; set; }
+        public string PriceCurrency { get; set; }
+
+        public string TotalPrice { get; set; }
         
         public int? UtilizationTypeId { get; set; }
         
@@ -31,13 +33,5 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
         public DateTime? ContractTo { get; set; }
 
         public DateTime? ContractDateTime { get; set; }
-        
-        public DateTime? BookingDateTime { get; set; }
-
-        public DateTime? BookedFrom { get; set; }
-        
-        public DateTime? BookedTo { get; set; }
-        
-        public DateTime? CancellationBookedDateTime { get; set; }
     }
 }

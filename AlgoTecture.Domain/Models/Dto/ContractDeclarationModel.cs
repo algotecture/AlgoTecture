@@ -12,7 +12,7 @@ namespace AlgoTecture.Domain.Models.Dto
 
         public DateTime DateStop { get; set; }
 
-        public decimal Cost { get; set; }
+        public string TotalPrice { get; set; }
 
         public int UtilizationTypeId { get; set; }
         

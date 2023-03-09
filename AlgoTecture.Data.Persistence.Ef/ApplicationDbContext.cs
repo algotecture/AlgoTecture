@@ -1,4 +1,3 @@
-using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +21,10 @@ namespace AlgoTecture.Data.Persistence.Ef
         public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
 
         public virtual DbSet<TelegramUserInfo> TelegramUserInfos { get; set; }
+
+        public virtual DbSet<Reservation> Reservations { get; set; }
+        
+        public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
 
         public ApplicationDbContext()
         {
@@ -64,6 +67,8 @@ namespace AlgoTecture.Data.Persistence.Ef
             ConfigureUtilizationTypesModelCreation(modelBuilder);
             ConfigureUserAuthenticationsModelCreation(modelBuilder);
             ConfigureTelegramUserInfosModelCreation(modelBuilder);
+            ConfigureReservationsModelCreation(modelBuilder);
+            ConfigurePriceSpecificationModelCreation(modelBuilder);
 
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 1, Name = "Residential" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 2, Name = "Сommercial" });
@@ -85,9 +90,8 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 1,
                 Name = "Pedro boat",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
-                Description = "Description",
-                CostPerHour = 1,
-                UnitOfPay = ((UnitOfPay)0).ToString()
+                Description = "Description"
+                
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -99,9 +103,7 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 2,
                 Name = "Bartolomeu boat",
                 SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
-                Description = "Description",
-                CostPerHour = 1,
-                UnitOfPay = ((UnitOfPay)0).ToString()
+                Description = "Description"
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -113,9 +115,7 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 3,
                 Name = "Vashka boat",
                 SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
-                Description = "Description",
-                CostPerHour = 1,
-                UnitOfPay = ((UnitOfPay)0).ToString()
+                Description = "Description"
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -154,6 +154,28 @@ namespace AlgoTecture.Data.Persistence.Ef
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<UtilizationType>().HasKey(x => new { x.Id });
             modelBuilder.Entity<UtilizationType>().Property(x => x.Name).HasMaxLength(500);
+        }
+        
+        private static void ConfigureReservationsModelCreation(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<Reservation>().HasKey(x => new { x.Id });
+            modelBuilder.Entity<Reservation>().HasIndex(x => x.TenantUser);
+            modelBuilder.Entity<Reservation>().HasIndex(x => x.Space);
+            modelBuilder.Entity<Reservation>().Property(x => x.SubSpaceId).HasMaxLength(100);
+            modelBuilder.Entity<Reservation>().Property(x => x.PriceCurrency).HasMaxLength(100);
+            modelBuilder.Entity<Reservation>().Property(x => x.TotalPrice).HasMaxLength(100);
+            modelBuilder.Entity<Reservation>().Property(x => x.ReservationStatus).HasMaxLength(100);
+        }
+        
+        private static void ConfigurePriceSpecificationModelCreation(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+            modelBuilder.Entity<PriceSpecification>().HasKey(x => new { x.Id });
+            modelBuilder.Entity<PriceSpecification>().HasIndex(x => x.Space);
+            modelBuilder.Entity<PriceSpecification>().Property(x => x.SubSpaceId).HasMaxLength(100);
+            modelBuilder.Entity<PriceSpecification>().Property(x => x.UnitOfDateTime).HasMaxLength(100);
+            modelBuilder.Entity<PriceSpecification>().Property(x => x.PriceCurrency).HasMaxLength(100);
         }
 
         private static void ConfigureUserAuthenticationsModelCreation(ModelBuilder modelBuilder)

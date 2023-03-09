@@ -1,6 +1,6 @@
 ﻿namespace AlgoTecture.Domain.Enum;
 
-public enum UnitOfPay
+public enum PriceCurrency
 {
     Usd = 0,
     Eur = 1
