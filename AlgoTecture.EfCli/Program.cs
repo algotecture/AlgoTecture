@@ -13,10 +13,24 @@ namespace AlgoTecture.EfCli
             var currentDirectory = Directory.GetCurrentDirectory();
             _configuration = new ConfigurationBuilder().SetBasePath(currentDirectory)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            var connectionString = _configuration?.GetConnectionString("DefaultConnection");
-            if (connectionString == null) return 0;
+            var appConnectionString = string.Empty;
+                
+            if (OperatingSystem.IsLinux())
+            {
+                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");
+            }
+            if (OperatingSystem.IsWindows())
+            {
+                appConnectionString = Configurator.GetConfiguration().GetConnectionString("WindowsSqlLiteDevelopingConnection");
+            }
+            if (OperatingSystem.IsMacOS())
+            {
+                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+            }
+
+            if (appConnectionString == null) return 0;
             
-            var context = new ApplicationDbContext(connectionString);
+            var context = new ApplicationDbContext(appConnectionString);
             await context.Database.EnsureCreatedAsync();
 
             return 0;

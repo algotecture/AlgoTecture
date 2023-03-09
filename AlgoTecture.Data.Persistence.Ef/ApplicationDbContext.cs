@@ -49,11 +49,21 @@ namespace AlgoTecture.Data.Persistence.Ef
             }
             else
             {
-                var appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+                var appConnectionString = string.Empty;
+                
                 if (OperatingSystem.IsLinux())
                 {
-                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");;
+                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");
                 }
+                if (OperatingSystem.IsWindows())
+                {
+                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("WindowsSqlLiteDevelopingConnection");
+                }
+                if (OperatingSystem.IsMacOS())
+                {
+                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
+                }
+                
                 optionsBuilder.UseSqlite(appConnectionString);   
             }
         }
