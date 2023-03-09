@@ -13,6 +13,8 @@
         ITelegramUserInfoRepository TelegramUserInfos { get; }
         
         IUtilizationTypeRepository UtilizationTypes { get; }
+        
+        IReservationRepository Reservations { get; }
 
         Task CompleteAsync();
     }

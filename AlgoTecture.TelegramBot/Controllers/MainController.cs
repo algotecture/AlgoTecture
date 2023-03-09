@@ -28,7 +28,7 @@ public class MainController : BotController, IMainController
         var userId = Context.GetSafeUserId();
         var userName = Context.GetUsername();
         var fullUserName = Context.GetUserFullName();
-        var addTelegramUserInfoModel = new AddTelegramUserInfoModel
+        var addTelegramUserInfoModel = new AddOrUpdateTelegramUserInfoModel
         {
             TelegramUserId = userId,
             TelegramChatId = chatId,
@@ -36,7 +36,7 @@ public class MainController : BotController, IMainController
             TelegramUserFullName = fullUserName
         };
 
-        _ = await _telegramUserInfoService.Create(addTelegramUserInfoModel);
+        _ = await _telegramUserInfoService.AddOrUpdate(addTelegramUserInfoModel);
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 

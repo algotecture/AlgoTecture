@@ -22,9 +22,17 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
 
         public string TotalPrice { get; set; }
         
+        public long PriceSpecificationId { get; set; }
+
+        public PriceSpecification PriceSpecification { get; set; }
+        
         public int? UtilizationTypeId { get; set; }
         
         public UtilizationType UtilizationType { get; set; }
+        
+        public long? ReservationId { get; set; }
+
+        public Reservation Reservation { get; set; }
 
         public DateTime? DeclarationDateTime { get; set; }
         

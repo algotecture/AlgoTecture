@@ -1,6 +1,6 @@
 namespace AlgoTecture.Domain.Models.Dto;
 
-public class AddTelegramUserInfoModel
+public class AddOrUpdateTelegramUserInfoModel
 {
     public long? TelegramUserId { get; set; }
 

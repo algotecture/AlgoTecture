@@ -6,5 +6,5 @@ namespace AlgoTecture.TelegramBot.Interfaces;
 
 public interface ITelegramUserInfoService
 {
-    Task<TelegramUserInfo> Create(AddTelegramUserInfoModel addTelegramUserInfoModel);
+    Task<TelegramUserInfo> AddOrUpdate(AddOrUpdateTelegramUserInfoModel addOrUpdateTelegramUserInfoModel);
 }

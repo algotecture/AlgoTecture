@@ -157,6 +157,9 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Contract>().HasKey(x => new { x.Id });
+            modelBuilder.Entity<Contract>().HasIndex(x => x.ReservationId);
+            modelBuilder.Entity<Contract>().HasIndex(x => x.SpaceId);
+            modelBuilder.Entity<Contract>().HasIndex(x => x.SubSpaceId);
         }
 
         private static void ConfigureUtilizationTypesModelCreation(ModelBuilder modelBuilder)
@@ -170,8 +173,8 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<Reservation>().HasKey(x => new { x.Id });
-            modelBuilder.Entity<Reservation>().HasIndex(x => x.TenantUser);
-            modelBuilder.Entity<Reservation>().HasIndex(x => x.Space);
+            modelBuilder.Entity<Reservation>().HasIndex(x => x.TenantUserId);
+            modelBuilder.Entity<Reservation>().HasIndex(x => x.SpaceId);
             modelBuilder.Entity<Reservation>().Property(x => x.SubSpaceId).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.PriceCurrency).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.TotalPrice).HasMaxLength(100);
@@ -182,7 +185,7 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
             modelBuilder.Entity<PriceSpecification>().HasKey(x => new { x.Id });
-            modelBuilder.Entity<PriceSpecification>().HasIndex(x => x.Space);
+            modelBuilder.Entity<PriceSpecification>().HasIndex(x => x.SpaceId);
             modelBuilder.Entity<PriceSpecification>().Property(x => x.SubSpaceId).HasMaxLength(100);
             modelBuilder.Entity<PriceSpecification>().Property(x => x.UnitOfDateTime).HasMaxLength(100);
             modelBuilder.Entity<PriceSpecification>().Property(x => x.PriceCurrency).HasMaxLength(100);

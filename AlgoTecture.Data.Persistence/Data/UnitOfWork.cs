@@ -1,6 +1,7 @@
 ﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Data.Persistence.Core.Repositories;
 using AlgoTecture.Data.Persistence.Ef;
+using AlgoTecture.Domain.Models.RepositoryModels;
 using Microsoft.Extensions.Logging;
 
 namespace AlgoTecture.Data.Persistence.Data
@@ -21,6 +22,8 @@ namespace AlgoTecture.Data.Persistence.Data
         public ITelegramUserInfoRepository TelegramUserInfos { get; private set; }
         
         public IUtilizationTypeRepository UtilizationTypes { get; private set; }
+        
+        public IReservationRepository Reservations { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -33,6 +36,7 @@ namespace AlgoTecture.Data.Persistence.Data
             UserAuthentications = new UserAuthenticationRepository(context, _logger);
             TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
             UtilizationTypes = new UtilizationTypeRepository(context, _logger);
+            Reservations = new ReservationRepository(context, _logger);
         }
 
         public async Task CompleteAsync()
