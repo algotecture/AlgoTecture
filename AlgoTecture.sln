@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{03
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.EfCli", "AlgoTecture.EfCli\AlgoTecture.EfCli.csproj", "{9596F180-BC93-49A5-9BEF-C00BE2864613}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Space", "AlgoTecture.Libraries.Space\AlgoTecture.Libraries.Space.csproj", "{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Spaces", "AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj", "{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{580AF6E1-3AEE-47EC-85E6-64F358795AC9}"
 EndProject
@@ -24,17 +24,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Images", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Environments", "AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj", "{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.UtilizationType", "AlgoTecture.Libraries.UtilizationType\AlgoTecture.Libraries.UtilizationType.csproj", "{0793333A-C6CF-4B65-AFE1-1187C51EA954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.UtilizationTypes", "AlgoTecture.Libraries.UtilizationTypes\AlgoTecture.Libraries.UtilizationTypes.csproj", "{0793333A-C6CF-4B65-AFE1-1187C51EA954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Contract", "AlgoTecture.Libraries.Contract\AlgoTecture.Libraries.Contract.csproj", "{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Contracts", "AlgoTecture.Libraries.Contracts\AlgoTecture.Libraries.Contracts.csproj", "{BA79C6DB-C8D0-45CA-BA5D-66C469673C09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.User", "AlgoTecture.Libraries.User\AlgoTecture.Libraries.User.csproj", "{F878E6FA-9460-46FF-9EDE-1878A5163EC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Users", "AlgoTecture.Libraries.Users\AlgoTecture.Libraries.Users.csproj", "{F878E6FA-9460-46FF-9EDE-1878A5163EC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Persistence.Ef", "AlgoTecture.Data.Persistence.Ef\AlgoTecture.Data.Persistence.Ef.csproj", "{259B4676-4EFA-461D-B727-2E9FD01AD904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Reservation", "AlgoTecture.Libraries.Reservation\AlgoTecture.Libraries.Reservation.csproj", "{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Reservations", "AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj", "{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.PriceSpecification", "AlgoTecture.Libraries.PriceSpecification\AlgoTecture.Libraries.PriceSpecification.csproj", "{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.PriceSpecifications", "AlgoTecture.Libraries.PriceSpecifications\AlgoTecture.Libraries.PriceSpecifications.csproj", "{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

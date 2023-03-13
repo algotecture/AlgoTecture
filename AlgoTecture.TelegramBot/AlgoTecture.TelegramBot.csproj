@@ -15,8 +15,8 @@
       <ProjectReference Include="..\AlgoTecture.Data.Images\AlgoTecture.Data.Images.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Libraries.Space\AlgoTecture.Libraries.Space.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Libraries.UtilizationType\AlgoTecture.Libraries.UtilizationType.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Libraries.UtilizationTypes\AlgoTecture.Libraries.UtilizationTypes.csproj" />
       <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
     </ItemGroup>
 

@@ -1,6 +1,6 @@
 using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.Space;
-using AlgoTecture.Libraries.UtilizationType;
+using AlgoTecture.Libraries.Spaces;
+using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.TelegramBot.Controllers;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;

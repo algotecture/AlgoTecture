@@ -1,12 +1,12 @@
 using System.Linq;
 using AlgoTecture.Implementations;
 using AlgoTecture.Interfaces;
-using AlgoTecture.Libraries.Contract;
+using AlgoTecture.Libraries.Contracts;
 using AlgoTecture.Middleware.CustomExceptionMiddleware;
 using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.Space;
-using AlgoTecture.Libraries.User;
-using AlgoTecture.Libraries.User.Models;
+using AlgoTecture.Libraries.Spaces;
+using AlgoTecture.Libraries.Users;
+using AlgoTecture.Libraries.Users.Models;
 using AlgoTecture.Models.AppsettingsModels;
 using AlgoTecture.Data.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

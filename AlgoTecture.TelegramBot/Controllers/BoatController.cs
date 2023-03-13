@@ -1,6 +1,6 @@
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Libraries.Environments;
-using AlgoTecture.Libraries.Space.Interfaces;
+using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;

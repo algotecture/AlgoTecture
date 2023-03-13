@@ -2,7 +2,7 @@ using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.Space.Interfaces;
+using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;

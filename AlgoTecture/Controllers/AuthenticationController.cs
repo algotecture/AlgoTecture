@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Interfaces;
-using AlgoTecture.Libraries.User.Interfaces;
+using AlgoTecture.Libraries.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlgoTecture.Controllers

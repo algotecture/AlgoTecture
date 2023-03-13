@@ -1,5 +1,5 @@
 using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Libraries.UtilizationType;
+using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Interfaces;
 using AlgoTecture.TelegramBot.Models;
