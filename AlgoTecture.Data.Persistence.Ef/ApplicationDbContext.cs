@@ -9,7 +9,7 @@ namespace AlgoTecture.Data.Persistence.Ef
     public class ApplicationDbContext : DbContext
     {
         private readonly string _connectionString = string.Empty;
-        
+
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<Space> Spaces { get; set; }
@@ -23,14 +23,13 @@ namespace AlgoTecture.Data.Persistence.Ef
         public virtual DbSet<TelegramUserInfo> TelegramUserInfos { get; set; }
 
         public virtual DbSet<Reservation> Reservations { get; set; }
-        
+
         public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
 
         public ApplicationDbContext()
         {
-            
         }
-        
+
         public ApplicationDbContext(string connectionString)
         {
             _connectionString = connectionString;
@@ -45,26 +44,28 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
             if (!string.IsNullOrEmpty(_connectionString))
             {
-                optionsBuilder.UseSqlite(_connectionString); 
+                optionsBuilder.UseSqlite(_connectionString);
             }
             else
             {
                 var appConnectionString = string.Empty;
-                
+
                 if (OperatingSystem.IsLinux())
                 {
                     appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");
                 }
+
                 if (OperatingSystem.IsWindows())
                 {
                     appConnectionString = Configurator.GetConfiguration().GetConnectionString("WindowsSqlLiteDevelopingConnection");
                 }
+
                 if (OperatingSystem.IsMacOS())
                 {
                     appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
                 }
-                
-                optionsBuilder.UseSqlite(appConnectionString);   
+
+                optionsBuilder.UseSqlite(appConnectionString);
             }
         }
 
@@ -80,6 +81,9 @@ namespace AlgoTecture.Data.Persistence.Ef
             ConfigureReservationsModelCreation(modelBuilder);
             ConfigurePriceSpecificationModelCreation(modelBuilder);
 
+
+            //Data seeding to tests
+
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 1, Name = "Residential" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 2, Name = "Сommercial" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 3, Name = "Production" });
@@ -92,8 +96,11 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 10, Name = "Free target" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 11, Name = "Parking" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 12, Name = "Boat" });
-            
-            modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023,02,21)});
+
+            modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023, 02, 21) });
+            modelBuilder.Entity<User>().HasData(new User { Id = 2, CreateDateTime = new DateTime(2023, 03, 14) });
+            modelBuilder.Entity<User>().HasData(new User { Id = 3, CreateDateTime = new DateTime(2023, 03, 14) });
+
 
             var newSpaceProperty1 = new SpaceProperty
             {
@@ -101,7 +108,6 @@ namespace AlgoTecture.Data.Persistence.Ef
                 Name = "Pedro boat",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
                 Description = "Description"
-                
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -131,6 +137,25 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 Id = 3, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty3), UtilizationTypeId = 12
+            });
+
+            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            {
+                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfDateTime = "Hour"
+            });
+
+            modelBuilder.Entity<Reservation>().HasData(new Reservation
+            {
+                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.UtcNow,
+                ReservationFrom = DateTime.UtcNow + TimeSpan.FromDays(1), ReservationTo = DateTime.UtcNow + TimeSpan.FromHours(2),
+                ReservationStatus = "Confirmed"
+            });
+            
+            modelBuilder.Entity<Reservation>().HasData(new Reservation
+            {
+                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.UtcNow + TimeSpan.FromDays(1),
+                ReservationFrom = DateTime.UtcNow + TimeSpan.FromDays(2), ReservationTo = DateTime.UtcNow + TimeSpan.FromHours(3),
+                ReservationStatus = "Confirmed"
             });
         }
 
@@ -168,7 +193,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<UtilizationType>().HasKey(x => new { x.Id });
             modelBuilder.Entity<UtilizationType>().Property(x => x.Name).HasMaxLength(500);
         }
-        
+
         private static void ConfigureReservationsModelCreation(ModelBuilder modelBuilder)
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
@@ -176,11 +201,10 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<Reservation>().HasIndex(x => x.TenantUserId);
             modelBuilder.Entity<Reservation>().HasIndex(x => x.SpaceId);
             modelBuilder.Entity<Reservation>().Property(x => x.SubSpaceId).HasMaxLength(100);
-            modelBuilder.Entity<Reservation>().Property(x => x.PriceCurrency).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.TotalPrice).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.ReservationStatus).HasMaxLength(100);
         }
-        
+
         private static void ConfigurePriceSpecificationModelCreation(ModelBuilder modelBuilder)
         {
             if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));

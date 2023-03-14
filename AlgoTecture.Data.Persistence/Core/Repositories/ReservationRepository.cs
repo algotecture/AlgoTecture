@@ -1,4 +1,5 @@
-﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
+﻿using System.Diagnostics.CodeAnalysis;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Data.Persistence.Ef;
 using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models.RepositoryModels;
@@ -11,7 +12,8 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
 {
     public ReservationRepository(ApplicationDbContext context, ILogger logger) : base(context, logger) { }
 
-    public async Task<Reservation> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
+    [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+    public async Task<Reservation?> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
     {
         var query = dbSet.AsQueryable();
         if (!string.IsNullOrEmpty(subSpaceId))
@@ -25,7 +27,7 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
         query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
         query.Where(x => x.ReservationFrom <= reservationTo && x.ReservationTo >= reservationFrom);
 
-        return await query.SingleOrDefaultAsync();
+        return (await query.ToListAsync()).SingleOrDefault();
     }
     
     public override async Task<IEnumerable<Reservation>> All()
@@ -50,7 +52,6 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
             if (existingReservation == null)
                 return await Add(entity);
 
-            existingReservation.PriceCurrency = entity.PriceCurrency;
             existingReservation.ReservationFrom = entity.ReservationFrom;
             existingReservation.ReservationTo = entity.ReservationTo;
             existingReservation.ReservationStatus = entity.ReservationStatus;
