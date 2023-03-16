@@ -105,7 +105,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             var newSpaceProperty1 = new SpaceProperty
             {
                 SpaceId = 1,
-                Name = "Pedro boat",
+                Name = "Santa María",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
                 Description = "Description"
             };
@@ -117,7 +117,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             var newSpaceProperty2 = new SpaceProperty
             {
                 SpaceId = 2,
-                Name = "Bartolomeu boat",
+                Name = "Niña",
                 SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
                 Description = "Description"
             };
@@ -129,7 +129,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             var newSpaceProperty3 = new SpaceProperty
             {
                 SpaceId = 3,
-                Name = "Vashka boat",
+                Name = "Pinta",
                 SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
                 Description = "Description"
             };
@@ -141,7 +141,7 @@ namespace AlgoTecture.Data.Persistence.Ef
 
             modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
             {
-                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour"
+                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "50"
             });
 
             modelBuilder.Entity<Reservation>().HasData(new Reservation

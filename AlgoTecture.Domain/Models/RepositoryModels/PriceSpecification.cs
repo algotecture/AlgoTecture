@@ -8,7 +8,7 @@ public class PriceSpecification
 
     public Space Space { get; set; }
     
-    public string SubSpaceId { get; set; }
+    public string? SubSpaceId { get; set; }
 
     public string PricePerTime { get; set; }
 

@@ -69,7 +69,7 @@ public class BoatController : BotController, IBoatController
 
         RowButton("Go Back", Q(PressToMainBookingPage, utilizationType, default(int)));
 
-        PushL("Look what boats");
+        PushL("Choose Your Desired Boat");
         await SendOrUpdate();
     }
     
