@@ -141,7 +141,7 @@ namespace AlgoTecture.Data.Persistence.Ef
 
             modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
             {
-                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfDateTime = "Hour"
+                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour"
             });
 
             modelBuilder.Entity<Reservation>().HasData(new Reservation
@@ -211,7 +211,8 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<PriceSpecification>().HasKey(x => new { x.Id });
             modelBuilder.Entity<PriceSpecification>().HasIndex(x => x.SpaceId);
             modelBuilder.Entity<PriceSpecification>().Property(x => x.SubSpaceId).HasMaxLength(100);
-            modelBuilder.Entity<PriceSpecification>().Property(x => x.UnitOfDateTime).HasMaxLength(100);
+            modelBuilder.Entity<PriceSpecification>().Property(x => x.UnitOfTime).HasMaxLength(100);
+            modelBuilder.Entity<PriceSpecification>().Property(x => x.PricePerTime).HasMaxLength(100);
             modelBuilder.Entity<PriceSpecification>().Property(x => x.PriceCurrency).HasMaxLength(100);
         }
 

@@ -10,9 +10,11 @@ public class PriceSpecification
     
     public string SubSpaceId { get; set; }
 
+    public string PricePerTime { get; set; }
+
     public string PriceCurrency { get; set; }
 
-    public string UnitOfDateTime { get; set; }
+    public string UnitOfTime { get; set; }
 
     public DateTime? ValidFrom { get; set; }
 
