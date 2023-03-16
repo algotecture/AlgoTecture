@@ -47,7 +47,7 @@ public class ReservationService : IReservationService
         var reservation = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
             addOrUpdateReservationModel.ReservationFrom.Value, addOrUpdateReservationModel.ReservationTo.Value);
 
-        if (reservation != null) return resultReservation;
+        if (reservation != null) return null;
             
         resultReservation = await _unitOfWork.Reservations.Upsert(entity);
         return resultReservation;

@@ -12,4 +12,15 @@
       <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="app.db">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

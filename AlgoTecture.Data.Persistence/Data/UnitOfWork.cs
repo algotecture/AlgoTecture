@@ -28,7 +28,7 @@ namespace AlgoTecture.Data.Persistence.Data
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
-            _logger = loggerFactory.CreateLogger("logs");
+            _logger = loggerFactory != null ? loggerFactory.CreateLogger("logs") : null;
 
             Users = new UserRepository(context, _logger);
             Spaces = new SpaceRepository(context, _logger);

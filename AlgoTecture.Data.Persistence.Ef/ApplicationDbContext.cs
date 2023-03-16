@@ -100,6 +100,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023, 02, 21) });
             modelBuilder.Entity<User>().HasData(new User { Id = 2, CreateDateTime = new DateTime(2023, 03, 14) });
             modelBuilder.Entity<User>().HasData(new User { Id = 3, CreateDateTime = new DateTime(2023, 03, 14) });
+            modelBuilder.Entity<User>().HasData(new User { Id = 4, CreateDateTime = new DateTime(2023, 03, 16) });
 
 
             var newSpaceProperty1 = new SpaceProperty
@@ -146,15 +147,15 @@ namespace AlgoTecture.Data.Persistence.Ef
 
             modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
-                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.UtcNow,
-                ReservationFrom = DateTime.UtcNow + TimeSpan.FromDays(1), ReservationTo = DateTime.UtcNow + TimeSpan.FromHours(2),
+                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.Parse("2023-03-16 15:00"),
+                ReservationFrom = DateTime.Parse("2023-03-17 15:00"), ReservationTo = DateTime.Parse("2023-03-17 17:00"),
                 ReservationStatus = "Confirmed"
             });
             
             modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
-                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.UtcNow + TimeSpan.FromDays(1),
-                ReservationFrom = DateTime.UtcNow + TimeSpan.FromDays(2), ReservationTo = DateTime.UtcNow + TimeSpan.FromHours(3),
+                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.Parse("2023-03-17 15:00"),
+                ReservationFrom = DateTime.Parse("2023-03-18 15:00"), ReservationTo = DateTime.Parse("2023-03-18 18:00"),
                 ReservationStatus = "Confirmed"
             });
         }

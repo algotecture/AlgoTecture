@@ -27,7 +27,9 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
         query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
         query.Where(x => x.ReservationFrom <= reservationTo && x.ReservationTo >= reservationFrom);
 
-        return (await query.ToListAsync()).SingleOrDefault();
+        var result =  await query.ToListAsync();
+
+        return result.SingleOrDefault();
     }
     
     public override async Task<IEnumerable<Reservation>> All()

@@ -20,4 +20,10 @@
       <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="app.db">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
