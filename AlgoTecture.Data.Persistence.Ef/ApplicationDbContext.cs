@@ -10,6 +10,8 @@ namespace AlgoTecture.Data.Persistence.Ef
     {
         private readonly string _connectionString = string.Empty;
 
+        private readonly bool _isTest = false;
+
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<Space> Spaces { get; set; }
@@ -30,9 +32,10 @@ namespace AlgoTecture.Data.Persistence.Ef
         {
         }
 
-        public ApplicationDbContext(string connectionString)
+        public ApplicationDbContext(string connectionString, bool isTest)
         {
             _connectionString = connectionString;
+            _isTest = isTest;
         }
 
         public ApplicationDbContext(DbContextOptions options)
@@ -42,7 +45,11 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!string.IsNullOrEmpty(_connectionString))
+            if (_isTest)
+            {
+                optionsBuilder.UseInMemoryDatabase("AppInMemory");
+            }
+            else if (!string.IsNullOrEmpty(_connectionString) && !_isTest)
             {
                 optionsBuilder.UseSqlite(_connectionString);
             }

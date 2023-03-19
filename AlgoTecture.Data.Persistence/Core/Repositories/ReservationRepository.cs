@@ -25,7 +25,8 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
             query.Where(x => x.SpaceId == spaceId);
         }
         query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
-        query.Where(x => x.ReservationFrom <= reservationTo && x.ReservationTo >= reservationFrom);
+        query = query.Where(x => x.ReservationFrom <= reservationTo);
+        query = query.Where(x => x.ReservationTo >= reservationFrom);
 
         var result =  await query.ToListAsync();
 

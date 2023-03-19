@@ -30,7 +30,7 @@ namespace AlgoTecture.EfCli
 
             if (appConnectionString == null) return 0;
             
-            var context = new ApplicationDbContext(appConnectionString);
+            var context = new ApplicationDbContext(appConnectionString, false);
             await context.Database.EnsureCreatedAsync();
 
             return 0;
