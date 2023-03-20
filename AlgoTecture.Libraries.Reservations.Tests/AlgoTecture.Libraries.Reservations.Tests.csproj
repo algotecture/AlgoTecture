@@ -17,10 +17,4 @@
       <ProjectReference Include="..\AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="app.db">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
 </Project>

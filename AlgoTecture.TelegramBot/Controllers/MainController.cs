@@ -32,7 +32,7 @@ public class MainController : BotController, IMainController
         {
             TelegramUserId = userId,
             TelegramChatId = chatId,
-            TelegramUserName = userName,
+            TelegramUserName = userName,    
             TelegramUserFullName = fullUserName
         };
 
