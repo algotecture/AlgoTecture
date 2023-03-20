@@ -76,14 +76,14 @@ public class BoatController : BotController, IBoatController
     [Action]
     private async Task PressToSeeAvailableTimeToRent(int utilizationTypeId)
     {
-        await Calendar("", utilizationTypeId, false);
+        await Calendar("", utilizationTypeId, false,"");
     }
     
     [Action]
     private async Task PressToBook(int utilizationTypeId)
     {
-        RowButton("Rental start time", Q(PressToChooseTheDate, utilizationTypeId));
-        RowButton("Rental end time", Q(PressToChooseTheDate,utilizationTypeId));
+        RowButton("Rental start time", Q(PressToChooseTheDate, utilizationTypeId, "start"));
+        RowButton("Rental end time", Q(PressToChooseTheDate,utilizationTypeId, "end"));
         RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
         
         RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
@@ -93,36 +93,42 @@ public class BoatController : BotController, IBoatController
     }
 
     [Action]
-    private async Task PressToChooseTheDate(int utilizationTypeId)
+    private async Task PressToChooseTheDate(int utilizationTypeId, string startEnd)
     {
-        await Calendar("", utilizationTypeId, false);
+        await Calendar("", utilizationTypeId, false, startEnd);
     }
 
     [Action]
-    private async Task PressToEnterTheStartTime(int utilizationTypeId)
+    private async Task PressToEnterTheStartEndTime(int utilizationTypeId, DateTime? dateTime, string startEnd)
     {
         PushL("Enter the rental start time (in hh:mm format, for example, 14:15)");
         await Send();
         var term = await AwaitText();
-       
-        RowButton(term, Q(PressToChooseTheDate, utilizationTypeId));
-      //  RowButton("Rental end time", Q(PressToChooseTheDate,utilizationTypeId));
-       // RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
-        
-      //  RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
+
+        RowButton(
+            dateTime != null && startEnd.Equals("start")
+                ? $"{dateTime.Value.Year}/{dateTime.Value.Month}/{dateTime.Value.Day} {term}"
+                : "Rental start time", Q(PressToChooseTheDate, utilizationTypeId, "start"));
+        RowButton(
+            dateTime != null && startEnd.Equals("end")
+                ? $"{dateTime.Value.Year}/{dateTime.Value.Month}/{dateTime.Value.Day} {term}"
+                : "Rental end time", Q(PressToChooseTheDate, utilizationTypeId, "end"));
+        RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
+
+        RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
 
         await Send("text");   
     }
 
     [Action]
-    private async Task Calendar(string state, int utilizationTypeId, bool isNavigateBetweenMonths)
+    private async Task Calendar(string state, int utilizationTypeId, bool isNavigateBetweenMonths, string startEnd)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
         PushL("Pick the time");
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
 
         var calendar = new CalendarMessageBuilder();
         if (isNavigateBetweenMonths)
@@ -131,8 +137,8 @@ public class BoatController : BotController, IBoatController
                 .Year(now.Year).Month(now.Month)
                 .Depth(CalendarDepth.Days)
                 .SetState(state)
-                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true))
-                .OnSelectPath(d => Q(PressToEnterTheStartTime, utilizationTypeId));
+                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true, startEnd))
+                .OnSelectPath(d => Q(PressToEnterTheStartEndTime, utilizationTypeId, d, startEnd));
         }
         else
         {
@@ -140,8 +146,8 @@ public class BoatController : BotController, IBoatController
                 .Year(now.Year).Month(now.Month)
                 .Depth(CalendarDepth.Days)
                 .SetState(state)
-                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true))
-                .OnSelectPath(d => Q(PressToEnterTheStartTime, utilizationTypeId))
+                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true, startEnd))
+                .OnSelectPath(d => Q(PressToEnterTheStartEndTime, utilizationTypeId, d, startEnd))
                 .SkipDay(d => d.Day < now.Day);
         }
 
@@ -193,11 +199,18 @@ public class BoatController : BotController, IBoatController
         await SendOrUpdate();
     }
 
-
+    [On(Handle.Exception)]
+    public async Task Exception()
+    {
+        var s = Context;
+        PushL(
+            "Ooops");
+        await SendOrUpdate();
+    }
+    
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
-        var s = Context.Items;
         PushL(
             "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Please provide specific instructions using the AlgoTecture bot interface for me to execute tasks.");
         await SendOrUpdate();
