@@ -41,7 +41,7 @@ public class MainController : BotController, IMainController
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
         Button("I want to rent", Q(PressToRentButton));
-        Button("I have a booking", Q(PressToFindBooking));
+        Button("I have a reservation", Q(PressToFindBooking));
         RowButton("Manage the contract", Q(PressToManageContract));
     }
     
@@ -61,7 +61,9 @@ public class MainController : BotController, IMainController
 
             utilizationTypeToTelegramList.Add(utilizationTypeOut);
 
-            RowButton(utilizationType.Name, Q(_boatController.PressToMainBookingPage, utilizationType.Id, default(int)));   
+            var botState = new BotState { UtilizationTypeId = utilizationType.Id, MessageId = default(int) };
+
+            RowButton(utilizationType.Name, Q(_boatController.PressToMainBookingPage, botState));   
         }
         RowButton("Go Back", Q(Start));
 

@@ -1,6 +1,8 @@
+using AlgoTecture.TelegramBot.Models;
+
 namespace AlgoTecture.TelegramBot.Controllers.Interfaces;
 
 public interface IBoatController
 {
-      Task PressToMainBookingPage(int utilizationTypeId, int messageId);
+      Task PressToMainBookingPage(BotState botState);
 }

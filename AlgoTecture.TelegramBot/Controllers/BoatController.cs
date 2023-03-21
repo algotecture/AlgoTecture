@@ -2,6 +2,7 @@ using AlgoTecture.Domain.Models;
 using AlgoTecture.Libraries.Environments;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
+using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
 using Newtonsoft.Json;
@@ -23,29 +24,29 @@ public class BoatController : BotController, IBoatController
     }
 
     [Action]
-    public async Task PressToMainBookingPage(int utilizationTypeId, int messageId)
+    public async Task PressToMainBookingPage(BotState botState)
     {
-        RowButton("See available time", Q(PressToSeeAvailableTimeToRent, utilizationTypeId));
-        RowButton("See available boats", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
-        RowButton("Book", Q(PressToBook, utilizationTypeId));
+        RowButton("See available time", Q(PressToSeeAvailableTimeToRent, botState));
+        RowButton("See available boats", Q(PressToRentTargetUtilizationButton, botState));
+        RowButton("Make a reservation", Q(PressToBook, botState));
 
         var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
 
         RowButton("Go Back", Q(mainControllerService.PressToRentButton));
 
-        PushL("Booking");
+        PushL("Reservation");
         await SendOrUpdate();
     }
 
     [Action]
-    private async Task PressToRentTargetUtilizationButton(int utilizationType, int messageId)
+    private async Task PressToRentTargetUtilizationButton(BotState botState)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        if (messageId != default(int))
+        if (botState.MessageId != default)
         {
-            await Client.DeleteMessageAsync(chatId, messageId);
+            await Client.DeleteMessageAsync(chatId, botState.MessageId);
         }
 
         const int boatTargetOfSpaceId = 12;
@@ -64,69 +65,69 @@ public class BoatController : BotController, IBoatController
 
             spaceToTelegramOutList.Add(spaceToTelegramOut);
 
-            Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, space.Id));
+            botState.SpaceId = space.Id;
+
+            Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, botState));
         }
 
-        RowButton("Go Back", Q(PressToMainBookingPage, utilizationType, default(int)));
+        RowButton("Go Back", Q(PressToMainBookingPage, botState));
 
         PushL("Choose Your Desired Boat");
         await SendOrUpdate();
     }
 
     [Action]
-    private async Task PressToSeeAvailableTimeToRent(int utilizationTypeId)
+    private async Task PressToSeeAvailableTimeToRent(BotState botState)
     {
-        await Calendar("", utilizationTypeId, false,"");
-    }
-    
-    [Action]
-    private async Task PressToBook(int utilizationTypeId)
-    {
-        RowButton("Rental start time", Q(PressToChooseTheDate, utilizationTypeId, "start"));
-        RowButton("Rental end time", Q(PressToChooseTheDate,utilizationTypeId, "end"));
-        RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
-        
-        RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
-
-        PushL("Booking");
-        await SendOrUpdate();   
+        await Calendar("", botState, false, RentTimeState.Non);
     }
 
     [Action]
-    private async Task PressToChooseTheDate(int utilizationTypeId, string startEnd)
+    private async Task PressToBook(BotState botState)
     {
-        await Calendar("", utilizationTypeId, false, startEnd);
+        RowButton("Rental start time", Q(PressToChooseTheDate, botState, RentTimeState.StartRent));
+        RowButton("Rental end time", Q(PressToChooseTheDate, botState, RentTimeState.EndRent));
+        RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, botState));
+
+        RowButton("Go Back", Q(PressToMainBookingPage, botState));
+
+        PushL("Reservation");
+        await SendOrUpdate();
     }
 
     [Action]
-    private async Task PressToEnterTheStartEndTime(int utilizationTypeId, DateTime? dateTime, string startEnd)
+    private async Task PressToChooseTheDate(BotState botState, RentTimeState rentTimeState)
+    {
+        await Calendar("", botState, false, rentTimeState);
+    }
+
+    [Action]
+    private async Task PressToEnterTheStartEndTime(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
     {
         PushL("Enter the rental start time (in hh:mm format, for example, 14:15)");
         await Send();
-        var term = await AwaitText();
+        var time = await AwaitText();
 
+        botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.StartRent;
+        botState.EndRent = rentTimeState == RentTimeState.EndRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.EndRent;
         RowButton(
-            dateTime != null && startEnd.Equals("start")
-                ? $"{dateTime.Value.Year}/{dateTime.Value.Month}/{dateTime.Value.Day} {term}"
-                : "Rental start time", Q(PressToChooseTheDate, utilizationTypeId, "start"));
+            botState.StartRent != null ? $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm}"
+                : "Rental start time", Q(PressToChooseTheDate, botState, RentTimeState.StartRent));
         RowButton(
-            dateTime != null && startEnd.Equals("end")
-                ? $"{dateTime.Value.Year}/{dateTime.Value.Month}/{dateTime.Value.Day} {term}"
-                : "Rental end time", Q(PressToChooseTheDate, utilizationTypeId, "end"));
-        RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, utilizationTypeId, default(int)));
+            botState.EndRent != null ? $"{botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm}"
+                : "Rental end time", Q(PressToChooseTheDate, botState, RentTimeState.EndRent));
+        RowButton("Choose a boat", Q(PressToRentTargetUtilizationButton, botState));
 
-        RowButton("Go Back", Q(PressToMainBookingPage, utilizationTypeId, default(int)));
+        RowButton("Go Back", Q(PressToMainBookingPage, botState));
 
-        await Send("text");   
+        await Send("Reservation");
     }
 
     [Action]
-    private async Task Calendar(string state, int utilizationTypeId, bool isNavigateBetweenMonths, string startEnd)
+    private async Task Calendar(string state, BotState botState, bool isNavigateBetweenMonths, RentTimeState rentTimeState)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
-
-        PushL("Pick the time");
 
         var now = DateTime.UtcNow;
 
@@ -137,8 +138,9 @@ public class BoatController : BotController, IBoatController
                 .Year(now.Year).Month(now.Month)
                 .Depth(CalendarDepth.Days)
                 .SetState(state)
-                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true, startEnd))
-                .OnSelectPath(d => Q(PressToEnterTheStartEndTime, utilizationTypeId, d, startEnd));
+                .OnNavigatePath(s => Q(Calendar, s, botState, true, rentTimeState))
+                .OnSelectPath(date =>
+                    Q(PressToEnterTheStartEndTime, botState, rentTimeState, date));
         }
         else
         {
@@ -146,15 +148,16 @@ public class BoatController : BotController, IBoatController
                 .Year(now.Year).Month(now.Month)
                 .Depth(CalendarDepth.Days)
                 .SetState(state)
-                .OnNavigatePath(s => Q(Calendar, s, utilizationTypeId, true, startEnd))
-                .OnSelectPath(d => Q(PressToEnterTheStartEndTime, utilizationTypeId, d, startEnd))
+                .OnNavigatePath(s => Q(Calendar, s, botState, true, rentTimeState))
+                .OnSelectPath(date =>
+                    Q(PressToEnterTheStartEndTime, botState, rentTimeState, date))
                 .SkipDay(d => d.Day < now.Day);
         }
 
         calendar.Build(Message, new PagingService());
 
-        RowButton("Go Back", Q(PressToBook, utilizationTypeId));
-        PushL("Choose date");
+        RowButton("Go Back", Q(PressToBook, botState));
+        PushL("Pick the date");
         await SendOrUpdate();
     }
 
@@ -169,12 +172,12 @@ public class BoatController : BotController, IBoatController
 
 
     [Action]
-    private async Task PressToSelectTheBoatButton(long spaceId)
+    private async Task PressToSelectTheBoatButton(BotState botState)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        var targetSpace = await _spaceGetter.GetById(spaceId);
+        var targetSpace = await _spaceGetter.GetById(botState.SpaceId);
 
         var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
 
@@ -194,8 +197,9 @@ public class BoatController : BotController, IBoatController
             ParseMode.Html
         );
 
+        botState.MessageId = message.MessageId;
         PushL($"{targetSpaceProperty.Name}");
-        RowButton("Go Back", Q(PressToRentTargetUtilizationButton, default(int), message.MessageId));
+        RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState));
         await SendOrUpdate();
     }
 
@@ -207,7 +211,7 @@ public class BoatController : BotController, IBoatController
             "Ooops");
         await SendOrUpdate();
     }
-    
+
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
