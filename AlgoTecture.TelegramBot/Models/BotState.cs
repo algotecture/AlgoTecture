@@ -7,6 +7,8 @@ public class BotState
     public int MessageId { get; set; }
 
     public long SpaceId { get; set; }
+
+    public string? SpaceName { get; set; }
     
     public DateTime? StartRent { get; set; }
 
