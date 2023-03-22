@@ -25,6 +25,8 @@ namespace AlgoTecture.Data.Persistence.Data
         
         public IReservationRepository Reservations { get; private set; }
 
+        public IPriceSpecificationRepository PriceSpecifications { get; set; }
+
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
@@ -37,6 +39,7 @@ namespace AlgoTecture.Data.Persistence.Data
             TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
             UtilizationTypes = new UtilizationTypeRepository(context, _logger);
             Reservations = new ReservationRepository(context, _logger);
+            PriceSpecifications = new PriceSpecificationRepository(context, _logger);
         }
 
         public async Task CompleteAsync()

@@ -1,5 +1,8 @@
+using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Libraries.Environments;
+using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Implementations;
@@ -16,11 +19,13 @@ public class BoatController : BotController, IBoatController
 {
     private readonly ISpaceGetter _spaceGetter;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider)
+    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork)
     {
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _serviceProvider = serviceProvider;
+        _unitOfWork = unitOfWork;
     }
 
     [Action]
@@ -102,9 +107,14 @@ public class BoatController : BotController, IBoatController
             await Send();
             time = await AwaitText();
         }
-
+    
         botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.StartRent;
         botState.EndRent = rentTimeState == RentTimeState.EndRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.EndRent;
+
+        if (botState.EndRent <= botState.StartRent)
+        {
+            botState.EndRent = null;
+        }
         
         RowButton(botState.StartRent != null ? $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm}"
                 : "Rental start time", Q(PressToChooseTheDate, botState, RentTimeState.StartRent));
@@ -114,7 +124,12 @@ public class BoatController : BotController, IBoatController
 
         if (botState.StartRent != null && botState.EndRent != null && !string.IsNullOrEmpty(botState.SpaceName) && botState.SpaceId != default)
         {
-            RowButton("Make a reservation!", Q(PressToMainBookingPage, botState));   
+            var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
+            Enum.TryParse(targetPriceSpecification?.UnitOfTime, out UnitOfDateTime unitOfDateTime);
+            var totalPrice = PriceCalculator.CalculateTotalPriceToReservation(botState.StartRent.Value, botState.EndRent.Value,
+                unitOfDateTime, targetPriceSpecification.PricePerTime);
+            
+            RowButton($"Make a reservation! {totalPrice} {targetPriceSpecification.PriceCurrency}", Q(PressMakeAReservation, botState));   
         }
 
         RowButton("Go Back", Q(PressToMainBookingPage, botState));
@@ -177,6 +192,15 @@ public class BoatController : BotController, IBoatController
         botState.SpaceId = spaceId;
         var targetSpace = await _spaceGetter.GetById(botState.SpaceId);
 
+        var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(spaceId)).FirstOrDefault();
+
+        string price = string.Empty;
+        
+        if (targetPriceSpecification != null)
+        {
+            price = $"{targetPriceSpecification.PricePerTime} {targetPriceSpecification.PriceCurrency.ToUpper()} per {targetPriceSpecification.UnitOfTime.ToLower()}";
+        }
+        
         var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
 
         if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
@@ -191,8 +215,8 @@ public class BoatController : BotController, IBoatController
         var message = await Client.SendPhotoAsync(
             chatId: chatId,
             photo: inputOnlineFile,
-            caption: $"<b>Price:</b>" + "\n" +
-                     $"<b>{targetSpaceProperty.Description}</b>",
+            caption: $"<b>Price: {price}</b>" + "\n" +
+                     $"<b></b>",
             ParseMode.Html
         );
 
@@ -206,9 +230,14 @@ public class BoatController : BotController, IBoatController
             RowButton("Make a reservation!", Q(PressToEnterTheStartEndTime, botState, RentTimeState.Non, null));  
         }
         
-        RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, false));
+        RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, isLookingForOnly));
         
         await SendOrUpdate();
+    }
+
+    [Action]
+    private async Task PressMakeAReservation(BotState botState)
+    {
     }
 
     [On(Handle.Exception)]

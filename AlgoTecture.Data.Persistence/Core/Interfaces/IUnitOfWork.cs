@@ -15,6 +15,8 @@
         IUtilizationTypeRepository UtilizationTypes { get; }
         
         IReservationRepository Reservations { get; }
+        
+        IPriceSpecificationRepository PriceSpecifications { get; }
 
         Task CompleteAsync();
     }

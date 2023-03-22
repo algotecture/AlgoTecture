@@ -151,6 +151,14 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "50"
             });
+            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            {
+                Id = 2, SpaceId = 2, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "45"
+            });
+            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            {
+                Id = 3, SpaceId = 3, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "60"
+            });
 
             modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
