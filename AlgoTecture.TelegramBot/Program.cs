@@ -3,6 +3,7 @@ using AlgoTecture.Libraries.Spaces;
 using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.Libraries.PriceSpecifications;
+using AlgoTecture.Libraries.Reservations;
 using AlgoTecture.TelegramBot.Controllers;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Implementations;
@@ -15,6 +16,7 @@ BotfProgram.StartBot(args, false, onConfigure: (service, cfg) =>
     service.UseSpaceLibrary();
     service.UsePersistenceLibrary();
     service.UseGeoAdminSearchLibrary();
+    service.UseReservationLibrary();
     service.UsePriceSpecificationLibrary();
     service.AddTransient<ITelegramUserInfoService, TelegramUserInfoService>();
     service.AddTransient<ITelegramToAddressResolver, TelegramToAddressResolver>();

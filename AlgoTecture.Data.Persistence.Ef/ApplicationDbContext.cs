@@ -162,15 +162,15 @@ namespace AlgoTecture.Data.Persistence.Ef
 
             modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
-                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.Parse("2023-03-16 15:00"),
-                ReservationFrom = DateTime.Parse("2023-03-17 15:00"), ReservationTo = DateTime.Parse("2023-03-17 17:00"),
+                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-16 15:00"),
+                ReservationFromUtc = DateTime.Parse("2023-03-17 15:00"), ReservationToUtc = DateTime.Parse("2023-03-17 17:00"),
                 ReservationStatus = "Confirmed"
             });
             
             modelBuilder.Entity<Reservation>().HasData(new Reservation
             {
-                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTime = DateTime.Parse("2023-03-17 15:00"),
-                ReservationFrom = DateTime.Parse("2023-03-18 15:00"), ReservationTo = DateTime.Parse("2023-03-18 18:00"),
+                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-17 15:00"),
+                ReservationFromUtc = DateTime.Parse("2023-03-18 15:00"), ReservationToUtc = DateTime.Parse("2023-03-18 18:00"),
                 ReservationStatus = "Confirmed"
             });
         }

@@ -3,6 +3,8 @@ using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Libraries.Environments;
 using AlgoTecture.Libraries.PriceSpecifications;
+using AlgoTecture.Libraries.Reservations;
+using AlgoTecture.Libraries.Reservations.Models;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Implementations;
@@ -20,12 +22,14 @@ public class BoatController : BotController, IBoatController
     private readonly ISpaceGetter _spaceGetter;
     private readonly IServiceProvider _serviceProvider;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IReservationService _reservationService;
 
-    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork)
+    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService)
     {
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _serviceProvider = serviceProvider;
         _unitOfWork = unitOfWork;
+        _reservationService = reservationService;
     }
 
     [Action]
@@ -238,6 +242,52 @@ public class BoatController : BotController, IBoatController
     [Action]
     private async Task PressMakeAReservation(BotState botState)
     {
+        if (botState.StartRent == null) throw new ArgumentNullException(nameof(botState.StartRent));
+        if (botState.EndRent == null) throw new ArgumentNullException(nameof(botState.EndRent));
+        
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        
+        try
+        {
+            var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
+            var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
+            if (targetPriceSpecification == null) return;
+            
+            Enum.TryParse(targetPriceSpecification?.UnitOfTime, out UnitOfDateTime unitOfDateTime);
+            var totalPrice = PriceCalculator.CalculateTotalPriceToReservation(botState.StartRent.Value, botState.EndRent.Value,
+                unitOfDateTime, targetPriceSpecification.PricePerTime);
+            
+            var addOrUpdateReservationModel = new AddOrUpdateReservationModel()
+            {
+                TenantUserId = user.Id,
+                SpaceId = botState.SpaceId,
+                PriceSpecificationId = targetPriceSpecification.Id,
+                ReservationDateTimeUtc = DateTime.UtcNow,
+                ReservationFromUtc = botState.StartRent,
+                ReservationToUtc = botState.EndRent,
+                ReservationStatus = ReservationStatusType.Confirmed.ToString(),
+                TotalPrice = totalPrice
+            };
+            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value, botState.EndRent.Value);
+            if (checkedReservation != null)
+            {
+                throw new InvalidOperationException("this time is reserved");
+            }
+
+            var reservation = await _reservationService.AddReservation(addOrUpdateReservationModel);
+
+            if (reservation != null)
+            {
+                PushL($"Success");
+                await SendOrUpdate();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [On(Handle.Exception)]

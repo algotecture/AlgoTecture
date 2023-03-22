@@ -25,8 +25,8 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
             query.Where(x => x.SpaceId == spaceId);
         }
         query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
-        query = query.Where(x => x.ReservationFrom <= reservationTo);
-        query = query.Where(x => x.ReservationTo >= reservationFrom);
+        query = query.Where(x => x.ReservationFromUtc <= reservationTo);
+        query = query.Where(x => x.ReservationToUtc >= reservationFrom);
 
         var result =  await query.ToListAsync();
 
@@ -55,8 +55,8 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
             if (existingReservation == null)
                 return await Add(entity);
 
-            existingReservation.ReservationFrom = entity.ReservationFrom;
-            existingReservation.ReservationTo = entity.ReservationTo;
+            existingReservation.ReservationFromUtc = entity.ReservationFromUtc;
+            existingReservation.ReservationToUtc = entity.ReservationToUtc;
             existingReservation.ReservationStatus = entity.ReservationStatus;
             existingReservation.TotalPrice = entity.TotalPrice;
             

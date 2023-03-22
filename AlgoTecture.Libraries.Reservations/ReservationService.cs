@@ -23,24 +23,24 @@ public class ReservationService : IReservationService
     public async Task<Reservation?> AddReservation(AddOrUpdateReservationModel addOrUpdateReservationModel)
     {
         if (addOrUpdateReservationModel == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel));
-        if (addOrUpdateReservationModel.ReservationFrom == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFrom));
-        if (addOrUpdateReservationModel.ReservationTo == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationTo));
+        if (addOrUpdateReservationModel.ReservationFromUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFromUtc));
+        if (addOrUpdateReservationModel.ReservationToUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationToUtc));
         
         var entity = new Reservation
         {
-            ReservationFrom = addOrUpdateReservationModel.ReservationFrom,
-            ReservationTo = addOrUpdateReservationModel.ReservationTo,
+            ReservationFromUtc = addOrUpdateReservationModel.ReservationFromUtc,
+            ReservationToUtc = addOrUpdateReservationModel.ReservationToUtc,
             ReservationStatus = addOrUpdateReservationModel.ReservationStatus,
             TotalPrice = addOrUpdateReservationModel.TotalPrice,
             SpaceId = addOrUpdateReservationModel.SpaceId,
             SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
             TenantUserId = addOrUpdateReservationModel.TenantUserId,
-            ReservationDateTime = addOrUpdateReservationModel.ReservationDateTime,
+            ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
             PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId
         };
         
         var reservation = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
-            addOrUpdateReservationModel.ReservationFrom.Value, addOrUpdateReservationModel.ReservationTo.Value);
+            addOrUpdateReservationModel.ReservationFromUtc.Value, addOrUpdateReservationModel.ReservationToUtc.Value);
 
         if (reservation != null)
         {
@@ -48,6 +48,7 @@ public class ReservationService : IReservationService
         }
         
         var resultReservation = await _unitOfWork.Reservations.Add(entity);
+        await _unitOfWork.CompleteAsync();
         return resultReservation;
     }
     
@@ -55,20 +56,20 @@ public class ReservationService : IReservationService
     {
         if (addOrUpdateReservationModel.ReservationId == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationId));
         if (addOrUpdateReservationModel == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel));
-        if (addOrUpdateReservationModel.ReservationFrom == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFrom));
-        if (addOrUpdateReservationModel.ReservationTo == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationTo));
+        if (addOrUpdateReservationModel.ReservationFromUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFromUtc));
+        if (addOrUpdateReservationModel.ReservationToUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationToUtc));
         
         var entity = new Reservation
         {
             Id = addOrUpdateReservationModel.ReservationId.Value,
-            ReservationFrom = addOrUpdateReservationModel.ReservationFrom,
-            ReservationTo = addOrUpdateReservationModel.ReservationTo,
+            ReservationFromUtc = addOrUpdateReservationModel.ReservationFromUtc,
+            ReservationToUtc = addOrUpdateReservationModel.ReservationToUtc,
             ReservationStatus = addOrUpdateReservationModel.ReservationStatus,
             TotalPrice = addOrUpdateReservationModel.TotalPrice,
             SpaceId = addOrUpdateReservationModel.SpaceId,
             SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
             TenantUserId = addOrUpdateReservationModel.TenantUserId,
-            ReservationDateTime = addOrUpdateReservationModel.ReservationDateTime,
+            ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
             PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId
         };
 

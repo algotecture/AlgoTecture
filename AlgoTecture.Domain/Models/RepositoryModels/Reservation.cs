@@ -20,11 +20,11 @@ public class Reservation
 
     public PriceSpecification PriceSpecification { get; set; }
 
-    public DateTime? ReservationDateTime { get; set; }
+    public DateTime? ReservationDateTimeUtc { get; set; }
 
-    public DateTime? ReservationFrom { get; set; }
+    public DateTime? ReservationFromUtc { get; set; }
         
-    public DateTime? ReservationTo { get; set; }
+    public DateTime? ReservationToUtc { get; set; }
 
     public string ReservationStatus { get; set; }
 }
