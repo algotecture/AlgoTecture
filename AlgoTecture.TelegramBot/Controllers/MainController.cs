@@ -90,12 +90,15 @@ public class MainController : BotController, IMainController
             var reservationToTelegram = new ReservationToTelegramOut()
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:mm-dd-yyyy HH:mm}",
-                DateTimeTo = $"{reservation.ReservationToUtc.Value:mm-dd-yyyy HH:mm}",
-                Description = reservation.Description
+                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:dd MM yyyy HH:mm}",
+                DateTimeTo = $"{reservation.ReservationToUtc.Value:dd MM yyyy HH:mm}",
+                Description = reservation.Description,
+                TotlaPrice = reservation.TotalPrice,
+                PriceCurrency = reservation.PriceSpecification.PriceCurrency
             };
             reservationList.Add(reservationToTelegram);
-            var description = $"{reservationToTelegram.Description}, {reservationToTelegram.DateTimeFrom} - {reservationToTelegram.DateTimeTo}";
+            var description =
+                $"{reservationToTelegram.Description}, {reservationToTelegram.DateTimeFrom} - {reservationToTelegram.DateTimeTo}, {reservationToTelegram.TotlaPrice} {reservationToTelegram.PriceCurrency.ToUpper()}";
             RowButton(description, Q(PressToManageContract));
         }
         RowButton("Go Back", Q(Start));

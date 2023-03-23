@@ -37,7 +37,7 @@ public class BoatController : BotController, IBoatController
     {
         //RowButton("See available time", Q(PressToSeeAvailableTimeToRent, botState));
         RowButton("See available boats", Q(PressToRentTargetUtilizationButton, botState, true));
-        RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.Non, null));
+        RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
 
         var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
 
@@ -107,7 +107,7 @@ public class BoatController : BotController, IBoatController
         var time = string.Empty;
         if (dateTime != null)
         {
-            PushL("Enter the rental start time (in hh:mm format, for example, 14:15)");
+            PushL("Enter the rental start time (in HH:mm format, for example, 14:15)");
             await Send();
             time = await AwaitText();
         }
@@ -182,7 +182,7 @@ public class BoatController : BotController, IBoatController
 
         calendar.Build(Message, new PagingService());
 
-        RowButton("Go Back", Q(PressToEnterTheStartEndTime, botState, RentTimeState.Non, null));
+        RowButton("Go Back", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
         PushL("Pick the date");
         await SendOrUpdate();
     }
@@ -231,7 +231,7 @@ public class BoatController : BotController, IBoatController
         if (!isLookingForOnly)
         {
             botState.SpaceName = targetSpaceProperty.Name;
-            RowButton("Make a reservation!", Q(PressToEnterTheStartEndTime, botState, RentTimeState.Non, null));  
+            RowButton("Make a reservation!", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));  
         }
         
         RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, isLookingForOnly));

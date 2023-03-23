@@ -10,5 +10,7 @@ public class ReservationToTelegramOut
 
     public string TotlaPrice { get; set; }
 
+    public string PriceCurrency { get; set; }
+
     public string Description { get; set; }
 }
