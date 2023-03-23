@@ -1,3 +1,4 @@
+using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
@@ -11,14 +12,16 @@ public class MainController : BotController, IMainController
 {
     private readonly ITelegramUserInfoService _telegramUserInfoService;
     private readonly IUtilizationTypeGetter _utilizationTypeGetter;
+    private readonly IUnitOfWork _unitOfWork;
     
     private readonly IBoatController _boatController;
 
-    public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter)
+    public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, IUnitOfWork unitOfWork)
     {
         _telegramUserInfoService = telegramUserInfoService;
         _boatController = boatController;
         _utilizationTypeGetter = utilizationTypeGetter;
+        _unitOfWork = unitOfWork;
     }
 
     [Action("/start", "start the bot")]
@@ -41,7 +44,7 @@ public class MainController : BotController, IMainController
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
         Button("I want to rent", Q(PressToRentButton));
-        Button("I have a reservation", Q(PressToFindBooking));
+        Button("I have a reservation", Q(PressToFindReservationsButton));
         RowButton("Manage the contract", Q(PressToManageContract));
     }
     
@@ -72,9 +75,33 @@ public class MainController : BotController, IMainController
     }
     
     [Action]
-    public async Task PressToFindBooking()
+    public async Task PressToFindReservationsButton()
     {
-      
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+
+        var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
+        var reservations = await _unitOfWork.Reservations.GetReservationsByUserId(user.Id);
+
+        var reservationList = new List<ReservationToTelegramOut>();
+        
+        foreach (var reservation in reservations)
+        {
+            var reservationToTelegram = new ReservationToTelegramOut()
+            {
+                Id = reservation.Id,
+                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:mm-dd-yyyy HH:mm}",
+                DateTimeTo = $"{reservation.ReservationToUtc.Value:mm-dd-yyyy HH:mm}",
+                Description = reservation.Description
+            };
+            reservationList.Add(reservationToTelegram);
+            var description = $"{reservationToTelegram.Description}, {reservationToTelegram.DateTimeFrom} - {reservationToTelegram.DateTimeTo}";
+            RowButton(description, Q(PressToManageContract));
+        }
+        RowButton("Go Back", Q(Start));
+        
+        PushL("Reservations");
+        await SendOrUpdate();
     }
     
     [Action]

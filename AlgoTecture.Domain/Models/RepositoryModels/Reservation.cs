@@ -4,6 +4,8 @@ public class Reservation
 {
     public long Id { get; set; }
     
+    public string? Description { get; set; }
+    
     public long TenantUserId { get; set; }
         
     public User TenantUser { get; set; }
@@ -26,5 +28,5 @@ public class Reservation
         
     public DateTime? ReservationToUtc { get; set; }
 
-    public string ReservationStatus { get; set; }
+    public string? ReservationStatus { get; set; }
 }

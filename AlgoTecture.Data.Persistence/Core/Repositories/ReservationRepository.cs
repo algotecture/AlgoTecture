@@ -32,6 +32,11 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
 
         return result.SingleOrDefault();
     }
+
+    public async Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId)
+    {
+        return await dbSet.Where(x => x.TenantUserId == userId).ToListAsync();
+    }
     
     public override async Task<IEnumerable<Reservation>> All()
     {

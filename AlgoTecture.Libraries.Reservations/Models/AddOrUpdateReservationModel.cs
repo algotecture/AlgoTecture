@@ -21,4 +21,6 @@ public class AddOrUpdateReservationModel
     public string? ReservationStatus { get; set; }
 
     public string? TotalPrice { get; set; }
+
+    public string? Description { get; set; }
 }

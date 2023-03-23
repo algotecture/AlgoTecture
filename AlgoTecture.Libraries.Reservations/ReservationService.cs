@@ -36,7 +36,8 @@ public class ReservationService : IReservationService
             SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
             TenantUserId = addOrUpdateReservationModel.TenantUserId,
             ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
-            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId
+            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId,
+            Description = addOrUpdateReservationModel.Description
         };
         
         var reservation = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
@@ -70,7 +71,8 @@ public class ReservationService : IReservationService
             SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
             TenantUserId = addOrUpdateReservationModel.TenantUserId,
             ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
-            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId
+            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId,
+            Description = addOrUpdateReservationModel.Description
         };
 
         Reservation? resultReservation = null;

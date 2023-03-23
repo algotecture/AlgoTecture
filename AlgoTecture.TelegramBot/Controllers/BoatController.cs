@@ -267,7 +267,8 @@ public class BoatController : BotController, IBoatController
                 ReservationFromUtc = botState.StartRent,
                 ReservationToUtc = botState.EndRent,
                 ReservationStatus = ReservationStatusType.Confirmed.ToString(),
-                TotalPrice = totalPrice
+                TotalPrice = totalPrice,
+                Description = botState.SpaceName
             };
             var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value, botState.EndRent.Value);
             if (checkedReservation != null)
@@ -279,7 +280,10 @@ public class BoatController : BotController, IBoatController
 
             if (reservation != null)
             {
-                PushL($"Success");
+                var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
+                RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
+                
+                PushL($"Object successfully reserved");
                 await SendOrUpdate();
             }
         }

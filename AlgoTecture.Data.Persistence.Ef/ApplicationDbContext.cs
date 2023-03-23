@@ -219,6 +219,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<Reservation>().Property(x => x.SubSpaceId).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.TotalPrice).HasMaxLength(100);
             modelBuilder.Entity<Reservation>().Property(x => x.ReservationStatus).HasMaxLength(100);
+            modelBuilder.Entity<Reservation>().Property(x => x.Description).HasMaxLength(500);
         }
 
         private static void ConfigurePriceSpecificationModelCreation(ModelBuilder modelBuilder)

@@ -5,4 +5,6 @@ public interface IMainController
     Task Start();
 
     Task PressToRentButton();
+    
+    Task PressToFindReservationsButton();
 }
