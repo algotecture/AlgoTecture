@@ -115,7 +115,20 @@ public class BoatController : BotController, IBoatController
         botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.StartRent;
         botState.EndRent = rentTimeState == RentTimeState.EndRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.EndRent;
 
-        if (botState.EndRent <= botState.StartRent)
+        if (botState.EndRent != null && botState.StartRent != null)
+        {
+            //for demo. timezone needed
+            if (botState.EndRent <= DateTime.UtcNow)
+            {
+                botState.EndRent = null;
+            }
+            if (botState.StartRent <= DateTime.UtcNow)
+            {
+                botState.EndRent = null;
+            }
+        }
+        
+        if (botState.EndRent != null && botState.StartRent != null && botState.EndRent <= botState.StartRent)
         {
             botState.EndRent = null;
         }

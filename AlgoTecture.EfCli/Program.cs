@@ -28,7 +28,11 @@ namespace AlgoTecture.EfCli
                 appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
             }
 
-            if (appConnectionString == null) return 0;
+            if (appConnectionString == null)
+            {
+                Console.WriteLine("Connection string is null");
+                return 0;
+            }
             
             var context = new ApplicationDbContext(appConnectionString, false);
             await context.Database.EnsureCreatedAsync();
