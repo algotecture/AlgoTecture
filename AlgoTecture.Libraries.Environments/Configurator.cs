@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.Data.Persistence.Ef
+namespace AlgoTecture.Libraries.Environments
 {
-    public class Configurator
+    public static class Configurator
     {
         public static IConfigurationRoot GetConfiguration()
         {

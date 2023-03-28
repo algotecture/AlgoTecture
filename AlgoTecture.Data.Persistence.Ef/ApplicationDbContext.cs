@@ -1,17 +1,13 @@
-using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.Environments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace AlgoTecture.Data.Persistence.Ef
 {
     public class ApplicationDbContext : DbContext
     {
-        private readonly string _connectionString = string.Empty;
-
-        private readonly bool _isTest = false;
-
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<Space> Spaces { get; set; }
@@ -28,54 +24,37 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
 
-        public ApplicationDbContext()
-        {
-        }
-
-        public ApplicationDbContext(string connectionString, bool isTest)
+        private readonly string _connectionString;
+        public ApplicationDbContext() {}
+        
+        public ApplicationDbContext(string connectionString)
         {
             _connectionString = connectionString;
-            _isTest = isTest;
         }
-
-        public ApplicationDbContext(DbContextOptions options)
-            : base(options)
-        {
-        }
-
+        
+        private static readonly ILoggerFactory Logger = LoggerFactory.Create(builder => { builder.AddConsole(); });
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (_isTest)
+            if (string.IsNullOrEmpty(_connectionString))
             {
-                optionsBuilder.UseInMemoryDatabase("AppInMemory");
+                optionsBuilder.UseLoggerFactory(Logger).UseInMemoryDatabase("Data Source=:memory:");
+                return;
             }
-            else if (!string.IsNullOrEmpty(_connectionString) && !_isTest)
+
+            var appConnectionString = Configurator.GetConfiguration().GetConnectionString("Algotecture-Demo");
+            if (string.IsNullOrEmpty(appConnectionString)) return;
+
+            if (optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite(_connectionString);
+                optionsBuilder.UseNpgsql(appConnectionString);
             }
             else
             {
-                var appConnectionString = string.Empty;
-
-                if (OperatingSystem.IsLinux())
-                {
-                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");
-                }
-
-                if (OperatingSystem.IsWindows())
-                {
-                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("WindowsSqlLiteDevelopingConnection");
-                }
-
-                if (OperatingSystem.IsMacOS())
-                {
-                    appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
-                }
-
-                optionsBuilder.UseSqlite(appConnectionString);
+                optionsBuilder.UseLoggerFactory(Logger).UseNpgsql(appConnectionString);
             }
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -87,8 +66,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             ConfigureTelegramUserInfosModelCreation(modelBuilder);
             ConfigureReservationsModelCreation(modelBuilder);
             ConfigurePriceSpecificationModelCreation(modelBuilder);
-
-
+            
             //Data seeding to tests
 
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 1, Name = "Residential" });
@@ -104,75 +82,75 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 11, Name = "Parking" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 12, Name = "Boat" });
 
-            modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023, 02, 21) });
-            modelBuilder.Entity<User>().HasData(new User { Id = 2, CreateDateTime = new DateTime(2023, 03, 14) });
-            modelBuilder.Entity<User>().HasData(new User { Id = 3, CreateDateTime = new DateTime(2023, 03, 14) });
-            modelBuilder.Entity<User>().HasData(new User { Id = 4, CreateDateTime = new DateTime(2023, 03, 16) });
-
-
-            var newSpaceProperty1 = new SpaceProperty
-            {
-                SpaceId = 1,
-                Name = "Santa María",
-                SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
-                Description = "Description"
-            };
-            modelBuilder.Entity<Space>().HasData(new Space
-            {
-                Id = 1, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
-                SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty1), UtilizationTypeId = 12
-            });
-            var newSpaceProperty2 = new SpaceProperty
-            {
-                SpaceId = 2,
-                Name = "Niña",
-                SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
-                Description = "Description"
-            };
-            modelBuilder.Entity<Space>().HasData(new Space
-            {
-                Id = 2, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
-                SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty2), UtilizationTypeId = 12
-            });
-            var newSpaceProperty3 = new SpaceProperty
-            {
-                SpaceId = 3,
-                Name = "Pinta",
-                SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
-                Description = "Description"
-            };
-            modelBuilder.Entity<Space>().HasData(new Space
-            {
-                Id = 3, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
-                SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty3), UtilizationTypeId = 12
-            });
-
-            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
-            {
-                Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "50"
-            });
-            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
-            {
-                Id = 2, SpaceId = 2, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "45"
-            });
-            modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
-            {
-                Id = 3, SpaceId = 3, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "60"
-            });
-
-            modelBuilder.Entity<Reservation>().HasData(new Reservation
-            {
-                Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-16 15:00"),
-                ReservationFromUtc = DateTime.Parse("2023-03-17 15:00"), ReservationToUtc = DateTime.Parse("2023-03-17 17:00"),
-                ReservationStatus = "Confirmed"
-            });
-            
-            modelBuilder.Entity<Reservation>().HasData(new Reservation
-            {
-                Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-17 15:00"),
-                ReservationFromUtc = DateTime.Parse("2023-03-18 15:00"), ReservationToUtc = DateTime.Parse("2023-03-18 18:00"),
-                ReservationStatus = "Confirmed"
-            });
+            // modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTime = new DateTime(2023, 02, 21).ToUniversalTime() });
+            // modelBuilder.Entity<User>().HasData(new User { Id = 2, CreateDateTime = new DateTime(2023, 03, 14).ToUniversalTime() });
+            // modelBuilder.Entity<User>().HasData(new User { Id = 3, CreateDateTime = new DateTime(2023, 03, 14) });
+            // modelBuilder.Entity<User>().HasData(new User { Id = 4, CreateDateTime = new DateTime(2023, 03, 16) });
+            //
+            //
+            // var newSpaceProperty1 = new SpaceProperty
+            // {
+            //     SpaceId = 1,
+            //     Name = "Santa María",
+            //     SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
+            //     Description = "Description"
+            // };
+            // modelBuilder.Entity<Space>().HasData(new Space
+            // {
+            //     Id = 1, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+            //     SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty1), UtilizationTypeId = 12
+            // });
+            // var newSpaceProperty2 = new SpaceProperty
+            // {
+            //     SpaceId = 2,
+            //     Name = "Niña",
+            //     SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
+            //     Description = "Description"
+            // };
+            // modelBuilder.Entity<Space>().HasData(new Space
+            // {
+            //     Id = 2, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+            //     SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty2), UtilizationTypeId = 12
+            // });
+            // var newSpaceProperty3 = new SpaceProperty
+            // {
+            //     SpaceId = 3,
+            //     Name = "Pinta",
+            //     SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
+            //     Description = "Description"
+            // };
+            // modelBuilder.Entity<Space>().HasData(new Space
+            // {
+            //     Id = 3, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+            //     SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty3), UtilizationTypeId = 12
+            // });
+            //
+            // modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            // {
+            //     Id = 1, SpaceId = 1, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "50"
+            // });
+            // modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            // {
+            //     Id = 2, SpaceId = 2, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "45"
+            // });
+            // modelBuilder.Entity<PriceSpecification>().HasData(new PriceSpecification
+            // {
+            //     Id = 3, SpaceId = 3, PriceCurrency = "Usd", UnitOfTime = "Hour", PricePerTime = "60"
+            // });
+            //
+            // modelBuilder.Entity<Reservation>().HasData(new Reservation
+            // {
+            //     Id = 1, TenantUserId = 2, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-16 15:00"),
+            //     ReservationFromUtc = DateTime.Parse("2023-03-17 15:00"), ReservationToUtc = DateTime.Parse("2023-03-17 17:00"),
+            //     ReservationStatus = "Confirmed"
+            // });
+            //
+            // modelBuilder.Entity<Reservation>().HasData(new Reservation
+            // {
+            //     Id = 2, TenantUserId = 3, SpaceId = 1, TotalPrice = "100", PriceSpecificationId = 1, ReservationDateTimeUtc = DateTime.Parse("2023-03-17 15:00"),
+            //     ReservationFromUtc = DateTime.Parse("2023-03-18 15:00"), ReservationToUtc = DateTime.Parse("2023-03-18 18:00"),
+            //     ReservationStatus = "Confirmed"
+            // });
         }
 
         private static void ConfigureUsersModelCreation(ModelBuilder modelBuilder)

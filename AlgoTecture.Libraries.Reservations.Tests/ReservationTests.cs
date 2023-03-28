@@ -14,10 +14,7 @@ public class ReservationTests
     [SetUp]
     public void SetUp()
     {
-        var currentDirectory = Directory.GetCurrentDirectory();
-
-        var connectionString = $"DataSource={currentDirectory}/app.db;Cache=Shared";
-        _unitOfWork = new UnitOfWork(new ApplicationDbContext(connectionString, true), null);
+        _unitOfWork = new UnitOfWork(new ApplicationDbContext(null), null);
     }
     
     [Test]

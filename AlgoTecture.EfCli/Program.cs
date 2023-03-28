@@ -1,43 +1,29 @@
 ﻿using AlgoTecture.Data.Persistence.Ef;
+using AlgoTecture.Libraries.Environments;
 using Microsoft.Extensions.Configuration;
 
 namespace AlgoTecture.EfCli
 {
-    class Program
+    internal static class Program
     {
-        private static IConfiguration? _configuration;
-
-        static async Task<int> Main(string[] args)
+        private static async Task<int> Main(string[] args)
         {
             Console.WriteLine("EfCli has been started");
-            var currentDirectory = Directory.GetCurrentDirectory();
-            _configuration = new ConfigurationBuilder().SetBasePath(currentDirectory)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            var appConnectionString = string.Empty;
-                
-            if (OperatingSystem.IsLinux())
-            {
-                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DemoConnection");
-            }
-            if (OperatingSystem.IsWindows())
-            {
-                appConnectionString = Configurator.GetConfiguration().GetConnectionString("WindowsSqlLiteDevelopingConnection");
-            }
-            if (OperatingSystem.IsMacOS())
-            {
-                appConnectionString = Configurator.GetConfiguration().GetConnectionString("DefaultConnection");
-            }
+
+            var appConnectionString = Configurator.GetConfiguration().GetConnectionString("Algotecture-Demo");
 
             if (appConnectionString == null)
             {
-                Console.WriteLine("Connection string is null");
+                Console.WriteLine("Connection string is null. EfCli is stopped");
                 return 0;
             }
-            
-            var context = new ApplicationDbContext(appConnectionString, false);
+
+            var context = new ApplicationDbContext(appConnectionString);
             await context.Database.EnsureCreatedAsync();
 
-            return 0;
+            Console.WriteLine("done");
+
+            return 1;
         }
     }
 }
