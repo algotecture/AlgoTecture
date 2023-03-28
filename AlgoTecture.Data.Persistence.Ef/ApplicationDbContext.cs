@@ -26,19 +26,19 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
 
-        private readonly string _connectionString;
+        private Provider _provider;
         public ApplicationDbContext() {}
         
-        public ApplicationDbContext(string connectionString)
+        public ApplicationDbContext(Provider provider = Provider.NpgSql)
         {
-            _connectionString = connectionString;
+            _provider = provider;
         }
         
         private static readonly ILoggerFactory Logger = LoggerFactory.Create(builder => { builder.AddConsole(); });
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (string.IsNullOrEmpty(_connectionString))
+            if (_provider == Provider.InMemory)
             {
                 optionsBuilder.UseLoggerFactory(Logger).UseInMemoryDatabase("Data Source=:memory:");
                 return;

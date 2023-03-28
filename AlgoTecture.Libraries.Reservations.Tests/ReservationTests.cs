@@ -14,7 +14,7 @@ public class ReservationTests
     [SetUp]
     public void SetUp()
     {
-        _unitOfWork = new UnitOfWork(new ApplicationDbContext(null), null);
+        _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null);
     }
     
     [Test]

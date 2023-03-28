@@ -1,6 +1,4 @@
 ﻿using AlgoTecture.Data.Persistence.Ef;
-using AlgoTecture.Libraries.Environments;
-using Microsoft.Extensions.Configuration;
 
 namespace AlgoTecture.EfCli
 {
@@ -10,15 +8,7 @@ namespace AlgoTecture.EfCli
         {
             Console.WriteLine("EfCli has been started");
 
-            var appConnectionString = Configurator.GetConfiguration().GetConnectionString("Algotecture-Demo");
-
-            if (appConnectionString == null)
-            {
-                Console.WriteLine("Connection string is null. EfCli is stopped");
-                return 0;
-            }
-
-            var context = new ApplicationDbContext(appConnectionString);
+            var context = new ApplicationDbContext(Provider.NpgSql);
             await context.Database.EnsureCreatedAsync();
 
             Console.WriteLine("done");
