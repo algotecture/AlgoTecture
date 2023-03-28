@@ -36,7 +36,7 @@ public class TelegramUserInfoService : ITelegramUserInfoService
         
         var userEntity = new User
         {
-            CreateDateTime = DateTime.UtcNow,
+            CreateDateTimeUtc = DateTime.UtcNow,
             TelegramUserInfoId = telegramUserInfo.Id
         };
 

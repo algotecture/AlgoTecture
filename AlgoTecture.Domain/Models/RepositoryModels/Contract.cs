@@ -36,10 +36,10 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
 
         public DateTime? DeclarationDateTime { get; set; }
         
-        public DateTime? ContractFrom { get; set; }
+        public DateTime? ContractFromUtc { get; set; }
 
-        public DateTime? ContractTo { get; set; }
+        public DateTime? ContractToUtc { get; set; }
 
-        public DateTime? ContractDateTime { get; set; }
+        public DateTime? ContractDateTimeUtc { get; set; }
     }
 }

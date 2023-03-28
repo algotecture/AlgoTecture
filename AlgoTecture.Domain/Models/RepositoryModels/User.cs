@@ -12,6 +12,6 @@
 
         public TelegramUserInfo? TelegramUserInfo { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
+        public DateTime CreateDateTimeUtc { get; set; }
     }
 }

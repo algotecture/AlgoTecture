@@ -33,12 +33,12 @@ namespace AlgoTecture.Libraries.Contracts.Implementations
                 TenantUserId = null,
                 SpaceId = contractDeclarationModel.SpaceId,
                 SubSpaceId = contractDeclarationModel.SubSpaceId,
-                ContractFrom = contractDeclarationModel.DateStart,
-                ContractTo = contractDeclarationModel.DateStop,
+                ContractFromUtc = contractDeclarationModel.DateStart,
+                ContractToUtc = contractDeclarationModel.DateStop,
                 TotalPrice = contractDeclarationModel.TotalPrice,
                 UtilizationTypeId = contractDeclarationModel.UtilizationTypeId,
                 DeclarationDateTime = DateTime.UtcNow,
-                ContractDateTime = null
+                ContractDateTimeUtc = null
             };
 
             var createdContractDeclaration = await _unitOfWork.Contracts.Add(newContractDeclaration);
@@ -55,7 +55,7 @@ namespace AlgoTecture.Libraries.Contracts.Implementations
 
             var targetContract = await _unitOfWork.Contracts.GetByGuid(completeContractModel.ContractId);
             targetContract.TenantUserId = targetUser.Id;
-            targetContract.ContractDateTime = DateTime.UtcNow;
+            targetContract.ContractDateTimeUtc = DateTime.UtcNow;
 
             var updatedContract = await _unitOfWork.Contracts.Upsert(targetContract);
 

@@ -30,7 +30,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
 
         public async Task<bool> IsActiveContract(Guid spacePropertyId, DateTime dateStart)
         {
-            return await dbSet.AnyAsync(x => x.SubSpaceId == spacePropertyId && x.ContractFrom <= dateStart && x.ContractTo >= dateStart);
+            return await dbSet.AnyAsync(x => x.SubSpaceId == spacePropertyId && x.ContractFromUtc <= dateStart && x.ContractToUtc >= dateStart);
         }
 
         public override async Task<Contract> Upsert(Contract entity)
@@ -44,7 +44,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
                     return await Add(entity);
 
                 existingContract.TenantUserId = entity.TenantUserId;
-                existingContract.ContractDateTime = entity.ContractDateTime;
+                existingContract.ContractDateTimeUtc = entity.ContractDateTimeUtc;
                 
                 return existingContract;
             }

@@ -34,7 +34,7 @@ namespace AlgoTecture.Libraries.Users.Implementations
             var newUser = new User
             {
                 Email = userCredentialModel.EmailLogin,
-                CreateDateTime = DateTime.UtcNow
+                CreateDateTimeUtc = DateTime.UtcNow
             };
             var createdUser = await _unitOfWork.Users.Add(newUser);
             await _unitOfWork.CompleteAsync();
