@@ -4,7 +4,7 @@ namespace AlgoTecture.TelegramBot.Implementations;
 
 public static class DateTimeParser
 {
-    public static DateTime? GetDateTime(DateTime? date, string time)
+    public static DateTime? GetDateTimeUtc(DateTime? date, string time)
     {
         if (!date.HasValue) return null;
         if (string.IsNullOrEmpty(time)) return null;
@@ -15,6 +15,6 @@ public static class DateTimeParser
 
         var targetDateTime = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, targetTime.Hour, targetTime.Minute, targetTime.Second);
 
-        return targetDateTime;
+        return targetDateTime.ToUniversalTime();
     }
 }

@@ -90,8 +90,8 @@ public class MainController : BotController, IMainController
             var reservationToTelegram = new ReservationToTelegramOut()
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:dd MM yyyy HH:mm}",
-                DateTimeTo = $"{reservation.ReservationToUtc.Value:dd MM yyyy HH:mm}",
+                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:dd MM yyyy HH:mm} utc",
+                DateTimeTo = $"{reservation.ReservationToUtc.Value:dd MM yyyy HH:mm} utc",
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
                 PriceCurrency = reservation.PriceSpecification.PriceCurrency

@@ -37,14 +37,21 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
         {
             try
             {
-                var existingUser = await dbSet.Where(x => x.Id == entity.Id)
-                    .FirstOrDefaultAsync();
-
+                User? existingUser;
+                if (entity.TelegramUserInfoId != null)
+                {
+                    existingUser = await dbSet.SingleOrDefaultAsync(x => x.Id == entity.TelegramUserInfoId);
+                }
+                else
+                {
+                    existingUser = await dbSet.SingleOrDefaultAsync(x => x.Id == entity.Id); 
+                }
+                
                 if (existingUser == null)
                     return await Add(entity);
                 
-                existingUser.Phone = entity.Phone;
-                existingUser.TelegramUserInfoId = entity.TelegramUserInfoId;
+                existingUser.Phone = entity.Phone ?? existingUser.Phone;
+                existingUser.TelegramUserInfoId = entity.TelegramUserInfoId ?? existingUser.TelegramUserInfoId;
 
                 return existingUser;
             }

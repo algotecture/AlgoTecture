@@ -112,20 +112,18 @@ public class BoatController : BotController, IBoatController
             time = await AwaitText();
         }
     
-        botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.StartRent;
-        botState.EndRent = rentTimeState == RentTimeState.EndRent ? DateTimeParser.GetDateTime(dateTime, time) : botState.EndRent;
+        botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTimeUtc(dateTime, time) : botState.StartRent;
+        botState.EndRent = rentTimeState == RentTimeState.EndRent ? DateTimeParser.GetDateTimeUtc(dateTime, time) : botState.EndRent;
 
-        if (botState.EndRent != null && botState.StartRent != null)
+        //for demo. timezone needed
+        if (botState.EndRent != null && botState.EndRent <= DateTime.UtcNow)
         {
-            //for demo. timezone needed
-            if (botState.EndRent <= DateTime.UtcNow)
-            {
-                botState.EndRent = null;
-            }
-            if (botState.StartRent <= DateTime.UtcNow)
-            {
-                botState.EndRent = null;
-            }
+            botState.EndRent = null;
+        }
+
+        if (botState.StartRent != null && botState.StartRent <= DateTime.UtcNow)
+        {
+            botState.StartRent = null;
         }
         
         if (botState.EndRent != null && botState.StartRent != null && botState.EndRent <= botState.StartRent)
@@ -283,7 +281,8 @@ public class BoatController : BotController, IBoatController
                 TotalPrice = totalPrice,
                 Description = botState.SpaceName
             };
-            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value, botState.EndRent.Value);
+            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value,
+                botState.EndRent.Value);
             if (checkedReservation != null)
             {
                 throw new InvalidOperationException("this time is reserved");
