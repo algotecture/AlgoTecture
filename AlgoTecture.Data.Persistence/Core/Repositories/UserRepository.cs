@@ -35,6 +35,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
 
         public override async Task<User> Upsert(User entity)
         {
+            _logger.LogInformation("started");
             try
             {
                 User? existingUser;

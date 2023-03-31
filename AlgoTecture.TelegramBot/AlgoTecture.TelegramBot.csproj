@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Common\AlgoTecture.Common.csproj" />
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
       <ProjectReference Include="..\AlgoTecture.Data.Images\AlgoTecture.Data.Images.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj" />

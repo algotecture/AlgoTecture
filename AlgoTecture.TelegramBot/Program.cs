@@ -1,25 +1,63 @@
-using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.Spaces;
-using AlgoTecture.Libraries.UtilizationTypes;
+using AlgoTecture.Common;
 using AlgoTecture.Data.Persistence;
+using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations;
+using AlgoTecture.Libraries.Spaces;
+using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.TelegramBot.Controllers;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
+using AlgoTecture.TelegramBot.Extensions;
 using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
 using Deployf.Botf;
+using Serilog;
 
-BotfProgram.StartBot(args, false, onConfigure: (service, cfg) =>
+namespace AlgoTecture.TelegramBot;
+
+public static class Program
 {
-    service.UseUtilizationTypeLibrary();
-    service.UseSpaceLibrary();
-    service.UsePersistenceLibrary();
-    service.UseGeoAdminSearchLibrary();
-    service.UseReservationLibrary();
-    service.UsePriceSpecificationLibrary();
-    service.AddTransient<ITelegramUserInfoService, TelegramUserInfoService>();
-    service.AddTransient<ITelegramToAddressResolver, TelegramToAddressResolver>();
-    service.AddTransient<IMainController, MainController>();
-    service.AddTransient<IBoatController, BoatController>();
-});
+    public static async Task Main(string[] args)
+    {
+        var webAppBuilder = WebAppBuilder.CreateWebApplicationBuilder(args);
+
+        try
+        {
+            var pathToLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "algotecture", "log", "serilog-log-.json");
+
+            webAppBuilder.Host.UseSerilog((context, services, configuration) =>
+            {
+                var env = context.HostingEnvironment;
+
+                configuration
+                    //.ReadFrom.Configuration(services)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)
+                    .WriteTo.File(pathToLog, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 104857600, retainedFileCountLimit: 31);
+            });
+            webAppBuilder = BotFExtensions.ConfigureBot(args, webAppBuilder);
+
+            webAppBuilder.Services.UseUtilizationTypeLibrary();
+            webAppBuilder.Services.UseSpaceLibrary();
+            webAppBuilder.Services.UsePersistenceLibrary();
+            webAppBuilder.Services.UseGeoAdminSearchLibrary();
+            webAppBuilder.Services.UseReservationLibrary();
+            webAppBuilder.Services.UsePriceSpecificationLibrary();
+            webAppBuilder.Services.AddTransient<ITelegramUserInfoService, TelegramUserInfoService>();
+            webAppBuilder.Services.AddTransient<ITelegramToAddressResolver, TelegramToAddressResolver>();
+            webAppBuilder.Services.AddTransient<IMainController, MainController>();
+            webAppBuilder.Services.AddTransient<IBoatController, BoatController>();
+
+            var webApp = webAppBuilder.Build();
+
+            webApp.UseBotf();
+
+            await webApp.RunAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+}

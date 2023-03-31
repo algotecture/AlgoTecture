@@ -13,20 +13,23 @@ public class MainController : BotController, IMainController
     private readonly ITelegramUserInfoService _telegramUserInfoService;
     private readonly IUtilizationTypeGetter _utilizationTypeGetter;
     private readonly IUnitOfWork _unitOfWork;
-    
+    private readonly ILogger<MainController> _logger;
+
     private readonly IBoatController _boatController;
 
-    public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, IUnitOfWork unitOfWork)
+    public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, IUnitOfWork unitOfWork, ILogger<MainController> logger)
     {
         _telegramUserInfoService = telegramUserInfoService;
         _boatController = boatController;
         _utilizationTypeGetter = utilizationTypeGetter;
         _unitOfWork = unitOfWork;
+        _logger = logger;
     }
 
     [Action("/start", "start the bot")]
     public async Task Start()
     {
+        _logger.LogInformation("asdasd");
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
         var userName = Context.GetUsername();
