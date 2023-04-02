@@ -29,7 +29,6 @@ public class MainController : BotController, IMainController
     [Action("/start", "start the bot")]
     public async Task Start()
     {
-        _logger.LogInformation("asdasd");
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
         var userName = Context.GetUsername();
@@ -42,7 +41,9 @@ public class MainController : BotController, IMainController
             TelegramUserFullName = fullUserName
         };
 
-        _ = await _telegramUserInfoService.AddOrUpdate(addTelegramUserInfoModel);
+        var user = await _telegramUserInfoService.AddOrUpdate(addTelegramUserInfoModel);
+        
+        _logger.LogInformation($"User {user.TelegramUserFullName} log in by telegram bot");
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
