@@ -1,4 +1,5 @@
-﻿using AlgoTecture.Domain.Models.RepositoryModels;
+﻿using AlgoTecture.Domain.Models.Dto;
+using AlgoTecture.Domain.Models.RepositoryModels;
 
 namespace AlgoTecture.Libraries.Spaces.Interfaces
 {
@@ -9,5 +10,7 @@ namespace AlgoTecture.Libraries.Spaces.Interfaces
         Task<List<Space>> GetByType(int utilizationTypeId);
 
         Task<Space> GetById(long spaceId);
+
+        Task<SpaceWithProperty?> GetByIdWithProperty(long spaceId);
     }
 }

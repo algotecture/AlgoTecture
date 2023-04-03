@@ -1,0 +1,25 @@
+﻿@page
+@using System.Globalization
+@model SpacePageModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="text-center">
+    <h1 class="display-4">@Model.TargetSpace.SpaceProperty.Name</h1>
+    @{
+        if (Model.TargetReservations.Any()) {
+            <p>
+                <b>Reserved</b>
+            </p>
+        }
+        foreach (var reservation in @Model.TargetReservations) {
+            <p>
+                <b>From:</b> @reservation.ReservationFromUtc?.ToString("F", CultureInfo.InvariantCulture) <b>To:</b>
+                @reservation.ReservationToUtc?.ToString("F", CultureInfo.InvariantCulture)
+            </p>
+            <br/>
+        }
+        
+        <button class="btn btn-primary" type="submit">Reserve</button>
+    }
+</div>

@@ -7,4 +7,6 @@ public interface IReservationRepository : IGenericRepository<Reservation>
     Task<Reservation?> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo);
     
     Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId);
+    
+    Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId);
 }

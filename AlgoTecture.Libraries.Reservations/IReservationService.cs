@@ -11,4 +11,6 @@ public interface IReservationService
     Task<Reservation?> AddReservation(AddOrUpdateReservationModel addOrUpdateReservationModel);
 
     Task<Reservation?> UpdateReservation(AddOrUpdateReservationModel addOrUpdateReservationModel);
+
+    Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId);
 }

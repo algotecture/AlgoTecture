@@ -23,14 +23,13 @@ public static class Program
 
         try
         {
-            var pathToLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "algotecture", "log", "serilog-log-.json");
+            var pathToLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "algotecture", "log", "telegram-bot", "serilog-log-.json");
 
             webAppBuilder.Host.UseSerilog((context, services, configuration) =>
             {
                 var env = context.HostingEnvironment;
 
                 configuration
-                    //.ReadFrom.Configuration(services)
                     .Enrich.FromLogContext()
                     .Enrich.WithProperty("App", env.ApplicationName)
                     .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)

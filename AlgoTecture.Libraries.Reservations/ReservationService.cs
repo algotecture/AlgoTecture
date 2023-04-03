@@ -85,4 +85,9 @@ public class ReservationService : IReservationService
         resultReservation =  await _unitOfWork.Reservations.Upsert(entity);
         return resultReservation;
     }
+
+    public async Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId)
+    {
+        return await _unitOfWork.Reservations.GetReservationsBySpaceId(spaceId);
+    }
 }

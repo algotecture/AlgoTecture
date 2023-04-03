@@ -13,6 +13,7 @@ namespace AlgoTecture.Domain.Models.RepositoryModels
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+        
         public string SpaceProperty { get; set; }
     }
 }
