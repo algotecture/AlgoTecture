@@ -40,7 +40,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
                 User? existingUser;
                 if (entity.TelegramUserInfoId != null)
                 {
-                    existingUser = await dbSet.SingleOrDefaultAsync(x => x.Id == entity.TelegramUserInfoId);
+                    existingUser = await dbSet.SingleOrDefaultAsync(x => x.TelegramUserInfoId == entity.TelegramUserInfoId);
                 }
                 else
                 {
