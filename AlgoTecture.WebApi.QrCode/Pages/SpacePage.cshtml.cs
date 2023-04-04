@@ -36,6 +36,6 @@ public class SpacePageModel : PageModel
             spaceId = value;
         }
         TargetSpace = await _spaceGetter.GetByIdWithProperty(spaceId);
-        TargetReservations = await _reservationService.GetReservationsBySpaceId(spaceId);
+        TargetReservations = (await _reservationService.GetReservationsBySpaceId(spaceId)).Where(x=>x.ReservationFromUtc >= DateTime.UtcNow);
     }
 }

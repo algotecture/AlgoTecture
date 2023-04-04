@@ -2,6 +2,7 @@ using AlgoTecture.Common;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.Libraries.Reservations;
 using AlgoTecture.Libraries.Spaces;
+using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 
 namespace AlgoTecture.WebApi.QrCode;
@@ -25,22 +26,28 @@ public static class Program
                     .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)
                     .WriteTo.File(pathToLog, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 104857600, retainedFileCountLimit: 31);
             });
+            
             webAppBuilder.Services.AddRazorPages();
-
+            
             webAppBuilder.Services.UseReservationLibrary();
             webAppBuilder.Services.UseSpaceLibrary();
             webAppBuilder.Services.UsePersistenceLibrary();
 
             var app = webAppBuilder.Build();
-
+            
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+                app.UseStaticFiles("/webapi-qrcode");
             }
-
+            else
+            {
+                app.UseStaticFiles(); 
+            }
+            app.UsePathBase("/webapi-qrcode");
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+          
             app.UseRouting();
             app.MapRazorPages();
 

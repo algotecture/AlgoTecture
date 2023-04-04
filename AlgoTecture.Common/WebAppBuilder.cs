@@ -11,7 +11,8 @@ public static class WebAppBuilder
 
         builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
         {
-            config.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            config.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("hosting.json", true);
         }); ;
         
         return builder;
