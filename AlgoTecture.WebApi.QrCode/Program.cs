@@ -45,7 +45,7 @@ public static class Program
             {
                 app.UseStaticFiles(); 
             }
-            app.UsePathBase("/webapi-qrcode");
+
             app.UseHttpsRedirection();
           
             app.UseRouting();
