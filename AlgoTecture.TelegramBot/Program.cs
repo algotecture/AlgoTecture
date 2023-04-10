@@ -25,15 +25,15 @@ public static class Program
         {
             var pathToLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "algotecture", "log", "telegram-bot", "serilog-log-.json");
 
-            webAppBuilder.Host.UseSerilog((context, services, configuration) =>
+            webAppBuilder.Host.UseSerilog((context, _, configuration) =>
             {
                 var env = context.HostingEnvironment;
 
                 configuration
+                    .ReadFrom.Configuration(webAppBuilder.Configuration)
                     .Enrich.FromLogContext()
                     .Enrich.WithProperty("App", env.ApplicationName)
                     .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)
-                    .WriteTo.Seq("http://localhost:5341")
                     .WriteTo.File(pathToLog, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 104857600, retainedFileCountLimit: 31);
             });
             webAppBuilder = BotFExtensions.ConfigureBot(args, webAppBuilder);
