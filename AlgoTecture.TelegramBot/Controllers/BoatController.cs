@@ -293,7 +293,8 @@ public class BoatController : BotController, IBoatController
                 RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
                 
                 _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
-                                       $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. ReservationId: {reservation.Id}");
+                                       $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
+                                       $"ReservationId: {reservation.Id}");
                 
                 PushL("Object successfully reserved");
                 await SendOrUpdate();
@@ -318,7 +319,8 @@ public class BoatController : BotController, IBoatController
     public async Task Unknown()
     {
         PushL(
-            "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Please provide specific instructions using the AlgoTecture bot interface for me to execute tasks.");
+            "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Please provide specific instructions using the AlgoTecture bot " +
+            "interface for me to execute tasks.");
         await SendOrUpdate();
     }
 }
