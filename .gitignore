@@ -273,7 +273,7 @@ __pycache__
 # tools
 
 # End of httpswww.gitignore.ioapiaspnetcore
-
+ 
 appsettings.json
 app.db-shm
 app.db-wal
