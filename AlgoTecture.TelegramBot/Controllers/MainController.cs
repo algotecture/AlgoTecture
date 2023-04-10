@@ -33,6 +33,7 @@ public class MainController : BotController, IMainController
         var userId = Context.GetSafeUserId();
         var userName = Context.GetUsername();
         var fullUserName = Context.GetUserFullName();
+        
         var addTelegramUserInfoModel = new AddOrUpdateTelegramUserInfoModel
         {
             TelegramUserId = userId,
@@ -43,7 +44,7 @@ public class MainController : BotController, IMainController
 
         var user = await _telegramUserInfoService.AddOrUpdate(addTelegramUserInfoModel);
         
-        _logger.LogInformation($"User {user.TelegramUserFullName} log in by telegram bot");
+        _logger.LogInformation($"User {user.TelegramUserFullName} logged in by telegram bot");
 
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
@@ -56,8 +57,7 @@ public class MainController : BotController, IMainController
     public async Task PressToRentButton()
     {
         var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Skip(6).ToList();
-
-        var utilizationTypeToTelegramList = new List<UtilizationTypeToTelegramOut>();
+        
         foreach (var utilizationType in utilizationTypes)
         {
             var utilizationTypeOut = new UtilizationTypeToTelegramOut
@@ -66,11 +66,9 @@ public class MainController : BotController, IMainController
                 Id = utilizationType.Id
             };
 
-            utilizationTypeToTelegramList.Add(utilizationTypeOut);
-
             var botState = new BotState { UtilizationTypeId = utilizationType.Id, MessageId = default(int) };
 
-            RowButton(utilizationType.Name, Q(_boatController.PressToMainBookingPage, botState));   
+            RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));   
         }
         RowButton("Go Back", Q(Start));
 
