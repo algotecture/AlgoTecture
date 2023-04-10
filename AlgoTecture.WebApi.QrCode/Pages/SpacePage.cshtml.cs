@@ -9,7 +9,7 @@ namespace AlgoTecture.WebApi.QrCode.Pages;
 
 public class SpacePageModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<SpacePageModel> _logger;
     private readonly IReservationService _reservationService;
     private readonly ISpaceGetter _spaceGetter;
 
@@ -18,7 +18,7 @@ public class SpacePageModel : PageModel
     
     public SpaceProperty TargetsSpaceProperty { get; set; }
 
-    public SpacePageModel(ILogger<IndexModel> logger, IReservationService reservationService, ISpaceGetter spaceGetter)
+    public SpacePageModel(ILogger<SpacePageModel> logger, IReservationService reservationService, ISpaceGetter spaceGetter)
     {
         _logger = logger;
         _reservationService = reservationService;
@@ -37,5 +37,7 @@ public class SpacePageModel : PageModel
         }
         TargetSpace = await _spaceGetter.GetByIdWithProperty(spaceId);
         TargetReservations = (await _reservationService.GetReservationsBySpaceId(spaceId)).Where(x=>x.ReservationFromUtc >= DateTime.UtcNow);
+        
+        _logger.LogInformation($"Read QR code with spaceId = {TargetSpace?.Id}");
     }
 }

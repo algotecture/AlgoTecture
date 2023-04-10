@@ -33,6 +33,7 @@ public static class Program
                     .Enrich.FromLogContext()
                     .Enrich.WithProperty("App", env.ApplicationName)
                     .Enrich.WithProperty("EnvironmentName", env.EnvironmentName)
+                    .WriteTo.Seq("http://localhost:5341")
                     .WriteTo.File(pathToLog, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 104857600, retainedFileCountLimit: 31);
             });
             webAppBuilder = BotFExtensions.ConfigureBot(args, webAppBuilder);
