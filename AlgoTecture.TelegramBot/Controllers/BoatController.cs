@@ -23,19 +23,20 @@ public class BoatController : BotController, IBoatController
     private readonly IServiceProvider _serviceProvider;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IReservationService _reservationService;
+    private readonly ILogger<BoatController> _logger;
 
-    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService)
+    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService, ILogger<BoatController> logger)
     {
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _serviceProvider = serviceProvider;
         _unitOfWork = unitOfWork;
         _reservationService = reservationService;
+        _logger = logger;
     }
 
     [Action]
     public async Task PressToMainBookingPage(BotState botState)
     {
-        //RowButton("See available time", Q(PressToSeeAvailableTimeToRent, botState));
         RowButton("See available boats", Q(PressToRentTargetUtilizationButton, botState, true));
         RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
 
@@ -65,8 +66,6 @@ public class BoatController : BotController, IBoatController
 
         var targetSpaces = await _spaceGetter.GetByType(boatTargetOfSpaceId);
 
-        var spaceToTelegramOutList = new List<SpaceToTelegramOut>();
-
         foreach (var space in targetSpaces)
         {
             var spaceToTelegramOut = new SpaceToTelegramOut
@@ -74,8 +73,6 @@ public class BoatController : BotController, IBoatController
                 Name = JsonConvert.DeserializeObject<SpaceProperty>(space.SpaceProperty)?.Name,
                 SpaceId = space.Id
             };
-
-            spaceToTelegramOutList.Add(spaceToTelegramOut);
 
             Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, botState, space.Id, isLookingForOnly));
         }
@@ -295,7 +292,10 @@ public class BoatController : BotController, IBoatController
                 var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
                 RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
                 
-                PushL($"Object successfully reserved");
+                _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
+                                       $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. ReservationId: {reservation.Id}");
+                
+                PushL("Object successfully reserved");
                 await SendOrUpdate();
             }
         }
@@ -309,9 +309,8 @@ public class BoatController : BotController, IBoatController
     [On(Handle.Exception)]
     public async Task Exception()
     {
-        var s = Context;
-        PushL(
-            "Ooops");
+        PushL("Ooops");
+        
         await SendOrUpdate();
     }
 
