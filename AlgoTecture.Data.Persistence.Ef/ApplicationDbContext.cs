@@ -95,11 +95,11 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 1,
                 Name = "Santa María",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
-                Description = "Description"
+                Description = "best boat in the world"
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
-                Id = 1, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+                Id = 1, Latitude = 47.361812591552734, Longitude = 8.5370702743530273, SpaceAddress = "Mythenquai 7, 8002 Zürich",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty1), UtilizationTypeId = 12
             });
             var newSpaceProperty2 = new SpaceProperty
@@ -107,11 +107,11 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 2,
                 Name = "Niña",
                 SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
-                Description = "Description"
+                Description = "best boat in the world"
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
-                Id = 2, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+                Id = 2, Latitude = 47.36164855957031, Longitude = 8.5366735458374023, SpaceAddress = "Mythenquai 9, 8002 Zürich",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty2), UtilizationTypeId = 12
             });
             var newSpaceProperty3 = new SpaceProperty
@@ -119,11 +119,11 @@ namespace AlgoTecture.Data.Persistence.Ef
                 SpaceId = 3,
                 Name = "Pinta",
                 SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
-                Description = "Description"
+                Description = "best boat in the world"
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
-                Id = 3, Latitude = 38.705022, Longitude = -9.145460, SpaceAddress = "Lisbon, Lisboa-Cacilhas",
+                Id = 3, Latitude = 47.3613166809082, Longitude = 8.5362958908081055, SpaceAddress = "Mythenquai 25, 8002 Zürich",
                 SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty3), UtilizationTypeId = 12
             });
             

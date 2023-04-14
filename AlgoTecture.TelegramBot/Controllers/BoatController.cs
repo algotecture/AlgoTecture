@@ -25,7 +25,8 @@ public class BoatController : BotController, IBoatController
     private readonly IReservationService _reservationService;
     private readonly ILogger<BoatController> _logger;
 
-    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService, ILogger<BoatController> logger)
+    public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService, 
+        ILogger<BoatController> logger)
     {
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _serviceProvider = serviceProvider;
@@ -37,6 +38,13 @@ public class BoatController : BotController, IBoatController
     [Action]
     public async Task PressToMainBookingPage(BotState botState)
     {
+        //only for demo
+        const int boatTargetOfSpaceId = 12;
+        if (botState.UtilizationTypeId !=boatTargetOfSpaceId)
+        {
+            return;
+        }
+        
         RowButton("See available boats", Q(PressToRentTargetUtilizationButton, botState, true));
         RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
 
@@ -61,10 +69,8 @@ public class BoatController : BotController, IBoatController
             botState.SpaceId = default;
             botState.SpaceName = default;
         }
-
-        const int boatTargetOfSpaceId = 12;
-
-        var targetSpaces = await _spaceGetter.GetByType(boatTargetOfSpaceId);
+        
+        var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
 
         foreach (var space in targetSpaces)
         {
@@ -90,7 +96,7 @@ public class BoatController : BotController, IBoatController
     }
 
     [Action]
-    private async Task PressToEnterTheStartEndTime(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
+    public async Task PressToEnterTheStartEndTime(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
@@ -148,12 +154,12 @@ public class BoatController : BotController, IBoatController
 
         if (string.IsNullOrEmpty(time))
         {
-            PushL("Reservation");
+            PushL("Reservation the boat");
             await SendOrUpdate();   
         }
         else
         {
-            await Send("Reservation"); 
+            await Send("Reservation the boat"); 
         }
     }
 
@@ -305,22 +311,5 @@ public class BoatController : BotController, IBoatController
             Console.WriteLine(e);
             throw;
         }
-    }
-
-    [On(Handle.Exception)]
-    public async Task Exception()
-    {
-        PushL("Ooops");
-        
-        await SendOrUpdate();
-    }
-
-    [On(Handle.Unknown)]
-    public async Task Unknown()
-    {
-        PushL(
-            "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Please provide specific instructions using the AlgoTecture bot " +
-            "interface for me to execute tasks.");
-        await SendOrUpdate();
     }
 }
