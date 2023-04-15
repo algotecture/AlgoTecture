@@ -112,7 +112,7 @@ public class BoatController : BotController, IBoatController
         {
             PushL("Enter the rental start time (in HH:mm format, for example, 14:15)");
             await Send();
-            time = await AwaitText();
+            time = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
         }
     
         botState.StartRent = rentTimeState == RentTimeState.StartRent ? DateTimeParser.GetDateTimeUtc(dateTime, time) : botState.StartRent;

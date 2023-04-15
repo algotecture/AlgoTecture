@@ -140,15 +140,14 @@ public class MainController : BotController, IMainController
 
          var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
 
-         //var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
          var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
 
          _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
          
          if (targetSpace == null)
          {
-             await Start();
-             await Send("No spaces found at this address");
+             PushL("No spaces found at this address. Use /start to try again");
+             await SendOrUpdate();
          }
          else
          {
@@ -163,15 +162,58 @@ public class MainController : BotController, IMainController
              PushL($"Found! {targetSpace.UtilizationType.Name}: {targetSpaceProperty?.Name}. {targetSpaceProperty?.Description}");
          }
      }
+     [Action]
+     private async Task EnterAddress()
+     {
+         var chatId = Context.GetSafeChatId();
+         if (!chatId.HasValue) return;
+         
+         PushL("Enter the address or part of the address");
+         await SendOrUpdate();
+         
+         var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
+        
+         var telegramToAddressList = new List<TelegramToAddressModel>();
+
+         var labels = (await _geoAdminSearcher.GetAddress(address)).ToList();
+        
+         foreach (var label in labels)
+         {
+             var telegramToAddressModel = new TelegramToAddressModel
+             {
+                 FeatureId = label.featureId,
+                 latitude = label.lat,
+                 longitude = label.lon,
+                 Address = label.label
+             };
+             telegramToAddressList.Add(telegramToAddressModel);
+             RowButton(label.label, Q(PressAddressToRentButton, label.featureId));
+         }
+
+         if (!labels.Any())
+         {
+             RowButton("Try again");
+             await Send("Nothing found");
+         }
+         else
+         {
+             _telegramToAddressResolver.TryAddCurrentAddressList(chatId.Value, telegramToAddressList);
+
+             if (_telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).Count > 1)
+             {
+                 await Send("Choose the right address");   
+             }
+             else
+             {
+                 await Send("Address");   
+             }
+         }
+     }
  
     [On(Handle.Exception)]
     public async Task Exception(Exception ex)
     {
         _logger.LogError(ex, "Handle.Exception on telegram-bot");
-        
-        PushL("Ooops. An error has occurred");
-        await Start();
-        await SendOrUpdate();
     }
 
     [On(Handle.Unknown)]
@@ -179,40 +221,17 @@ public class MainController : BotController, IMainController
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
-        
-        PushL(
-            "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Enter an address to search for the space");
-        await Send();
-        
-        var address = await AwaitText();
-        
-        var telegramToAddressList = new List<TelegramToAddressModel>();
 
-
-        var labels = (await _geoAdminSearcher.GetAddress(address)).ToList();
+        RowButton("Enter address", Q(EnterAddress));
+        RowButton("Go back", Q(Start));
         
-        foreach (var label in labels)
-        {
-            var telegramToAddressModel = new TelegramToAddressModel
-            {
-                FeatureId = label.featureId,
-                latitude = label.lat,
-                longitude = label.lon,
-                Address = label.label
-            };
-            telegramToAddressList.Add(telegramToAddressModel);
-            RowButton(label.label, Q(PressAddressToRentButton, label.featureId));
-        }
-
-        if (!labels.Any())
-        {
-            RowButton("Try again");
-            await Send("Nothing found");
-        }
-        else
-        {
-            _telegramToAddressResolver.TryAddCurrentAddressList(chatId.Value, telegramToAddressList);
-            await Send("Choose the right address");
-        }
+        PushL("I'm sorry, but I'm not yet able to understand natural language requests at the moment. Enter an address to search for the space");
+        await SendOrUpdate();
+    }
+    
+    [On(Handle.ChainTimeout)]
+    void ChainTimeout(Exception ex)
+    {
+        _logger.LogError(ex, "Handle.Exception on telegram-bot");
     }
 }
