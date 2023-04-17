@@ -6,7 +6,7 @@ namespace AlgoTecture.Libraries.Reservations;
 
 public interface IReservationService
 {
-    Task<Reservation?> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo);
+    Task<IEnumerable<Reservation>> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo);
 
     Task<Reservation?> AddReservation(AddOrUpdateReservationModel addOrUpdateReservationModel);
 

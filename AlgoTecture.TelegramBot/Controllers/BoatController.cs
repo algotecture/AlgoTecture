@@ -286,9 +286,9 @@ public class BoatController : BotController, IBoatController
             };
             var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value,
                 botState.EndRent.Value);
-            if (checkedReservation != null)
+            if (checkedReservation.Any())
             {
-               _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserved space {botState.SpaceName} with id " +
+               _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserve a space {botState.SpaceName} with id " +
                                       $"{botState.SpaceId}. But this time is already reserved");
 
                PushL("This time is already reserved");

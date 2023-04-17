@@ -13,7 +13,7 @@ public class ReservationService : IReservationService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Reservation?> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
+    public async Task<IEnumerable<Reservation>> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
     {
         var reservation = await _unitOfWork.Reservations.CheckReservation(spaceId, subSpaceId, reservationFrom, reservationTo);
 

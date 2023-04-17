@@ -13,7 +13,7 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
     public ReservationRepository(ApplicationDbContext context, ILogger logger) : base(context, logger) { }
 
     [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
-    public async Task<Reservation?> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
+    public async Task<IEnumerable<Reservation>> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
     {
         var query = dbSet.AsQueryable();
         if (!string.IsNullOrEmpty(subSpaceId))
@@ -30,7 +30,7 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
 
         var result =  await query.ToListAsync();
 
-        return result.SingleOrDefault();
+        return result;
     }
 
     public async Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId)
