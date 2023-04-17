@@ -18,13 +18,13 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
         var query = dbSet.AsQueryable();
         if (!string.IsNullOrEmpty(subSpaceId))
         {
-            query.Where(x => x.SubSpaceId == subSpaceId);
+            query = query.Where(x => x.SubSpaceId == subSpaceId);
         }
         else
         {
-            query.Where(x => x.SpaceId == spaceId);
+            query = query.Where(x => x.SpaceId == spaceId);
         }
-        query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
+        query = query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
         query = query.Where(x => x.ReservationFromUtc <= reservationTo);
         query = query.Where(x => x.ReservationToUtc >= reservationFrom);
 

@@ -40,10 +40,10 @@ public class ReservationService : IReservationService
             Description = addOrUpdateReservationModel.Description
         };
         
-        var reservation = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
+        var reservations = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
             addOrUpdateReservationModel.ReservationFromUtc.Value, addOrUpdateReservationModel.ReservationToUtc.Value);
 
-        if (reservation != null)
+        if (reservations.Any())
         {
             throw new InvalidOperationException("Can not add reservation because exist in this period");
         }
