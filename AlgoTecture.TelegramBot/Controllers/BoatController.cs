@@ -288,7 +288,7 @@ public class BoatController : BotController, IBoatController
                 botState.EndRent.Value);
             if (checkedReservation != null)
             {
-               _logger.LogInformation($"Telegram User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserved space {botState.SpaceName} with id " +
+               _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserved space {botState.SpaceName} with id " +
                                       $"{botState.SpaceId}. But this time is already reserved");
 
                PushL("This time is already reserved");
