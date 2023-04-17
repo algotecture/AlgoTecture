@@ -64,7 +64,7 @@ public class MainController : BotController, IMainController
 
         Button("I want to rent", Q(PressToRentButton));
         Button("I have a reservation", Q(PressToFindReservationsButton));
-        RowButton("Manage the contract", Q(PressToManageContract));
+        RowButton("Enter address", Q(EnterAddress));
     }
     
     [Action]

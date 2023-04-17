@@ -40,7 +40,7 @@ public class BoatController : BotController, IBoatController
     {
         //only for demo
         const int boatTargetOfSpaceId = 12;
-        if (botState.UtilizationTypeId !=boatTargetOfSpaceId)
+        if (botState.UtilizationTypeId != boatTargetOfSpaceId)
         {
             return;
         }
@@ -134,9 +134,9 @@ public class BoatController : BotController, IBoatController
             botState.EndRent = null;
         }
         
-        RowButton(botState.StartRent != null ? $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm}"
+        RowButton(botState.StartRent != null ? $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} utc"
                 : "Rental start time", Q(PressToChooseTheDate, botState, RentTimeState.StartRent));
-        RowButton(botState.EndRent != null ? $"{botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm}"
+        RowButton(botState.EndRent != null ? $"{botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} utc"
                 : "Rental end time", Q(PressToChooseTheDate, botState, RentTimeState.EndRent));
         RowButton(!string.IsNullOrEmpty(botState.SpaceName) ? botState.SpaceName : "Choose a boat", Q(PressToRentTargetUtilizationButton, botState, false));
 
@@ -288,22 +288,29 @@ public class BoatController : BotController, IBoatController
                 botState.EndRent.Value);
             if (checkedReservation != null)
             {
-                throw new InvalidOperationException("this time is reserved");
+               _logger.LogInformation($"Telegram User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserved space {botState.SpaceName} with id " +
+                                      $"{botState.SpaceId}. But this time is already reserved");
+
+               PushL("This time is already reserved");
+               RowButton("Go to reservation and try again", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
+               await SendOrUpdate();
             }
-
-            var reservation = await _reservationService.AddReservation(addOrUpdateReservationModel);
-
-            if (reservation != null)
+            else
             {
-                var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
-                RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
+                var reservation = await _reservationService.AddReservation(addOrUpdateReservationModel);
+
+                if (reservation != null)
+                {
+                    var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
+                    RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
                 
-                _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
-                                       $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
-                                       $"ReservationId: {reservation.Id}");
+                    _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
+                                           $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
+                                           $"ReservationId: {reservation.Id}");
                 
-                PushL("Object successfully reserved");
-                await SendOrUpdate();
+                    PushL("Object successfully reserved");
+                    await SendOrUpdate();
+                }   
             }
         }
         catch (Exception e)
