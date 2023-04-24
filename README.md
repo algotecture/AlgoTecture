@@ -1,6 +1,17 @@
-# AlgoTecture's REST
+# AlgoTecture
+
+## Executive Summary
 
 At AlgoTecture, the aim has always been to establish collaborative coherence among peers working on the design, construction, and operation of buildings and spaces.
+
+AlgoTecture is an algorithmic technology whose name comes from the abbreviation of Algorithmic Architecture with the core mission of leveraging the accessibility of architecture using algorithms to make people's expectations affordable by following the vision of driving any built space on the earth autonomously accessible. 
+
+## Short Description
+
+[Launching Booking Bot to Transform Building Industry with Algorithmic Technology](https://medium.com/@deminism/launching-booking-bot-to-transform-building-industry-with-algorithmic-technology-c605e728e327)
+
+Service or Product Short Description
+
 
 ## [Owner Declaration Form](https://docs.google.com/forms/d/e/1FAIpQLSfWlzitjaanswORgW8kdxa-Y74ESpP7UStYQfxFpjL0cBx2Ow/viewform) 
 
