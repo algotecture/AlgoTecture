@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-At AlgoTecture, the aim has always been to establish collaborative coherence among peers working on the design, construction, and operation of buildings and spaces.
-
 AlgoTecture is an algorithmic technology whose name comes from the abbreviation of Algorithmic Architecture with the core mission of leveraging the accessibility of architecture using algorithms to make people's expectations affordable by following the vision of driving any built space on the earth autonomously accessible. 
+
+AlgoTecture’s product is a decentralised data management framework that enables stakeholders involved in building design, construction, operation and financing for data delivery in an ultimate peer-to-peer manner. At AlgoTecture, the aim has always been to establish collaborative coherence among peers working on the design, construction, and operation of buildings and spaces.
 
 ## Short Description
 
