@@ -8,6 +8,8 @@ namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
 
         public string BuildingClass { get; set; }
 
+        public string BuildingName { get; set; }
+
         public int Levels { get; set; }
 
         public int Area { get; set; }

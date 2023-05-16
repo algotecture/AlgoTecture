@@ -137,7 +137,7 @@ public class MainController : BotController, IMainController
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
-
+         
          var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
 
          var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
@@ -146,7 +146,10 @@ public class MainController : BotController, IMainController
          
          if (targetSpace == null)
          {
-             PushL("No spaces found at this address. Use /start to try again");
+             var formattedGeoAdminFeatureId = !string.IsNullOrEmpty(geoAdminFeatureId) ? geoAdminFeatureId.Split('_')[0] : string.Empty;
+             PushL("This space will soon be available for rent. Go to space properties or /start to try again");
+             var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}";
+             RowButton("Go to space properties", urlToAddressProperties);
              await SendOrUpdate();
          }
          else
@@ -172,6 +175,10 @@ public class MainController : BotController, IMainController
          await SendOrUpdate();
          
          var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
+
+         var user = await _unitOfWork.TelegramUserInfos.GetByTelegramChatId(chatId.Value);
+         
+         _logger.LogInformation($"User {user?.TelegramUserFullName} entered text {address} to search for an address");
         
          var telegramToAddressList = new List<TelegramToAddressModel>();
 
@@ -208,6 +215,15 @@ public class MainController : BotController, IMainController
                  await Send("Address");   
              }
          }
+     }
+     
+     [Action]
+     private async Task RedirectToAddressPropertiesButton(string geoAdminFeatureId)
+     {
+         var chatId = Context.GetSafeChatId();
+         if (!chatId.HasValue) return;
+
+        
      }
  
     [On(Handle.Exception)]

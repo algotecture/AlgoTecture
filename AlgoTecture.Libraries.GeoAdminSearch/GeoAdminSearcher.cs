@@ -84,6 +84,11 @@ namespace AlgoTecture.Libraries.GeoAdminSearch
                 }
 
                 geoAdminBuilding.BuildingCategory = GwrCodeLookup.GetCode(building.buildingCategory.ToString());
+                
+                if (building.nameOfBuilding != null)
+                {
+                    geoAdminBuilding.BuildingName = building.nameOfBuilding;
+                }
 
                 if (building.buildingClass != null)
                 {
