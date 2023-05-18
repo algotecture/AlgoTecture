@@ -5,7 +5,7 @@ using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Libraries.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.Controllers
+namespace AlgoTecture.WebApi.Controllers
 {
     [Route("[controller]")]
     public class UserController : Controller

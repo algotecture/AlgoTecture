@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Middleware.CustomExceptionMiddleware
+namespace AlgoTecture.WebApi.Middleware.CustomExceptionMiddleware
 {
     public class ExceptionMiddleware
     {

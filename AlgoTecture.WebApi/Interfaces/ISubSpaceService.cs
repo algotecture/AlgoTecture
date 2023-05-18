@@ -2,7 +2,7 @@
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Interfaces
+namespace AlgoTecture.WebApi.Interfaces
 {
     public interface ISubSpaceService
     {

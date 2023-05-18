@@ -9,8 +9,6 @@
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
       <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.*" />
-        <PackageReference Include="NLog" Version="4.7.*" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Common\AlgoTecture.Common.csproj" />
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Contracts\AlgoTecture.Libraries.Contracts.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj" />

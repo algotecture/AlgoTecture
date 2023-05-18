@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture", "AlgoTecture\AlgoTecture.csproj", "{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.WebApi", "AlgoTecture.WebApi\AlgoTecture.WebApi.csproj", "{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot", "AlgoTecture.TelegramBot\AlgoTecture.TelegramBot.csproj", "{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}"
 EndProject

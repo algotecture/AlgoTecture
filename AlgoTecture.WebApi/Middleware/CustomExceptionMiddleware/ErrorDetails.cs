@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace AlgoTecture.Middleware.CustomExceptionMiddleware
+namespace AlgoTecture.WebApi.Middleware.CustomExceptionMiddleware
 {
     public class ErrorDetails
     {

@@ -2,12 +2,11 @@ using System;
 using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
 using AlgoTecture.Libraries.Contracts.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.Controllers
+namespace AlgoTecture.WebApi.Controllers
 {
     [Route("[controller]")]
     public class ContractController : Controller

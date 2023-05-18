@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace AlgoTecture.Middleware.CustomExceptionMiddleware
+namespace AlgoTecture.WebApi.Middleware.CustomExceptionMiddleware
 {
     public static class ExceptionMiddlewareExtensions
     {

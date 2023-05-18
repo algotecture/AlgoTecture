@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Interfaces;
 using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.WebApi.Interfaces;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Implementations
+namespace AlgoTecture.WebApi.Implementations
 {
     public class SubSpaceService : ISubSpaceService
     {

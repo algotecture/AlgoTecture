@@ -2,11 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Interfaces;
 using AlgoTecture.Libraries.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.Controllers
+namespace AlgoTecture.WebApi.Controllers
 {
     [Route("[controller]")]
     public class AuthenticationController : Controller
