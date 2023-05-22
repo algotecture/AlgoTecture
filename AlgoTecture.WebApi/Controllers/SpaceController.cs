@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.Dto;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.Spaces.Interfaces;
+using AlgoTecture.Libraries.Spaces.Models.Dto;
 using AlgoTecture.WebApi.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AddSubSpaceModel = AlgoTecture.Domain.Models.Dto.AddSubSpaceModel;
 
 namespace AlgoTecture.WebApi.Controllers
 {
@@ -14,11 +15,13 @@ namespace AlgoTecture.WebApi.Controllers
     {
         private readonly ISpaceGetter _spaceGetter;
         private readonly ISubSpaceService _subSpaceService;
+        private readonly ISpaceService _spaceService;
 
-        public SpaceController(ISpaceGetter spaceGetter, ISubSpaceService subSpaceService)
+        public SpaceController(ISpaceGetter spaceGetter, ISubSpaceService subSpaceService, ISpaceService spaceService)
         {
             _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
             _subSpaceService = subSpaceService ?? throw new ArgumentNullException(nameof(subSpaceService));
+            _spaceService = spaceService;
         }
         
         [HttpGet("GetByCoordinates")]
@@ -36,6 +39,14 @@ namespace AlgoTecture.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest();
             
             return await _subSpaceService.AddSubSpaceToSpace(addSubSpaceModel);
+        }
+        
+        [HttpPost("AddSpace")]
+        public async Task<ActionResult<Space>> AddSpace([FromBody] AddSpaceModel addSpaceModel)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            return await _spaceService.AddSpace(addSpaceModel);
         }
     }
 }

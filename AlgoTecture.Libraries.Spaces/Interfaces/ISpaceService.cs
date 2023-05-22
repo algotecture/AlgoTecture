@@ -5,5 +5,5 @@ namespace AlgoTecture.Libraries.Spaces.Interfaces;
 
 public interface ISpaceService
 {
-    Task<Space> AddOrUpdateSpace(AddSpaceModel addSpaceModel);
+    Task<Space> AddSpace(AddSpaceModel addSpaceModel);
 }

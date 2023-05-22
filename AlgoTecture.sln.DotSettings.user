@@ -2,6 +2,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d19db880_002Dbfa3_002D456f_002D9d89_002Dcff01e02f298/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Assert_That_Will_be_Returned_Null_If_In_Target_Time_Reservation_Exist" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::1EC8134E-12A2-4EEB-83F7-A128164E15E7::net6.0::AlgoTecture.Libraries.Reservations.Tests.ReservationTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::1EC8134E-12A2-4EEB-83F7-A128164E15E7::net6.0::AlgoTecture.Libraries.Reservations.Tests.Serialization.ClassToJsonSerializationTests.ConversationClassToJsonSimpleTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

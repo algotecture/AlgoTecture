@@ -11,9 +11,9 @@ namespace AlgoTecture.Domain.Models
 
         public int SubSpaceIdHash { get; set; }
 
-        public long SpaceId { get; set; }
-
         private List<SubSpace> _subSpaces;
+
+        public SubSpaceDetails SubSpaceDetails { get; set; }
         
         public double Area { get; set; }
 

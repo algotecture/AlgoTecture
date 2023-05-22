@@ -12,6 +12,7 @@ public static class UseSpace
             if (serviceCollection == null) throw new ArgumentNullException(nameof(serviceCollection));
 
             serviceCollection.AddTransient<ISpaceGetter, SpaceGetter>();
+            serviceCollection.AddTransient<ISpaceService, SpaceService>();
             
             return serviceCollection;
         }  

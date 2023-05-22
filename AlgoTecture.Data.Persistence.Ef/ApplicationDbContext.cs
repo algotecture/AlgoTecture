@@ -92,7 +92,6 @@ namespace AlgoTecture.Data.Persistence.Ef
             
             var newSpaceProperty1 = new SpaceProperty
             {
-                SpaceId = 1,
                 Name = "Santa María",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
                 Description = "best boat in the world"
@@ -104,7 +103,6 @@ namespace AlgoTecture.Data.Persistence.Ef
             });
             var newSpaceProperty2 = new SpaceProperty
             {
-                SpaceId = 2,
                 Name = "Niña",
                 SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
                 Description = "best boat in the world"
@@ -116,7 +114,6 @@ namespace AlgoTecture.Data.Persistence.Ef
             });
             var newSpaceProperty3 = new SpaceProperty
             {
-                SpaceId = 3,
                 Name = "Pinta",
                 SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
                 Description = "best boat in the world"

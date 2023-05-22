@@ -4,15 +4,11 @@ namespace AlgoTecture.Domain.Models
     {
         public Guid SpacePropertyId { get; set; }
 
-        public long SpaceId { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public int UtilizationTypeId { get; set; }
-        
-        public double TotalArea { get; set; }
+        public SpaceDetails SpaceDetails { get; set; }
         
         public long OwnerId { get; set; }
 

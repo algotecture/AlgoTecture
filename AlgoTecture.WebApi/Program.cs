@@ -48,7 +48,7 @@ namespace AlgoTecture.WebApi
 
                  var jwtIssuer = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
                  var jwtAlgotectureSecret = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;
-            
+                 
                   webAppBuilder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                       .AddJwtBearer(options =>
                       {

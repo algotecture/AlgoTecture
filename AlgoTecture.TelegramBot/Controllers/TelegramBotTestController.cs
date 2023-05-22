@@ -122,7 +122,6 @@ public class TelegramBotTestController : BotController
             var newSubSpaceId = Guid.NewGuid();
             var newSpaceProperty = new SpaceProperty
             {
-                SpaceId = spaceEntity.Id,
                 SpacePropertyId = Guid.NewGuid(),
                 SubSpaces = new List<SubSpace>()
                 {

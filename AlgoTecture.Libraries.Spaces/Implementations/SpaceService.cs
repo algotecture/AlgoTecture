@@ -6,7 +6,7 @@ namespace AlgoTecture.Libraries.Spaces.Implementations;
 
 public class SpaceService : ISpaceService
 {
-    public Task<Space> AddOrUpdateSpace(AddSpaceModel addSpaceModel)
+    public Task<Space> AddSpace(AddSpaceModel addSpaceModel)
     {
         return null;
     }
