@@ -4,22 +4,22 @@
     ViewData["Title"] = "Home page";
 }
 <div class="text-center">
-    <strong>@Model.GeoAdminBuilding.BuildingName</strong>
+    <strong>@Model.LabelAddress</strong>
 </div>
 <div class="text-left">
     @{
         <ol start="1">
-            <li><strong>Municipality Name</strong>: @Model.GeoAdminBuilding.MunicipalityName</li>
-            <li><strong>Municipality Id</strong>: @Model.GeoAdminBuilding.MunicipalityId</li>
-            <li><strong>Place Name</strong>: @Model.GeoAdminBuilding.PlaceName</li>
-            <li><strong>Building Name</strong>: @Model.GeoAdminBuilding.BuildingName</li>
-            <li><strong>Building Year</strong>: @Model.GeoAdminBuilding.BuildingYear</li>
-            <li><strong>Building Category</strong>: @Model.GeoAdminBuilding.BuildingCategory</li>
-            <li><strong>Building Class</strong>: @Model.GeoAdminBuilding.BuildingClass</li>
-            <li><strong>Levels</strong>: @Model.GeoAdminBuilding.Levels</li>
-            <li><strong>Area</strong>: @Model.GeoAdminBuilding.Area</li>
-            <li><strong>Floor Area</strong>: @Model.GeoAdminBuilding.FloorArea</li>
-            <li><strong>Flats</strong>: @Model.GeoAdminBuilding.Flats</li>
+            <li><strong>Municipality Name</strong>: @Model.GeoAdminBuildingView.MunicipalityName</li>
+            <li><strong>Municipality Id</strong>: @Model.GeoAdminBuildingView.MunicipalityId</li>
+            <li><strong>Place Name</strong>: @Model.GeoAdminBuildingView.PlaceName</li>
+            <li><strong>Building Name</strong>: @Model.GeoAdminBuildingView.BuildingName</li>
+            <li><strong>Building Year</strong>: @Model.GeoAdminBuildingView.BuildingYear</li>
+            <li><strong>Building Category</strong>: @Model.GeoAdminBuildingView.BuildingCategory</li>
+            <li><strong>Building Class</strong>: @Model.GeoAdminBuildingView.BuildingClass</li>
+            <li><strong>Levels</strong>: @Model.GeoAdminBuildingView.Levels</li>
+            <li><strong>Area</strong>: @Model.GeoAdminBuildingView.Area</li>
+            <li><strong>Floor Area</strong>: @Model.GeoAdminBuildingView.FloorArea</li>
+            <li><strong>Flats</strong>: @Model.GeoAdminBuildingView.Flats</li>
         </ol>
         <div class="text-center">
             <button onclick="location.href='https://t.me/AlgoTectureRent_bot'" class="btn btn-primary" type="submit">

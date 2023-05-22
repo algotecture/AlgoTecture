@@ -133,12 +133,12 @@ public class MainController : BotController, IMainController
     }
     
      [Action]
-     private async Task PressAddressToRentButton(string geoAdminFeatureId)
+     private async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel)
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
          
-         var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
+         var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == telegramToAddressModel.FeatureId);
 
          var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
 
@@ -146,9 +146,10 @@ public class MainController : BotController, IMainController
          
          if (targetSpace == null)
          {
-             var formattedGeoAdminFeatureId = !string.IsNullOrEmpty(geoAdminFeatureId) ? geoAdminFeatureId.Split('_')[0] : string.Empty;
+             var formattedGeoAdminFeatureId = !string.IsNullOrEmpty(telegramToAddressModel.FeatureId) ? telegramToAddressModel.FeatureId.Split('_')[0] : string.Empty;
              PushL("This space will soon be available for rent. Go to space properties or /start to try again");
-             var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}";
+             
+             var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}&label={telegramToAddressModel.Address}";
              RowButton("Go to space properties", urlToAddressProperties);
              await SendOrUpdate();
          }
@@ -194,7 +195,7 @@ public class MainController : BotController, IMainController
                  Address = label.label
              };
              telegramToAddressList.Add(telegramToAddressModel);
-             RowButton(label.label, Q(PressAddressToRentButton, label.featureId));
+             RowButton(label.label, Q(PressAddressToRentButton, telegramToAddressModel));
          }
 
          if (!labels.Any())
