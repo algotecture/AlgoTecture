@@ -46,24 +46,24 @@ namespace AlgoTecture.WebApi
                   webAppBuilder.Services.Configure<AuthenticationOptions>(webAppBuilder.Configuration.GetSection("AuthenticationOptions"));
                   webAppBuilder.Services.TryAddTransient<ISubSpaceService, SubSpaceService>();
 
-                 var jwtIssuer = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
-                 var jwtAlgotectureSecret = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;
-                 
-                  webAppBuilder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                      .AddJwtBearer(options =>
-                      {
-                          options.RequireHttpsMetadata = false;
-                          options.TokenValidationParameters = new TokenValidationParameters
-                          {
-                              ValidateIssuer = true,
-                              ValidIssuer = jwtIssuer,
-                              ValidateAudience = true,
-                              ValidAudience = AuthenticationConstants.Audience,
-                              ValidateLifetime = true,
-                              IssuerSigningKey = AuthenticationConstants.GetSymmetricSecurityKey(jwtAlgotectureSecret),
-                              ValidateIssuerSigningKey = true
-                          };
-                      });
+                 // var jwtIssuer = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtIssuer").Value;
+                 // var jwtAlgotectureSecret = webAppBuilder.Configuration.GetSection("AuthenticationOptions").GetChildren().First(x=>x.Key == "JwtAlgotectureSecret").Value;
+                 //
+                 //  webAppBuilder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                 //      .AddJwtBearer(options =>
+                 //      {
+                 //          options.RequireHttpsMetadata = false;
+                 //          options.TokenValidationParameters = new TokenValidationParameters
+                 //          {
+                 //              ValidateIssuer = true,
+                 //              ValidIssuer = jwtIssuer,
+                 //              ValidateAudience = true,
+                 //              ValidAudience = AuthenticationConstants.Audience,
+                 //              ValidateLifetime = true,
+                 //              IssuerSigningKey = AuthenticationConstants.GetSymmetricSecurityKey(jwtAlgotectureSecret),
+                 //              ValidateIssuerSigningKey = true
+                 //          };
+                 //      });
             
                   webAppBuilder.Services.AddControllers();
                   

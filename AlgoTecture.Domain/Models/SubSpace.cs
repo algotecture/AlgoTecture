@@ -9,13 +9,9 @@ namespace AlgoTecture.Domain.Models
 
         public Guid SubSpaceId { get; set; }
 
-        public int SubSpaceIdHash { get; set; }
-
         private List<SubSpace> _subSpaces;
 
-        public List<Dictionary<string, string>> Properties { get; set; }
-        
-        public double Area { get; set; }
+        public Dictionary<string, string> Properties { get; set; }
 
         public int UtilizationTypeId { get; set; }
 

@@ -35,4 +35,10 @@
       <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="hosting.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

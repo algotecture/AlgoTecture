@@ -16,25 +16,31 @@ public class ClassToJsonSerializationTests
             SpaceAddress = "Unterstaldig 1 6106 Werthenstein",
             Latitude = 47.04173191647986,
             Longitude = 8.097301555686508,
-            SpaceProperty = new AddSpacePropertyModel
+            SpaceProperty = new SpaceProperty
             {
                 Name = string.Empty,
                 Description = string.Empty,
                 Properties = new Dictionary<string, string>(){{"BuildingName", "Name"}, {"Area", "100"}},
                 
-                SubSpaces = new List<AddSubSpaceModel>()
+                SubSpaces = new List<SubSpace>()
                 {
-                    new AddSubSpaceModel
+                    new SubSpace
                     {
                         UtilizationTypeId = 1,
                         Description = string.Empty,
                         Properties = new Dictionary<string, string>(){{"Levels", "2"}, {"Area", "45"}}
                     },
-                    new AddSubSpaceModel
+                    new SubSpace
                     {
                         UtilizationTypeId = 1,
                         Description = string.Empty,
-                        Properties = new Dictionary<string, string>(){{"Levels", "2"}, {"Area", "44"}}
+                        Properties = new Dictionary<string, string>(){{"Levels", "2"}, {"Area", "44"}},
+                        Subspaces = new List<SubSpace>(){ new SubSpace
+                        {
+                            UtilizationTypeId = 1,
+                            Description = string.Empty,
+                            Properties = new Dictionary<string, string>(){{"Levels", "1"}, {"Area", "10"}}
+                        }}
                     }
                 }
             }

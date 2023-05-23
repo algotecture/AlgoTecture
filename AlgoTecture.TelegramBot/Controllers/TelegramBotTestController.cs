@@ -26,19 +26,19 @@ public class TelegramBotTestController : BotController
     }
 
     [Action]
-    private async Task PressGetSubSpacePropertiesButton(long spaceId, int subSpaceIdHash)
+    private async Task PressGetSubSpacePropertiesButton(long spaceId)
     {
         var targetSpace = await _unitOfWork.Spaces.GetById(spaceId);
         if (targetSpace == null) return;
 
         var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
-        var targetSubSpace = targetSpaceProperty.SubSpaces.FirstOrDefault(x => x.SubSpaceIdHash == subSpaceIdHash);
+        var targetSubSpace = new SubSpace();
         if (targetSubSpace == null) return;
 
         Button("Update");
         Button("Upload photo");
         Button("Remove");
-        await Send($"{targetSpace.SpaceAddress}{Environment.NewLine}Area: {targetSubSpace.Area}{Environment.NewLine}Contract: none ");
+        await Send($"{targetSpace.SpaceAddress}{Environment.NewLine}Area: {Environment.NewLine}Contract: none ");
     }
 
 
@@ -129,7 +129,6 @@ public class TelegramBotTestController : BotController
                     {
                         OwnerId = user.Id,
                         SubSpaceId = newSubSpaceId,
-                        SubSpaceIdHash = newSubSpaceId.GetHashCode(),
                         UtilizationTypeId = 11,
                     }
                 }
@@ -137,7 +136,7 @@ public class TelegramBotTestController : BotController
             newSpace.SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty);
             await _unitOfWork.CompleteAsync();
             _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
-            PressGetSubSpacePropertiesButton(spaceEntity.Id, newSpaceProperty.SubSpaces.First().SubSpaceIdHash);
+            PressGetSubSpacePropertiesButton(spaceEntity.Id);
             //await Send(targetAddress.Address);
         }
         else
@@ -149,7 +148,7 @@ public class TelegramBotTestController : BotController
                 var counter = 1;
                 foreach (var userSubSpace in userSubSpaces)
                 {
-                    Button($"({counter})", Q(PressGetSubSpacePropertiesButton, targetSpace.Id, userSubSpace.SubSpaceIdHash));
+                    Button($"({counter})", Q(PressGetSubSpacePropertiesButton, targetSpace.Id));
                 }
             }
 

@@ -1,3 +1,5 @@
+using AlgoTecture.Domain.Models;
+
 namespace AlgoTecture.Libraries.Spaces.Models.Dto
 {
     public class AddSpaceModel
@@ -10,6 +12,6 @@ namespace AlgoTecture.Libraries.Spaces.Models.Dto
 
         public double Longitude { get; set; }
         
-        public AddSpacePropertyModel SpaceProperty { get; set; }
+        public SpaceProperty SpaceProperty { get; set; }
     }
 }
