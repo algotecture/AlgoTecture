@@ -8,7 +8,7 @@ namespace AlgoTecture.Domain.Models
 
         public string Description { get; set; }
 
-        public SpaceDetails SpaceDetails { get; set; }
+        public Dictionary<string, string> Properties { get; set; }
         
         public long OwnerId { get; set; }
 

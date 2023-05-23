@@ -11,7 +11,7 @@ public class AddSubSpaceModel
 
     private List<AddSubSpaceModel> _subSpaces;
 
-    public SubSpaceDetails SubSpaceDetails { get; set; }
+    public Dictionary<string, string> Properties { get; set; }
 
     public int UtilizationTypeId { get; set; }
 

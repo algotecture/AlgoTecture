@@ -13,7 +13,7 @@ namespace AlgoTecture.Domain.Models
 
         private List<SubSpace> _subSpaces;
 
-        public SubSpaceDetails SubSpaceDetails { get; set; }
+        public List<Dictionary<string, string>> Properties { get; set; }
         
         public double Area { get; set; }
 

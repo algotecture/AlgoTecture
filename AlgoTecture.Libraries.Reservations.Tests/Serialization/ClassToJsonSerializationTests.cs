@@ -20,45 +20,21 @@ public class ClassToJsonSerializationTests
             {
                 Name = string.Empty,
                 Description = string.Empty,
-                SpaceDetails = new SpaceDetails
-                {
-                   BuildingYear = "2023",
-                   BuildingName = string.Empty,
-                   Levels = "3",
-                   Area = "456.4",
-                   Flats = "1",
-                   FloorArea = "674",
-                   BuildingClass = "Gebäude mit 1 Wohnung",
-                   BuildingCategory = "Andere Wohngebäude",
-                   PlaceName = "Werthenstein",
-                   MunicipalityId = "1009",
-                   MunicipalityName = "Werthenstein"
-                },
+                Properties = new Dictionary<string, string>(){{"BuildingName", "Name"}, {"Area", "100"}},
+                
                 SubSpaces = new List<AddSubSpaceModel>()
                 {
                     new AddSubSpaceModel
                     {
                         UtilizationTypeId = 1,
                         Description = string.Empty,
-                        SubSpaceDetails = new SubSpaceDetails
-                        {
-                            Levels = "1",
-                            Area = "300",
-                            Flats = "1",
-                            FloorArea = "477",
-                        }
+                        Properties = new Dictionary<string, string>(){{"Levels", "2"}, {"Area", "45"}}
                     },
                     new AddSubSpaceModel
                     {
                         UtilizationTypeId = 1,
                         Description = string.Empty,
-                        SubSpaceDetails = new SubSpaceDetails
-                        {
-                            Levels = "2",
-                            Area = "200",
-                            Flats = "1",
-                            FloorArea = "287",
-                        }
+                        Properties = new Dictionary<string, string>(){{"Levels", "2"}, {"Area", "44"}}
                     }
                 }
             }
