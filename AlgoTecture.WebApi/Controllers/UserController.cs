@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AlgoTecture.WebApi.Controllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

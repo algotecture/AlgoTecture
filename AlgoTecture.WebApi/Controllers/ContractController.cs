@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AlgoTecture.WebApi.Controllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ContractController : Controller
     {
         private readonly IContractService _contractService;

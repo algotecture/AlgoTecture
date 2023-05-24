@@ -15,14 +15,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 
 namespace AlgoTecture.WebApi
 {
     public static class Program
     {
+        
+       private static bool IsDevelopmentEnvironment { get; set; }
+        
        public static async Task Main(string[] args)
           {
               var webAppBuilder = WebAppBuilder.CreateWebApplicationBuilder(args);
@@ -66,18 +72,24 @@ namespace AlgoTecture.WebApi
                  //      });
             
                   webAppBuilder.Services.AddControllers();
+                  webAppBuilder.Services.AddSwaggerGen(ConfigureSwaggerGeneration);
                   
                   webAppBuilder.Services.UseSpaceLibrary();
                   webAppBuilder.Services.UsePersistenceLibrary();
                   webAppBuilder.Services.UseGeoAdminSearchLibrary();
       
                   var app = webAppBuilder.Build();
+
+                  IsDevelopmentEnvironment = app.Environment.IsDevelopment();
                   
                   app.UseMiddleware<ExceptionMiddleware>();
                   app.UseStaticFiles();
                   app.UseRouting();
                   app.UseAuthentication();
                   app.UseAuthorization();
+                  
+                  app.UseSwagger();
+                  app.UseSwaggerUI();
                   
                   app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
@@ -88,5 +100,13 @@ namespace AlgoTecture.WebApi
                   Console.WriteLine(ex);
               }
           }
+       
+       private static void ConfigureSwaggerGeneration(SwaggerGenOptions options)
+       {
+           if (!IsDevelopmentEnvironment)
+           {
+               options.AddServer(new OpenApiServer{Url = "/webapi"});
+           }
+       }
     }
 }

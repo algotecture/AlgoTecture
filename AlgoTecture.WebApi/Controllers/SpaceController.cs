@@ -34,6 +34,7 @@ namespace AlgoTecture.WebApi.Controllers
         
         [Authorize]
         [HttpPost("AddSubSpaceToSpace")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
         {
             if (!ModelState.IsValid) return BadRequest();
