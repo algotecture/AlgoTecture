@@ -46,9 +46,17 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
                 {
                     existingUser = await dbSet.SingleOrDefaultAsync(x => x.Id == entity.Id); 
                 }
-                
+
                 if (existingUser == null)
-                    return await Add(entity);
+                {
+                    var newEntity = await Add(entity);
+                    
+                    _logger.LogInformation(newEntity.TelegramUserInfoId != default
+                        ? $"New User from telegram bot: {newEntity.TelegramUserInfo?.TelegramUserFullName} registered in the system"
+                        : $"New User from webapi: email {newEntity.Email}, phone {newEntity.Phone} registered in the system");
+
+                    return newEntity;
+                }
                 
                 existingUser.Phone = entity.Phone ?? existingUser.Phone;
                 existingUser.TelegramUserInfoId = entity.TelegramUserInfoId ?? existingUser.TelegramUserInfoId;
