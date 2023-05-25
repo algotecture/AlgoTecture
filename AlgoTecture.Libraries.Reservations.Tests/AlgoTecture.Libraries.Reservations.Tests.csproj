@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="NUnit" Version="3.13.3" />
       <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     </ItemGroup>
@@ -16,7 +15,6 @@
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj" />
     </ItemGroup>
 
 </Project>

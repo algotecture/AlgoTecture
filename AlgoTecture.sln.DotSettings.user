@@ -3,6 +3,7 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::1EC8134E-12A2-4EEB-83F7-A128164E15E7::net6.0::AlgoTecture.Libraries.Reservations.Tests.ReservationTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::1EC8134E-12A2-4EEB-83F7-A128164E15E7::net6.0::AlgoTecture.Libraries.Reservations.Tests.Serialization.ClassToJsonSerializationTests.ConversationClassToJsonSimpleTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::998D3762-0AF4-4ABF-807A-ED210BB6D1DF::net6.0::AlgoTecture.Libraries.Spaces.Tests.Serialization.ClassToJsonSerializationTests.ConversationClassToJsonSimpleTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

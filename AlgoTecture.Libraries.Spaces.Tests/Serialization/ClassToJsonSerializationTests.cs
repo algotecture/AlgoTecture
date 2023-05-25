@@ -3,7 +3,7 @@ using AlgoTecture.Libraries.Spaces.Models.Dto;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace AlgoTecture.Libraries.Reservations.Tests.Serialization;
+namespace AlgoTecture.Libraries.Spaces.Tests.Serialization;
 
 public class ClassToJsonSerializationTests
 {
