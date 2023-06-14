@@ -1,6 +1,5 @@
 ﻿using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.Reservations.Models;
-using JetBrains.Annotations;
 
 namespace AlgoTecture.Libraries.Reservations;
 
@@ -13,4 +12,6 @@ public interface IReservationService
     Task<Reservation?> UpdateReservation(AddOrUpdateReservationModel addOrUpdateReservationModel);
 
     Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId);
+
+    Task<Reservation?> UpdateReservationStatus(string reservationStatus, long reservationId);
 }

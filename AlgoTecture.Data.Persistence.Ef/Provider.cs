@@ -2,6 +2,7 @@
 
 public enum Provider
 {
-    InMemory = 0,
-    NpgSql = 1
+    None = 0,
+    InMemory = 1,
+    NpgSql = 2
 }

@@ -26,9 +26,10 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
 
-        private Provider _provider;
-        public ApplicationDbContext() {}
-        
+        private Provider _provider = Provider.NpgSql;
+
+        public ApplicationDbContext() { }
+
         public ApplicationDbContext(Provider provider = Provider.NpgSql)
         {
             _provider = provider;
@@ -45,6 +46,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             }
 
             var appConnectionString = Configurator.GetConfiguration().GetConnectionString("Algotecture-Demo");
+
             if (string.IsNullOrEmpty(appConnectionString)) return;
 
             if (optionsBuilder.IsConfigured)

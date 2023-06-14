@@ -31,6 +31,7 @@
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Contracts\AlgoTecture.Libraries.Contracts.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Users\AlgoTecture.Libraries.Users.csproj" />
       <ProjectReference Include="..\AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj" />

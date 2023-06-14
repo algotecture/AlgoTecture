@@ -29,4 +29,6 @@ public class Reservation
     public DateTime? ReservationToUtc { get; set; }
 
     public string? ReservationStatus { get; set; }
+
+    public string? ReservationUniqueIdentifier { get; set; }
 }

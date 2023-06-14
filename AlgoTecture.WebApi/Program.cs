@@ -1,22 +1,19 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AlgoTecture.Common;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.Libraries.Reservations;
 using AlgoTecture.Libraries.Spaces;
-using AlgoTecture.Libraries.Users.Models;
 using AlgoTecture.Libraries.Users.Models.AppsettingsModels;
 using AlgoTecture.WebApi.Implementations;
 using AlgoTecture.WebApi.Interfaces;
 using AlgoTecture.WebApi.Middleware.CustomExceptionMiddleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -77,6 +74,7 @@ namespace AlgoTecture.WebApi
                   webAppBuilder.Services.UseSpaceLibrary();
                   webAppBuilder.Services.UsePersistenceLibrary();
                   webAppBuilder.Services.UseGeoAdminSearchLibrary();
+                  webAppBuilder.Services.UseReservationLibrary();
       
                   var app = webAppBuilder.Build();
 

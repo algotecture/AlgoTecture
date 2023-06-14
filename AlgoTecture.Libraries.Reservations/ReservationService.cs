@@ -1,4 +1,5 @@
 ﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.Reservations.Models;
 
@@ -89,5 +90,24 @@ public class ReservationService : IReservationService
     public async Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId)
     {
         return await _unitOfWork.Reservations.GetReservationsBySpaceId(spaceId);
+    }
+
+    public async Task<Reservation?> UpdateReservationStatus(string reservationStatus, long reservationId)
+    {
+        if (string.IsNullOrEmpty(reservationStatus)) throw new ArgumentException("Value cannot be null or empty.", nameof(reservationStatus));
+
+        var isValidReservationStatus = Enum.IsDefined(typeof(ReservationStatusType), reservationStatus);
+
+        if (!isValidReservationStatus) throw new InvalidCastException($"{reservationStatus} is not valid");
+
+        var reservation = await _unitOfWork.Reservations.GetById(reservationId);
+
+        if (reservation == null) throw new ArgumentNullException($"Reservation with id {reservationId} not exist");
+
+        reservation.ReservationStatus = reservationStatus;
+
+        var updatedReservation = await _unitOfWork.Reservations.Upsert(reservation);
+
+        return updatedReservation;
     }
 }
