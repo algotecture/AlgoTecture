@@ -1,6 +1,7 @@
 ﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Data.Persistence.Data;
 using AlgoTecture.Data.Persistence.Ef;
+using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations.Models;
@@ -23,7 +24,14 @@ public class ReservationTests
     [Test]
     public void Throw_InvalidOperationException_If_Reservation_Exist_In_Target_Period()
     {
-        var reservationService = new ReservationService(_unitOfWork, _priceCalculator);
+        var priceSpecification = new PriceSpecification
+        {
+            Id = 1,
+            SpaceId = 1,
+            PricePerTime = "10",
+            PriceCurrency = "Usd",
+            UnitOfTime = UnitOfDateTime.Hour.ToString()
+        };
 
         var reservationModelDataSeedingOne = new Reservation()
         {
@@ -61,12 +69,15 @@ public class ReservationTests
             SubSpaceId = null,
             TenantUserId = 4,
             ReservationDateTimeUtc = DateTime.Parse("2023-03-16 14:00"),
-            PriceSpecificationId = 1
         };
 
         _ = _unitOfWork.Reservations.Add(reservationModelDataSeedingOne).Result;
         _ = _unitOfWork.Reservations.Add(reservationModelDataSeedingTwo).Result;
+
+        _ = _unitOfWork.PriceSpecifications.Add(priceSpecification).Result;
         _unitOfWork.CompleteAsync();
+        
+        var reservationService = new ReservationService(_unitOfWork, _priceCalculator);
         
         Task Code() => reservationService.AddReservation(addReservationModel);
 

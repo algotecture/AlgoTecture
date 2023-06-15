@@ -273,11 +273,10 @@ public class BoatController : BotController, IBoatController
             var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
             if (targetPriceSpecification == null) return;
 
-            var addOrUpdateReservationModel = new AddReservationModel()
+            var addReservationModel = new AddReservationModel
             {
                 TenantUserId = user.Id,
                 SpaceId = botState.SpaceId,
-                PriceSpecificationId = targetPriceSpecification.Id,
                 ReservationDateTimeUtc = DateTime.UtcNow,
                 ReservationFromUtc = botState.StartRent.Value,
                 ReservationToUtc = botState.EndRent.Value,
@@ -296,7 +295,7 @@ public class BoatController : BotController, IBoatController
             }
             else
             {
-                var reservation = await _reservationService.AddReservation(addOrUpdateReservationModel);
+                var reservation = await _reservationService.AddReservation(addReservationModel);
 
                 if (reservation != null)
                 {

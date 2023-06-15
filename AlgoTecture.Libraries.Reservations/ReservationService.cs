@@ -47,7 +47,7 @@ public class ReservationService : IReservationService
             SubSpaceId = addReservationModel.SubSpaceId,
             TenantUserId = addReservationModel.TenantUserId,
             ReservationDateTimeUtc = addReservationModel.ReservationDateTimeUtc,
-            PriceSpecificationId = addReservationModel.PriceSpecificationId,
+            PriceSpecificationId = targetPriceSpecification.Id,
             Description = addReservationModel.Description,
             ReservationUniqueIdentifier = Guid.NewGuid().ToString()
         };

@@ -8,8 +8,6 @@ public class AddReservationModel
     
     public string? SubSpaceId { get; set; }
 
-    public long PriceSpecificationId { get; set; }
-    
     public DateTime? ReservationDateTimeUtc { get; set; }
 
     public DateTime ReservationFromUtc { get; set; }
