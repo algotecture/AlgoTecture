@@ -2,6 +2,7 @@
 using AlgoTecture.Data.Persistence.Data;
 using AlgoTecture.Data.Persistence.Ef;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations.Models;
 using NUnit.Framework;
 
@@ -10,17 +11,19 @@ namespace AlgoTecture.Libraries.Reservations.Tests;
 public class UpdateReservationStatusTests
 {
     private IUnitOfWork _unitOfWork;
+    private IPriceCalculator _priceCalculator;
 
     [SetUp]
     public void SetUp()
     {
         _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null);
+        _priceCalculator = new PriceCalculator();
     }
 
     [Test]
     public void Returned_Confirmed_Status()
     {
-        var reservationService = new ReservationService(_unitOfWork);
+        var reservationService = new ReservationService(_unitOfWork, _priceCalculator);
         
         var addOrUpdateReservationModelDataSeedingOne = new Reservation()
         {

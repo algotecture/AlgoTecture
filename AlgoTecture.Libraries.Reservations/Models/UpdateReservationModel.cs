@@ -1,7 +1,9 @@
 ﻿namespace AlgoTecture.Libraries.Reservations.Models;
 
-public class AddReservationModel
+public class UpdateReservationModel
 {
+    public long? ReservationId { get; set; }
+    
     public long TenantUserId { get; set; }
     
     public long SpaceId { get; set; }
@@ -12,9 +14,13 @@ public class AddReservationModel
     
     public DateTime? ReservationDateTimeUtc { get; set; }
 
-    public DateTime ReservationFromUtc { get; set; }
+    public DateTime? ReservationFromUtc { get; set; }
         
-    public DateTime ReservationToUtc { get; set; }
+    public DateTime? ReservationToUtc { get; set; }
+
+    public string? ReservationStatus { get; set; }
+
+    public string? TotalPrice { get; set; }
 
     public string? Description { get; set; }
 }

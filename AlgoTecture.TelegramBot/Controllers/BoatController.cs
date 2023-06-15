@@ -24,15 +24,17 @@ public class BoatController : BotController, IBoatController
     private readonly IUnitOfWork _unitOfWork;
     private readonly IReservationService _reservationService;
     private readonly ILogger<BoatController> _logger;
+    private readonly IPriceCalculator _priceCalculator;
 
     public BoatController(ISpaceGetter spaceGetter, IServiceProvider serviceProvider, IUnitOfWork unitOfWork, IReservationService reservationService, 
-        ILogger<BoatController> logger)
+        ILogger<BoatController> logger, IPriceCalculator priceCalculator)
     {
         _spaceGetter = spaceGetter ?? throw new ArgumentNullException(nameof(spaceGetter));
         _serviceProvider = serviceProvider;
         _unitOfWork = unitOfWork;
         _reservationService = reservationService;
         _logger = logger;
+        _priceCalculator = priceCalculator;
     }
 
     [Action]
@@ -142,10 +144,13 @@ public class BoatController : BotController, IBoatController
 
         if (botState.StartRent != null && botState.EndRent != null && !string.IsNullOrEmpty(botState.SpaceName) && botState.SpaceId != default)
         {
-            var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
-            Enum.TryParse(targetPriceSpecification?.UnitOfTime, out UnitOfDateTime unitOfDateTime);
-            var totalPrice = PriceCalculator.CalculateTotalPriceToReservation(botState.StartRent.Value, botState.EndRent.Value,
-                unitOfDateTime, targetPriceSpecification.PricePerTime);
+            var targetPriceSpecification =
+                (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault(x => x.UnitOfTime == UnitOfDateTime.Hour.ToString());
+        
+            if (targetPriceSpecification == null) throw new ArgumentNullException("No price specification");
+        
+            var totalPrice = _priceCalculator.CalculateTotalPriceToReservation(botState.StartRent.Value, botState.EndRent.Value,
+                UnitOfDateTime.Hour, targetPriceSpecification.PricePerTime);
             
             RowButton($"Make a reservation! {totalPrice} {targetPriceSpecification.PriceCurrency}", Q(PressMakeAReservation, botState));   
         }
@@ -267,21 +272,15 @@ public class BoatController : BotController, IBoatController
             var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
             var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
             if (targetPriceSpecification == null) return;
-            
-            Enum.TryParse(targetPriceSpecification?.UnitOfTime, out UnitOfDateTime unitOfDateTime);
-            var totalPrice = PriceCalculator.CalculateTotalPriceToReservation(botState.StartRent.Value, botState.EndRent.Value,
-                unitOfDateTime, targetPriceSpecification.PricePerTime);
-            
-            var addOrUpdateReservationModel = new AddOrUpdateReservationModel()
+
+            var addOrUpdateReservationModel = new AddReservationModel()
             {
                 TenantUserId = user.Id,
                 SpaceId = botState.SpaceId,
                 PriceSpecificationId = targetPriceSpecification.Id,
                 ReservationDateTimeUtc = DateTime.UtcNow,
-                ReservationFromUtc = botState.StartRent,
-                ReservationToUtc = botState.EndRent,
-                ReservationStatus = ReservationStatusType.Confirmed.ToString(),
-                TotalPrice = totalPrice,
+                ReservationFromUtc = botState.StartRent.Value,
+                ReservationToUtc = botState.EndRent.Value,
                 Description = botState.SpaceName
             };
             var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value,

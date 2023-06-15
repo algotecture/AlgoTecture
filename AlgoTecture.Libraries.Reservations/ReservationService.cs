@@ -1,6 +1,7 @@
 ﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Enum;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations.Models;
 
 namespace AlgoTecture.Libraries.Reservations;
@@ -8,10 +9,12 @@ namespace AlgoTecture.Libraries.Reservations;
 public class ReservationService : IReservationService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPriceCalculator _priceCalculator;
 
-    public ReservationService(IUnitOfWork unitOfWork)
+    public ReservationService(IUnitOfWork unitOfWork, IPriceCalculator priceCalculator)
     {
         _unitOfWork = unitOfWork;
+        _priceCalculator = priceCalculator;
     }
 
     public async Task<IEnumerable<Reservation>> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
@@ -21,28 +24,36 @@ public class ReservationService : IReservationService
         return reservation;
     }
     
-    public async Task<Reservation?> AddReservation(AddOrUpdateReservationModel addOrUpdateReservationModel)
+    public async Task<Reservation?> AddReservation(AddReservationModel addReservationModel)
     {
-        if (addOrUpdateReservationModel == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel));
-        if (addOrUpdateReservationModel.ReservationFromUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFromUtc));
-        if (addOrUpdateReservationModel.ReservationToUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationToUtc));
+        if (addReservationModel == null) throw new ArgumentNullException(nameof(addReservationModel));
+
+        //simple price for demo
+        var targetPriceSpecification =
+            (await _unitOfWork.PriceSpecifications.GetBySpaceId(addReservationModel.SpaceId)).FirstOrDefault(x => x.UnitOfTime == UnitOfDateTime.Hour.ToString());
+        
+        if (targetPriceSpecification == null) throw new ArgumentNullException("No price specification");
+        
+        var totalPrice = _priceCalculator.CalculateTotalPriceToReservation(addReservationModel.ReservationFromUtc, addReservationModel.ReservationToUtc,
+            UnitOfDateTime.Hour, targetPriceSpecification.PricePerTime);
         
         var entity = new Reservation
         {
-            ReservationFromUtc = addOrUpdateReservationModel.ReservationFromUtc,
-            ReservationToUtc = addOrUpdateReservationModel.ReservationToUtc,
-            ReservationStatus = addOrUpdateReservationModel.ReservationStatus,
-            TotalPrice = addOrUpdateReservationModel.TotalPrice,
-            SpaceId = addOrUpdateReservationModel.SpaceId,
-            SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
-            TenantUserId = addOrUpdateReservationModel.TenantUserId,
-            ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
-            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId,
-            Description = addOrUpdateReservationModel.Description
+            ReservationFromUtc = addReservationModel.ReservationFromUtc,
+            ReservationToUtc = addReservationModel.ReservationToUtc,
+            ReservationStatus = ReservationStatusType.Pending.ToString(),
+            TotalPrice = totalPrice,
+            SpaceId = addReservationModel.SpaceId,
+            SubSpaceId = addReservationModel.SubSpaceId,
+            TenantUserId = addReservationModel.TenantUserId,
+            ReservationDateTimeUtc = addReservationModel.ReservationDateTimeUtc,
+            PriceSpecificationId = addReservationModel.PriceSpecificationId,
+            Description = addReservationModel.Description,
+            ReservationUniqueIdentifier = Guid.NewGuid().ToString()
         };
         
-        var reservations = await _unitOfWork.Reservations.CheckReservation(addOrUpdateReservationModel.SpaceId, addOrUpdateReservationModel.SubSpaceId,
-            addOrUpdateReservationModel.ReservationFromUtc.Value, addOrUpdateReservationModel.ReservationToUtc.Value);
+        var reservations = await _unitOfWork.Reservations.CheckReservation(addReservationModel.SpaceId, addReservationModel.SubSpaceId,
+            addReservationModel.ReservationFromUtc, addReservationModel.ReservationToUtc);
 
         if (reservations.Any())
         {
@@ -54,33 +65,33 @@ public class ReservationService : IReservationService
         return resultReservation;
     }
     
-    public async Task<Reservation?> UpdateReservation(AddOrUpdateReservationModel addOrUpdateReservationModel)
+    public async Task<Reservation?> UpdateReservation(UpdateReservationModel updateReservationModel)
     {
-        if (addOrUpdateReservationModel.ReservationId == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationId));
-        if (addOrUpdateReservationModel == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel));
-        if (addOrUpdateReservationModel.ReservationFromUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationFromUtc));
-        if (addOrUpdateReservationModel.ReservationToUtc == null) throw new ArgumentNullException(nameof(addOrUpdateReservationModel.ReservationToUtc));
+        if (updateReservationModel.ReservationId == null) throw new ArgumentNullException(nameof(updateReservationModel.ReservationId));
+        if (updateReservationModel == null) throw new ArgumentNullException(nameof(updateReservationModel));
+        if (updateReservationModel.ReservationFromUtc == null) throw new ArgumentNullException(nameof(updateReservationModel.ReservationFromUtc));
+        if (updateReservationModel.ReservationToUtc == null) throw new ArgumentNullException(nameof(updateReservationModel.ReservationToUtc));
         
         var entity = new Reservation
         {
-            Id = addOrUpdateReservationModel.ReservationId.Value,
-            ReservationFromUtc = addOrUpdateReservationModel.ReservationFromUtc,
-            ReservationToUtc = addOrUpdateReservationModel.ReservationToUtc,
-            ReservationStatus = addOrUpdateReservationModel.ReservationStatus,
-            TotalPrice = addOrUpdateReservationModel.TotalPrice,
-            SpaceId = addOrUpdateReservationModel.SpaceId,
-            SubSpaceId = addOrUpdateReservationModel.SubSpaceId,
-            TenantUserId = addOrUpdateReservationModel.TenantUserId,
-            ReservationDateTimeUtc = addOrUpdateReservationModel.ReservationDateTimeUtc,
-            PriceSpecificationId = addOrUpdateReservationModel.PriceSpecificationId,
-            Description = addOrUpdateReservationModel.Description
+            Id = updateReservationModel.ReservationId.Value,
+            ReservationFromUtc = updateReservationModel.ReservationFromUtc,
+            ReservationToUtc = updateReservationModel.ReservationToUtc,
+            ReservationStatus = updateReservationModel.ReservationStatus,
+            TotalPrice = updateReservationModel.TotalPrice,
+            SpaceId = updateReservationModel.SpaceId,
+            SubSpaceId = updateReservationModel.SubSpaceId,
+            TenantUserId = updateReservationModel.TenantUserId,
+            ReservationDateTimeUtc = updateReservationModel.ReservationDateTimeUtc,
+            PriceSpecificationId = updateReservationModel.PriceSpecificationId,
+            Description = updateReservationModel.Description
         };
 
         Reservation? resultReservation = null;
 
-        if (addOrUpdateReservationModel.ReservationId == null) return resultReservation;
+        if (updateReservationModel.ReservationId == null) return resultReservation;
         
-        var targetReservation = await _unitOfWork.Reservations.GetById(addOrUpdateReservationModel.ReservationId.Value);
+        var targetReservation = await _unitOfWork.Reservations.GetById(updateReservationModel.ReservationId.Value);
         if (targetReservation == null) return resultReservation;
             
         resultReservation =  await _unitOfWork.Reservations.Upsert(entity);
@@ -107,7 +118,13 @@ public class ReservationService : IReservationService
         reservation.ReservationStatus = reservationStatus;
 
         var updatedReservation = await _unitOfWork.Reservations.Upsert(reservation);
+        await _unitOfWork.CompleteAsync();
 
         return updatedReservation;
+    }
+
+    public async Task<Reservation?> GetByReservationUniqueIdentifier(string reservationUniqueIdentifier)
+    {
+        return await _unitOfWork.Reservations.GetByReservationUniqueIdentifier(reservationUniqueIdentifier);
     }
 }

@@ -10,6 +10,7 @@ public static class UsePriceSpecification
         if (serviceCollection == null) throw new ArgumentNullException(nameof(serviceCollection));
 
         serviceCollection.AddTransient<IPriceSpecificationService, PriceSpecificationService>();
+        serviceCollection.AddTransient<IPriceCalculator, PriceCalculator>();
 
         return serviceCollection;
     }

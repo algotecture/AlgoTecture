@@ -43,6 +43,11 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
         return await dbSet.Include(x => x.PriceSpecification).Include(x => x.Space)
             .Where(x => x.SpaceId == spaceId).ToListAsync();
     }
+
+    public async Task<Reservation?> GetByReservationUniqueIdentifier(string reservationUniqueIdentifier)
+    {
+        return await dbSet.FirstOrDefaultAsync(x => x.ReservationUniqueIdentifier == reservationUniqueIdentifier);
+    }
     
     public override async Task<IEnumerable<Reservation>> All()
     {

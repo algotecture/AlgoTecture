@@ -9,4 +9,6 @@ public interface IReservationRepository : IGenericRepository<Reservation>
     Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId);
     
     Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId);
+    
+    Task<Reservation?> GetByReservationUniqueIdentifier(string reservationUniqueIdentifier);
 }

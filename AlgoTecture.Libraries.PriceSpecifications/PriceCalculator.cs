@@ -3,9 +3,9 @@ using AlgoTecture.Domain.Enum;
 
 namespace AlgoTecture.Libraries.PriceSpecifications;
 
-public static class PriceCalculator
+public  class PriceCalculator : IPriceCalculator
 {
-    public static string CalculateTotalPriceToReservation(DateTime from, DateTime to, UnitOfDateTime unitOfDateTime, string price)
+    public string CalculateTotalPriceToReservation(DateTime from, DateTime to, UnitOfDateTime unitOfDateTime, string price)
     {
         var totalPriceStr = string.Empty;
         //easy way for demo
