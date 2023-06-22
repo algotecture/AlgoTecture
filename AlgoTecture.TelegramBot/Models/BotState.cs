@@ -13,4 +13,6 @@ public class BotState
     public DateTime? StartRent { get; set; }
 
     public DateTime? EndRent { get; set; }
+
+    public string? UtilizationName { get; set; }
 }

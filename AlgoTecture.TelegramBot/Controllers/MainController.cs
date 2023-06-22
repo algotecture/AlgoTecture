@@ -82,16 +82,29 @@ public class MainController : BotController, IMainController
                 Id = utilizationType.Id
             };
 
-            var botState = new BotState { UtilizationTypeId = utilizationType.Id, MessageId = default };
+            var botState = new BotState { UtilizationTypeId = utilizationType.Id, UtilizationName = utilizationType.Name, MessageId = default };
 
-            RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));   
+            //it is not yet known what to do with the rest of the types only!
+            RowButton(utilizationTypeOut.Name,
+                utilizationType.Name == "Boat" ? Q(_boatController.PressToMainBookingPage, botState) : Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
         }
         RowButton("Go Back", Q(Start));
 
         PushL("Choose your boat");
         await SendOrUpdate();
     }
+
+    [Action]
+    public async Task PressToCommonButtonToAnotherUtilizationTypes(BotState botState)
+    {
+        RowButton("Enter address", Q(EnterAddress));
+        RowButton("Go Back", Q(PressToRentButton));
+
+        PushL(botState.UtilizationName);
+        await SendOrUpdate();
+    }
     
+
     [Action]
     public async Task PressToFindReservationsButton()
     {
