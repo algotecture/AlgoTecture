@@ -239,13 +239,11 @@ public class BoatController : BotController, IBoatController
             chatId: chatId,
             photo: inputOnlineFile,
             caption: $"<b>Price: {price}</b>" + "\n" +
-                     $"<b></b>",
+                     $"<b>Buttons above image 👆</b>",
             ParseMode.Html
         );
 
         botState.MessageId = message.MessageId;
-        
-        PushL($"{targetSpaceProperty.Name}");
 
         if (!isLookingForOnly)
         {
@@ -255,6 +253,7 @@ public class BoatController : BotController, IBoatController
         
         RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, isLookingForOnly));
         
+        PushL($"{targetSpaceProperty.Name}");
         await SendOrUpdate();
     }
 
@@ -299,14 +298,25 @@ public class BoatController : BotController, IBoatController
 
                 if (reservation != null)
                 {
+                    var spaceAddress = (await _unitOfWork.Spaces.GetById(addReservationModel.SpaceId))?.SpaceAddress;
+                    
                     var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
                     RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
-                
+
                     _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
                                            $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
                                            $"ReservationId: {reservation.Id}");
-                
-                    PushL("Object successfully reserved");
+
+                    PushL("🎉 Congratulations! Your space reservation has been successfully confirmed. " +
+                          "You're all set to enjoy your reserved space. Please find the details below: \n\r \n\r" +
+                          $"📅 Date: {botState.StartRent.Value:dddd, MMMM dd}\n\r" +
+                          $"⌚ Time: {botState.StartRent.Value:HH:mm}\n\r" +
+                          $"📍 Location: {spaceAddress}\n\r" +
+                          $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
+                          "If you have any questions or need to make changes to your reservation, " +
+                          "please feel free to contact our support team at [Support Contact Information]." +
+                          " Thank you for choosing our service! 🙌");
+
                     await SendOrUpdate();
                 }   
             }

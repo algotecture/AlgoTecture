@@ -59,7 +59,7 @@ public class MainController : BotController, IMainController
         var user = await _telegramUserInfoService.AddOrUpdate(addTelegramUserInfoModel);
         
         _logger.LogInformation($"User {user.TelegramUserFullName} logged in by telegram bot");
-
+        
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
         Button("I want to rent", Q(PressToRentButton));
@@ -109,14 +109,14 @@ public class MainController : BotController, IMainController
             {
                 Id = reservation.Id,
                 DateTimeFrom = $"{reservation.ReservationFromUtc.Value:dd-MM-yyyy HH:mm} utc",
-                DateTimeTo = $"{reservation.ReservationToUtc.Value:dd-MM-yyyy HH:mm} utc",
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
-                PriceCurrency = reservation.PriceSpecification.PriceCurrency
+                PriceCurrency = reservation.PriceSpecification.PriceCurrency,
+                Address = reservation.Space.SpaceAddress
             };
             reservationList.Add(reservationToTelegram);
             var description =
-                $"{reservationToTelegram.Description}, \n{reservationToTelegram.DateTimeFrom}, {reservationToTelegram.TotlaPrice} \n" +
+                $"{reservationToTelegram.Address}, \n\r{reservationToTelegram.DateTimeFrom}, {reservationToTelegram.TotlaPrice} \n\r" +
                 $"{reservationToTelegram.PriceCurrency.ToUpper()}";
             RowButton(description, Q(PressToManageContract));
         }
