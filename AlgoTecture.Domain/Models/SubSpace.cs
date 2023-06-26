@@ -24,5 +24,7 @@ namespace AlgoTecture.Domain.Models
             get { return _subSpaces; }
             set { _subSpaces = value; }
         }
+        
+        public List<string> Images { get; set; }
     }
 }

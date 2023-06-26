@@ -7,19 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Boats" />
+      <None Update="Spaces\2\7d2dc2f3-4f52-4244-8ade-73eba2772a51.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Spaces\1\4c4f455c-bc98-47da-9f4b-9dcc25a17fe5.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Spaces\3\a5f8e388-0c2f-491c-82ff-d4c92da97aaa.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Boats\4c4f455c-bc98-47da-9f4b-9dcc25a17fe5.jpeg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="Boats\7d2dc2f3-4f52-4244-8ade-73eba2772a51.jpeg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="Boats\a5f8e388-0c2f-491c-82ff-d4c92da97aaa.jpeg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using AlgoTecture.Common;
+using AlgoTecture.Data.Images;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.PriceSpecifications;
@@ -77,7 +78,7 @@ namespace AlgoTecture.WebApi
                   webAppBuilder.Services.UseGeoAdminSearchLibrary();
                   webAppBuilder.Services.UseReservationLibrary();
                   webAppBuilder.Services.UsePriceSpecificationLibrary();
-      
+
                   var app = webAppBuilder.Build();
 
                   IsDevelopmentEnvironment = app.Environment.IsDevelopment();

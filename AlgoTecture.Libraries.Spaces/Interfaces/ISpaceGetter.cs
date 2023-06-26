@@ -9,7 +9,7 @@ namespace AlgoTecture.Libraries.Spaces.Interfaces
         
         Task<List<Space>> GetByType(int utilizationTypeId);
 
-        Task<Space> GetById(long spaceId);
+        Task<Space?> GetById(long spaceId);
 
         Task<SpaceWithProperty?> GetByIdWithProperty(long spaceId);
     }

@@ -1,3 +1,4 @@
+using AlgoTecture.Data.Images;
 using AlgoTecture.Libraries.Spaces.Implementations;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using JetBrains.Annotations;
@@ -13,6 +14,8 @@ public static class UseSpace
 
             serviceCollection.AddTransient<ISpaceGetter, SpaceGetter>();
             serviceCollection.AddTransient<ISpaceService, SpaceService>();
+            serviceCollection.AddTransient<ISpaceImageService, SpaceImageService>();
+            serviceCollection.UseImageLibrary();
             
             return serviceCollection;
         }  

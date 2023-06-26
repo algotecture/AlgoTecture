@@ -30,7 +30,7 @@ namespace AlgoTecture.Libraries.Spaces.Implementations
             return targetSpaces;
         }
 
-        public async Task<Space> GetById(long spaceId)
+        public async Task<Space?> GetById(long spaceId)
         {
             return await _unitOfWork.Spaces.GetById(spaceId);
         }

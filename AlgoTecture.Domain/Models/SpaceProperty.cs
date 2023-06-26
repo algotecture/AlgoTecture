@@ -9,11 +9,9 @@ namespace AlgoTecture.Domain.Models
         public string Description { get; set; }
 
         public Dictionary<string, string> Properties { get; set; }
-        
-        public long OwnerId { get; set; }
-
-        public long ContractId { get; set; }
 
         public List<SubSpace> SubSpaces { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }   

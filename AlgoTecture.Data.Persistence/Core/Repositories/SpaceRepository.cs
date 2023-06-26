@@ -45,6 +45,10 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
                     return await Add(entity);
 
                 existingSpace.SpaceProperty = entity.SpaceProperty;
+                existingSpace.Latitude = entity.Latitude;
+                existingSpace.Longitude = entity.Longitude;
+                existingSpace.SpaceAddress = entity.SpaceAddress;
+                existingSpace.UtilizationTypeId = entity.UtilizationTypeId;
 
                 return existingSpace;
             }

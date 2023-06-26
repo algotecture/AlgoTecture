@@ -30,9 +30,8 @@ public class SpaceService : ISpaceService
             SpacePropertyId = Guid.NewGuid(),
             Name = addSpaceModel.SpaceProperty.Name,
             Description = addSpaceModel.SpaceProperty.Description,
-            OwnerId = 0,
-            ContractId = 0,
             Properties = addSpaceModel.SpaceProperty.Properties,
+            Images = new List<string>()
         };
 
         RecursiveFindAndAddGuidToSubSpace(addSpaceModel.SpaceProperty.SubSpaces);
@@ -51,15 +50,47 @@ public class SpaceService : ISpaceService
 
         return insertedEntity;
     }
-    
+
+    public async Task<Space> UpdateSpace(UpdateSpaceModel updateSpaceModel) 
+    {
+        var targetSpace = await _unitOfWork.Spaces.GetById(updateSpaceModel.SpaceId);
+
+        if (targetSpace == null)
+        {
+            throw new InvalidOperationException($"Space with id = {updateSpaceModel.SpaceId} not found");
+        }
+
+        var spaceProperty = new SpaceProperty()
+        {
+            SpacePropertyId = updateSpaceModel.SpaceProperty.SpacePropertyId,
+            Name = updateSpaceModel.SpaceProperty.Name,
+            Description = updateSpaceModel.SpaceProperty.Description,
+            Properties = updateSpaceModel.SpaceProperty.Properties,
+            Images = updateSpaceModel.SpaceProperty.Images,
+            SubSpaces = updateSpaceModel.SpaceProperty.SubSpaces
+        };
+
+        var serializedSpaceProperty = JsonConvert.SerializeObject(spaceProperty);
+        
+        var entityToUpdate = new Space
+        {
+            Latitude = updateSpaceModel.Latitude, Longitude = updateSpaceModel.Longitude, SpaceAddress = updateSpaceModel.SpaceAddress,
+            UtilizationTypeId = updateSpaceModel.UtilizationTypeId, SpaceProperty = serializedSpaceProperty, Id = updateSpaceModel.SpaceId
+        };
+
+        var updatedEntity = await _unitOfWork.Spaces.Upsert(entityToUpdate);
+        await _unitOfWork.CompleteAsync();
+
+        return updatedEntity;  
+    }
+
     private static void RecursiveFindAndAddGuidToSubSpace(List<SubSpace> subSpaces)
     {
         for (var i = 0; i < subSpaces.Count; i++)
         {
-            if (subSpaces[i].SubSpaceId == Guid.Empty)
-            {
-                subSpaces[i].SubSpaceId = Guid.NewGuid();
-            }
+            subSpaces[i].SubSpaceId = Guid.NewGuid();
+            subSpaces[i].Images = new List<string>();
+            
             RecursiveFindAndAddGuidToSubSpace(subSpaces[i].Subspaces);
         }
     }

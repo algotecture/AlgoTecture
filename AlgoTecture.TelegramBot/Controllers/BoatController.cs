@@ -228,22 +228,26 @@ public class BoatController : BotController, IBoatController
 
         if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
 
-        //find the file without extension
-        var pathToBoatImage =
-            System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Boats", $"{targetSpaceProperty.SpacePropertyId}.jpeg");
+        var imageNames = targetSpaceProperty.Images;
 
-        await using var stream = File.OpenRead(pathToBoatImage);
-        var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
+        if (imageNames != null && imageNames.Any())
+        {
+            var pathToBoatImage =
+                System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", targetSpace.Id.ToString(), imageNames.First());
 
-        var message = await Client.SendPhotoAsync(
-            chatId: chatId,
-            photo: inputOnlineFile,
-            caption: $"<b>Price: {price}</b>" + "\n" +
-                     $"<b>Buttons above image 👆</b>",
-            ParseMode.Html
-        );
+            await using var stream = File.OpenRead(pathToBoatImage);
+            var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
 
-        botState.MessageId = message.MessageId;
+            var message = await Client.SendPhotoAsync(
+                chatId: chatId,
+                photo: inputOnlineFile,
+                caption: $"<b>Price: {price}</b>" + "\n" +
+                         $"<b>Buttons above image 👆</b>",
+                ParseMode.Html
+            );
+
+            botState.MessageId = message.MessageId;  
+        }
 
         if (!isLookingForOnly)
         {
