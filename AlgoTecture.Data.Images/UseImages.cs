@@ -1,4 +1,3 @@
-
 using System.Diagnostics.CodeAnalysis;
 using AlgoTecture.Data.Images.Implementations;
 using AlgoTecture.Data.Images.Interfaces;
@@ -13,7 +12,7 @@ public static class UseImage
             if (serviceCollection == null) throw new ArgumentNullException(nameof(serviceCollection));
 
             serviceCollection.AddTransient<IImageUploader, ImageUploader>();
-            serviceCollection.AddTransient<IImageGetter, ImageGetter>();
+            serviceCollection.AddTransient<IImageService, ImageService>();
 
             return serviceCollection;
         }  

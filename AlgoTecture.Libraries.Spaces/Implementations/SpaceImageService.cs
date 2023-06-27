@@ -12,14 +12,14 @@ public class SpaceImageService : ISpaceImageService
     private readonly ISpaceGetter _spaceGetter;
     private readonly IImageUploader _imageUploader;
     private readonly ISpaceService _spaceService;
-    private readonly IImageGetter _imageGetter;
+    private readonly IImageService _imageService;
 
-    public SpaceImageService(ISpaceGetter spaceGetter, IImageUploader imageUploader, ISpaceService spaceService, IImageGetter imageGetter)
+    public SpaceImageService(ISpaceGetter spaceGetter, IImageUploader imageUploader, ISpaceService spaceService, IImageService imageService)
     {
         _spaceGetter = spaceGetter;
         _imageUploader = imageUploader;
         _spaceService = spaceService;
-        _imageGetter = imageGetter;
+        _imageService = imageService;
     }
 
     public async Task<List<string>> AddImages(FileUpload fileUpload, long spaceId, string subSpaceId)
@@ -62,7 +62,7 @@ public class SpaceImageService : ISpaceImageService
         throw new ArgumentNullException("SpaceId is necessary argument");
     }
 
-    public async Task<(byte[], string contentType)> GetImageByName(long spaceId, string subSpaceId, string imageName)
+    public async Task<(byte[] content, string contentType)> GetImageByName(long spaceId, string subSpaceId, string imageName)
     {
         var targetSpace = await _spaceGetter.GetById(spaceId);
         if (targetSpace == null) throw new ArgumentNullException($"Space with id = {spaceId} not found");
@@ -80,8 +80,32 @@ public class SpaceImageService : ISpaceImageService
         }
 
         var mimeType = MimeTypes.GetMimeType(pathToImage);
-        var result = await _imageGetter.GetImageByName(pathToImage);
+        var result = await _imageService.GetImageByName(pathToImage);
 
         return (result, mimeType);
+    }
+
+    public async Task<List<string>> GetImageNamesBySpaceId(long spaceId)
+    {
+        var targetSpace = await _spaceGetter.GetById(spaceId);
+        if (targetSpace == null) throw new ArgumentNullException($"Space with id = {spaceId} not found");
+
+        var pathToSpace = Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", targetSpace.Id.ToString());
+        
+        var result = _imageService.GetImageNamesBySpaceId(pathToSpace);
+
+        return result;  
+    }
+    
+    public async Task<bool> RemoveImage(long spaceId, string imageName)
+    {
+        var targetSpace = await _spaceGetter.GetById(spaceId);
+        if (targetSpace == null) throw new ArgumentNullException($"Space with id = {spaceId} not found");
+
+        var pathToImage = Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", targetSpace.Id.ToString(), imageName);
+        
+        var result = _imageService.RemoveImage(pathToImage);
+
+        return result;  
     }
 }

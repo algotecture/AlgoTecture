@@ -79,5 +79,25 @@ namespace AlgoTecture.WebApi.Controllers
 
             return File(result.Item1, result.Item2);
         }
+        
+        [HttpGet("GetImageNamesBySpaceId")]
+        public async Task<ActionResult<List<string>>> GetImageNamesBySpaceId([FromQuery] long spaceId)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var result = await _spaceImageService.GetImageNamesBySpaceId(spaceId);
+
+            return result;
+        }
+        
+        [HttpGet("RemoveImage")]
+        public async Task<ActionResult> RemoveImage([FromQuery] long spaceId, [FromQuery] string imageName)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var result = await _spaceImageService.RemoveImage(spaceId, imageName);
+
+            return Ok();
+        }
     }
 }
