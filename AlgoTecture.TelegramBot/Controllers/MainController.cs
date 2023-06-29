@@ -66,8 +66,8 @@ public class MainController : BotController, IMainController
         
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        Button("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
-        Button("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
+        RowButton("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
+        RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
     }
     
     [Action]
