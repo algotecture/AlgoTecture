@@ -82,6 +82,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 10, Name = "Free target" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 11, Name = "Parking" });
             modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 12, Name = "Boat" });
+            modelBuilder.Entity<UtilizationType>().HasData(new UtilizationType { Id = 13, Name = "Coworking" });
 
             modelBuilder.Entity<User>().HasData(new User { Id = 1, CreateDateTimeUtc = new DateTime(2023, 02, 21).ToUniversalTime() });
             modelBuilder.Entity<User>().HasData(new User { Id = 2, CreateDateTimeUtc = new DateTime(2023, 03, 14).ToUniversalTime() });
