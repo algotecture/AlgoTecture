@@ -5,9 +5,7 @@
         IUserRepository Users {get;}
         
         ISpaceRepository Spaces {get;}
-        
-        IContractRepository Contracts { get; }
-        
+
         IUserAuthenticationRepository UserAuthentications { get; }
         
         ITelegramUserInfoRepository TelegramUserInfos { get; }

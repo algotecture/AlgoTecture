@@ -14,8 +14,6 @@ namespace AlgoTecture.Data.Persistence.Ef
 
         public virtual DbSet<Space> Spaces { get; set; }
 
-        public virtual DbSet<Contract> Contracts { get; set; }
-
         public virtual DbSet<UtilizationType> UtilizationTypes { get; set; }
 
         public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
@@ -64,7 +62,6 @@ namespace AlgoTecture.Data.Persistence.Ef
             base.OnModelCreating(modelBuilder);
             ConfigureUsersModelCreation(modelBuilder);
             ConfigureSpacesModelCreation(modelBuilder);
-            ConfigureContractsModelCreation(modelBuilder);
             ConfigureUtilizationTypesModelCreation(modelBuilder);
             ConfigureUserAuthenticationsModelCreation(modelBuilder);
             ConfigureTelegramUserInfosModelCreation(modelBuilder);
@@ -96,7 +93,9 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 Name = "Santa María",
                 SpacePropertyId = Guid.Parse("4c4f455c-bc98-47da-9f4b-9dcc25a17fe5"),
-                Description = "best boat in the world"
+                Description = "best boat in the world",
+                Properties = new Dictionary<string, string>(){{"additionalProp1", "string"}, {"additionalProp2", "string"}, {"additionalProp3", "string"}},
+                Images = new List<string>(){"4c4f455c-bc98-47da-9f4b-9dcc25a17fe5.jpeg"}
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -107,7 +106,9 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 Name = "Niña",
                 SpacePropertyId = Guid.Parse("7d2dc2f3-4f52-4244-8ade-73eba2772a51"),
-                Description = "best boat in the world"
+                Description = "best boat in the world",
+                Properties = new Dictionary<string, string>(){{"additionalProp1", "string"}, {"additionalProp2", "string"}, {"additionalProp3", "string"}},
+                Images = new List<string>(){"7d2dc2f3-4f52-4244-8ade-73eba2772a51.jpeg"}
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -118,7 +119,9 @@ namespace AlgoTecture.Data.Persistence.Ef
             {
                 Name = "Pinta",
                 SpacePropertyId = Guid.Parse("a5f8e388-0c2f-491c-82ff-d4c92da97aaa"),
-                Description = "best boat in the world"
+                Description = "best boat in the world",
+                Properties = new Dictionary<string, string>(){{"additionalProp1", "string"}, {"additionalProp2", "string"}, {"additionalProp3", "string"}},
+                Images = new List<string>(){"a5f8e388-0c2f-491c-82ff-d4c92da97aaa.jpeg"}
             };
             modelBuilder.Entity<Space>().HasData(new Space
             {
@@ -171,15 +174,6 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<Space>().Property(x => x.SpaceAddress).HasMaxLength(500);
             modelBuilder.Entity<Space>().HasIndex(x => x.Latitude);
             modelBuilder.Entity<Space>().HasIndex(x => x.Longitude);
-        }
-
-        private static void ConfigureContractsModelCreation(ModelBuilder modelBuilder)
-        {
-            if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
-            modelBuilder.Entity<Contract>().HasKey(x => new { x.Id });
-            modelBuilder.Entity<Contract>().HasIndex(x => x.ReservationId);
-            modelBuilder.Entity<Contract>().HasIndex(x => x.SpaceId);
-            modelBuilder.Entity<Contract>().HasIndex(x => x.SubSpaceId);
         }
 
         private static void ConfigureUtilizationTypesModelCreation(ModelBuilder modelBuilder)

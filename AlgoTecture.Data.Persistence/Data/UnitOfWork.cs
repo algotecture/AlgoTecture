@@ -14,9 +14,7 @@ namespace AlgoTecture.Data.Persistence.Data
         public IUserRepository Users { get; private set; }
         
         public ISpaceRepository Spaces { get; private set; }
-        
-        public IContractRepository Contracts { get; private set; }
-        
+
         public IUserAuthenticationRepository UserAuthentications { get; private set; }
         
         public ITelegramUserInfoRepository TelegramUserInfos { get; private set; }
@@ -34,7 +32,6 @@ namespace AlgoTecture.Data.Persistence.Data
 
             Users = new UserRepository(context, _logger);
             Spaces = new SpaceRepository(context, _logger);
-            Contracts = new ContractRepository(context, _logger);
             UserAuthentications = new UserAuthenticationRepository(context, _logger);
             TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
             UtilizationTypes = new UtilizationTypeRepository(context, _logger);

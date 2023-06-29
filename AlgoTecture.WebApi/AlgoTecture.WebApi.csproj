@@ -29,7 +29,6 @@
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.Common\AlgoTecture.Common.csproj" />
       <ProjectReference Include="..\AlgoTecture.Domain\AlgoTecture.Domain.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Libraries.Contracts\AlgoTecture.Libraries.Contracts.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj" />
       <ProjectReference Include="..\AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj" />
