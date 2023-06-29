@@ -318,7 +318,7 @@ public class BoatController : BotController, IBoatController
                           $"📍 Location: {spaceAddress}\n\r" +
                           $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
                           "If you have any questions or need to make changes to your reservation, " +
-                          "please feel free to contact our support team at [Support Contact Information]." +
+                          "please feel free to contact our support team at @AlgoTecture." +
                           " Thank you for choosing our service! 🙌");
 
                     await SendOrUpdate();

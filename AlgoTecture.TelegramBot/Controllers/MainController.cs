@@ -22,8 +22,12 @@ public class MainController : BotController, IMainController
     private readonly ITelegramToAddressResolver _telegramToAddressResolver;
     private readonly ISpaceGetter _spaceGetter;
     private readonly IServiceProvider _serviceProvider;
-
     private readonly IBoatController _boatController;
+
+    private Dictionary<string, string> utilizationTypeToSmile = new()
+    {
+        { "Residential", "🏠" }, { "Parking", "🚙" }, { "Boat", "🚤" }, { "Coworking", "🏢" }
+    };
 
     public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, 
         IUnitOfWork unitOfWork, ILogger<MainController> logger, IGeoAdminSearcher geoAdminSearcher, ITelegramToAddressResolver telegramToAddressResolver, 
@@ -62,23 +66,22 @@ public class MainController : BotController, IMainController
         
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        Button("I want to rent", Q(PressToRentButton));
-        Button("I have a reservation", Q(PressToFindReservationsButton));
-        RowButton("Enter address", Q(EnterAddress));
+        Button("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
+        Button("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
     }
     
     [Action]
     public async Task PressToRentButton()
     {
         //only for demo
-        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Residential", "Parking", "Boat"})
+        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Residential", "Parking", "Boat", "Coworking"})
             .Contains(x.Name)).ToList();
         
         foreach (var utilizationType in utilizationTypes)
         {
             var utilizationTypeOut = new UtilizationTypeToTelegramOut
             {
-                Name = utilizationType.Name,
+                Name = utilizationTypeToSmile.TryGetValue(utilizationType.Name, out var smile) ? utilizationType.Name + " " + smile : utilizationType.Name,
                 Id = utilizationType.Id
             };
 
