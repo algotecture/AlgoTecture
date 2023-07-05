@@ -93,7 +93,7 @@ public class MainController : BotController, IMainController
         }
         RowButton("Go Back", Q(Start));
 
-        PushL("Choose your boat");
+        PushL("Choose your type");
         await SendOrUpdate();
     }
 
