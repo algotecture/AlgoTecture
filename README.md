@@ -15,16 +15,18 @@ Service or Product Short Description
 
 ## [Owner Declaration Form](https://docs.google.com/forms/d/e/1FAIpQLSfWlzitjaanswORgW8kdxa-Y74ESpP7UStYQfxFpjL0cBx2Ow/viewform) 
 
-The [Owner Declaration Form](https://docs.google.com/forms/d/e/1FAIpQLSfWlzitjaanswORgW8kdxa-Y74ESpP7UStYQfxFpjL0cBx2Ow/viewform) is an online form designed to help owners save data and information related to their property. It allows owners to quickly and easily enter information such as the address, property type, ownership type, and any improvements made to the property. The form also allows owners to provide details about the relevant information. Once the form is completed and submitted, the owner can save the form and use it as a reference point in the future through the Algotecture Interfaces. 
+The [Owner Declaration Form](https://docs.google.com/forms/d/e/1FAIpQLSfWlzitjaanswORgW8kdxa-Y74ESpP7UStYQfxFpjL0cBx2Ow/viewform) is an online form designed to help owners save data and information related to their property. It allows owners to quickly and easily enter information such as the address, property type, ownership type, and any improvements made to the property. The form also allows owners to provide details about the relevant information. Once the form is completed and submitted, the owner can save it and use it as a reference point in the future through the Algotecture Interfaces. 
 
 The form is a great way for owners to keep their information organized and easily accessible.
-##  Data Structure
-
 
 
 ## Data Model
 
-[Data Model](https://en.wikipedia.org/wiki/Data_model)
+A [Data Model](https://en.wikipedia.org/wiki/Data_model) is an abstract representation or conceptual model that defines a specific domain's structure, relationships, constraints, and semantics. It provides a high-level view of how a system organises and accesses data. Data models can be used to describe the logical structure of a database or the flow of data in an application. They serve as a blueprint for designing and implementing databases or information systems.
+
+##  Data Structure
+
+A data structure refers to the specific way data is organized, stored, and manipulated within a computer program or memory. It focuses on the implementation details and efficiency of accessing and manipulating data elements. Data structures determine how data is stored in memory and provide operations or algorithms for performing operations on the stored data.
 
 https://github.com/algotecture/DataModel/tree/main
 
