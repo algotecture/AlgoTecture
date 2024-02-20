@@ -1,6 +1,7 @@
 using AlgoTecture.Common;
 using AlgoTecture.Data.Persistence;
 using AlgoTecture.Libraries.GeoAdminSearch;
+using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations;
 using AlgoTecture.Libraries.Spaces;
 using Serilog;
@@ -34,6 +35,7 @@ public static class Program
             webAppBuilder.Services.UseSpaceLibrary();
             webAppBuilder.Services.UsePersistenceLibrary();
             webAppBuilder.Services.UseGeoAdminSearchLibrary();
+            webAppBuilder.Services.UsePriceSpecificationLibrary();
 
             var app = webAppBuilder.Build();
             
