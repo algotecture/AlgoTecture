@@ -6,6 +6,7 @@ namespace AlgoTecture.Libraries.Users.Implementations
 {
     public class PasswordEncryptor : IPasswordEncryptor
     {
+        [Obsolete("Obsolete")]
         public string Encrypt(string password)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));

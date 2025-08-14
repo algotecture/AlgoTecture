@@ -6,7 +6,7 @@ namespace AlgoTecture.Data.Images.Implementations;
 
 public class ImageUploader : IImageUploader
 {
-    public async Task<List<string>> ImageUpload(IFormFileCollection formFiles, string path)
+    public async Task<List<string>> ImageUpload(IFormFileCollection? formFiles, string path)
     {
         if (formFiles == null) throw new ArgumentNullException(nameof(formFiles));
         if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));

@@ -5,8 +5,9 @@ namespace AlgoTecture.Domain.Models.Dto
     public class UserCredentialModel
     {
         [JsonRequired]
-        public string EmailLogin { get; set; }
+        public string EmailLogin { get; set; } = null!;
+
         [JsonRequired]
-        public string UserPassword { get; set; }
+        public string UserPassword { get; set; } = null!;
     }
 }

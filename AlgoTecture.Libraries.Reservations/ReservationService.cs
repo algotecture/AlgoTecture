@@ -52,7 +52,7 @@ public class ReservationService : IReservationService
             ReservationUniqueIdentifier = Guid.NewGuid().ToString()
         };
         
-        var reservations = await _unitOfWork.Reservations.CheckReservation(addReservationModel.SpaceId, addReservationModel.SubSpaceId,
+        var reservations = await _unitOfWork.Reservations.CheckReservation(addReservationModel.SpaceId, addReservationModel.SubSpaceId!,
             addReservationModel.ReservationFromUtc, addReservationModel.ReservationToUtc);
 
         if (reservations.Any())

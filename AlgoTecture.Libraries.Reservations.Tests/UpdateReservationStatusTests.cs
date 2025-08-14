@@ -10,13 +10,13 @@ namespace AlgoTecture.Libraries.Reservations.Tests;
 
 public class UpdateReservationStatusTests
 {
-    private IUnitOfWork _unitOfWork;
-    private IPriceCalculator _priceCalculator;
+    private IUnitOfWork _unitOfWork = null!;
+    private IPriceCalculator _priceCalculator = null!;
 
     [SetUp]
     public void SetUp()
     {
-        _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null);
+        _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null!);
         _priceCalculator = new PriceCalculator();
     }
 
@@ -25,7 +25,7 @@ public class UpdateReservationStatusTests
     {
         var reservationService = new ReservationService(_unitOfWork, _priceCalculator);
         
-        var addOrUpdateReservationModelDataSeedingOne = new Reservation()
+        var addOrUpdateReservationModelDataSeedingOne = new Reservation
         {
             Id = 1,
             ReservationFromUtc = DateTime.Parse("2023-03-17 15:00"),
@@ -50,6 +50,6 @@ public class UpdateReservationStatusTests
 
         var updatedReservation = reservationService.UpdateReservationStatus(updateReservationStatusModel.ReservationStatus, updateReservationStatusModel.ReservationId).Result;
         
-        Assert.AreEqual("Contract", updatedReservation?.ReservationStatus);
+        Assert.Equals("Contract", updatedReservation?.ReservationStatus!);
     }
 }

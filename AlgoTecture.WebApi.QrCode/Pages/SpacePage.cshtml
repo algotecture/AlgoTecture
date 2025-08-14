@@ -5,7 +5,7 @@
     ViewData["Title"] = "Space page";
 }
 <div class="text-center">
-    <h1 class="display-4">@Model.TargetSpace.SpaceProperty.Name</h1>
+    <h1 class="display-4">@Model.TargetSpace?.SpaceProperty?.Name</h1>
     @{
         if (Model.TargetReservations.Any()) {
             <p>

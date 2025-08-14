@@ -4,6 +4,6 @@ namespace AlgoTecture.Data.DataSeeding.Parking.Models;
 
 public class Geometry
 {
-    public string type { get; set; }
-    public List<JToken> coordinates { get; set; }
+    public string type { get; set; } = null!;
+    public List<JToken> coordinates { get; set; } = null!;
 }

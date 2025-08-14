@@ -17,9 +17,9 @@ namespace AlgoTecture.Libraries.GeoAdminSearch
             var responseFromServer = await HttpWebRequestAssistant.GetResponse(baseUrl);
 
             var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
-            var labels = addressResults?.results.Select(x => x.attrs);
+            var labels = addressResults?.results?.Select(x => x.attrs);
 
-            return GetNormalizedLabels(labels);
+            return GetNormalizedLabels(labels!);
         }
         
         public async Task<GeoAdminBuilding> GetBuildingModel(GeoAdminSearchBuildingModel geoAdminSearchBuildingModel)

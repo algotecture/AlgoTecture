@@ -4,5 +4,5 @@ namespace AlgoTecture.Data.Images.Models;
 
 public class FileUpload
 {
-    public IFormFileCollection files { get; set; }
+    public IFormFileCollection? files { get; set; }
 }

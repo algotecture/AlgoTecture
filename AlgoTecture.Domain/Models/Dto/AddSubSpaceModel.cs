@@ -6,6 +6,6 @@
 
         public Guid SubSpaceIdToUpdate { get; set; }
 
-        public SubSpace SubSpace { get; set; }
+        public SubSpace? SubSpace { get; set; }
     }
 }

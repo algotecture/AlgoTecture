@@ -22,7 +22,7 @@ public class TelegramToAddressResolver : ITelegramToAddressResolver
         if (isContains) TelegramToAddressMap[chatId] = telegramToAddressModels;
     }
 
-    public List<TelegramToAddressModel> TryGetAddressListByChatId(long chatId)
+    public List<TelegramToAddressModel>? TryGetAddressListByChatId(long chatId)
     {
         var isSuccess = TelegramToAddressMap.TryGetValue(chatId, out var telegramToAddressModels);
         return isSuccess ? telegramToAddressModels : new List<TelegramToAddressModel>();
@@ -33,6 +33,4 @@ public class TelegramToAddressResolver : ITelegramToAddressResolver
         var isContains = TelegramToAddressMap.ContainsKey(chatId);
         if (isContains) TelegramToAddressMap.Remove(chatId);
     }
-
-
 }

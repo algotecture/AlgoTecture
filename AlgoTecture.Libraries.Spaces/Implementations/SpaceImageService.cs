@@ -34,7 +34,7 @@ public class SpaceImageService : ISpaceImageService
 
             if (result.Any())
             {
-                targetSpace.SpaceProperty.Images.AddRange(result);
+                targetSpace.SpaceProperty?.Images?.AddRange(result);
                 var updateSpaceModel = new UpdateSpaceModel
                 {
                     SpaceId = targetSpace.Id,
@@ -67,7 +67,7 @@ public class SpaceImageService : ISpaceImageService
         var targetSpace = await _spaceGetter.GetById(spaceId);
         if (targetSpace == null) throw new ArgumentNullException($"Space with id = {spaceId} not found");
 
-        string pathToImage = null;
+        string pathToImage;
 
         if (string.IsNullOrEmpty(subSpaceId))
         {

@@ -10,7 +10,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
     {
         public UserRepository(ApplicationDbContext context, ILogger logger) : base(context, logger) { }
 
-        public virtual async Task<User> GetByEmail(string email)
+        public virtual async Task<User?> GetByEmail(string email)
         {
             return await dbSet.FirstOrDefaultAsync(x=>x.Email == email);
         }

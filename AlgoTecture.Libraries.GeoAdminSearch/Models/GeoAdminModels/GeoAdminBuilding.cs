@@ -4,11 +4,11 @@ namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
     {
         public int BuildingYear { get; set; }
 
-        public string BuildingCategory { get; set; }
+        public string BuildingCategory { get; set; } = null!;
 
-        public string BuildingClass { get; set; }
+        public string BuildingClass { get; set; } = null!;
 
-        public string BuildingName { get; set; }
+        public string BuildingName { get; set; } = null!;
 
         public int Levels { get; set; }
 
@@ -18,10 +18,10 @@ namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
 
         public int Flats { get; set; }
         
-        public string PlaceName { get; set; }
+        public string PlaceName { get; set; } = null!;
 
         public int MunicipalityId { get; set; }
 
-        public string MunicipalityName { get; set; }
+        public string MunicipalityName { get; set; } = null!;
     }
 }

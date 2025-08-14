@@ -7,17 +7,15 @@ namespace AlgoTecture.WebApi.QrCode.Pages;
 
 public class SpacePropertyPage : PageModel
 {
-    private readonly ILogger<SpacePageModel> _logger;
     private readonly IGeoAdminSearcher _geoAdminSearcher;
 
-    public GeoAdminBuildingViewModel GeoAdminBuildingView{ get; set; }
+    public GeoAdminBuildingViewModel GeoAdminBuildingView{ get; set; } = null!;
 
-    public string LabelAddress { get; set; }
-    
+    public string LabelAddress { get; set; } = null!;
 
-    public SpacePropertyPage(ILogger<SpacePageModel> logger, IGeoAdminSearcher geoAdminSearcher)
+
+    public SpacePropertyPage(IGeoAdminSearcher geoAdminSearcher)
     {
-        _logger = logger;
         _geoAdminSearcher = geoAdminSearcher;
     }
 
@@ -33,7 +31,7 @@ public class SpacePropertyPage : PageModel
             featureId = valueFeatureId;
         }
 
-        LabelAddress = labelStr;
+        LabelAddress = labelStr!;
 
         var buildingProperties = await _geoAdminSearcher.GetBuildingModel(new GeoAdminSearchBuildingModel()
         {
@@ -48,19 +46,19 @@ public class SpacePropertyPage : PageModel
         }
 
         const string isUnknownStr = "is unknown";
-        var formattedGeoAdminBuilding = new GeoAdminBuildingViewModel()
+        var formattedGeoAdminBuilding = new GeoAdminBuildingViewModel
         {
         MunicipalityName = string.IsNullOrEmpty(buildingProperties.MunicipalityName) ? $"municipality name {isUnknownStr}" : buildingProperties.MunicipalityName,
-        MunicipalityId =  buildingProperties.MunicipalityId == default ? $"municipality id {isUnknownStr}" : buildingProperties.MunicipalityId.ToString(),
+        MunicipalityId =  buildingProperties.MunicipalityId == 0 ? $"municipality id {isUnknownStr}" : buildingProperties.MunicipalityId.ToString(),
         PlaceName = string.IsNullOrEmpty(buildingProperties.PlaceName) ? $"place name {isUnknownStr}" : buildingProperties.PlaceName,
         BuildingName = string.IsNullOrEmpty(buildingProperties.BuildingName) ? $"building name {isUnknownStr}" : buildingProperties.BuildingName,
-        BuildingYear = buildingProperties.BuildingYear == default ? $"building year {isUnknownStr}" : buildingProperties.BuildingYear.ToString(),
+        BuildingYear = buildingProperties.BuildingYear == 0 ? $"building year {isUnknownStr}" : buildingProperties.BuildingYear.ToString(),
         BuildingCategory = string.IsNullOrEmpty(buildingProperties.BuildingCategory) ? $"building category {isUnknownStr}" : buildingProperties.BuildingCategory,
         BuildingClass = string.IsNullOrEmpty(buildingProperties.BuildingClass) ? $"building class {isUnknownStr}" : buildingProperties.BuildingClass,
-        Levels = buildingProperties.Levels == default ? $"levels {isUnknownStr}" : buildingProperties.Levels.ToString(),
-        Area = buildingProperties.Area == default ? $"area {isUnknownStr}" : buildingProperties.Area.ToString(),
-        FloorArea = buildingProperties.FloorArea == default ? $"floor area {isUnknownStr}" : buildingProperties.FloorArea.ToString(),
-        Flats = buildingProperties.Flats == default ? $"flats {isUnknownStr}" : buildingProperties.Flats.ToString(),
+        Levels = buildingProperties.Levels == 0 ? $"levels {isUnknownStr}" : buildingProperties.Levels.ToString(),
+        Area = buildingProperties.Area == 0 ? $"area {isUnknownStr}" : buildingProperties.Area.ToString(),
+        FloorArea = buildingProperties.FloorArea == 0 ? $"floor area {isUnknownStr}" : buildingProperties.FloorArea.ToString(),
+        Flats = buildingProperties.Flats == 0 ? $"flats {isUnknownStr}" : buildingProperties.Flats.ToString(),
         };
 
         GeoAdminBuildingView = formattedGeoAdminBuilding;

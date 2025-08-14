@@ -11,13 +11,13 @@ namespace AlgoTecture.Libraries.Reservations.Tests;
 
 public class ReservationTests
 {
-    private IUnitOfWork _unitOfWork;
-    private IPriceCalculator _priceCalculator;
+    private IUnitOfWork _unitOfWork = null!;
+    private IPriceCalculator _priceCalculator = null!;
 
     [SetUp]
     public void SetUp()
     {
-        _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null);
+        _unitOfWork = new UnitOfWork(new ApplicationDbContext(Provider.InMemory), null!);
         _priceCalculator = new PriceCalculator();
     }
     
@@ -30,10 +30,10 @@ public class ReservationTests
             SpaceId = 1,
             PricePerTime = "10",
             PriceCurrency = "Usd",
-            UnitOfTime = UnitOfDateTime.Hour.ToString()
+            UnitOfTime = nameof(UnitOfDateTime.Hour)
         };
 
-        var reservationModelDataSeedingOne = new Reservation()
+        var reservationModelDataSeedingOne = new Reservation
         {
             Id = 1,
             ReservationFromUtc = DateTime.Parse("2023-03-17 15:00"),
@@ -47,7 +47,7 @@ public class ReservationTests
             PriceSpecificationId = 1
         };
 
-        var reservationModelDataSeedingTwo = new Reservation()
+        var reservationModelDataSeedingTwo = new Reservation
         {
             Id = 2,
             ReservationFromUtc = DateTime.Parse("2023-03-18 15:00"),
@@ -61,7 +61,7 @@ public class ReservationTests
             PriceSpecificationId = 1
         };
 
-        var addReservationModel = new AddReservationModel()
+        var addReservationModel = new AddReservationModel
         {
             ReservationFromUtc = DateTime.Parse("2023-03-17 14:00"),
             ReservationToUtc = DateTime.Parse("2023-03-17 17:00"),

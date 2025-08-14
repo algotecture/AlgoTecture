@@ -10,7 +10,7 @@ internal class BotFExtensions : BotController
         
         var str = builder.Configuration["botf"];
         
-        options = ConnectionString.Parse(str);
+        options = ConnectionString.Parse(str ?? throw new InvalidOperationException());
         if (options == null)
             throw new BotfException(
                 "Configuration is not passed. Check the appsettings*.json.\nThere must be configuration object like `{ \"bot\": { \"Token\": \"BotToken...\" } " +

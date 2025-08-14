@@ -51,7 +51,7 @@ namespace AlgoTecture.Libraries.Users.Implementations
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
-            return new BearerTokenResponseModel {Token = encodedJwt, Login = createdUser.Email}; 
+            return new BearerTokenResponseModel {Token = encodedJwt, Login = createdUser.Email!}; 
         }
     }
 }

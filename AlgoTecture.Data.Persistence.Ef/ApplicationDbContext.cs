@@ -10,21 +10,21 @@ namespace AlgoTecture.Data.Persistence.Ef
 {
     public class ApplicationDbContext : DbContext
     {
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; } = null!;
 
-        public virtual DbSet<Space> Spaces { get; set; }
+        public virtual DbSet<Space> Spaces { get; set; } = null!;
 
-        public virtual DbSet<UtilizationType> UtilizationTypes { get; set; }
+        public virtual DbSet<UtilizationType> UtilizationTypes { get; set; } = null!;
 
-        public virtual DbSet<UserAuthentication> UserAuthentications { get; set; }
+        public virtual DbSet<UserAuthentication> UserAuthentications { get; set; } = null!;
 
-        public virtual DbSet<TelegramUserInfo> TelegramUserInfos { get; set; }
+        public virtual DbSet<TelegramUserInfo> TelegramUserInfos { get; set; } = null!;
 
-        public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; } = null!;
 
-        public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; }
+        public virtual DbSet<PriceSpecification> PriceSpecifications { get; set; } = null!;
 
-        private Provider _provider = Provider.NpgSql;
+        private readonly Provider _provider = Provider.NpgSql;
 
         public ApplicationDbContext() { }
 

@@ -103,7 +103,8 @@ public class MainController : BotController, IMainController
         RowButton("Enter address", Q(EnterAddress));
         RowButton("Go Back", Q(PressToRentButton));
 
-        PushL(botState.UtilizationName);
+        if (botState.UtilizationName != null) 
+            PushL(botState.UtilizationName);
         await SendOrUpdate();
     }
     
@@ -118,22 +119,22 @@ public class MainController : BotController, IMainController
         var reservations = await _unitOfWork.Reservations.GetReservationsByUserId(user.Id);
 
         var reservationList = new List<ReservationToTelegramOut>();
-        
+
         foreach (var reservation in reservations)
         {
-            var reservationToTelegram = new ReservationToTelegramOut()
+            var reservationToTelegram = new ReservationToTelegramOut
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc.Value:dd-MM-yyyy HH:mm} utc",
+                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value:dd-MM-yyyy HH:mm} utc",
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
-                PriceCurrency = reservation.PriceSpecification.PriceCurrency,
-                Address = reservation.Space.SpaceAddress
+                PriceCurrency = reservation.PriceSpecification?.PriceCurrency,
+                Address = reservation.Space?.SpaceAddress
             };
             reservationList.Add(reservationToTelegram);
             var description =
                 $"{reservationToTelegram.Address}, \n\r{reservationToTelegram.DateTimeFrom}, {reservationToTelegram.TotlaPrice} \n\r" +
-                $"{reservationToTelegram.PriceCurrency.ToUpper()}";
+                $"{reservationToTelegram.PriceCurrency?.ToUpper()}";
             RowButton(description, Q(PressToManageContract));
         }
         RowButton("Go Back", Q(Start));
@@ -143,9 +144,9 @@ public class MainController : BotController, IMainController
     }
     
     [Action]
-    public async Task PressToManageContract()
+    public void PressToManageContract()
     {
-      
+      return;
     }
     
      [Action]
@@ -154,9 +155,9 @@ public class MainController : BotController, IMainController
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
          
-         var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == telegramToAddressModel.FeatureId);
+         var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.FirstOrDefault(x => x.FeatureId == telegramToAddressModel.FeatureId);
 
-         var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
+         var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
 
          _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
          
@@ -176,10 +177,10 @@ public class MainController : BotController, IMainController
              var boatControllerService = _serviceProvider.GetRequiredService<IBoatController>();
          
              RowButton("Rent!", Q(boatControllerService.PressToEnterTheStartEndTime, new BotState{SpaceId = targetSpace.Id, 
-                 SpaceName = targetSpaceProperty.Name}, RentTimeState.None, null));
+                 SpaceName = targetSpaceProperty!.Name}, RentTimeState.None, null!));
              RowButton("Go to main", Q(Start));
          
-             PushL($"Found! {targetSpace.UtilizationType.Name}: {targetSpaceProperty?.Name}. {targetSpaceProperty?.Description}");
+             PushL($"Found! {targetSpace.UtilizationType?.Name}: {targetSpaceProperty?.Name}. {targetSpaceProperty?.Description}");
          }
      }
      [Action]
@@ -216,14 +217,14 @@ public class MainController : BotController, IMainController
 
          if (!labels.Any())
          {
-             RowButton("Try again");
+             RowButton("Try again"!);
              await Send("Nothing found");
          }
          else
          {
              _telegramToAddressResolver.TryAddCurrentAddressList(chatId.Value, telegramToAddressList);
 
-             if (_telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).Count > 1)
+             if (_telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.Count > 1)
              {
                  await Send("Choose the right address");   
              }
@@ -242,9 +243,10 @@ public class MainController : BotController, IMainController
 
         
      }
+     
  
     [On(Handle.Exception)]
-    public async Task Exception(Exception ex)
+    public void Exception(Exception ex)
     {
         _logger.LogError(ex, "Handle.Exception on telegram-bot");
     }
