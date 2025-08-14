@@ -28,20 +28,20 @@ public class SpaceService : ISpaceService
         var spaceProperty = new SpaceProperty()
         {
             SpacePropertyId = Guid.NewGuid(),
-            Name = addSpaceModel.SpaceProperty.Name,
-            Description = addSpaceModel.SpaceProperty.Description,
-            Properties = addSpaceModel.SpaceProperty.Properties,
+            Name = addSpaceModel.SpaceProperty?.Name,
+            Description = addSpaceModel.SpaceProperty?.Description,
+            Properties = addSpaceModel.SpaceProperty?.Properties,
             Images = new List<string>()
         };
 
-        RecursiveFindAndAddGuidToSubSpace(addSpaceModel.SpaceProperty.SubSpaces);
-        spaceProperty.SubSpaces = addSpaceModel.SpaceProperty.SubSpaces;
+        RecursiveFindAndAddGuidToSubSpace(addSpaceModel.SpaceProperty?.SubSpaces!);
+        spaceProperty.SubSpaces = addSpaceModel.SpaceProperty?.SubSpaces;
         
         var serializedSpaceProperty = JsonConvert.SerializeObject(spaceProperty);
         
         var entityToInsert = new Space
         {
-            Latitude = addSpaceModel.Latitude, Longitude = addSpaceModel.Longitude, SpaceAddress = addSpaceModel.SpaceAddress,
+            Latitude = addSpaceModel.Latitude, Longitude = addSpaceModel.Longitude, SpaceAddress = addSpaceModel.SpaceAddress!,
             UtilizationTypeId = addSpaceModel.UtilizationTypeId, SpaceProperty = serializedSpaceProperty
         };
 
@@ -60,9 +60,9 @@ public class SpaceService : ISpaceService
             throw new InvalidOperationException($"Space with id = {updateSpaceModel.SpaceId} not found");
         }
 
-        var spaceProperty = new SpaceProperty()
+        var spaceProperty = new SpaceProperty
         {
-            SpacePropertyId = updateSpaceModel.SpaceProperty.SpacePropertyId,
+            SpacePropertyId = updateSpaceModel.SpaceProperty!.SpacePropertyId,
             Name = updateSpaceModel.SpaceProperty.Name,
             Description = updateSpaceModel.SpaceProperty.Description,
             Properties = updateSpaceModel.SpaceProperty.Properties,
@@ -74,7 +74,7 @@ public class SpaceService : ISpaceService
         
         var entityToUpdate = new Space
         {
-            Latitude = updateSpaceModel.Latitude, Longitude = updateSpaceModel.Longitude, SpaceAddress = updateSpaceModel.SpaceAddress,
+            Latitude = updateSpaceModel.Latitude, Longitude = updateSpaceModel.Longitude, SpaceAddress = updateSpaceModel.SpaceAddress!,
             UtilizationTypeId = updateSpaceModel.UtilizationTypeId, SpaceProperty = serializedSpaceProperty, Id = updateSpaceModel.SpaceId
         };
 
@@ -91,7 +91,7 @@ public class SpaceService : ISpaceService
             subSpaces[i].SubSpaceId = Guid.NewGuid();
             subSpaces[i].Images = new List<string>();
             
-            RecursiveFindAndAddGuidToSubSpace(subSpaces[i].Subspaces);
+            RecursiveFindAndAddGuidToSubSpace(subSpaces[i].Subspaces!);
         }
     }
 }

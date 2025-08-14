@@ -30,18 +30,13 @@ public class TelegramBotTestController : BotController
     {
         var targetSpace = await _unitOfWork.Spaces.GetById(spaceId);
         if (targetSpace == null) return;
-
-        var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
-        var targetSubSpace = new SubSpace();
-        if (targetSubSpace == null) return;
-
-        Button("Update");
-        Button("Upload photo");
-        Button("Remove");
+        
+        Button("Update"!);
+        Button("Upload photo"!);
+        Button("Remove"!);
         await Send($"{targetSpace.SpaceAddress}{Environment.NewLine}Area: {Environment.NewLine}Contract: none ");
     }
-
-
+    
     [Action]
     private async Task PressTryToFindButton()
     {
@@ -72,7 +67,8 @@ public class TelegramBotTestController : BotController
 
 
         var labels = await _geoAdminSearcher.GetAddress(term);
-        foreach (var label in labels)
+        var attrsEnumerable = labels.ToList();
+        foreach (var label in attrsEnumerable)
         {
             var telegramToAddressModel = new TelegramToAddressModel
             {
@@ -85,9 +81,9 @@ public class TelegramBotTestController : BotController
             RowButton(label.label, Q(PressAddressToRentButton, label.featureId));
         }
 
-        if (!labels.Any())
+        if (!attrsEnumerable.Any())
         {
-            RowButton("Try again");
+            RowButton("Try again"!);
             await Send("Nothing found");
         }
         else
@@ -103,10 +99,10 @@ public class TelegramBotTestController : BotController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value).FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
+        var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)?.FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
 
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
-        var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress.latitude, targetAddress.longitude);
+        var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
         //only for parking
         if (targetSpace == null)
         {
@@ -115,7 +111,7 @@ public class TelegramBotTestController : BotController
                 UtilizationTypeId = 1,
                 Latitude = targetAddress.latitude,
                 Longitude = targetAddress.longitude,
-                SpaceAddress = targetAddress.Address
+                SpaceAddress = targetAddress.Address!
             };
             var spaceEntity = await _unitOfWork.Spaces.Add(newSpace);
             // await _unitOfWork.CompleteAsync();
@@ -142,13 +138,14 @@ public class TelegramBotTestController : BotController
         else
         {
             var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
-            var userSubSpaces = targetSpaceProperty.SubSpaces.Where(x => x.OwnerId == user.Id).ToList();
+            var userSubSpaces = (targetSpaceProperty?.SubSpaces!).Where(x => x.OwnerId == user.Id).ToList();
             if (userSubSpaces.Any())
             {
                 var counter = 1;
                 foreach (var userSubSpace in userSubSpaces)
                 {
                     Button($"({counter})", Q(PressGetSubSpacePropertiesButton, targetSpace.Id));
+                    counter++;
                 }
             }
 

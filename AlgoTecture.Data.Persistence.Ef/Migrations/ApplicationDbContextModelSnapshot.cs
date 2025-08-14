@@ -62,7 +62,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasIndex("SpaceId");
 
-                    b.ToTable("PriceSpecifications");
+                    b.ToTable("PriceSpecifications", (string)null);
 
                     b.HasData(
                         new
@@ -144,7 +144,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasIndex("TenantUserId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
 
                     b.HasData(
                         new
@@ -207,7 +207,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasIndex("UtilizationTypeId");
 
-                    b.ToTable("Spaces");
+                    b.ToTable("Spaces", (string)null);
 
                     b.HasData(
                         new
@@ -263,7 +263,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TelegramUserInfos");
+                    b.ToTable("TelegramUserInfos", (string)null);
                 });
 
             modelBuilder.Entity("AlgoTecture.Domain.Models.RepositoryModels.User", b =>
@@ -294,7 +294,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasIndex("TelegramUserInfoId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -339,7 +339,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAuthentications");
+                    b.ToTable("UserAuthentications", (string)null);
                 });
 
             modelBuilder.Entity("AlgoTecture.Domain.Models.RepositoryModels.UtilizationType", b =>
@@ -357,7 +357,7 @@ namespace AlgoTecture.Data.Persistence.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UtilizationTypes");
+                    b.ToTable("UtilizationTypes", (string)null);
 
                     b.HasData(
                         new

@@ -16,7 +16,7 @@ namespace AlgoTecture.Libraries.Spaces.Implementations
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task<Space> GetByCoordinates(double latitude, double longitude)
+        public async Task<Space?> GetByCoordinates(double latitude, double longitude)
         {
             var targetSpace = await _unitOfWork.Spaces.GetByCoordinates(latitude, longitude);
 

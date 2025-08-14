@@ -2,8 +2,8 @@
 {
     public class AuthenticationOptions
     {
-        public string JwtAlgotectureSecret { get; set; }
+        public string JwtAlgotectureSecret { get; set; } = null!;
 
-        public string JwtIssuer { get; set; }
+        public string JwtIssuer { get; set; } = null!;
     }
 }

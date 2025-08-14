@@ -49,7 +49,7 @@ namespace AlgoTecture.Libraries.Users.Implementations
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
-            return new BearerTokenResponseModel {Token = encodedJwt, Login = user.Email};
+            return new BearerTokenResponseModel {Token = encodedJwt, Login = user.Email!};
         }
         
         public ClaimsIdentity GetIdentity(User user)
@@ -58,7 +58,7 @@ namespace AlgoTecture.Libraries.Users.Implementations
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email!),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, "default")
             };
             var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

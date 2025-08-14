@@ -4,5 +4,5 @@ namespace AlgoTecture.Data.Images.Interfaces;
 
 public interface IImageUploader
 {
-    Task<List<string>> ImageUpload(IFormFileCollection formFile, string path);
+    Task<List<string>> ImageUpload(IFormFileCollection? formFile, string path);
 }

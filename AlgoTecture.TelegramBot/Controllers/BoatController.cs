@@ -48,7 +48,7 @@ public class BoatController : BotController, IBoatController
         }
         
         RowButton("See available boats", Q(PressToRentTargetUtilizationButton, botState, true));
-        RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
+        RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
 
         var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
 
@@ -82,7 +82,8 @@ public class BoatController : BotController, IBoatController
                 SpaceId = space.Id
             };
 
-            Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, botState, space.Id, isLookingForOnly));
+            if (spaceToTelegramOut.Name != null)
+                Button(spaceToTelegramOut.Name, Q(PressToSelectTheBoatButton, botState, space.Id, isLookingForOnly));
         }
 
         RowButton("Go Back", Q(PressToMainBookingPage, botState));
@@ -201,7 +202,7 @@ public class BoatController : BotController, IBoatController
 
         calendar.Build(Message, new PagingService());
 
-        RowButton("Go Back", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
+        RowButton("Go Back", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
         PushL("Pick the date");
         await SendOrUpdate();
     }
@@ -223,41 +224,45 @@ public class BoatController : BotController, IBoatController
         {
             price = $"{targetPriceSpecification.PricePerTime} {targetPriceSpecification.PriceCurrency.ToUpper()} per {targetPriceSpecification.UnitOfTime.ToLower()}";
         }
-        
-        var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
 
-        if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
-
-        var imageNames = targetSpaceProperty.Images;
-
-        if (imageNames != null && imageNames.Any())
+        if (targetSpace != null)
         {
-            var pathToBoatImage =
-                System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", targetSpace.Id.ToString(), imageNames.First());
+            var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
 
-            await using var stream = File.OpenRead(pathToBoatImage);
-            var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
+            if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
 
-            var message = await Client.SendPhotoAsync(
-                chatId: chatId,
-                photo: inputOnlineFile,
-                caption: $"<b>Price: {price}</b>" + "\n" +
-                         $"<b>Buttons above image 👆</b>",
-                ParseMode.Html
-            );
+            var imageNames = targetSpaceProperty.Images;
 
-            botState.MessageId = message.MessageId;  
+            if (imageNames != null && imageNames.Any())
+            {
+                var pathToBoatImage =
+                    System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", targetSpace.Id.ToString(), imageNames.First());
+
+                await using var stream = File.OpenRead(pathToBoatImage);
+                var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
+
+                var message = await Client.SendPhotoAsync(
+                    chatId: chatId,
+                    photo: inputOnlineFile,
+                    caption: $"<b>Price: {price}</b>" + "\n" +
+                             $"<b>Buttons above image 👆</b>",
+                    ParseMode.Html
+                );
+
+                botState.MessageId = message.MessageId;  
+            }
+
+            if (!isLookingForOnly)
+            {
+                botState.SpaceName = targetSpaceProperty.Name;
+                RowButton("Make a reservation!", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));  
+            }
+        
+            RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, isLookingForOnly));
+        
+            PushL($"{targetSpaceProperty.Name}");
         }
 
-        if (!isLookingForOnly)
-        {
-            botState.SpaceName = targetSpaceProperty.Name;
-            RowButton("Make a reservation!", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));  
-        }
-        
-        RowButton("Go Back", Q(PressToRentTargetUtilizationButton, botState, isLookingForOnly));
-        
-        PushL($"{targetSpaceProperty.Name}");
         await SendOrUpdate();
     }
 
@@ -285,7 +290,7 @@ public class BoatController : BotController, IBoatController
                 ReservationToUtc = botState.EndRent.Value,
                 Description = botState.SpaceName
             };
-            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null, botState.StartRent.Value,
+            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null!, botState.StartRent.Value,
                 botState.EndRent.Value);
             if (checkedReservation.Any())
             {
@@ -293,7 +298,7 @@ public class BoatController : BotController, IBoatController
                                       $"{botState.SpaceId}. But this time is already reserved");
 
                PushL("This time is already reserved");
-               RowButton("Go to reservation and try again", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null));
+               RowButton("Go to reservation and try again", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
                await SendOrUpdate();
             }
             else

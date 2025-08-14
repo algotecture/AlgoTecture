@@ -23,7 +23,7 @@ namespace AlgoTecture.Data.Persistence.Core.Repositories
             }
         }
 
-        public async Task<Space> GetByCoordinates(double latitude, double longitude)
+        public async Task<Space?> GetByCoordinates(double latitude, double longitude)
         {
             return await dbSet.Include(x=>x.UtilizationType)
                 .FirstOrDefaultAsync(x=>Math.Abs(x.Latitude - latitude) < 0.000000001 && Math.Abs(x.Longitude - longitude) < 0.000000001);

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels
 {
+#pragma warning disable CS8618
     public static class GwrCodeLookup
     {
         public static string GetCode(string code)

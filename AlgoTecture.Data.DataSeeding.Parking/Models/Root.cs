@@ -2,9 +2,9 @@
 
 public class Root
 {
-    public string type { get; set; }
+    public string type { get; set; } = null!;
 
-    public string name { get; set; }
+    public string name { get; set; } = null!;
 
-    public List<Feature> features { get; set; }
+    public List<Feature> features { get; set; } = null!;
 }

@@ -4,13 +4,14 @@ namespace AlgoTecture.Libraries.GeoAdminSearch.Assistants
 {
     public class HttpWebRequestAssistant
     {
+        [Obsolete("Obsolete")]
         public static async Task<string> GetResponse(string baseUrl)
         {
             var request = (HttpWebRequest)WebRequest.Create(baseUrl);
 
             var response = (HttpWebResponse)await request.GetResponseAsync();
 
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return null!;
 
             var data = response.GetResponseStream();
 

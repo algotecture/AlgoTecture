@@ -30,13 +30,13 @@ namespace AlgoTecture.Data.Persistence.Data
             _context = context;
             _logger = loggerFactory != null ? loggerFactory.CreateLogger("logs") : null;
 
-            Users = new UserRepository(context, _logger);
-            Spaces = new SpaceRepository(context, _logger);
-            UserAuthentications = new UserAuthenticationRepository(context, _logger);
-            TelegramUserInfos = new TelegramUserInfoRepository(context, _logger);
-            UtilizationTypes = new UtilizationTypeRepository(context, _logger);
-            Reservations = new ReservationRepository(context, _logger);
-            PriceSpecifications = new PriceSpecificationRepository(context, _logger);
+            Users = new UserRepository(context, _logger!);
+            Spaces = new SpaceRepository(context, _logger!);
+            UserAuthentications = new UserAuthenticationRepository(context, _logger!);
+            TelegramUserInfos = new TelegramUserInfoRepository(context, _logger!);
+            UtilizationTypes = new UtilizationTypeRepository(context, _logger!);
+            Reservations = new ReservationRepository(context, _logger!);
+            PriceSpecifications = new PriceSpecificationRepository(context, _logger!);
         }
 
         public async Task CompleteAsync()

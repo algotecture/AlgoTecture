@@ -8,13 +8,13 @@ public class SpaceWithProperty
 
     public int UtilizationTypeId { get; set; }
 
-    public UtilizationType UtilizationType { get; set; }
+    public UtilizationType? UtilizationType { get; set; }
 
-    public string SpaceAddress { get; set; }
+    public string SpaceAddress { get; set; } = null!;
 
     public double Latitude { get; set; }
 
     public double Longitude { get; set; }
     
-    public SpaceProperty SpaceProperty { get; set; }
+    public SpaceProperty? SpaceProperty { get; set; }
 }
