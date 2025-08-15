@@ -48,6 +48,7 @@ public static class Program
             webAppBuilder.Services.AddTransient<ITelegramToAddressResolver, TelegramToAddressResolver>();
             webAppBuilder.Services.AddTransient<IMainController, MainController>();
             webAppBuilder.Services.AddTransient<IBoatController, BoatController>();
+            webAppBuilder.Services.AddTransient<IParkingController, ParkingController>();
 
             var webApp = webAppBuilder.Build();
 

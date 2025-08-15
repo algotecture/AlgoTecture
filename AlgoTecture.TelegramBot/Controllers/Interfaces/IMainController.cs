@@ -1,3 +1,5 @@
+using AlgoTecture.TelegramBot.Models;
+
 namespace AlgoTecture.TelegramBot.Controllers.Interfaces;
 
 public interface IMainController
@@ -7,4 +9,6 @@ public interface IMainController
     Task PressToRentButton();
     
     Task PressToFindReservationsButton();
+    
+    Task EnterAddress(BotState botState);
 }

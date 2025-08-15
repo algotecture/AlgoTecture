@@ -23,6 +23,8 @@ public class MainController : BotController, IMainController
     private readonly ISpaceGetter _spaceGetter;
     private readonly IServiceProvider _serviceProvider;
     private readonly IBoatController _boatController;
+    private readonly ISpaceService _spaceService;
+    private readonly IParkingController _parkingController;
 
     private Dictionary<string, string> utilizationTypeToSmile = new()
     {
@@ -31,7 +33,7 @@ public class MainController : BotController, IMainController
 
     public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, 
         IUnitOfWork unitOfWork, ILogger<MainController> logger, IGeoAdminSearcher geoAdminSearcher, ITelegramToAddressResolver telegramToAddressResolver, 
-        ISpaceGetter spaceGetter, IServiceProvider serviceProvider)
+        ISpaceGetter spaceGetter, IServiceProvider serviceProvider, ISpaceService spaceService, IParkingController parkingController)
     {
         _telegramUserInfoService = telegramUserInfoService;
         _boatController = boatController;
@@ -42,6 +44,8 @@ public class MainController : BotController, IMainController
         _telegramToAddressResolver = telegramToAddressResolver;
         _spaceGetter = spaceGetter;
         _serviceProvider = serviceProvider;
+        _spaceService = spaceService;
+        _parkingController = parkingController;
     }
 
     [Action("/start", "start the bot")]
@@ -88,8 +92,12 @@ public class MainController : BotController, IMainController
             var botState = new BotState { UtilizationTypeId = utilizationType.Id, UtilizationName = utilizationType.Name, MessageId = default };
 
             //it is not yet known what to do with the rest of the types only!
-            RowButton(utilizationTypeOut.Name,
-                utilizationType.Name == "Boat" ? Q(_boatController.PressToMainBookingPage, botState) : Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
+            if (utilizationType.Name == "Boat")
+                RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));    
+            if (utilizationType.Name == "Parking")
+                RowButton(utilizationTypeOut.Name, Q(_parkingController.PressToMainBookingPage, botState));
+            else
+                RowButton(utilizationTypeOut.Name, Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
         }
         RowButton("Go Back", Q(Start));
 
@@ -100,7 +108,7 @@ public class MainController : BotController, IMainController
     [Action]
     public async Task PressToCommonButtonToAnotherUtilizationTypes(BotState botState)
     {
-        RowButton("Enter address", Q(EnterAddress));
+        RowButton("Enter address", Q(EnterAddress, new BotState()));
         RowButton("Go Back", Q(PressToRentButton));
 
         if (botState.UtilizationName != null) 
@@ -150,41 +158,77 @@ public class MainController : BotController, IMainController
     }
     
      [Action]
-     private async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel)
+     private async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
          
          var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.FirstOrDefault(x => x.FeatureId == telegramToAddressModel.FeatureId);
+        //only for demo
+        if (botState.UtilizationTypeId == 11)
+        {
+            //only for demo 
+            var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
+            
+            var nearestParkingSpaces = await _spaceService.GetNearestSpaces(targetSpaces, 
+                telegramToAddressModel.latitude, telegramToAddressModel.longitude, 7);
 
-         var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
-
-         _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
+            if (nearestParkingSpaces.Any())
+            {
+                var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
+                var counter = 1;
+                foreach (var nearestParkingSpace in nearestParkingSpaces)
+                {
+                    var tamModel = new TelegramToAddressModel
+                    {
+                        latitude = nearestParkingSpace.Value.Latitude,
+                        longitude = nearestParkingSpace.Value.Longitude,
+                    };
+                    RowButton($"Parking {counter} in {nearestParkingSpace.Key} meters. Tap to details", Q(parkingControllerService.PressToParkingButton, tamModel, botState));
+                    counter++;
+                }  
+                RowButton("Go Back", Q(PressToRentButton));
          
-         if (targetSpace == null)
-         {
-             var formattedGeoAdminFeatureId = !string.IsNullOrEmpty(telegramToAddressModel.FeatureId) ? telegramToAddressModel.FeatureId.Split('_')[0] : string.Empty;
-             PushL("This space will soon be available for rent. Go to space properties or /start to try again");
+                PushL($"Found!");
+            }
+            else
+            {
+                RowButton("Try again"!);
+                await Send("Nothing found"); 
+            }
+        }
+
+        else
+        {
+            var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
+
+            _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
+         
+            if (targetSpace == null)
+            {
+                var formattedGeoAdminFeatureId = !string.IsNullOrEmpty(telegramToAddressModel.FeatureId) ? telegramToAddressModel.FeatureId.Split('_')[0] : string.Empty;
+                PushL("This space will soon be available for rent. Go to space properties or /start to try again");
              
-             var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}&label={telegramToAddressModel.Address}";
-             RowButton("Go to space properties", urlToAddressProperties);
-             await SendOrUpdate();
-         }
-         else
-         {
-             var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
+                var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}&label={telegramToAddressModel.Address}";
+                RowButton("Go to space properties", urlToAddressProperties);
+                await SendOrUpdate();
+            }
+            else
+            {
+                var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
          
-             var boatControllerService = _serviceProvider.GetRequiredService<IBoatController>();
+                var boatControllerService = _serviceProvider.GetRequiredService<IBoatController>();
          
-             RowButton("Rent!", Q(boatControllerService.PressToEnterTheStartEndTime, new BotState{SpaceId = targetSpace.Id, 
-                 SpaceName = targetSpaceProperty!.Name}, RentTimeState.None, null!));
-             RowButton("Go to main", Q(Start));
+                RowButton("Rent!", Q(boatControllerService.PressToEnterTheStartEndTime, new BotState{SpaceId = targetSpace.Id, 
+                    SpaceName = targetSpaceProperty!.Name}, RentTimeState.None, null!));
+                RowButton("Go to main", Q(Start));
          
-             PushL($"Found! {targetSpace.UtilizationType?.Name}: {targetSpaceProperty?.Name}. {targetSpaceProperty?.Description}");
-         }
+                PushL($"Found! {targetSpace.UtilizationType?.Name}: {targetSpaceProperty?.Name}. {targetSpaceProperty?.Description}");
+            }    
+        }
      }
      [Action]
-     private async Task EnterAddress()
+     public async Task EnterAddress(BotState botState)
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
@@ -212,7 +256,7 @@ public class MainController : BotController, IMainController
                  Address = label.label
              };
              telegramToAddressList.Add(telegramToAddressModel);
-             RowButton(label.label, Q(PressAddressToRentButton, telegramToAddressModel));
+             RowButton(label.label, Q(PressAddressToRentButton, telegramToAddressModel, botState));
          }
 
          if (!labels.Any())
@@ -236,12 +280,10 @@ public class MainController : BotController, IMainController
      }
      
      [Action]
-     private async Task RedirectToAddressPropertiesButton(string geoAdminFeatureId)
+     private void RedirectToAddressPropertiesButton(string geoAdminFeatureId)
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
-
-        
      }
      
  
@@ -257,7 +299,7 @@ public class MainController : BotController, IMainController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        RowButton("Enter address", Q(EnterAddress));
+        RowButton("Enter address", Q(EnterAddress, new BotState()));
         RowButton("Go back", Q(Start));
         
         PushL("I'm sorry, but I'm not yet able to understand natural language requests at the moment. Enter an address to search for the space");

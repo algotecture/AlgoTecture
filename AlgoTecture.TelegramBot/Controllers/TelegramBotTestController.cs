@@ -132,7 +132,7 @@ public class TelegramBotTestController : BotController
             newSpace.SpaceProperty = JsonConvert.SerializeObject(newSpaceProperty);
             await _unitOfWork.CompleteAsync();
             _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
-            PressGetSubSpacePropertiesButton(spaceEntity.Id);
+            await PressGetSubSpacePropertiesButton(spaceEntity.Id);
             //await Send(targetAddress.Address);
         }
         else
