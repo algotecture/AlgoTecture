@@ -1,4 +1,5 @@
-﻿using AlgoTecture.TelegramBot.Controllers.Interfaces;
+﻿using System.Globalization;
+using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
 
@@ -39,7 +40,9 @@ public class ParkingController : BotController, IParkingController
     public async Task PressToParkingButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
     {
         //for example
-        var urlToAddressProperties = $"https://www.google.com/maps/search/?api=1&query={telegramToAddressModel.latitude}-{telegramToAddressModel.longitude}";
+        //var urlToAddressProperties = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture)},{telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture)}&key=.....&language=en";
+
+        var urlToAddressProperties = $"https://www.google.com/maps/search/?api=1&query={telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture)},{telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture)}";
         RowButton("Look on the map", urlToAddressProperties);
         RowButton("Go Back", Q(PressToMainBookingPage, botState));
 
