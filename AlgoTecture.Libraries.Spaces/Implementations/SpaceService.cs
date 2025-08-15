@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
@@ -10,10 +11,12 @@ namespace AlgoTecture.Libraries.Spaces.Implementations;
 public class SpaceService : ISpaceService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDistanceCalculator _distanceCalculator;
 
-    public SpaceService(IUnitOfWork unitOfWork)
+    public SpaceService(IUnitOfWork unitOfWork, IDistanceCalculator distanceCalculator)
     {
         _unitOfWork = unitOfWork;
+        _distanceCalculator = distanceCalculator;
     }
 
     public async Task<Space> AddSpace(AddSpaceModel addSpaceModel)
@@ -82,6 +85,24 @@ public class SpaceService : ISpaceService
         await _unitOfWork.CompleteAsync();
 
         return updatedEntity;  
+    }
+
+    public async Task<List<KeyValuePair<int,Space>>> GetNearestSpaces(IEnumerable<Space> spaces, double latitude, double longitude, 
+        int spaceCountToOut)
+    {
+        var list = new List<KeyValuePair<int,Space>>() ;
+        foreach (var space in spaces)
+        {
+            var distance = _distanceCalculator.GetDistanceInKilometers(latitude, longitude,
+                space.Latitude, space.Longitude);
+            var distanceInMeters = Convert.ToInt32(distance * 1000);
+            list.Add(new KeyValuePair<int, Space>(distanceInMeters, space));
+        }
+
+        if (!list.Any()) return list;
+
+        var newSortedList = list.OrderBy(x=>x.Key).Take(spaceCountToOut).ToList();
+        return newSortedList;
     }
 
     private static void RecursiveFindAndAddGuidToSubSpace(List<SubSpace> subSpaces)

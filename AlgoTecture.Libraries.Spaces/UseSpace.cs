@@ -15,6 +15,7 @@ public static class UseSpace
             serviceCollection.AddTransient<ISpaceGetter, SpaceGetter>();
             serviceCollection.AddTransient<ISpaceService, SpaceService>();
             serviceCollection.AddTransient<ISpaceImageService, SpaceImageService>();
+            serviceCollection.AddTransient<IDistanceCalculator, DistanceCalculator>();
             serviceCollection.UseImageLibrary();
             
             return serviceCollection;
