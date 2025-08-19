@@ -1,6 +1,7 @@
 using AlgoTecture.Data.Images;
 using AlgoTecture.Libraries.Spaces.Implementations;
 using AlgoTecture.Libraries.Spaces.Interfaces;
+using GeoDistanceLib;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 

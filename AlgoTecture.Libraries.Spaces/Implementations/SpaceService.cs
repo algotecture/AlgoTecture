@@ -4,6 +4,7 @@ using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.Libraries.Spaces.Models.Dto;
+using GeoDistanceLib;
 using Newtonsoft.Json;
 
 namespace AlgoTecture.Libraries.Spaces.Implementations;
