@@ -1,4 +1,4 @@
-﻿using AlgoTecture.Shared.Contracts;
+﻿using Algotecture.Shared.Contracts;
 
 namespace AlgoTecture.User.Contracts.Events;
 

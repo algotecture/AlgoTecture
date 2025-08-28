@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AlgoTecture.Shared.Contracts\AlgoTecture.Shared.Contracts.csproj" />
+      <ProjectReference Include="..\Algotecture.Shared.Contracts\Algotecture.Shared.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

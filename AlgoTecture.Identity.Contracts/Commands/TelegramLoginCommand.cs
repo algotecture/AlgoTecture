@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace AlgoTecture.Identity.Contracts.Commands;
+namespace Algotecture.Identity.Contracts.Commands;
 
 public record TelegramLoginCommand(long TelegramUserId)
     : IRequest<TelegramLoginResult>;

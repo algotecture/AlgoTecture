@@ -54,27 +54,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{5C3BD9C4-9F77-4758-B401-F1335C5F2AF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.ApiGateway", "AlgoTecture.ApiGateway\AlgoTecture.ApiGateway.csproj", "{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.ApiGateway", "Algotecture.ApiGateway\Algotecture.ApiGateway.csproj", "{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Api", "AlgoTecture.Identity.Api\AlgoTecture.Identity.Api.csproj", "{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Api", "Algotecture.Identity.Api\Algotecture.Identity.Api.csproj", "{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{2815E6F1-D2F8-48DC-99FF-CE1F564E57F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{CD8FA31D-A9DD-4EE9-A593-2AD931D16BFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Application", "AlgoTecture.Identity.Application\AlgoTecture.Identity.Application.csproj", "{EB41781E-71A6-466C-AF04-E7F0434FC344}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Application", "Algotecture.Identity.Application\Algotecture.Identity.Application.csproj", "{EB41781E-71A6-466C-AF04-E7F0434FC344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Domain", "AlgoTecture.Identity.Domain\AlgoTecture.Identity.Domain.csproj", "{40AD19FF-C64D-4B41-8CA8-D6C650B45B85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Domain", "Algotecture.Identity.Domain\Algotecture.Identity.Domain.csproj", "{40AD19FF-C64D-4B41-8CA8-D6C650B45B85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{C95AACF2-C2DF-42E4-9376-544F8944AE92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Shared.Contracts", "AlgoTecture.Shared.Contracts\AlgoTecture.Shared.Contracts.csproj", "{FB534345-80EB-43CB-99ED-4D5B6E116A9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Shared.Contracts", "Algotecture.Shared.Contracts\Algotecture.Shared.Contracts.csproj", "{FB534345-80EB-43CB-99ED-4D5B6E116A9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Contracts", "AlgoTecture.User.Contracts\AlgoTecture.User.Contracts.csproj", "{8B7CCF03-8DB3-4373-AEB4-D40FE29B60DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Contracts", "AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj", "{A5ED1183-A8CF-4CF3-9E7E-F9ADF0F9A53B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Contracts", "Algotecture.Identity.Contracts\Algotecture.Identity.Contracts.csproj", "{A5ED1183-A8CF-4CF3-9E7E-F9ADF0F9A53B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Infrastructure", "AlgoTecture.Identity.Infrastructure\AlgoTecture.Identity.Infrastructure.csproj", "{0D8A862E-3166-4267-BE62-50E9ABD449C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Infrastructure", "Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj", "{0D8A862E-3166-4267-BE62-50E9ABD449C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

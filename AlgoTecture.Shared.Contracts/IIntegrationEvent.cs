@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Shared.Contracts;
+﻿namespace Algotecture.Shared.Contracts;
 
 public interface IIntegrationEvent
 {

@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Identity.Application;
+﻿namespace Algotecture.Identity.Application;
 
 public class Class1
 {
