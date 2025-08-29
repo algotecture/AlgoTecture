@@ -2,6 +2,7 @@
 using Algotecture.Data.Images.Interfaces;
 using Algotecture.Data.Images.Models;
 using Algotecture.Libraries.Environments;
+using AlgoTecture.Libraries.Spaces;
 using Algotecture.Libraries.Spaces.Interfaces;
 using Algotecture.Libraries.Spaces.Models.Dto;
 
