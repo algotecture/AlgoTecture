@@ -1,4 +1,4 @@
-namespace AlgoTecture.TelegramBot.Models;
+namespace Algotecture.TelegramBot.Models;
 
 public class UtilizationTypeToTelegramOut
 {

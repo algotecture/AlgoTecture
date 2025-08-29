@@ -1,6 +1,6 @@
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Libraries.UtilizationTypes;
+namespace Algotecture.Libraries.UtilizationTypes;
 
 public interface IUtilizationTypeGetter
 {

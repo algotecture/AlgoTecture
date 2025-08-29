@@ -1,17 +1,17 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using AlgoTecture.Common;
-using AlgoTecture.Data.Images;
-using AlgoTecture.Data.Persistence;
-using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.PriceSpecifications;
-using AlgoTecture.Libraries.Reservations;
-using AlgoTecture.Libraries.Spaces;
-using AlgoTecture.Libraries.Users.Models.AppsettingsModels;
-using AlgoTecture.WebApi.Implementations;
-using AlgoTecture.WebApi.Interfaces;
-using AlgoTecture.WebApi.Middleware.CustomExceptionMiddleware;
+using Algotecture.Common;
+using Algotecture.Data.Images;
+using Algotecture.Data.Persistence;
+using Algotecture.Libraries.GeoAdminSearch;
+using Algotecture.Libraries.PriceSpecifications;
+using Algotecture.Libraries.Reservations;
+using Algotecture.Libraries.Spaces;
+using Algotecture.Libraries.Users.Models.AppsettingsModels;
+using Algotecture.WebApi.Implementations;
+using Algotecture.WebApi.Interfaces;
+using Algotecture.WebApi.Middleware.CustomExceptionMiddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,7 +21,7 @@ using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 
-namespace AlgoTecture.WebApi
+namespace Algotecture.WebApi
 {
     public static class Program
     {

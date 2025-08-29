@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MassTransit" Version="8.5.2" />
+      <PackageReference Include="MediatR" Version="13.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.19" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Algotecture.Identity.Contracts\Algotecture.Identity.Contracts.csproj" />
+      <ProjectReference Include="..\Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

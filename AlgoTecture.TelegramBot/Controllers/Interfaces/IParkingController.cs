@@ -1,6 +1,6 @@
-﻿using AlgoTecture.TelegramBot.Models;
+﻿using Algotecture.TelegramBot.Models;
 
-namespace AlgoTecture.TelegramBot.Controllers.Interfaces;
+namespace Algotecture.TelegramBot.Controllers.Interfaces;
 
 public interface IParkingController
 {

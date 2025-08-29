@@ -1,9 +1,9 @@
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.TelegramBot.Interfaces;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.TelegramBot.Interfaces;
 
-namespace AlgoTecture.TelegramBot.Implementations;
+namespace Algotecture.TelegramBot.Implementations;
 
 public class TelegramUserInfoService : ITelegramUserInfoService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace AlgoTecture.TelegramBot.Implementations;
+namespace Algotecture.TelegramBot.Implementations;
 
 public static class DateTimeParser
 {

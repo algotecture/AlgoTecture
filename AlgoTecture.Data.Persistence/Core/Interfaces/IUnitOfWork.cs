@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Data.Persistence.Core.Interfaces
+﻿namespace Algotecture.Data.Persistence.Core.Interfaces
 {
     public interface IUnitOfWork
     {

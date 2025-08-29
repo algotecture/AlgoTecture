@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Domain.Models;
+﻿using Algotecture.Domain.Models;
 
-namespace AlgoTecture.Libraries.Spaces.Models.Dto;
+namespace Algotecture.Libraries.Spaces.Models.Dto;
 
 public class UpdateSpaceModel
 {

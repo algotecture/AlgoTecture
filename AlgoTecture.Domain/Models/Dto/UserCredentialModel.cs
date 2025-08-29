@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AlgoTecture.Domain.Models.Dto
+namespace Algotecture.Domain.Models.Dto
 {
     public class UserCredentialModel
     {

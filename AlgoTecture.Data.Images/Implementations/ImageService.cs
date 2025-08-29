@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Data.Images.Interfaces;
+﻿using Algotecture.Data.Images.Interfaces;
 
-namespace AlgoTecture.Data.Images.Implementations;
+namespace Algotecture.Data.Images.Implementations;
 
 public class ImageService : IImageService
 {

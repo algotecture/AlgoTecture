@@ -1,4 +1,4 @@
-namespace AlgoTecture.Domain.Models.Dto;
+namespace Algotecture.Domain.Models.Dto;
 
 public class AddOrUpdateTelegramUserInfoModel
 {

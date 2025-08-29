@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AlgoTecture.Data.Images.Interfaces;
-using AlgoTecture.Data.Images.Models;
-using AlgoTecture.Libraries.Environments;
-using AlgoTecture.Libraries.Spaces.Interfaces;
-using AlgoTecture.Libraries.Spaces.Models.Dto;
+using Algotecture.Data.Images.Interfaces;
+using Algotecture.Data.Images.Models;
+using Algotecture.Libraries.Environments;
+using Algotecture.Libraries.Spaces.Interfaces;
+using Algotecture.Libraries.Spaces.Models.Dto;
 
-namespace AlgoTecture.Libraries.Spaces.Implementations;
+namespace Algotecture.Libraries.Spaces.Implementations;
 
 public class SpaceImageService : ISpaceImageService
 {

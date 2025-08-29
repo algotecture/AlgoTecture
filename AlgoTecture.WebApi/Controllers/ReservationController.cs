@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Reservations;
-using AlgoTecture.Libraries.Reservations.Models;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Reservations;
+using Algotecture.Libraries.Reservations.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.WebApi.Controllers;
+namespace Algotecture.WebApi.Controllers;
 
 [Route("[controller]")]
 public class ReservationController : Controller

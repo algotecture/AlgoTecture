@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.UtilizationTypes;
+namespace Algotecture.Libraries.UtilizationTypes;
 
 public static class UseUtilizationType
 {

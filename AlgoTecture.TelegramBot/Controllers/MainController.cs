@@ -1,16 +1,16 @@
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.Spaces.Interfaces;
-using AlgoTecture.Libraries.UtilizationTypes;
-using AlgoTecture.TelegramBot.Controllers.Interfaces;
-using AlgoTecture.TelegramBot.Interfaces;
-using AlgoTecture.TelegramBot.Models;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Libraries.GeoAdminSearch;
+using Algotecture.Libraries.Spaces.Interfaces;
+using Algotecture.Libraries.UtilizationTypes;
+using Algotecture.TelegramBot.Controllers.Interfaces;
+using Algotecture.TelegramBot.Interfaces;
+using Algotecture.TelegramBot.Models;
 using Deployf.Botf;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.TelegramBot.Controllers;
+namespace Algotecture.TelegramBot.Controllers;
 
 public class MainController : BotController, IMainController
 {

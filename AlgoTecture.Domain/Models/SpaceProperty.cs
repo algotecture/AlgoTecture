@@ -1,4 +1,4 @@
-namespace AlgoTecture.Domain.Models
+namespace Algotecture.Domain.Models
 {
     public class SpaceProperty
     {

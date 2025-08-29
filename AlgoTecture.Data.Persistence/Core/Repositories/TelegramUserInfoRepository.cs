@@ -1,10 +1,10 @@
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Data.Persistence.Ef;
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Data.Persistence.Ef;
+using Algotecture.Domain.Models.RepositoryModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Data.Persistence.Core.Repositories;
+namespace Algotecture.Data.Persistence.Core.Repositories;
 
 public class TelegramUserInfoRepository : GenericRepository<TelegramUserInfo>, ITelegramUserInfoRepository
 {

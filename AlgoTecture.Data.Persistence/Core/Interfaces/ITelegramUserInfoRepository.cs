@@ -1,6 +1,6 @@
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Data.Persistence.Core.Interfaces;
+namespace Algotecture.Data.Persistence.Core.Interfaces;
 
 public interface ITelegramUserInfoRepository : IGenericRepository<TelegramUserInfo>
 {

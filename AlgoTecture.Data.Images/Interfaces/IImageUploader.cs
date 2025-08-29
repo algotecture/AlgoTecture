@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AlgoTecture.Data.Images.Interfaces;
+namespace Algotecture.Data.Images.Interfaces;
 
 public interface IImageUploader
 {

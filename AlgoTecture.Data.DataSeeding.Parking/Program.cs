@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
-using AlgoTecture.Data.DataSeeding.Parking.Models;
-using AlgoTecture.Data.Persistence.Ef;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Data.DataSeeding.Parking.Models;
+using Algotecture.Data.Persistence.Ef;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.RepositoryModels;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Data.DataSeeding.Parking
+namespace Algotecture.Data.DataSeeding.Parking
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace AlgoTecture.Data.DataSeeding.Parking
         {
             Console.WriteLine(@"To start press any key");
             Console.ReadKey();
-            Console.WriteLine($"{typeof(AlgoTecture.Data.DataSeeding.Parking.Program).Namespace} has been started.");
+            Console.WriteLine($"{typeof(Program).Namespace} has been started.");
 
             var sw = new Stopwatch();
             sw.Start();

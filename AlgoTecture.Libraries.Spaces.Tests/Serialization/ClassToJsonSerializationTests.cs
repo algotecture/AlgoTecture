@@ -1,9 +1,9 @@
-﻿using AlgoTecture.Domain.Models;
-using AlgoTecture.Libraries.Spaces.Models.Dto;
+﻿using Algotecture.Domain.Models;
+using Algotecture.Libraries.Spaces.Models.Dto;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace AlgoTecture.Libraries.Spaces.Tests.Serialization;
+namespace Algotecture.Libraries.Spaces.Tests.Serialization;
 
 public class ClassToJsonSerializationTests
 {

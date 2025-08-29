@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using AlgoTecture.Libraries.Users.Interfaces;
+using Algotecture.Libraries.Users.Interfaces;
 
-namespace AlgoTecture.Libraries.Users.Implementations
+namespace Algotecture.Libraries.Users.Implementations
 {
     public class PasswordEncryptor : IPasswordEncryptor
     {

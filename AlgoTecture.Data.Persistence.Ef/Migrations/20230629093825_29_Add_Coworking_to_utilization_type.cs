@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AlgoTecture.Data.Persistence.Ef.Migrations
+namespace Algotecture.Data.Persistence.Ef.Migrations
 {
     public partial class _29_Add_Coworking_to_utilization_type : Migration
     {

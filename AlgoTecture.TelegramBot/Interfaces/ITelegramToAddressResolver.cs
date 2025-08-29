@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using AlgoTecture.TelegramBot.Models;
+using Algotecture.TelegramBot.Models;
 
-namespace AlgoTecture.TelegramBot.Interfaces;
+namespace Algotecture.TelegramBot.Interfaces;
 
 public interface ITelegramToAddressResolver
 {

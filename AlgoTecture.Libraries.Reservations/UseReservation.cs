@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.Reservations;
+namespace Algotecture.Libraries.Reservations;
 
 public static class UseReservation
 {

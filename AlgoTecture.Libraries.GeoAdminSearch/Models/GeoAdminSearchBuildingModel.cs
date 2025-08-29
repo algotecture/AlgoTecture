@@ -1,4 +1,4 @@
-namespace AlgoTecture.Libraries.GeoAdminSearch.Models
+namespace Algotecture.Libraries.GeoAdminSearch.Models
 {
     public class GeoAdminSearchBuildingModel
     {

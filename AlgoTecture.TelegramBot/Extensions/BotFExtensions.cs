@@ -1,6 +1,6 @@
 ﻿using Deployf.Botf;
 
-namespace AlgoTecture.TelegramBot.Extensions;
+namespace Algotecture.TelegramBot.Extensions;
 
 internal class BotFExtensions : BotController
 {

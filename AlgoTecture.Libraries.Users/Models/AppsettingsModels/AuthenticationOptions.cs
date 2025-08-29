@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Libraries.Users.Models.AppsettingsModels
+﻿namespace Algotecture.Libraries.Users.Models.AppsettingsModels
 {
     public class AuthenticationOptions
     {

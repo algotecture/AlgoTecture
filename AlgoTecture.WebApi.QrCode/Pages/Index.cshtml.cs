@@ -1,9 +1,9 @@
-﻿using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Reservations;
-using AlgoTecture.Libraries.Spaces.Interfaces;
+﻿using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Reservations;
+using Algotecture.Libraries.Spaces.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AlgoTecture.WebApi.QrCode.Pages;
+namespace Algotecture.WebApi.QrCode.Pages;
 
 public class IndexModel : PageModel
 {

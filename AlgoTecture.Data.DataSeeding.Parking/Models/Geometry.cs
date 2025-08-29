@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace AlgoTecture.Data.DataSeeding.Parking.Models;
+namespace Algotecture.Data.DataSeeding.Parking.Models;
 
 public class Geometry
 {

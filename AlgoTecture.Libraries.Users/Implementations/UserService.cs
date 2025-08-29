@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Libraries.Users.Interfaces;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Users.Interfaces;
 
-namespace AlgoTecture.Libraries.Users.Implementations
+namespace Algotecture.Libraries.Users.Implementations
 {
     public class UserService : IUserService
     {

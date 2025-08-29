@@ -8,4 +8,23 @@
         <RootNamespace>AlgoTecture.IdentityService</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+      <PackageReference Include="MassTransit" Version="8.5.2" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.2" />
+      <PackageReference Include="MediatR" Version="13.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.19">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Algotecture.Identity.Application\Algotecture.Identity.Application.csproj" />
+      <ProjectReference Include="..\Algotecture.Identity.Contracts\Algotecture.Identity.Contracts.csproj" />
+      <ProjectReference Include="..\Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

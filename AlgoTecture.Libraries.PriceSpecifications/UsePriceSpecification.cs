@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.PriceSpecifications;
+namespace Algotecture.Libraries.PriceSpecifications;
 
 public static class UsePriceSpecification
 {

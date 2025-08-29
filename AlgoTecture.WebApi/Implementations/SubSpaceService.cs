@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.WebApi.Interfaces;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.WebApi.Interfaces;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.WebApi.Implementations
+namespace Algotecture.WebApi.Implementations
 {
     public class SubSpaceService : ISubSpaceService
     {

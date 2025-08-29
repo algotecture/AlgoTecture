@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.GeoAdminSearch;
+namespace Algotecture.Libraries.GeoAdminSearch;
 
 public static class UseGeoAdminSearch
 {

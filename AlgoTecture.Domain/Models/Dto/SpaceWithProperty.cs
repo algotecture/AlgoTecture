@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Domain.Models.RepositoryModels;
+﻿using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Domain.Models.Dto;
+namespace Algotecture.Domain.Models.Dto;
 
 public class SpaceWithProperty
 {

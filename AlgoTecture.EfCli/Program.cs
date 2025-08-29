@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Data.Persistence.Ef;
+﻿using Algotecture.Data.Persistence.Ef;
 
-namespace AlgoTecture.EfCli
+namespace Algotecture.EfCli
 {
     internal static class Program
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Libraries.Users.Interfaces;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Libraries.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.WebApi.Controllers
+namespace Algotecture.WebApi.Controllers
 {
     [Route("[controller]")]
     [ApiExplorerSettings(IgnoreApi = true)]

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.Libraries.Environments
+namespace Algotecture.Libraries.Environments
 {
     public static class Configurator
     {

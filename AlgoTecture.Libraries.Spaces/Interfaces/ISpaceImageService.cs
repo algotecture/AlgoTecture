@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Data.Images.Models;
+﻿using Algotecture.Data.Images.Models;
 
-namespace AlgoTecture.Libraries.Spaces.Interfaces;
+namespace Algotecture.Libraries.Spaces.Interfaces;
 
 public interface ISpaceImageService
 {

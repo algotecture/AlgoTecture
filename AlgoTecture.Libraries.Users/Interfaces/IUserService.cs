@@ -1,6 +1,6 @@
-using AlgoTecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.Dto;
 
-namespace AlgoTecture.Libraries.Users.Interfaces
+namespace Algotecture.Libraries.Users.Interfaces
 {
     public interface IUserService
     {

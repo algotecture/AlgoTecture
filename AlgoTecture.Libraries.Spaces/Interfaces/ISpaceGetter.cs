@@ -1,7 +1,7 @@
-﻿using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
+﻿using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Libraries.Spaces.Interfaces
+namespace Algotecture.Libraries.Spaces.Interfaces
 {
     public interface ISpaceGetter
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace AlgoTecture.Identity.Infrastructure1.Persistence;
+namespace Algotecture.Identity.Infrastructure.Persistence;
 
 public class IdentityDbContext : DbContext
 {

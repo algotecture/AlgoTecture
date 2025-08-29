@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Domain.Models.RepositoryModels;
+﻿namespace Algotecture.Domain.Models.RepositoryModels;
 
 public class PriceSpecification
 {

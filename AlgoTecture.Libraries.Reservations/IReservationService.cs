@@ -1,7 +1,7 @@
-﻿using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Reservations.Models;
+﻿using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Reservations.Models;
 
-namespace AlgoTecture.Libraries.Reservations;
+namespace Algotecture.Libraries.Reservations;
 
 public interface IReservationService
 {

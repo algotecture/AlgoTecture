@@ -1,7 +1,7 @@
-using AlgoTecture.Libraries.GeoAdminSearch.Models;
-using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
+using Algotecture.Libraries.GeoAdminSearch.Models;
+using Algotecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 
-namespace AlgoTecture.Libraries.GeoAdminSearch
+namespace Algotecture.Libraries.GeoAdminSearch
 {
     public interface IGeoAdminSearcher
     {

@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AlgoTecture.Data.Images.Models;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Spaces.Interfaces;
-using AlgoTecture.Libraries.Spaces.Models.Dto;
-using AlgoTecture.WebApi.Interfaces;
+using Algotecture.Data.Images.Models;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Spaces.Interfaces;
+using Algotecture.Libraries.Spaces.Models.Dto;
+using Algotecture.WebApi.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AddSubSpaceModel = AlgoTecture.Domain.Models.Dto.AddSubSpaceModel;
+using AddSubSpaceModel = Algotecture.Domain.Models.Dto.AddSubSpaceModel;
+using Dto_AddSubSpaceModel = Algotecture.Domain.Models.Dto.AddSubSpaceModel;
 
-namespace AlgoTecture.WebApi.Controllers
+namespace Algotecture.WebApi.Controllers
 {
     [Route("[controller]")]
     public class SpaceController : Controller
@@ -47,7 +48,7 @@ namespace AlgoTecture.WebApi.Controllers
         [Authorize]
         [HttpPost("AddSubSpaceToSpace")]
         [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult<Space>> AddSubSpace([FromBody] AddSubSpaceModel addSubSpaceModel)
+        public async Task<ActionResult<Space>> AddSubSpace([FromBody] Dto_AddSubSpaceModel addSubSpaceModel)
         {
             if (!ModelState.IsValid) return BadRequest();
             

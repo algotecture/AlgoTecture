@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Domain.Enum;
+﻿namespace Algotecture.Domain.Enum;
 
 public enum UnitOfDateTime
 {

@@ -1,7 +1,7 @@
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.Libraries.UtilizationTypes;
+namespace Algotecture.Libraries.UtilizationTypes;
 
 public class UtilizationTypeGetter : IUtilizationTypeGetter
 {

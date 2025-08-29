@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AlgoTecture.Data.Images.Interfaces;
+using Algotecture.Data.Images.Interfaces;
 using Microsoft.AspNetCore.Http;
 
-namespace AlgoTecture.Data.Images.Implementations;
+namespace Algotecture.Data.Images.Implementations;
 
 public class ImageUploader : IImageUploader
 {

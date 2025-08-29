@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Libraries.PriceSpecifications;
+﻿namespace Algotecture.Libraries.PriceSpecifications;
 
 public interface IPriceSpecificationService
 {

@@ -1,21 +1,21 @@
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Enum;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Libraries.Environments;
-using AlgoTecture.Libraries.PriceSpecifications;
-using AlgoTecture.Libraries.Reservations;
-using AlgoTecture.Libraries.Reservations.Models;
-using AlgoTecture.Libraries.Spaces.Interfaces;
-using AlgoTecture.TelegramBot.Controllers.Interfaces;
-using AlgoTecture.TelegramBot.Implementations;
-using AlgoTecture.TelegramBot.Models;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Enum;
+using Algotecture.Domain.Models;
+using Algotecture.Libraries.Environments;
+using Algotecture.Libraries.PriceSpecifications;
+using Algotecture.Libraries.Reservations;
+using Algotecture.Libraries.Reservations.Models;
+using Algotecture.Libraries.Spaces.Interfaces;
+using Algotecture.TelegramBot.Controllers.Interfaces;
+using Algotecture.TelegramBot.Implementations;
+using Algotecture.TelegramBot.Models;
 using Deployf.Botf;
 using Newtonsoft.Json;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 
-namespace AlgoTecture.TelegramBot.Controllers;
+namespace Algotecture.TelegramBot.Controllers;
 
 public class BoatController : BotController, IBoatController
 {

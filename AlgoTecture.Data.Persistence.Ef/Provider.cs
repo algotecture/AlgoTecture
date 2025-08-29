@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Data.Persistence.Ef;
+﻿namespace Algotecture.Data.Persistence.Ef;
 
 public enum Provider
 {

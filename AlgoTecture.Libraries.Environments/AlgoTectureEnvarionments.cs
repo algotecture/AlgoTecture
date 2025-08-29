@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Libraries.Environments;
+﻿namespace Algotecture.Libraries.Environments;
 
 public static class AlgoTectureEnvironments
 {

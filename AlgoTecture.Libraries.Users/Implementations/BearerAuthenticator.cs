@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Users.Interfaces;
-using AlgoTecture.Libraries.Users.Models;
-using AlgoTecture.Libraries.Users.Models.AppsettingsModels;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Users.Interfaces;
+using Algotecture.Libraries.Users.Models;
+using Algotecture.Libraries.Users.Models.AppsettingsModels;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AlgoTecture.Libraries.Users.Implementations
+namespace Algotecture.Libraries.Users.Implementations
 {
     public class BearerAuthenticator : IBearerAuthenticator
     {

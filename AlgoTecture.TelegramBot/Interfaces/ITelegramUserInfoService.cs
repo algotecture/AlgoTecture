@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
 
-namespace AlgoTecture.TelegramBot.Interfaces;
+namespace Algotecture.TelegramBot.Interfaces;
 
 public interface ITelegramUserInfoService
 {

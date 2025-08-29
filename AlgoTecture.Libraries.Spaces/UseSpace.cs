@@ -1,11 +1,11 @@
-using AlgoTecture.Data.Images;
-using AlgoTecture.Libraries.Spaces.Implementations;
-using AlgoTecture.Libraries.Spaces.Interfaces;
+using Algotecture.Data.Images;
+using Algotecture.Libraries.Spaces.Implementations;
+using Algotecture.Libraries.Spaces.Interfaces;
 using GeoDistanceLib;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.Spaces;
+namespace Algotecture.Libraries.Spaces;
 
 public static class UseSpace
 {

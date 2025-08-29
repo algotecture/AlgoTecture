@@ -1,9 +1,9 @@
-﻿using AlgoTecture.Identity.Infrastructure1.Persistence;
+﻿using Algotecture.Identity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.Identity.Infrastructure1;
+namespace Algotecture.Identity.Infrastructure;
 
 public class IdentityContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
 {

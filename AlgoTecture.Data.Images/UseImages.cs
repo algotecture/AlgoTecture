@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
-using AlgoTecture.Data.Images.Implementations;
-using AlgoTecture.Data.Images.Interfaces;
+using Algotecture.Data.Images.Implementations;
+using Algotecture.Data.Images.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Data.Images;
+namespace Algotecture.Data.Images;
 
 public static class UseImage
 {

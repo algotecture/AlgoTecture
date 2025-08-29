@@ -1,12 +1,12 @@
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Environments;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Environments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Data.Persistence.Ef
+namespace Algotecture.Data.Persistence.Ef
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace AlgoTecture.Common;
+namespace Algotecture.Common;
 
 public static class WebAppBuilder
 {

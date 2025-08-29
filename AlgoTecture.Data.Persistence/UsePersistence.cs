@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Data.Persistence.Data;
-using AlgoTecture.Data.Persistence.Ef;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Data.Persistence.Data;
+using Algotecture.Data.Persistence.Ef;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Data.Persistence;
+namespace Algotecture.Data.Persistence;
 
 public static class UsePersistence
 {

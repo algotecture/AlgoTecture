@@ -1,6 +1,6 @@
-﻿using AlgoTecture.Domain.Enum;
+﻿using Algotecture.Domain.Enum;
 
-namespace AlgoTecture.Libraries.PriceSpecifications;
+namespace Algotecture.Libraries.PriceSpecifications;
 
 public interface IPriceCalculator
 {

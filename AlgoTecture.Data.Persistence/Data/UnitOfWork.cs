@@ -1,10 +1,10 @@
-﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Data.Persistence.Core.Repositories;
-using AlgoTecture.Data.Persistence.Ef;
-using AlgoTecture.Domain.Models.RepositoryModels;
+﻿using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Data.Persistence.Core.Repositories;
+using Algotecture.Data.Persistence.Ef;
+using Algotecture.Domain.Models.RepositoryModels;
 using Microsoft.Extensions.Logging;
 
-namespace AlgoTecture.Data.Persistence.Data
+namespace Algotecture.Data.Persistence.Data
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

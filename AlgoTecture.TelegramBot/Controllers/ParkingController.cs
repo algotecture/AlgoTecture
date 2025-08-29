@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
-using AlgoTecture.TelegramBot.Controllers.Interfaces;
-using AlgoTecture.TelegramBot.Models;
+using Algotecture.TelegramBot.Controllers.Interfaces;
+using Algotecture.TelegramBot.Models;
 using Deployf.Botf;
 
-namespace AlgoTecture.TelegramBot.Controllers;
+namespace Algotecture.TelegramBot.Controllers;
 
 public class ParkingController : BotController, IParkingController
 {

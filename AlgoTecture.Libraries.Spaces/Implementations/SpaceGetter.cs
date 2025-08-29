@@ -1,11 +1,11 @@
-﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.Dto;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Spaces.Interfaces;
+﻿using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Spaces.Interfaces;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Libraries.Spaces.Implementations
+namespace Algotecture.Libraries.Spaces.Implementations
 {
     public class SpaceGetter : ISpaceGetter
     {

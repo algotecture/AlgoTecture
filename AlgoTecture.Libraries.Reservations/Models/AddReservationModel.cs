@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.Libraries.Reservations.Models;
+﻿namespace Algotecture.Libraries.Reservations.Models;
 
 public class AddReservationModel
 {

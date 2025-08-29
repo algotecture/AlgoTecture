@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using AlgoTecture.Libraries.Users.Implementations;
-using AlgoTecture.Libraries.Users.Interfaces;
+using Algotecture.Libraries.Users.Implementations;
+using Algotecture.Libraries.Users.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Libraries.Users;
+namespace Algotecture.Libraries.Users;
 
 public static class UseUser
 {

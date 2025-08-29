@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlgoTecture.Data.Persistence.Ef;
+namespace Algotecture.Data.Persistence.Ef;
 
 public static class UsePersistenceEf
 {

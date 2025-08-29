@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AlgoTecture.Libraries.GeoAdminSearch.Assistants
+namespace Algotecture.Libraries.GeoAdminSearch.Assistants
 {
     public class HttpWebRequestAssistant
     {

@@ -1,7 +1,7 @@
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Spaces.Models.Dto;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Spaces.Models.Dto;
 
-namespace AlgoTecture.Libraries.Spaces.Interfaces;
+namespace Algotecture.Libraries.Spaces.Interfaces;
 
 public interface ISpaceService
 {

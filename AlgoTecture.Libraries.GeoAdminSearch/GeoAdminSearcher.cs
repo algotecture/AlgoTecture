@@ -1,12 +1,12 @@
 using System.Net;
 using System.Text;
 using System.Xml.Serialization;
-using AlgoTecture.Libraries.GeoAdminSearch.Assistants;
-using AlgoTecture.Libraries.GeoAdminSearch.Models;
-using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
+using Algotecture.Libraries.GeoAdminSearch.Assistants;
+using Algotecture.Libraries.GeoAdminSearch.Models;
+using Algotecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Libraries.GeoAdminSearch
+namespace Algotecture.Libraries.GeoAdminSearch
 {
     public class GeoAdminSearcher : IGeoAdminSearcher
     {

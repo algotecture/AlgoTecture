@@ -1,9 +1,9 @@
-﻿using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.GeoAdminSearch.Models;
-using AlgoTecture.WebApi.QrCode.Models;
+﻿using Algotecture.Libraries.GeoAdminSearch;
+using Algotecture.Libraries.GeoAdminSearch.Models;
+using Algotecture.WebApi.QrCode.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AlgoTecture.WebApi.QrCode.Pages;
+namespace Algotecture.WebApi.QrCode.Pages;
 
 public class SpacePropertyPage : PageModel
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AlgoTecture.WebApi.QrCode.Pages;
+namespace Algotecture.WebApi.QrCode.Pages;
 
 public class PrivacyModel : PageModel
 {

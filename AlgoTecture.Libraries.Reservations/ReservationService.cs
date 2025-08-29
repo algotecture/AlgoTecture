@@ -1,10 +1,10 @@
-﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Enum;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.PriceSpecifications;
-using AlgoTecture.Libraries.Reservations.Models;
+﻿using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Enum;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.PriceSpecifications;
+using Algotecture.Libraries.Reservations.Models;
 
-namespace AlgoTecture.Libraries.Reservations;
+namespace Algotecture.Libraries.Reservations;
 
 public class ReservationService : IReservationService
 {

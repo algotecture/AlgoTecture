@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AlgoTecture.Data.Persistence.Ef.Migrations
+namespace Algotecture.Data.Persistence.Ef.Migrations
 {
     public partial class _28_Removed_Contract_Table : Migration
     {

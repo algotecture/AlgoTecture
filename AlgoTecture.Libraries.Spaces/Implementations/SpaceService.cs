@@ -1,13 +1,13 @@
 using System.Collections.Immutable;
-using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Domain.Models;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.Spaces.Interfaces;
-using AlgoTecture.Libraries.Spaces.Models.Dto;
+using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Domain.Models;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.Spaces.Interfaces;
+using Algotecture.Libraries.Spaces.Models.Dto;
 using GeoDistanceLib;
 using Newtonsoft.Json;
 
-namespace AlgoTecture.Libraries.Spaces.Implementations;
+namespace Algotecture.Libraries.Spaces.Implementations;
 
 public class SpaceService : ISpaceService
 {

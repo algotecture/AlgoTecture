@@ -1,12 +1,12 @@
-using AlgoTecture.Common;
-using AlgoTecture.Data.Persistence;
-using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.PriceSpecifications;
-using AlgoTecture.Libraries.Reservations;
-using AlgoTecture.Libraries.Spaces;
+using Algotecture.Common;
+using Algotecture.Data.Persistence;
+using Algotecture.Libraries.GeoAdminSearch;
+using Algotecture.Libraries.PriceSpecifications;
+using Algotecture.Libraries.Reservations;
+using Algotecture.Libraries.Spaces;
 using Serilog;
 
-namespace AlgoTecture.WebApi.QrCode;
+namespace Algotecture.WebApi.QrCode;
 
 public static class Program
 {

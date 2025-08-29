@@ -1,13 +1,13 @@
-﻿using AlgoTecture.Data.Persistence.Core.Interfaces;
-using AlgoTecture.Data.Persistence.Data;
-using AlgoTecture.Data.Persistence.Ef;
-using AlgoTecture.Domain.Enum;
-using AlgoTecture.Domain.Models.RepositoryModels;
-using AlgoTecture.Libraries.PriceSpecifications;
-using AlgoTecture.Libraries.Reservations.Models;
+﻿using Algotecture.Data.Persistence.Core.Interfaces;
+using Algotecture.Data.Persistence.Data;
+using Algotecture.Data.Persistence.Ef;
+using Algotecture.Domain.Enum;
+using Algotecture.Domain.Models.RepositoryModels;
+using Algotecture.Libraries.PriceSpecifications;
+using Algotecture.Libraries.Reservations.Models;
 using NUnit.Framework;
 
-namespace AlgoTecture.Libraries.Reservations.Tests;
+namespace Algotecture.Libraries.Reservations.Tests;
 
 public class ReservationTests
 {

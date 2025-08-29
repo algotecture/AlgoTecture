@@ -1,4 +1,4 @@
-﻿namespace AlgoTecture.WebApi.QrCode.Models;
+﻿namespace Algotecture.WebApi.QrCode.Models;
 
 public class GeoAdminBuildingViewModel
 {

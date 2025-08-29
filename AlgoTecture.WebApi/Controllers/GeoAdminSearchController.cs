@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AlgoTecture.Libraries.GeoAdminSearch;
-using AlgoTecture.Libraries.GeoAdminSearch.Models;
-using AlgoTecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
+using Algotecture.Libraries.GeoAdminSearch;
+using Algotecture.Libraries.GeoAdminSearch.Models;
+using Algotecture.Libraries.GeoAdminSearch.Models.GeoAdminModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlgoTecture.WebApi.Controllers
+namespace Algotecture.WebApi.Controllers
 {
     [Route("[controller]")]
     public class GeoAdminSearchController : Controller
