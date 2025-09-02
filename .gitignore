@@ -275,6 +275,8 @@ __pycache__
 # End of httpswww.gitignore.ioapiaspnetcore
 
 appsettings.json
+appsettings.Development.json
 app.db-shm
 app.db-wal
 .DS_Store
+launchSettings.json

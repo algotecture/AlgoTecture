@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Algotecture.Identity.Infrastructure;
 
-public class IdentityContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
+public class IdentityDesignTimeContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
 {
     public IdentityDbContext CreateDbContext(string[] args)
     {
@@ -15,7 +15,7 @@ public class IdentityContextFactory : IDesignTimeDbContextFactory<IdentityDbCont
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentity");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresIdentity");
         
         var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

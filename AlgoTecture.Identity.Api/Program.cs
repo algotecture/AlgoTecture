@@ -1,4 +1,5 @@
 ﻿using Algotecture.Identity.Application.Handlers;
+using Algotecture.Identity.Infrastructure;
 using Algotecture.Identity.Infrastructure.Consumers;
 using Algotecture.Identity.Infrastructure.Persistence;
 using Algotecture.IdentityService.Validators;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var cfg = builder.Configuration;
@@ -17,8 +20,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<IdentityDbContext>(o =>
-    o.UseNpgsql(cfg.GetConnectionString("IdentityDb")));
+builder.Services.AddSingleton<IDbContextFactory<IdentityDbContext>, IdentityRuntimeContextFactory>();
+
+if (builder.Environment.IsDevelopment())
+{
+
+}
+
+builder.Services.AddDbContext<IdentityDbContext>(options =>
+{
+    IdentityRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<IdentityDbContext>)options);
+});
 
 builder.Services.AddMediatR(configuration => 
 {
