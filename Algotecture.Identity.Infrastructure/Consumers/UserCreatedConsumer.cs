@@ -8,6 +8,7 @@ namespace Algotecture.Identity.Infrastructure.Consumers;
 public class UserCreatedConsumer : IConsumer<UserCreated>
 {
     private readonly IdentityDbContext _db;
+    
     public UserCreatedConsumer(IdentityDbContext db) => _db = db;
 
     public async Task Consume(ConsumeContext<UserCreated> ctx)

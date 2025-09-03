@@ -27,4 +27,10 @@
       <ProjectReference Include="..\Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="hosting.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

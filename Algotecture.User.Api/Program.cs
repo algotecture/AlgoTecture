@@ -1,10 +1,6 @@
-﻿using Algotecture.Identity.Application.Handlers;
-using Algotecture.Identity.Infrastructure;
-using Algotecture.Identity.Infrastructure.Consumers;
-using Algotecture.Identity.Infrastructure.Persistence;
-using Algotecture.IdentityService.Validators;
-using FluentValidation;
-using FluentValidation.AspNetCore;
+﻿using Algotecture.User.Infrastructure;
+using Algotecture.User.Infrastructure.Consumers;
+using Algotecture.User.Infrastructure.Persistence;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -22,27 +18,17 @@ if (builder.Environment.IsDevelopment())
 
 var cfg = builder.Configuration;
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IDbContextFactory<IdentityDbContext>, IdentityRuntimeContextFactory>();
-
-builder.Services.AddDbContext<IdentityDbContext>(options =>
+builder.Services.AddDbContext<UserDbContext>(options =>
 {
-    IdentityRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<IdentityDbContext>)options);
+    UserRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<UserDbContext>)options);
 });
-
-builder.Services.AddMediatR(configuration => 
-{
-    configuration.RegisterServicesFromAssembly(typeof(TelegramLoginHandler).Assembly);
-});
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<TelegramLoginValidator>();
 
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<UserCreatedConsumer>();
+    x.AddConsumer<UserIdentityCreatedConsumer>();
     x.UsingRabbitMq((ctx, mq) =>
     {
         mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
@@ -56,10 +42,9 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-app.MapControllers();
-
 if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger(); app.UseSwaggerUI();
 }
+
 app.Run();

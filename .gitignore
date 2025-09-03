@@ -280,3 +280,4 @@ app.db-shm
 app.db-wal
 .DS_Store
 launchSettings.json
+hosting.json
