@@ -1,4 +1,5 @@
 ﻿using Algotecture.Identity.Application.Handlers;
+using Algotecture.Identity.Contracts.Events;
 using Algotecture.Identity.Infrastructure;
 using Algotecture.Identity.Infrastructure.Consumers;
 using Algotecture.Identity.Infrastructure.Persistence;
@@ -50,6 +51,14 @@ builder.Services.AddMassTransit(x =>
             h.Username(cfg["Rabbit:Username"] ?? "guest");
             h.Password(cfg["Rabbit:Password"] ?? "guest");
         });
+        mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
+        mq.Message<IdentityCreated>(e =>
+        {
+            e.SetEntityName("identity-events"); 
+        });
+        mq.PublishTopology.GetMessageTopology<IdentityCreated>().ExchangeType = "topic";
+        mq.Send<IdentityCreated>(e => 
+            e.UseRoutingKeyFormatter((SendContext<IdentityCreated> context) => "identity.*"));
         mq.ConfigureEndpoints(ctx);
     });
 });

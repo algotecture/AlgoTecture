@@ -1,5 +1,8 @@
-﻿namespace Algotecture.Shared.Contracts;
+﻿using MassTransit;
 
+namespace Algotecture.Shared.Contracts;
+
+[ExcludeFromTopology]
 public interface IIntegrationEvent
 {
     long Id { get; }

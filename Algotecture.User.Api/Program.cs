@@ -28,7 +28,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<UserIdentityCreatedConsumer>();
+    x.AddConsumer<IdentityCreatedConsumer>();
     x.UsingRabbitMq((ctx, mq) =>
     {
         mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
@@ -36,7 +36,19 @@ builder.Services.AddMassTransit(x =>
             h.Username(cfg["Rabbit:Username"] ?? "guest");
             h.Password(cfg["Rabbit:Password"] ?? "guest");
         });
-        mq.ConfigureEndpoints(ctx);
+        mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
+        mq.ReceiveEndpoint("user-service-identity-events", e =>
+        {
+            e.ConfigureConsumeTopology = false;
+
+            e.Bind("identity-events", s =>
+            {
+                s.ExchangeType = "topic";
+                s.RoutingKey = "identity.*";
+            });
+
+            e.ConfigureConsumer<IdentityCreatedConsumer>(ctx);
+        });
     });
 });
 

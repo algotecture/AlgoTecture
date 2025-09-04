@@ -44,7 +44,7 @@ public class DatabaseFixture : IAsyncLifetime
             catch (PostgresException ex) when (ex.SqlState == "42P07")
             {
                 await context.Database.ExecuteSqlRawAsync(
-                    "INSERT INTO \"__EFMigrationsHistory\" VALUES ('InitialMigration', '7.0.0') ON CONFLICT DO NOTHING");
+                    "INSERT INTO \"__EFMigrationsHistory\" VALUES ('20250828094150_InitialCreate', '7.0.0') ON CONFLICT DO NOTHING");
             }
         }
 

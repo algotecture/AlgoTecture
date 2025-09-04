@@ -34,7 +34,7 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
             await _db.SaveChangesAsync(ct);
 
             // триггерим UsersService создать профиль
-            await _publish.Publish(new UserIdentityCreated(identity.Id, provider, extId), ct);
+            await _publish.Publish(new IdentityCreated(identity.Id, provider, extId), ct);
         }
 
         return new TelegramLoginResult(identity.Id, identity.UserId);
