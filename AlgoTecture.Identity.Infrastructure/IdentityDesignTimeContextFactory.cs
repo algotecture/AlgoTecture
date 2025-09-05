@@ -15,7 +15,7 @@ public class IdentityDesignTimeContextFactory : IDesignTimeDbContextFactory<Iden
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresIdentity");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresIdentityTest");
         
         var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

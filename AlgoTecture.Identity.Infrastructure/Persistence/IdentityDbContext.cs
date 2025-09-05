@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using MassTransit.EntityFrameworkCoreIntegration;
+using Microsoft.EntityFrameworkCore;
 
 namespace Algotecture.Identity.Infrastructure.Persistence;
 
@@ -15,5 +17,12 @@ public class IdentityDbContext : DbContext
         e.Property(x => x.UserId);
         e.Property(x => x.Provider).IsRequired();
         e.Property(x => x.ExternalId);
+        
+        b.AddOutboxMessageEntity();
+        
+        b.Entity<OutboxState>(entity =>
+        {
+            entity.HasKey(e => e.OutboxId);
+        });
     }
 }

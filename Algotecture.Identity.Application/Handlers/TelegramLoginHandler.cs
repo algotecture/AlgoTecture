@@ -31,10 +31,11 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
                 CreatedAt = DateTime.UtcNow
             };
             _db.Identities.Add(identity);
-            await _db.SaveChangesAsync(ct);
-
-            // триггерим UsersService создать профиль
+            
             await _publish.Publish(new IdentityCreated(identity.Id, provider, extId), ct);
+            
+            await _db.SaveChangesAsync(ct);
+            throw new Exception();
         }
 
         return new TelegramLoginResult(identity.Id, identity.UserId);

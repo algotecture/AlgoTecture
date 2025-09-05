@@ -1,4 +1,5 @@
-﻿using Algotecture.Identity.Application.Handlers;
+﻿using System;
+using Algotecture.Identity.Application.Handlers;
 using Algotecture.Identity.Contracts.Events;
 using Algotecture.Identity.Infrastructure;
 using Algotecture.Identity.Infrastructure.Consumers;
@@ -9,9 +10,11 @@ using FluentValidation.AspNetCore;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,9 +43,15 @@ builder.Services.AddMediatR(configuration =>
 });
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<TelegramLoginValidator>();
+builder.Services.AddLogging(configure => 
+{
+    configure.AddConsole(); // Добавляем вывод в консоль
+    configure.SetMinimumLevel(LogLevel.Debug); // Устанавливаем уровень логирования
+});
 
 builder.Services.AddMassTransit(x =>
 {
+    x.SetKebabCaseEndpointNameFormatter();
     x.AddConsumer<UserCreatedConsumer>();
     x.UsingRabbitMq((ctx, mq) =>
     {
@@ -61,6 +70,14 @@ builder.Services.AddMassTransit(x =>
             e.UseRoutingKeyFormatter((SendContext<IdentityCreated> context) => "identity.*"));
         mq.ConfigureEndpoints(ctx);
     });
+    x.AddEntityFrameworkOutbox<IdentityDbContext>(o =>
+    {
+        o.QueryDelay = TimeSpan.FromSeconds(1); // задержка перед публикацией
+        o.UsePostgres();                       // storage provider
+        o.DisableInboxCleanupService();        // опционально
+        o.UseBusOutbox();                      // обязательная часть
+    });
+    
 });
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
-﻿using Algotecture.User.Infrastructure;
+﻿using System;
+using Algotecture.User.Infrastructure;
 using Algotecture.User.Infrastructure.Consumers;
 using Algotecture.User.Infrastructure.Persistence;
 using MassTransit;
@@ -28,6 +29,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddMassTransit(x =>
 {
+    x.SetKebabCaseEndpointNameFormatter();
     x.AddConsumer<IdentityCreatedConsumer>();
     x.UsingRabbitMq((ctx, mq) =>
     {

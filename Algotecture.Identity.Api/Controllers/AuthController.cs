@@ -1,4 +1,5 @@
-﻿using Algotecture.Identity.Contracts.Commands;
+﻿using System.Threading.Tasks;
+using Algotecture.Identity.Contracts.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

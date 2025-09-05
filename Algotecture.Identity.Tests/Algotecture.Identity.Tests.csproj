@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.3" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.19" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Respawn" Version="6.2.1" />
