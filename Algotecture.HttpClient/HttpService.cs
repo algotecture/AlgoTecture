@@ -1,4 +1,4 @@
-﻿namespace Algotecture.HttpClientFactory;
+﻿namespace Algotecture.HttpClient;
 
 public interface IHttpService
 {
@@ -7,9 +7,9 @@ public interface IHttpService
 
 public class HttpService : IHttpService
 {
-    private readonly HttpClient _httpClient;
+    private readonly System.Net.Http.HttpClient _httpClient;
 
-    public HttpService(HttpClient httpClient)
+    public HttpService(System.Net.Http.HttpClient httpClient)
     {
         _httpClient = httpClient;
     }

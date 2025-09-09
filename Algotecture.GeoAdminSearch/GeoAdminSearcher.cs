@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Algotecture.GeoAdminSearch.Models;
 using Algotecture.GeoAdminSearch.Models.GeoAdminModels;
-using Algotecture.HttpClientFactory;
+using Algotecture.HttpClient;
 using Newtonsoft.Json;
 
 namespace Algotecture.GeoAdminSearch
@@ -19,9 +19,9 @@ namespace Algotecture.GeoAdminSearch
 
         public async Task<IEnumerable<Attrs>> GetAddress(string baseEndpoint, string term, int limitAddress = 5)
         {
-            var baseUrl = $"{baseEndpoint}?searchText={term}&type=locations&origins=address&limit={limitAddress}";
+            var url = $"{baseEndpoint}?searchText={term}&type=locations&origins=address&limit={limitAddress}";
 
-            var responseFromServer = await _httpService.GetAsync(baseUrl);
+            var responseFromServer = await _httpService.GetAsync(url);
 
             var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
             var labels = addressResults?.results?.Select(x => x.attrs);

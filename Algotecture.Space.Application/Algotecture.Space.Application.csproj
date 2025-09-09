@@ -7,7 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\" />
+      <PackageReference Include="MediatR" Version="12.3.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Algotecture.Space.Contracts\Algotecture.Space.Contracts.csproj" />
+      <ProjectReference Include="..\Algotecture.Space.Infrastructure\Algotecture.Space.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

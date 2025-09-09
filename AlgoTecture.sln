@@ -100,7 +100,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Contracts
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.GeoAdminSearch", "Algotecture.GeoAdminSearch\Algotecture.GeoAdminSearch.csproj", "{B240B026-1097-46FE-8E9F-CD64D5B1DA66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.HttpClientFactory", "Algotecture.HttpClientFactory\Algotecture.HttpClientFactory.csproj", "{54F3D81D-CEA0-4F76-9728-092ED1964ED4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.HttpClient", "Algotecture.HttpClient\Algotecture.HttpClient.csproj", "{54F3D81D-CEA0-4F76-9728-092ED1964ED4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

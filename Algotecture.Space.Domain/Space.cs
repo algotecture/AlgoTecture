@@ -4,7 +4,7 @@ public class Space
 {
     public long Id { get; set; }
     
-    public int? ParentId { get; set; }
+    public long? ParentId { get; set; }
     
     public Space? Parent { get; set; }
     
@@ -31,4 +31,6 @@ public class Space
     public ICollection<SpaceImage> Images { get; set; } = new List<SpaceImage>();
 
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+
+    public bool IsDeleted { get; set; }
 }
