@@ -19,8 +19,6 @@ public class Space
     public double Latitude { get; set; }
 
     public double Longitude { get; set; }
-    
-    public long OwnerId { get; set; }
 
     public double Area { get; set; }
     

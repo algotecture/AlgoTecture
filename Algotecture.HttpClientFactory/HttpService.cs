@@ -1,0 +1,36 @@
+﻿namespace Algotecture.HttpClientFactory;
+
+public interface IHttpService
+{
+    Task<string> GetAsync(string url, CancellationToken cancellationToken = default);
+}
+
+public class HttpService : IHttpService
+{
+    private readonly HttpClient _httpClient;
+
+    public HttpService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<string> GetAsync(string url, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync(url, cancellationToken);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync(cancellationToken);
+        }
+        catch (HttpRequestException ex)
+        {
+            throw new HttpServiceException($"Request to {url} failed", ex);
+        }
+    }
+}
+
+public class HttpServiceException : Exception
+{
+    public HttpServiceException(string message, Exception innerException) 
+        : base(message, innerException) { }
+}
