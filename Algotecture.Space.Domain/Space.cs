@@ -12,7 +12,7 @@ public class Space
 
     public int SpaceTypeId { get; set; }
 
-    public SpaceType? SpaceType { get; set; }
+    public SpaceType SpaceType { get; set; } = null!;
 
     public string? SpaceAddress { get; set; }
 

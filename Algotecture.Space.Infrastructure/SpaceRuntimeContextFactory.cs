@@ -1,4 +1,5 @@
-﻿using Algotecture.Space.Infrastructure.Persistence;
+﻿using System.IO;
+using Algotecture.Space.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

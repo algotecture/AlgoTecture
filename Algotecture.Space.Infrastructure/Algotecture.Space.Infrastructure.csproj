@@ -22,4 +22,10 @@
       <ProjectReference Include="..\Algotecture.Space.Domain\Algotecture.Space.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="appsettings.Development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,7 @@
-﻿using Algotecture.Space.Infrastructure;
+﻿using Algotecture.Space.Application.Handlers;
+using Algotecture.Space.Infrastructure;
 using Algotecture.Space.Infrastructure.Persistence;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +29,13 @@ builder.Services.AddDbContext<SpaceDbContext>(options =>
     SpaceRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<SpaceDbContext>)options);
 });
 
+builder.Services.AddMediatR(configuration => 
+{
+    configuration.RegisterServicesFromAssembly(typeof(GetSpacesByTypeQueryHandler).Assembly);
+});
+
 builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddValidatorsFromAssemblyContaining<TelegramLoginValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<GetSpacesByTypeQueryHandler>();
 
 var app = builder.Build();
 

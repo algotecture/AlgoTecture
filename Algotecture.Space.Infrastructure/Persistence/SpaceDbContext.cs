@@ -19,6 +19,7 @@ public class SpaceDbContext : DbContext
     {
         b.Entity<Domain.Space>(entity =>
         {
+            entity.ToTable("Spaces");
             entity.HasKey(e => e.Id);
 
             entity.HasOne(s => s.Parent)
@@ -56,6 +57,7 @@ public class SpaceDbContext : DbContext
 
         b.Entity<SpaceType>(entity =>
         {
+            entity.ToTable("SpaceTypes");
             entity.HasKey(x => new { x.Id });
             entity.Property(x => x.Name).HasMaxLength(500).IsRequired();
 
@@ -68,6 +70,7 @@ public class SpaceDbContext : DbContext
 
         b.Entity<SpaceImage>(entity =>
         {
+            entity.ToTable("SpaceImages");
             entity.HasKey(si => si.Id);
 
             entity.HasOne(si => si.Space)
@@ -75,16 +78,14 @@ public class SpaceDbContext : DbContext
                 .HasForeignKey(si => si.SpaceId);
 
             entity.Property(si => si.Url)
-                .HasMaxLength(2000)
-                .IsRequired();
+                .HasMaxLength(2000);
 
             entity.Property(si => si.Path)
-                .HasMaxLength(2000)
-                .IsRequired();
+                .HasMaxLength(2000);
+
 
             entity.Property(si => si.ContentType)
-                .HasMaxLength(100)
-                .IsRequired(false);
+                .HasMaxLength(100);
 
             entity.Property(si => si.CreatedAt);
 

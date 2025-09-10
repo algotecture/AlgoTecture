@@ -1,4 +1,5 @@
-﻿using Algotecture.Space.Infrastructure.Persistence;
+﻿using System.Linq;
+using Algotecture.Space.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

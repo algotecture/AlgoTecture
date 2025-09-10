@@ -1,6 +1,8 @@
 ﻿using System.Net;
-using System.Text;
-using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Algotecture.Space.Contracts.Dto;
 using Xunit;
 
 namespace Algotecture.Space.Tests.Integration;
@@ -23,10 +25,10 @@ public class SpaceControllerTests : IClassFixture<DatabaseFixture>
 
         // Act
         using var client = new HttpClient();
-        var response = await client.GetAsync("http://localhost:5010/api/space/by-type/1");
+        var spaces = await client.GetFromJsonAsync<List<GetSpacesByTypeDto>>("http://localhost:5000/api/space/by-type/1");
         
         await _databaseFixture.DisposeAsync();
         // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(spaces.First().GetType(), typeof(GetSpacesByTypeDto));
     }   
 }

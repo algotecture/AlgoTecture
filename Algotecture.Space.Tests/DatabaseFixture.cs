@@ -1,6 +1,11 @@
-﻿using Algotecture.Space.Infrastructure;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Algotecture.Space.Infrastructure;
 using Algotecture.Space.Infrastructure.Persistence;
 using AutoBogus;
+using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
@@ -15,6 +20,8 @@ public class DatabaseFixture : IAsyncLifetime
     public IConfiguration Configuration { get; }
 
     private readonly string? _connectionString;
+
+    public int SpaceCount = 0;
 
     public DatabaseFixture()
     {
@@ -43,7 +50,7 @@ public class DatabaseFixture : IAsyncLifetime
             catch (PostgresException ex) when (ex.SqlState == "42P07")
             {
                 await context.Database.ExecuteSqlRawAsync(
-                    "INSERT INTO \"__EFMigrationsHistory\" VALUES ('20250828094150_InitialCreate', '7.0.0') ON CONFLICT DO NOTHING");
+                    "INSERT INTO \"__EFMigrationsHistory\" VALUES ('20250910130001_Initial', '7.0.0') ON CONFLICT DO NOTHING");
             }
         }
 
@@ -54,7 +61,7 @@ public class DatabaseFixture : IAsyncLifetime
         {
             _respawner = await Respawner.CreateAsync(connection, new RespawnerOptions
             {
-                TablesToIgnore = ["__EFMigrationsHistory"],
+                TablesToIgnore = ["__EFMigrationsHistory", "SpaceTypes"],
                 DbAdapter = DbAdapter.Postgres
             });
         }
@@ -89,7 +96,10 @@ public class DatabaseFixture : IAsyncLifetime
 
     public async Task SeedTestData(SpaceDbContext context)
     {
-        var spaces = AutoFaker.Generate<Domain.Space>(10);
+        var spaceFaker = new Faker<Domain.Space>()
+            .RuleFor(i => i.SpaceTypeId, faker => faker.PickRandom(1,3));
+        var spaces = spaceFaker.Generate(10);
+        SpaceCount = spaces.Count();
         await context.Spaces.AddRangeAsync(spaces);
         await context.SaveChangesAsync();
     }
