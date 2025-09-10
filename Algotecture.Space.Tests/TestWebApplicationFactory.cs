@@ -1,4 +1,4 @@
-﻿using Algotecture.Identity.Infrastructure.Persistence;
+﻿using Algotecture.Space.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
-namespace Algotecture.Identity.Tests;
+namespace Algotecture.Space.Tests;
 
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {
@@ -22,12 +22,12 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureServices(services =>
         {
             var descriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<IdentityDbContext>));
+                d => d.ServiceType == typeof(DbContextOptions<SpaceDbContext>));
             
             if (descriptor != null)
                 services.Remove(descriptor);
 
-            services.AddDbContext<IdentityDbContext>(options =>
+            services.AddDbContext<SpaceDbContext>(options =>
                 options.UseNpgsql(_connectionString));
         });
 

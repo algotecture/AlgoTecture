@@ -32,7 +32,7 @@ public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, 
                 space.Latitude,
                 space.Longitude,
                 space.Area,
-                space.Name ?? "", // Убедимся, что не-null
+                space.Name ?? "",
                 space.Description,
                 space.SpaceProperties,
                 space.CreatedAt,
