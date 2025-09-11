@@ -7,7 +7,7 @@ public interface IReservationService
 {
     Task<IEnumerable<Reservation>> CheckReservation(long spaceId, string subSpaceId, DateTime reservationFrom, DateTime reservationTo);
 
-    Task<Reservation?> AddReservation(AddReservationModel addReservationModel);
+    Task<Reservation?> AddReservation(AddReservationModel addReservationModel, string pricePerTime = null);
 
     Task<Reservation?> UpdateReservation(UpdateReservationModel updateReservationModel);
 
