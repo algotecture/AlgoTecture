@@ -15,4 +15,7 @@ public class BotState
     public DateTime? EndRent { get; set; }
 
     public string? UtilizationName { get; set; }
+    
+    public string? SpaceAddress { get; set; }
+    
 }

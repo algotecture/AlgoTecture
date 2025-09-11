@@ -78,7 +78,7 @@ public class MainController : BotController, IMainController
     public async Task PressToRentButton()
     {
         //only for demo
-        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Residential", "Parking", "Boat", "Coworking"})
+        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Parking", "Boat"})
             .Contains(x.Name)).ToList();
         
         foreach (var utilizationType in utilizationTypes)
@@ -89,15 +89,16 @@ public class MainController : BotController, IMainController
                 Id = utilizationType.Id
             };
 
-            var botState = new BotState { UtilizationTypeId = utilizationType.Id, UtilizationName = utilizationType.Name, MessageId = default };
+            var botState = new BotState
+                { UtilizationTypeId = utilizationType.Id, UtilizationName = utilizationType.Name, MessageId = default };
 
             //it is not yet known what to do with the rest of the types only!
             if (utilizationType.Name == "Boat")
-                RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));    
+                RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));
             if (utilizationType.Name == "Parking")
                 RowButton(utilizationTypeOut.Name, Q(_parkingController.PressToMainBookingPage, botState));
-            else
-                RowButton(utilizationTypeOut.Name, Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
+            // else
+            //     RowButton(utilizationTypeOut.Name, Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
         }
         RowButton("Go Back", Q(Start));
 
@@ -133,11 +134,11 @@ public class MainController : BotController, IMainController
             var reservationToTelegram = new ReservationToTelegramOut
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value:dd-MM-yyyy HH:mm} utc",
+                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value + TimeSpan.FromHours(3):dd-MM-yyyy HH:mm}",
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
                 PriceCurrency = reservation.PriceSpecification?.PriceCurrency,
-                Address = reservation.Space?.SpaceAddress
+                Address = string.IsNullOrEmpty(reservation.Space?.SpaceAddress) ? reservation.Description : reservation.Space?.SpaceAddress
             };
             reservationList.Add(reservationToTelegram);
             var description =
