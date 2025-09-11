@@ -9,4 +9,8 @@ public class TelegramToAddressModel
     public double longitude { get; set; }
 
     public string? Address { get; set; }
+    
+    public double OriginalAddressLatitude { get; set; }
+
+    public double OriginalAddressLongitude { get; set; }
 }

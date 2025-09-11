@@ -24,15 +24,18 @@ public class ReservationService : IReservationService
         return reservation;
     }
     
-    public async Task<Reservation?> AddReservation(AddReservationModel addReservationModel)
+    public async Task<Reservation?> AddReservation(AddReservationModel addReservationModel, string pricePerTime = null)
     {
         if (addReservationModel == null) throw new ArgumentNullException(nameof(addReservationModel));
 
-        //simple price for demo
-        var targetPriceSpecification =
-            (await _unitOfWork.PriceSpecifications.GetBySpaceId(addReservationModel.SpaceId)).FirstOrDefault(x => x.UnitOfTime == UnitOfDateTime.Hour.ToString());
-        
+        var targetPriceSpecification = string.IsNullOrEmpty(pricePerTime)
+            ? (await _unitOfWork.PriceSpecifications.GetBySpaceId(addReservationModel.SpaceId)).FirstOrDefault(x =>
+                x.UnitOfTime == UnitOfDateTime.Hour.ToString())
+            : new PriceSpecification { PricePerTime = pricePerTime,  Id = 1};
+
         if (targetPriceSpecification == null) throw new ArgumentNullException("No price specification");
+
+        //simple price for demo
         
         var totalPrice = _priceCalculator.CalculateTotalPriceToReservation(addReservationModel.ReservationFromUtc, addReservationModel.ReservationToUtc,
             UnitOfDateTime.Hour, targetPriceSpecification.PricePerTime);
