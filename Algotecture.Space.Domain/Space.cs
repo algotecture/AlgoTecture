@@ -28,6 +28,9 @@ public class Space
 
     public string? SpaceProperties { get; set; }
     
+    
+    public string? DataSource { get; set; }
+    
     public ICollection<SpaceImage> Images { get; set; } = new List<SpaceImage>();
 
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;

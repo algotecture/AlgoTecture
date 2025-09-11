@@ -13,6 +13,7 @@ public record GetSpacesByTypeDto(
     string Name,
     string? Description,
     string? SpaceProperties,
+    string? DataSource,
     DateTime CreatedAt,
     bool IsDeleted,
     List<SpaceImageDto> Images);

@@ -42,6 +42,7 @@ namespace Algotecture.Space.Infrastructure.Migrations
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     SpaceProperties = table.Column<string>(type: "text", nullable: true),
+                    DataSource = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },

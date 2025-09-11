@@ -35,6 +35,7 @@ public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, 
                 space.Name ?? "",
                 space.Description,
                 space.SpaceProperties,
+                space.DataSource,
                 space.CreatedAt,
                 space.IsDeleted,
                 space.Images.Select(image => new SpaceImageDto(
