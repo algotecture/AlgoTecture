@@ -222,10 +222,12 @@ public class ParkingController : BotController, IParkingController
         {
             botState.EndRent = null;
         }
-        
-        RowButton(botState.StartRent != null ? $"{botState.StartRent.Value + TimeSpan.FromHours(3):dddd, MMMM dd yyyy HH:mm}"
+        //only for demo utc +2
+        var startTimeToDemo = botState.StartRent.HasValue ? botState.StartRent.Value + TimeSpan.FromHours(2) : DateTime.UtcNow;
+        var endTimeToDemo = botState.EndRent.HasValue ? botState.EndRent.Value + TimeSpan.FromHours(2) : DateTime.UtcNow;
+        RowButton(botState.StartRent != null ? $"{startTimeToDemo:dddd, MMMM dd yyyy HH:mm}"
                 : "Rental start time", Q(PressToChooseTheDate, botState, RentTimeState.StartRent));
-        RowButton(botState.EndRent != null ? $"{botState.EndRent.Value + TimeSpan.FromHours(3):dddd, MMMM dd yyyy HH:mm}"
+        RowButton(botState.EndRent != null ? $"{endTimeToDemo:dddd, MMMM dd yyyy HH:mm}"
                 : "Rental end time", Q(PressToChooseTheDate, botState, RentTimeState.EndRent));
             //
         if (botState.StartRent != null && botState.EndRent != null && botState.SpaceId != default)
@@ -304,11 +306,13 @@ public class ParkingController : BotController, IParkingController
                     _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved parking {botState.SpaceId} from " +
                                            $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
                                            $"ReservationId: {reservation.Id}");
-
+                    //only for demo utc +2
+                    var startTimeToDemo = botState.StartRent.Value + TimeSpan.FromHours(2);
+                    var endTimeToDemo = botState.EndRent.Value + TimeSpan.FromHours(2);
                     PushL("🎉 Congratulations! Your space reservation has been successfully confirmed. " +
                           "You're all set to enjoy your reserved space. Please find the details below: \n\r \n\r" +
-                          $"📅 Date: {botState.StartRent.Value:dddd, MMMM dd}\n\r" +
-                          $"⌚ Time: {botState.StartRent.Value + TimeSpan.FromHours(3):HH:mm} to {botState.EndRent.Value + TimeSpan.FromHours(3):HH:mm}\n\r"  +
+                          $"📅 Date: {startTimeToDemo:dddd, MMMM dd}\n\r" +
+                          $"⌚ Time: {startTimeToDemo:HH:mm} to {endTimeToDemo:HH:mm}\n\r"  +
                           $"📍 Location: {spaceAddress}\n\r" +
                           $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
                           "If you have any questions or need to make changes to your reservation, " +
