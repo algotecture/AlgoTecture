@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.Space.Domain\Algotecture.Space.Domain.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Space.Domain\AlgoTecture.Space.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

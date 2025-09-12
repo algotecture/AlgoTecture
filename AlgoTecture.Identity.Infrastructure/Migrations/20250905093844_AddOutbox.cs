@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Algotecture.Identity.Infrastructure.Migrations
+namespace AlgoTecture.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class AddOutbox : Migration

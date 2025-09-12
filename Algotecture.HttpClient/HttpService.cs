@@ -1,4 +1,4 @@
-﻿namespace Algotecture.HttpClient;
+﻿namespace AlgoTecture.HttpClient;
 
 public interface IHttpService
 {

@@ -1,4 +1,4 @@
-﻿using Algotecture.Identity.Infrastructure.Persistence;
+﻿using AlgoTecture.Identity.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
-namespace Algotecture.Identity.Tests;
+namespace AlgoTecture.Identity.Tests;
 
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {

@@ -1,9 +1,9 @@
-﻿using Algotecture.Space.Contracts.Dto;
-using Algotecture.Space.Contracts.Queries;
+﻿using AlgoTecture.Space.Contracts.Dto;
+using AlgoTecture.Space.Contracts.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Algotecture.Space.Api.Controllers;
+namespace AlgoTecture.Space.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

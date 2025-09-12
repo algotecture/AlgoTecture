@@ -1,11 +1,11 @@
-﻿using Algotecture.Identity.Contracts.Commands;
-using Algotecture.Identity.Contracts.Events;
-using Algotecture.Identity.Infrastructure.Persistence;
+﻿using AlgoTecture.Identity.Contracts.Commands;
+using AlgoTecture.Identity.Contracts.Events;
+using AlgoTecture.Identity.Infrastructure.Persistence;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Algotecture.Identity.Application.Handlers;
+namespace AlgoTecture.Identity.Application.Handlers;
 
 public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, TelegramLoginResult>
 {

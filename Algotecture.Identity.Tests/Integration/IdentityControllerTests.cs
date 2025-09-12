@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Text;
-using Algotecture.Identity.Contracts.Commands;
+using AlgoTecture.Identity.Contracts.Commands;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Algotecture.Identity.Tests.Integration;
+namespace AlgoTecture.Identity.Tests.Integration;
 
 public class IdentityControllerTests : IClassFixture<DatabaseFixture>
 {

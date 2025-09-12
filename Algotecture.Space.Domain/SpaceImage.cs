@@ -1,4 +1,4 @@
-﻿namespace Algotecture.Space.Domain;
+﻿namespace AlgoTecture.Space.Domain;
 
 public class SpaceImage
 {

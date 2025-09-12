@@ -1,45 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.WebApi", "AlgoTecture.WebApi\AlgoTecture.WebApi.csproj", "{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot", "AlgoTecture.TelegramBot\AlgoTecture.TelegramBot.csproj", "{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{680AD23C-CA3D-45C9-8EDC-27DBA0813A05}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.GeoAdminSearch", "AlgoTecture.Libraries.GeoAdminSearch\AlgoTecture.Libraries.GeoAdminSearch.csproj", "{FF969273-58F3-4C80-9C93-FB5C456C9BC2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Domain", "AlgoTecture.Domain\AlgoTecture.Domain.csproj", "{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Persistence", "AlgoTecture.Data.Persistence\AlgoTecture.Data.Persistence.csproj", "{3633532B-91D0-4908-AD21-291E4D9106A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0318C5EA-A6C7-4A42-9386-B4A83B48C76A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.EfCli", "AlgoTecture.EfCli\AlgoTecture.EfCli.csproj", "{9596F180-BC93-49A5-9BEF-C00BE2864613}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Spaces", "AlgoTecture.Libraries.Spaces\AlgoTecture.Libraries.Spaces.csproj", "{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{580AF6E1-3AEE-47EC-85E6-64F358795AC9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Images", "AlgoTecture.Data.Images\AlgoTecture.Data.Images.csproj", "{190FDE51-FA83-40FD-8D07-4E2119870D00}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Environments", "AlgoTecture.Libraries.Environments\AlgoTecture.Libraries.Environments.csproj", "{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.UtilizationTypes", "AlgoTecture.Libraries.UtilizationTypes\AlgoTecture.Libraries.UtilizationTypes.csproj", "{0793333A-C6CF-4B65-AFE1-1187C51EA954}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Users", "AlgoTecture.Libraries.Users\AlgoTecture.Libraries.Users.csproj", "{F878E6FA-9460-46FF-9EDE-1878A5163EC5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.Persistence.Ef", "AlgoTecture.Data.Persistence.Ef\AlgoTecture.Data.Persistence.Ef.csproj", "{259B4676-4EFA-461D-B727-2E9FD01AD904}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.Reservations", "AlgoTecture.Libraries.Reservations\AlgoTecture.Libraries.Reservations.csproj", "{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Libraries.PriceSpecifications", "AlgoTecture.Libraries.PriceSpecifications\AlgoTecture.Libraries.PriceSpecifications.csproj", "{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Common", "AlgoTecture.Common\AlgoTecture.Common.csproj", "{D8E3F5C6-7A3B-4BDF-9D90-DE6867EAEB22}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.WebApi.QrCode", "AlgoTecture.WebApi.QrCode\AlgoTecture.WebApi.QrCode.csproj", "{7D6C8FF7-A8C4-48BE-BB41-AEBD3D30406C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Data.DataSeeding.Parking", "AlgoTecture.Data.DataSeeding.Parking\AlgoTecture.Data.DataSeeding.Parking.csproj", "{E64F6057-60D5-43B4-9B58-6C4A9CA38B75}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E917773F-87C9-461A-8EF9-50A2D4B2D141}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FF9E3BCC-102B-4EB6-B1AC-5EA325450989}"
@@ -48,63 +8,73 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{5C3BD9C4-9F77-4758-B401-F1335C5F2AF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.ApiGateway", "Algotecture.ApiGateway\Algotecture.ApiGateway.csproj", "{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.ApiGateway", "AlgoTecture.ApiGateway\AlgoTecture.ApiGateway.csproj", "{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Api", "Algotecture.Identity.Api\Algotecture.Identity.Api.csproj", "{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Api", "AlgoTecture.Identity.Api\AlgoTecture.Identity.Api.csproj", "{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{2815E6F1-D2F8-48DC-99FF-CE1F564E57F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{CD8FA31D-A9DD-4EE9-A593-2AD931D16BFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Application", "Algotecture.Identity.Application\Algotecture.Identity.Application.csproj", "{EB41781E-71A6-466C-AF04-E7F0434FC344}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Application", "AlgoTecture.Identity.Application\AlgoTecture.Identity.Application.csproj", "{EB41781E-71A6-466C-AF04-E7F0434FC344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Domain", "Algotecture.Identity.Domain\Algotecture.Identity.Domain.csproj", "{40AD19FF-C64D-4B41-8CA8-D6C650B45B85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Domain", "AlgoTecture.Identity.Domain\AlgoTecture.Identity.Domain.csproj", "{40AD19FF-C64D-4B41-8CA8-D6C650B45B85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{C95AACF2-C2DF-42E4-9376-544F8944AE92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Shared.Contracts", "Algotecture.Shared.Contracts\Algotecture.Shared.Contracts.csproj", "{FB534345-80EB-43CB-99ED-4D5B6E116A9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Shared.Contracts", "AlgoTecture.Shared.Contracts\AlgoTecture.Shared.Contracts.csproj", "{FB534345-80EB-43CB-99ED-4D5B6E116A9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Contracts", "AlgoTecture.User.Contracts\AlgoTecture.User.Contracts.csproj", "{8B7CCF03-8DB3-4373-AEB4-D40FE29B60DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Contracts", "Algotecture.Identity.Contracts\Algotecture.Identity.Contracts.csproj", "{A5ED1183-A8CF-4CF3-9E7E-F9ADF0F9A53B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Contracts", "AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj", "{A5ED1183-A8CF-4CF3-9E7E-F9ADF0F9A53B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Infrastructure", "Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj", "{0D8A862E-3166-4267-BE62-50E9ABD449C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Infrastructure", "AlgoTecture.Identity.Infrastructure\AlgoTecture.Identity.Infrastructure.csproj", "{0D8A862E-3166-4267-BE62-50E9ABD449C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Infrastructure.DbMigrator", "Algotecture.Identity.Infrastructure.DbMigrator\Algotecture.Identity.Infrastructure.DbMigrator.csproj", "{B8151D52-63BA-4B86-98CC-A1D64F9041C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Infrastructure.DbMigrator", "AlgoTecture.Identity.Infrastructure.DbMigrator\AlgoTecture.Identity.Infrastructure.DbMigrator.csproj", "{B8151D52-63BA-4B86-98CC-A1D64F9041C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{59F57283-AB7D-4BE2-AC3C-19CD0CC3B12A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Identity.Tests", "Algotecture.Identity.Tests\Algotecture.Identity.Tests.csproj", "{D3C8882B-F976-4421-8E2A-35757FC56F5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Tests", "AlgoTecture.Identity.Tests\AlgoTecture.Identity.Tests.csproj", "{D3C8882B-F976-4421-8E2A-35757FC56F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.User.Api", "Algotecture.User.Api\Algotecture.User.Api.csproj", "{C45B1FB8-A0D0-4C32-9E07-5F942EFB8B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Api", "AlgoTecture.User.Api\AlgoTecture.User.Api.csproj", "{C45B1FB8-A0D0-4C32-9E07-5F942EFB8B98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.User.Application", "Algotecture.User.Application\Algotecture.User.Application.csproj", "{EC22D051-E4A2-4B1A-A206-772AD7989A39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Application", "AlgoTecture.User.Application\AlgoTecture.User.Application.csproj", "{EC22D051-E4A2-4B1A-A206-772AD7989A39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.User.Domain", "Algotecture.User.Domain\Algotecture.User.Domain.csproj", "{3A15CDE3-6D42-48CD-909D-83737C277819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Domain", "AlgoTecture.User.Domain\AlgoTecture.User.Domain.csproj", "{3A15CDE3-6D42-48CD-909D-83737C277819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.User.Infrastructure", "Algotecture.User.Infrastructure\Algotecture.User.Infrastructure.csproj", "{912095C3-5AEC-44F9-BDAE-7012C442EA17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Infrastructure", "AlgoTecture.User.Infrastructure\AlgoTecture.User.Infrastructure.csproj", "{912095C3-5AEC-44F9-BDAE-7012C442EA17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.User.Infrastructure.DbMigrator", "Algotecture.User.Infrastructure.DbMigrator\Algotecture.User.Infrastructure.DbMigrator.csproj", "{EEB9C5D0-4BEE-403D-875E-2FC70B2915E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Infrastructure.DbMigrator", "AlgoTecture.User.Infrastructure.DbMigrator\AlgoTecture.User.Infrastructure.DbMigrator.csproj", "{EEB9C5D0-4BEE-403D-875E-2FC70B2915E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Space", "Space", "{D6DB7F4E-13A6-489B-8E68-7E2C6B4CFC9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Api", "Algotecture.Space.Api\Algotecture.Space.Api.csproj", "{BB50FF98-7D4D-4922-8B43-44C5B1F926D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Api", "AlgoTecture.Space.Api\AlgoTecture.Space.Api.csproj", "{BB50FF98-7D4D-4922-8B43-44C5B1F926D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Application", "Algotecture.Space.Application\Algotecture.Space.Application.csproj", "{AFC5947E-75A1-48F6-B7A4-1C4324DB2216}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Application", "AlgoTecture.Space.Application\AlgoTecture.Space.Application.csproj", "{AFC5947E-75A1-48F6-B7A4-1C4324DB2216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Domain", "Algotecture.Space.Domain\Algotecture.Space.Domain.csproj", "{41A3D700-910C-4235-819E-DDB6B8B1CECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Domain", "AlgoTecture.Space.Domain\AlgoTecture.Space.Domain.csproj", "{41A3D700-910C-4235-819E-DDB6B8B1CECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Infrastructure", "Algotecture.Space.Infrastructure\Algotecture.Space.Infrastructure.csproj", "{2902D39F-49E6-46DC-944E-937DF4179963}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Infrastructure", "AlgoTecture.Space.Infrastructure\AlgoTecture.Space.Infrastructure.csproj", "{2902D39F-49E6-46DC-944E-937DF4179963}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Contracts", "Algotecture.Space.Contracts\Algotecture.Space.Contracts.csproj", "{36042A4A-8D09-4783-B56D-B464C2EC0640}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Contracts", "AlgoTecture.Space.Contracts\AlgoTecture.Space.Contracts.csproj", "{36042A4A-8D09-4783-B56D-B464C2EC0640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.GeoAdminSearch", "Algotecture.GeoAdminSearch\Algotecture.GeoAdminSearch.csproj", "{B240B026-1097-46FE-8E9F-CD64D5B1DA66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.GeoAdminSearch", "AlgoTecture.GeoAdminSearch\AlgoTecture.GeoAdminSearch.csproj", "{B240B026-1097-46FE-8E9F-CD64D5B1DA66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.HttpClient", "Algotecture.HttpClient\Algotecture.HttpClient.csproj", "{54F3D81D-CEA0-4F76-9728-092ED1964ED4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.HttpClient", "AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj", "{54F3D81D-CEA0-4F76-9728-092ED1964ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Infrastructure.DbMigrator", "Algotecture.Space.Infrastructure.DbMigrator\Algotecture.Space.Infrastructure.DbMigrator.csproj", "{47C0E117-6DA8-417E-8C61-0EE319FE52A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Infrastructure.DbMigrator", "AlgoTecture.Space.Infrastructure.DbMigrator\AlgoTecture.Space.Infrastructure.DbMigrator.csproj", "{47C0E117-6DA8-417E-8C61-0EE319FE52A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algotecture.Space.Tests", "Algotecture.Space.Tests\Algotecture.Space.Tests.csproj", "{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Tests", "AlgoTecture.Space.Tests\AlgoTecture.Space.Tests.csproj", "{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TelegramBot", "TelegramBot", "{9D73D590-A80D-4249-8905-B29DEE2E5FE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Api", "AlgoTecture.TelegramBot.Api\AlgoTecture.TelegramBot.Api.csproj", "{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Application", "AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj", "{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Domain", "AlgoTecture.TelegramBot.Domain\AlgoTecture.TelegramBot.Domain.csproj", "{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Infrastructure", "AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj", "{F8EA86F2-0240-4044-AD45-CB52649D1A6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,74 +82,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E77CDE9-2DEF-4A50-A86A-35D0C1BE58F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06AD4BC1-3D83-4272-B2CA-BEA74D2FA7F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF969273-58F3-4C80-9C93-FB5C456C9BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF969273-58F3-4C80-9C93-FB5C456C9BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF969273-58F3-4C80-9C93-FB5C456C9BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF969273-58F3-4C80-9C93-FB5C456C9BC2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B12257DD-ECB9-4E29-9E09-CCB271E2EA8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3633532B-91D0-4908-AD21-291E4D9106A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3633532B-91D0-4908-AD21-291E4D9106A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3633532B-91D0-4908-AD21-291E4D9106A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3633532B-91D0-4908-AD21-291E4D9106A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9596F180-BC93-49A5-9BEF-C00BE2864613}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{190FDE51-FA83-40FD-8D07-4E2119870D00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0793333A-C6CF-4B65-AFE1-1187C51EA954}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F878E6FA-9460-46FF-9EDE-1878A5163EC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{259B4676-4EFA-461D-B727-2E9FD01AD904}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8E3F5C6-7A3B-4BDF-9D90-DE6867EAEB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8E3F5C6-7A3B-4BDF-9D90-DE6867EAEB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8E3F5C6-7A3B-4BDF-9D90-DE6867EAEB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8E3F5C6-7A3B-4BDF-9D90-DE6867EAEB22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D6C8FF7-A8C4-48BE-BB41-AEBD3D30406C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D6C8FF7-A8C4-48BE-BB41-AEBD3D30406C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D6C8FF7-A8C4-48BE-BB41-AEBD3D30406C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D6C8FF7-A8C4-48BE-BB41-AEBD3D30406C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E64F6057-60D5-43B4-9B58-6C4A9CA38B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E64F6057-60D5-43B4-9B58-6C4A9CA38B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E64F6057-60D5-43B4-9B58-6C4A9CA38B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E64F6057-60D5-43B4-9B58-6C4A9CA38B75}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -276,20 +178,24 @@ Global
 		{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FF969273-58F3-4C80-9C93-FB5C456C9BC2} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{9596F180-BC93-49A5-9BEF-C00BE2864613} = {0318C5EA-A6C7-4A42-9386-B4A83B48C76A}
-		{08137259-B2F4-49FB-B70C-5FA9ECE9E07A} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{190FDE51-FA83-40FD-8D07-4E2119870D00} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
-		{63DBDCF8-6179-4ED9-93B7-0EB661F4D166} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{0793333A-C6CF-4B65-AFE1-1187C51EA954} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{F878E6FA-9460-46FF-9EDE-1878A5163EC5} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{259B4676-4EFA-461D-B727-2E9FD01AD904} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
-		{3633532B-91D0-4908-AD21-291E4D9106A6} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
-		{6ECA29B2-5C36-4B88-99D7-21B0B0D9B3FA} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{E362C37C-9C24-46B5-BEA0-1EAD2F3A8535} = {680AD23C-CA3D-45C9-8EDC-27DBA0813A05}
-		{E64F6057-60D5-43B4-9B58-6C4A9CA38B75} = {580AF6E1-3AEE-47EC-85E6-64F358795AC9}
 		{FF9E3BCC-102B-4EB6-B1AC-5EA325450989} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
 		{E5BDFCA8-8A78-4B8E-83B0-BCF087DD0D86} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
 		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
@@ -320,5 +226,10 @@ Global
 		{54F3D81D-CEA0-4F76-9728-092ED1964ED4} = {E5BDFCA8-8A78-4B8E-83B0-BCF087DD0D86}
 		{47C0E117-6DA8-417E-8C61-0EE319FE52A2} = {D6DB7F4E-13A6-489B-8E68-7E2C6B4CFC9D}
 		{9CDC3DF5-F1BC-43A8-847C-C44D0BB8E684} = {59F57283-AB7D-4BE2-AC3C-19CD0CC3B12A}
+		{9D73D590-A80D-4249-8905-B29DEE2E5FE9} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
+		{DACC01BD-B27A-4B64-8EBE-5F14D14DFCB7} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
+		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
+		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
+		{F8EA86F2-0240-4044-AD45-CB52649D1A6A} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
 	EndGlobalSection
 EndGlobal

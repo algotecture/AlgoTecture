@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Algotecture.Space.Infrastructure.Persistence;
+using AlgoTecture.Space.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Algotecture.Space.Infrastructure;
+namespace AlgoTecture.Space.Infrastructure;
 
 public class SpaceRuntimeContextFactory : IDbContextFactory<SpaceDbContext>
 {
@@ -24,7 +24,7 @@ public class SpaceRuntimeContextFactory : IDbContextFactory<SpaceDbContext>
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgotecturePostgresSpaceTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(SpaceDbContext).Assembly.FullName));

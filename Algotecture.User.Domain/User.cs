@@ -1,4 +1,4 @@
-﻿namespace Algotecture.User.Domain;
+﻿namespace AlgoTecture.User.Domain;
 
 public class User
 {

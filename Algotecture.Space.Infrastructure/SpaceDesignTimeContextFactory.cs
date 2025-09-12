@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using Algotecture.Space.Infrastructure.Persistence;
+using AlgoTecture.Space.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Algotecture.Space.Infrastructure;
+namespace AlgoTecture.Space.Infrastructure;
 
 public class SpaceDesignTimeContextFactory : IDesignTimeDbContextFactory<SpaceDbContext>
 {
@@ -16,7 +16,7 @@ public class SpaceDesignTimeContextFactory : IDesignTimeDbContextFactory<SpaceDb
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresSpaceTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
         
         var optionsBuilder = new DbContextOptionsBuilder<SpaceDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

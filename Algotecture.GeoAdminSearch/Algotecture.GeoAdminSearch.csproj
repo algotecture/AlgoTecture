@@ -11,6 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.HttpClient\Algotecture.HttpClient.csproj" />
+      <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
     </ItemGroup>
 </Project>

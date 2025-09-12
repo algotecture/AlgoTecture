@@ -1,7 +1,7 @@
-﻿using Algotecture.Identity.Contracts.Commands;
+﻿using AlgoTecture.Identity.Contracts.Commands;
 using FluentValidation;
 
-namespace Algotecture.IdentityService.Validators;
+namespace AlgoTecture.IdentityService.Validators;
 
 public class TelegramLoginValidator : AbstractValidator<TelegramLoginCommand>
 {

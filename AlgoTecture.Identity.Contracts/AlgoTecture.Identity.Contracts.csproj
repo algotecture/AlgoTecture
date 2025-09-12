@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.Shared.Contracts\Algotecture.Shared.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Shared.Contracts\AlgoTecture.Shared.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

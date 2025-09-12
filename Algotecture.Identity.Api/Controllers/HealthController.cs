@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Algotecture.IdentityService.Controllers;
+namespace AlgoTecture.IdentityService.Controllers;
 
 [ApiController]
 [Route("[controller]")]

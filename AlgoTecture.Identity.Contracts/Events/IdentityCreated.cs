@@ -1,6 +1,6 @@
-﻿using Algotecture.Shared.Contracts;
+﻿using AlgoTecture.Shared.Contracts;
 
-namespace Algotecture.Identity.Contracts.Events;
+namespace AlgoTecture.Identity.Contracts.Events;
 
 public record IdentityCreated(long IdentityId, string Provider, string ExternalId)
     : IIntegrationEvent

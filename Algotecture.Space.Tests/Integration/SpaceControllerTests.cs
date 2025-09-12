@@ -2,10 +2,10 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Algotecture.Space.Contracts.Dto;
+using AlgoTecture.Space.Contracts.Dto;
 using Xunit;
 
-namespace Algotecture.Space.Tests.Integration;
+namespace AlgoTecture.Space.Tests.Integration;
 
 public class SpaceControllerTests : IClassFixture<DatabaseFixture>
 {

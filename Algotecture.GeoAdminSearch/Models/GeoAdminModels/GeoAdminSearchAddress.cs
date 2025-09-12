@@ -1,4 +1,4 @@
-namespace Algotecture.GeoAdminSearch.Models.GeoAdminModels
+namespace AlgoTecture.GeoAdminSearch.Models.GeoAdminModels
 {
     public class Attrs
     {

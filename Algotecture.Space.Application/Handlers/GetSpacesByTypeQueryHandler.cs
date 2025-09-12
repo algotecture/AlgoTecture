@@ -1,10 +1,10 @@
-﻿using Algotecture.Space.Contracts.Dto;
-using Algotecture.Space.Contracts.Queries;
-using Algotecture.Space.Infrastructure.Persistence;
+﻿using AlgoTecture.Space.Contracts.Dto;
+using AlgoTecture.Space.Contracts.Queries;
+using AlgoTecture.Space.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Algotecture.Space.Application.Handlers;
+namespace AlgoTecture.Space.Application.Handlers;
 
 public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, List<GetSpacesByTypeDto>>
 {

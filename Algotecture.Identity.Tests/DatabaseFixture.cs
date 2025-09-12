@@ -1,6 +1,6 @@
-﻿using Algotecture.Identity.Infrastructure;
-using Algotecture.Identity.Infrastructure.Persistence;
-using Algotecture.Shared.Contracts;
+﻿using AlgoTecture.Identity.Infrastructure;
+using AlgoTecture.Identity.Infrastructure.Persistence;
+using AlgoTecture.Shared.Contracts;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +8,7 @@ using Npgsql;
 using Respawn;
 using Xunit;
 
-namespace Algotecture.Identity.Tests;
+namespace AlgoTecture.Identity.Tests;
 
 public class DatabaseFixture : IAsyncLifetime
 {
@@ -24,7 +24,7 @@ public class DatabaseFixture : IAsyncLifetime
             .AddJsonFile("appsettings.Development.json", optional: false)
             .Build();
 
-        _connectionString = Configuration.GetConnectionString("AlgotecturePostgresIdentityTest");
+        _connectionString = Configuration.GetConnectionString("AlgoTecturePostgresIdentityTest");
         if (string.IsNullOrEmpty(_connectionString)) throw new InvalidOperationException("Connection string is null");
     }
 

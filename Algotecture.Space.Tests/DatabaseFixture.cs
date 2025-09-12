@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Algotecture.Space.Infrastructure;
-using Algotecture.Space.Infrastructure.Persistence;
+using AlgoTecture.Space.Infrastructure;
+using AlgoTecture.Space.Infrastructure.Persistence;
 using AutoBogus;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using Npgsql;
 using Respawn;
 using Xunit;
 
-namespace Algotecture.Space.Tests;
+namespace AlgoTecture.Space.Tests;
 
 public class DatabaseFixture : IAsyncLifetime
 {
@@ -30,7 +30,7 @@ public class DatabaseFixture : IAsyncLifetime
             .AddJsonFile("appsettings.Development.json", optional: false)
             .Build();
 
-        _connectionString = Configuration.GetConnectionString("AlgotecturePostgresSpaceTest");
+        _connectionString = Configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
         if (string.IsNullOrEmpty(_connectionString)) throw new InvalidOperationException("Connection string is null");
     }
 

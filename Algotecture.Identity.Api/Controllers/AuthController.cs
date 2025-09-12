@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Algotecture.Identity.Contracts.Commands;
+using AlgoTecture.Identity.Contracts.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Algotecture.IdentityService.Controllers;
+namespace AlgoTecture.IdentityService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

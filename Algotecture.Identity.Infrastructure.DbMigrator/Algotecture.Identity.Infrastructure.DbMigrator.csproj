@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.Identity.Infrastructure\Algotecture.Identity.Infrastructure.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Identity.Infrastructure\AlgoTecture.Identity.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

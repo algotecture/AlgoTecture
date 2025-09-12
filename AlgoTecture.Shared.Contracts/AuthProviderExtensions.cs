@@ -1,4 +1,4 @@
-﻿namespace Algotecture.Shared.Contracts;
+﻿namespace AlgoTecture.Shared.Contracts;
 
 public static class AuthProviderExtensions
 {

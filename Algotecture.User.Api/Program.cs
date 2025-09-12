@@ -1,7 +1,7 @@
 ﻿using System;
-using Algotecture.User.Infrastructure;
-using Algotecture.User.Infrastructure.Consumers;
-using Algotecture.User.Infrastructure.Persistence;
+using AlgoTecture.User.Infrastructure;
+using AlgoTecture.User.Infrastructure.Consumers;
+using AlgoTecture.User.Infrastructure.Persistence;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

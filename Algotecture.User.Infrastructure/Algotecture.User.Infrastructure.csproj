@@ -22,7 +22,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\AlgoTecture.User.Contracts\AlgoTecture.User.Contracts.csproj" />
-        <ProjectReference Include="..\Algotecture.User.Domain\Algotecture.User.Domain.csproj" />
+        <ProjectReference Include="..\AlgoTecture.User.Domain\AlgoTecture.User.Domain.csproj" />
         <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
     </ItemGroup>
 

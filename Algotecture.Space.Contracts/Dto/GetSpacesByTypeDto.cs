@@ -1,4 +1,4 @@
-﻿namespace Algotecture.Space.Contracts.Dto;
+﻿namespace AlgoTecture.Space.Contracts.Dto;
 
 public record GetSpacesByTypeDto(
     long Id,

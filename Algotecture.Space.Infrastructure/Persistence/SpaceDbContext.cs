@@ -1,7 +1,7 @@
-﻿using Algotecture.Space.Domain;
+﻿using AlgoTecture.Space.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Algotecture.Space.Infrastructure.Persistence;
+namespace AlgoTecture.Space.Infrastructure.Persistence;
 
 public class SpaceDbContext : DbContext
 {

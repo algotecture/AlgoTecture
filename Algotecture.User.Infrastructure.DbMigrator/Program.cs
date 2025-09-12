@@ -1,6 +1,6 @@
-﻿using Algotecture.User.Infrastructure;
+﻿using AlgoTecture.User.Infrastructure;
 
-Console.WriteLine($"{nameof(Algotecture.User.Infrastructure)} has been started");
+Console.WriteLine($"{nameof(AlgoTecture.User.Infrastructure)} has been started");
 
 var context = new UserDesignTimeContextFactory().CreateDbContext([]);
 await context.Database.EnsureCreatedAsync();

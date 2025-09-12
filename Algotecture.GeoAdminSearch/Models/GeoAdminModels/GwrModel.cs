@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Algotecture.GeoAdminSearch.Models.GeoAdminModels
+namespace AlgoTecture.GeoAdminSearch.Models.GeoAdminModels
 {
 #pragma warning disable CS8618
     public static class GwrCodeLookup

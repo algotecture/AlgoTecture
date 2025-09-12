@@ -1,9 +1,9 @@
-﻿using Algotecture.Identity.Application.Handlers;
-using Algotecture.Identity.Contracts.Events;
-using Algotecture.Identity.Infrastructure;
-using Algotecture.Identity.Infrastructure.Consumers;
-using Algotecture.Identity.Infrastructure.Persistence;
-using Algotecture.IdentityService.Validators;
+﻿using AlgoTecture.Identity.Application.Handlers;
+using AlgoTecture.Identity.Contracts.Events;
+using AlgoTecture.Identity.Infrastructure;
+using AlgoTecture.Identity.Infrastructure.Consumers;
+using AlgoTecture.Identity.Infrastructure.Persistence;
+using AlgoTecture.IdentityService.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;

@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace Algotecture.Shared.Contracts;
+namespace AlgoTecture.Shared.Contracts;
 
 [ExcludeFromTopology]
 public interface IIntegrationEvent

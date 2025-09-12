@@ -1,9 +1,9 @@
-﻿using Algotecture.User.Infrastructure.Persistence;
+﻿using AlgoTecture.User.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Algotecture.User.Infrastructure;
+namespace AlgoTecture.User.Infrastructure;
 
 public class UserDesignTimeContextFactory : IDesignTimeDbContextFactory<UserDbContext>
 {
@@ -15,7 +15,7 @@ public class UserDesignTimeContextFactory : IDesignTimeDbContextFactory<UserDbCo
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresUserTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresUserTest");
         
         var optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

@@ -18,8 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.Space.Contracts\Algotecture.Space.Contracts.csproj" />
-      <ProjectReference Include="..\Algotecture.Space.Infrastructure\Algotecture.Space.Infrastructure.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Space.Contracts\AlgoTecture.Space.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Space.Infrastructure\AlgoTecture.Space.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

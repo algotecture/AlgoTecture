@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.Space.Infrastructure\Algotecture.Space.Infrastructure.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Space.Infrastructure\AlgoTecture.Space.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

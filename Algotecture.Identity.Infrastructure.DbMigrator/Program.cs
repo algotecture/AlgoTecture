@@ -1,7 +1,7 @@
-﻿using Algotecture.Identity.Infrastructure;
+﻿using AlgoTecture.Identity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-Console.WriteLine($"{nameof(Algotecture.Identity.Infrastructure)} has been started");
+Console.WriteLine($"{nameof(AlgoTecture.Identity.Infrastructure)} has been started");
 
 var context = new IdentityDesignTimeContextFactory().CreateDbContext([]);
 await context.Database.EnsureCreatedAsync();

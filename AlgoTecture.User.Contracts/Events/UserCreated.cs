@@ -1,6 +1,6 @@
-﻿using Algotecture.Shared.Contracts;
+﻿using AlgoTecture.Shared.Contracts;
 
-namespace Algotecture.User.Contracts.Events;
+namespace AlgoTecture.User.Contracts.Events;
 
 public record UserCreated(long UserId, long IdentityId) : IIntegrationEvent
 {

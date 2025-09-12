@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Algotecture.User.Infrastructure\Algotecture.User.Infrastructure.csproj" />
+      <ProjectReference Include="..\AlgoTecture.User.Infrastructure\AlgoTecture.User.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

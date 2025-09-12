@@ -1,4 +1,4 @@
-﻿namespace Algotecture.Identity.Domain;
+﻿namespace AlgoTecture.Identity.Domain;
 
 public class Identity
 {

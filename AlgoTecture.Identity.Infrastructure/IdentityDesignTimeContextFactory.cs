@@ -1,9 +1,9 @@
-﻿using Algotecture.Identity.Infrastructure.Persistence;
+﻿using AlgoTecture.Identity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Algotecture.Identity.Infrastructure;
+namespace AlgoTecture.Identity.Infrastructure;
 
 public class IdentityDesignTimeContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
 {
@@ -15,7 +15,7 @@ public class IdentityDesignTimeContextFactory : IDesignTimeDbContextFactory<Iden
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgotecturePostgresIdentityTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresIdentityTest");
         
         var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

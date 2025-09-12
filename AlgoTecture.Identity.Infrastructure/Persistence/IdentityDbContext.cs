@@ -2,16 +2,16 @@
 using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 
-namespace Algotecture.Identity.Infrastructure.Persistence;
+namespace AlgoTecture.Identity.Infrastructure.Persistence;
 
 public class IdentityDbContext : DbContext
 {
     public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options) {}
-    public DbSet<Algotecture.Identity.Domain.Identity> Identities => Set<Algotecture.Identity.Domain.Identity>();
+    public DbSet<AlgoTecture.Identity.Domain.Identity> Identities => Set<AlgoTecture.Identity.Domain.Identity>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
-        var e = b.Entity<Algotecture.Identity.Domain.Identity>();
+        var e = b.Entity<AlgoTecture.Identity.Domain.Identity>();
         e.ToTable("Identities");
         e.HasKey(x => x.Id);
         e.Property(x => x.UserId);

@@ -1,6 +1,6 @@
-﻿using Algotecture.Space.Application.Handlers;
-using Algotecture.Space.Infrastructure;
-using Algotecture.Space.Infrastructure.Persistence;
+﻿using AlgoTecture.Space.Application.Handlers;
+using AlgoTecture.Space.Infrastructure;
+using AlgoTecture.Space.Infrastructure.Persistence;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;

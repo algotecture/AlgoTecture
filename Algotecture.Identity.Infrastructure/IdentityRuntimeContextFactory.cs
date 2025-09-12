@@ -1,8 +1,8 @@
-﻿using Algotecture.Identity.Infrastructure.Persistence;
+﻿using AlgoTecture.Identity.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Algotecture.Identity.Infrastructure;
+namespace AlgoTecture.Identity.Infrastructure;
 
 public class IdentityRuntimeContextFactory : IDbContextFactory<IdentityDbContext>
 {
@@ -23,7 +23,7 @@ public class IdentityRuntimeContextFactory : IDbContextFactory<IdentityDbContext
             .AddJsonFile("appsettings.json", optional: true) 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgotecturePostgresIdentityTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentityTest");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName));

@@ -1,9 +1,9 @@
-﻿using Algotecture.Identity.Infrastructure.Persistence;
-using Algotecture.User.Contracts.Events;
+﻿using AlgoTecture.Identity.Infrastructure.Persistence;
+using AlgoTecture.User.Contracts.Events;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
-namespace Algotecture.Identity.Infrastructure.Consumers;
+namespace AlgoTecture.Identity.Infrastructure.Consumers;
 
 public class UserCreatedConsumer : IConsumer<UserCreated>
 {

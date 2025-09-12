@@ -1,9 +1,9 @@
-﻿using Algotecture.Identity.Contracts.Events;
-using Algotecture.User.Contracts.Events;
-using Algotecture.User.Infrastructure.Persistence;
+﻿using AlgoTecture.Identity.Contracts.Events;
+using AlgoTecture.User.Contracts.Events;
+using AlgoTecture.User.Infrastructure.Persistence;
 using MassTransit;
 
-namespace Algotecture.User.Infrastructure.Consumers;
+namespace AlgoTecture.User.Infrastructure.Consumers;
 
 public class IdentityCreatedConsumer : IConsumer<IdentityCreated>
 {
