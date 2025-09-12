@@ -171,12 +171,27 @@ public class ParkingController : BotController, IParkingController
     {
         //for example
         //var urlToAddressProperties = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture)},{telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture)}&key=.....&language=en";
+        // we can show webapp button in three ways
+        // first: call next line and pass just only text argument
+        // `text` is a text on a button
+        // webapp url will be used from global configuration(botf key in the appsettings.*.json)
+        //Button(WebApp("Inline webapp"));
 
+        // second: pass the webapp through second parameter in WebApp method
+        //Button(WebApp("Google as webapp", conf["MyWebAppUrl"]));
+
+        //await Send();
+
+        //Push("Or click on the keybord button below");
+
+        // and third - in the keyboard
+        //KButton(KWebApp("Open webapp"));
         var latitude = telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture);
         var longitude = telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture);
         
         var urlToAddressProperties = $"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}";
-        RowButton("Look on the map", urlToAddressProperties);
+        Button(WebApp("Look on the map", urlToAddressProperties));
+        //RowButton("Look on the map", urlToAddressProperties);
         RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
         RowButton("Go Back", Q(EnterAddress, botState));
 
