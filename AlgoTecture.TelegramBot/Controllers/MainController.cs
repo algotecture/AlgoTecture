@@ -134,12 +134,13 @@ public class MainController : BotController, IMainController
             var reservationToTelegram = new ReservationToTelegramOut
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value + TimeSpan.FromHours(3):dd-MM-yyyy HH:mm}",
+                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value  + TimeSpan.FromHours(2):dd-MM-yyyy HH:mm}",
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
                 PriceCurrency = reservation.PriceSpecification?.PriceCurrency,
                 Address = string.IsNullOrEmpty(reservation.Space?.SpaceAddress) ? reservation.Description : reservation.Space?.SpaceAddress
             };
+            //only for demo utc +2
             reservationList.Add(reservationToTelegram);
             var description =
                 $"{reservationToTelegram.Address}, \n\r{reservationToTelegram.DateTimeFrom}, {reservationToTelegram.TotlaPrice} \n\r" +
