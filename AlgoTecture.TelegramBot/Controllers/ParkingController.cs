@@ -80,7 +80,7 @@ public class ParkingController : BotController, IParkingController
         
         var telegramToAddressList = new List<TelegramToAddressModel>();
 
-        var labels = (await _geoAdminSearcher.GetAddress(address)).ToList();
+        var labels = (await _geoAdminSearcher.GetAddress(address + " " + "zurich")).ToList();
         
         foreach (var label in labels)
         {
