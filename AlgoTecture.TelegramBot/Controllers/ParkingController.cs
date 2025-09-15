@@ -87,8 +87,8 @@ public class ParkingController : BotController, IParkingController
             var telegramToAddressModel = new TelegramToAddressModel
             {
                 FeatureId = label.featureId,
-                OriginalAddressLatitude = label.lat,
-                OriginalAddressLongitude = label.lon,
+                OriginalAddressLatitude = label.lat.ToString(CultureInfo.InvariantCulture),
+                OriginalAddressLongitude = label.lon.ToString(CultureInfo.InvariantCulture),
                 Address = label.label
             };
             telegramToAddressList.Add(telegramToAddressModel);
@@ -131,7 +131,7 @@ public class ParkingController : BotController, IParkingController
             var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
             
             var nearestParkingSpaces = await _spaceService.GetNearestSpaces(targetSpaces, 
-                telegramToAddressModel.OriginalAddressLatitude, telegramToAddressModel.OriginalAddressLongitude, 7);
+               Convert.ToDouble(telegramToAddressModel.OriginalAddressLatitude, CultureInfo.InvariantCulture), Convert.ToDouble(telegramToAddressModel.OriginalAddressLongitude, CultureInfo.InvariantCulture), 7);
 
             if (nearestParkingSpaces.Any())
             {
@@ -142,7 +142,9 @@ public class ParkingController : BotController, IParkingController
                     var tamModel = new TelegramToAddressModel
                     {
                         latitude = nearestParkingSpace.Value.Latitude,
-                        longitude = nearestParkingSpace.Value.Longitude
+                        longitude = nearestParkingSpace.Value.Longitude,
+                        OriginalAddressLatitude = telegramToAddressModel.OriginalAddressLatitude,
+                        OriginalAddressLongitude = telegramToAddressModel.OriginalAddressLongitude,
                     };
                     //
                     RowButton($"{counter}. In {nearestParkingSpace.Key} meters. Tap to details",
@@ -193,7 +195,7 @@ public class ParkingController : BotController, IParkingController
         Button(WebApp("Look on the map", urlToAddressProperties));
         //RowButton("Look on the map", urlToAddressProperties);
         RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
-        RowButton("Go Back", Q(EnterAddress, botState));
+        RowButton("Go Back", Q(PressAddressToRentButton, telegramToAddressModel, botState));
 
         PushL("Details");
         await SendOrUpdate();
