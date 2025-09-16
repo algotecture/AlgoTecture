@@ -32,7 +32,10 @@ public class SpaceDbContext : DbContext
 
             entity.Property(e => e.Location)
                 .HasColumnType("geography(Point)");
-
+            
+            entity.HasIndex(e => e.Location)
+                .HasMethod("GIST");
+            
             entity.Property(s => s.Name)
                 .HasMaxLength(255)
                 .IsRequired(false);

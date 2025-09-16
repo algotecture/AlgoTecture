@@ -110,6 +110,12 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                 column: "SpaceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Spaces_Location",
+                table: "Spaces",
+                column: "Location")
+                .Annotation("Npgsql:IndexMethod", "GIST");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Spaces_ParentId",
                 table: "Spaces",
                 column: "ParentId");

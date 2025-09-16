@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlgoTecture.Space.Application.Handlers;
 
-public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, List<GetSpacesByTypeDto>>
+public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, List<SpaceDto>>
 {
     private readonly SpaceDbContext _db;
 
@@ -15,14 +15,14 @@ public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, 
         _db = db;
     }
 
-    public async Task<List<GetSpacesByTypeDto>> Handle(GetSpacesByTypeQuery request, CancellationToken cancellationToken)
+    public async Task<List<SpaceDto>> Handle(GetSpacesByTypeQuery request, CancellationToken cancellationToken)
     {
         return await _db.Spaces
             .Where(space => space.SpaceTypeId == request.SpaceTypeId)
             .Include(space => space.SpaceType)
             .Include(space => space.Images)
             .Include(space => space.Parent)
-            .Select(space => new GetSpacesByTypeDto(
+            .Select(space => new SpaceDto(
                 space.Id,
                 space.ParentId,
                 space.Parent != null ? space.Parent.Name : null,

@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Space.Infrastructure.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    [Migration("20250916100704_Initial")]
+    [Migration("20250916131223_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -72,6 +72,10 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Location");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Location"), "GIST");
 
                     b.HasIndex("ParentId");
 

@@ -1,6 +1,8 @@
-﻿namespace AlgoTecture.Space.Contracts.Dto;
+﻿using AlgoTecture.Space.Domain;
 
-public record GetSpacesByTypeDto(
+namespace AlgoTecture.Space.Contracts.Dto;
+
+public record SpaceDto(
     long Id,
     long? ParentId,
     string? ParentName,

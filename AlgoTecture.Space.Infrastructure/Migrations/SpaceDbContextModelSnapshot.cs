@@ -70,6 +70,10 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Location");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Location"), "GIST");
+
                     b.HasIndex("ParentId");
 
                     b.HasIndex("SpaceTypeId");

@@ -8,6 +8,7 @@ using AutoBogus;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NetTopologySuite.Geometries;
 using Npgsql;
 using Respawn;
 using Xunit;
@@ -61,7 +62,7 @@ public class DatabaseFixture : IAsyncLifetime
         {
             _respawner = await Respawner.CreateAsync(connection, new RespawnerOptions
             {
-                TablesToIgnore = ["__EFMigrationsHistory", "SpaceTypes"],
+                TablesToIgnore = ["__EFMigrationsHistory", "SpaceTypes", "spatial_ref_sys"],
                 DbAdapter = DbAdapter.Postgres
             });
         }
@@ -97,8 +98,16 @@ public class DatabaseFixture : IAsyncLifetime
     public async Task SeedTestData(SpaceDbContext context)
     {
         var spaceFaker = new Faker<Domain.Space>()
-            .RuleFor(i => i.SpaceTypeId, faker => faker.PickRandom(1,3));
-        var spaces = spaceFaker.Generate(10);
+            .RuleFor(i => i.SpaceTypeId, faker => faker.PickRandom(1,1));
+        var spaces = spaceFaker.Generate(30);
+        var count = 0;
+        foreach (var space in spaces)
+        {
+            double lat = 47.3741373184 + count;
+            double lon = 8.5120681827 + count;
+           space.Location = new Point(lat, lon);; 
+           count++;
+        }
         SpaceCount = spaces.Count();
         await context.Spaces.AddRangeAsync(spaces);
         await context.SaveChangesAsync();
