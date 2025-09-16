@@ -27,10 +27,10 @@ public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, 
                 space.ParentId,
                 space.Parent != null ? space.Parent.Name : null,
                 space.SpaceTypeId,
-                space.SpaceType!.Name,
+                space.SpaceType.Name,
                 space.SpaceAddress,
-                space.Latitude,
-                space.Longitude,
+                space.Location != null ? space.Location.Y : null, //latitude
+                space.Location != null ? space.Location.X : null, //longitude
                 space.Area,
                 space.Name ?? "",
                 space.Description,

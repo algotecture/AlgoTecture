@@ -19,7 +19,12 @@ public class SpaceDesignTimeContextFactory : IDesignTimeDbContextFactory<SpaceDb
         var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
         
         var optionsBuilder = new DbContextOptionsBuilder<SpaceDbContext>();
-        optionsBuilder.UseNpgsql(connectionString);
+        optionsBuilder.UseNpgsql(connectionString,
+            sqlOptions =>
+            {
+                sqlOptions.MigrationsAssembly(typeof(SpaceDbContext).Assembly.FullName);
+                sqlOptions.UseNetTopologySuite();
+            });
 
         return new SpaceDbContext(optionsBuilder.Options);
     } 

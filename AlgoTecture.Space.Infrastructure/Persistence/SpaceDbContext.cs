@@ -29,7 +29,9 @@ public class SpaceDbContext : DbContext
 
             entity.HasIndex(s => s.ParentId);
             entity.HasIndex(s => s.SpaceTypeId);
-            entity.HasIndex(s => new { s.Latitude, s.Longitude });
+
+            entity.Property(e => e.Location)
+                .HasColumnType("geography(Point)");
 
             entity.Property(s => s.Name)
                 .HasMaxLength(255)
@@ -47,10 +49,6 @@ public class SpaceDbContext : DbContext
                 .IsRequired(false);
 
             entity.Property(s => s.Area);
-
-            entity.Property(s => s.Latitude);
-
-            entity.Property(s => s.Longitude);
 
             entity.Property(s => s.CreatedAt);
         });

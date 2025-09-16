@@ -1,4 +1,7 @@
-﻿namespace AlgoTecture.Space.Domain;
+﻿using NetTopologySuite;
+using NetTopologySuite.Geometries;
+
+namespace AlgoTecture.Space.Domain;
 
 public class Space
 {
@@ -16,11 +19,9 @@ public class Space
 
     public string? SpaceAddress { get; set; }
 
-    public double Latitude { get; set; }
+    public Point? Location { get; set; }
 
-    public double Longitude { get; set; }
-
-    public double Area { get; set; }
+    public decimal? Area { get; set; }
     
     public string? Name { get; set; }
 

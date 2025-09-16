@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -14,6 +15,9 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:postgis", ",,");
+
             migrationBuilder.CreateTable(
                 name: "SpaceTypes",
                 columns: table => new
@@ -36,9 +40,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
                     SpaceTypeId = table.Column<int>(type: "integer", nullable: false),
                     SpaceAddress = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    Longitude = table.Column<double>(type: "double precision", nullable: false),
-                    Area = table.Column<double>(type: "double precision", nullable: false),
+                    Location = table.Column<Point>(type: "geography(Point)", nullable: true),
+                    Area = table.Column<decimal>(type: "numeric", nullable: true),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     Description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     SpaceProperties = table.Column<string>(type: "text", nullable: true),
@@ -105,11 +108,6 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                 name: "IX_SpaceImages_SpaceId",
                 table: "SpaceImages",
                 column: "SpaceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Spaces_Latitude_Longitude",
-                table: "Spaces",
-                columns: new[] { "Latitude", "Longitude" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Spaces_ParentId",

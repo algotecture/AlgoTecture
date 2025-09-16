@@ -25,8 +25,12 @@ public class SpaceRuntimeContextFactory : IDbContextFactory<SpaceDbContext>
             .Build();
 
         var connectionString = configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
-        
-        optionsBuilder.UseNpgsql(connectionString, 
-            sqlOptions => sqlOptions.MigrationsAssembly(typeof(SpaceDbContext).Assembly.FullName));
+
+        optionsBuilder.UseNpgsql(connectionString,
+            sqlOptions =>
+            {
+                sqlOptions.MigrationsAssembly(typeof(SpaceDbContext).Assembly.FullName);
+                sqlOptions.UseNetTopologySuite();
+            });
     }
 }

@@ -4,6 +4,7 @@ using AlgoTecture.Space.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -20,6 +21,7 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "postgis");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("AlgoTecture.Space.Domain.Space", b =>
@@ -30,8 +32,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<double>("Area")
-                        .HasColumnType("double precision");
+                    b.Property<decimal?>("Area")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -46,11 +48,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision");
+                    b.Property<Point>("Location")
+                        .HasColumnType("geography(Point)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
@@ -74,8 +73,6 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     b.HasIndex("ParentId");
 
                     b.HasIndex("SpaceTypeId");
-
-                    b.HasIndex("Latitude", "Longitude");
 
                     b.ToTable("Spaces", (string)null);
                 });
