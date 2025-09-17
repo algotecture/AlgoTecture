@@ -87,8 +87,8 @@ public class CityParkingController :  BotController, ICityParkingController
             var telegramToAddressModel = new TelegramToAddressModel
             {
                 FeatureId = label.featureId,
-                OriginalAddressLatitude = label.lat,
-                OriginalAddressLongitude = label.lon,
+                OriginalAddressLatitude = label.lat.ToString(CultureInfo.InvariantCulture),
+                OriginalAddressLongitude = label.lon.ToString(CultureInfo.InvariantCulture),
                 Address = label.label
             };
             telegramToAddressList.Add(telegramToAddressModel);
@@ -131,7 +131,7 @@ public class CityParkingController :  BotController, ICityParkingController
             var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
             
             var nearestParkingSpaces = await _spaceService.GetNearestSpaces(targetSpaces, 
-                telegramToAddressModel.OriginalAddressLatitude, telegramToAddressModel.OriginalAddressLongitude, 7);
+                Convert.ToDouble(telegramToAddressModel.OriginalAddressLatitude, CultureInfo.InvariantCulture), Convert.ToDouble(telegramToAddressModel.OriginalAddressLongitude, CultureInfo.InvariantCulture), 7);
 
             if (nearestParkingSpaces.Any())
             {
