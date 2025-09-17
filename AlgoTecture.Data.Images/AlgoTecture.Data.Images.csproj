@@ -16,6 +16,9 @@
       <None Update="Spaces\3\a5f8e388-0c2f-491c-82ff-d4c92da97aaa.jpeg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Spaces\3379\10000000-d55c-46ee-b65b-137aa08b3c9a.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

@@ -166,6 +166,7 @@ namespace AlgoTecture.Data.Persistence.Ef
             modelBuilder.Entity<User>().Property(x => x.Email).HasMaxLength(500);
             modelBuilder.Entity<User>().HasIndex(x => x.Email);
             modelBuilder.Entity<User>().HasIndex(x => x.TelegramUserInfoId);
+            modelBuilder.Entity<User>().Property(x => x.CarNumbers).HasMaxLength(500);
         }
 
         private static void ConfigureSpacesModelCreation(ModelBuilder modelBuilder)

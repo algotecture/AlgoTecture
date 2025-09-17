@@ -13,5 +13,7 @@
         public TelegramUserInfo? TelegramUserInfo { get; set; }
 
         public DateTime CreateDateTimeUtc { get; set; }
+
+        public string? CarNumbers { get; set; }
     }
 }

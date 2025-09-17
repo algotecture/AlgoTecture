@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
 using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Enum;
+using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
+using AlgoTecture.Libraries.Environments;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations;
@@ -12,7 +14,10 @@ using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
+using Newtonsoft.Json;
 using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 
 namespace AlgoTecture.TelegramBot.Controllers;
 
@@ -42,152 +47,9 @@ public class ParkingController : BotController, IParkingController
     }
 
     [Action]
-    public async Task PressToMainBookingPage(BotState botState)
+    public async Task PressToMainBookingPage(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
     {
-        //only for demo
-        const int parkingTargetOfSpaceId = 11;
-        if (botState.UtilizationTypeId != parkingTargetOfSpaceId)
-        {
-            return;
-        }
-        
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-
-        var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
-
-        RowButton("Enter address", Q(EnterAddress, new BotState{UtilizationTypeId = 11}));
-        RowButton("Go Back", Q(mainControllerService.PressToRentButton));
-        
-        PushL("Enter an address to search for the parking space");
-        await SendOrUpdate();
-    }
-    
-    [Action]
-    public async Task EnterAddress(BotState botState)
-    {
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-         
-        PushL("Enter the address or part of the address");
-        await SendOrUpdate();
-         
-        var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
-
-        var user = await _unitOfWork.TelegramUserInfos.GetByTelegramChatId(chatId.Value);
-         
-        _logger.LogInformation($"User {user?.TelegramUserFullName} entered text {address} to search for an address");
-        
-        var telegramToAddressList = new List<TelegramToAddressModel>();
-
-        var labels = (await _geoAdminSearcher.GetAddress(address)).ToList();
-        
-        foreach (var label in labels)
-        {
-            var telegramToAddressModel = new TelegramToAddressModel
-            {
-                FeatureId = label.featureId,
-                OriginalAddressLatitude = label.lat,
-                OriginalAddressLongitude = label.lon,
-                Address = label.label
-            };
-            telegramToAddressList.Add(telegramToAddressModel);
-
-            RowButton(label.label,
-                Q(PressAddressToRentButton, telegramToAddressModel,
-                    new BotState() { UtilizationTypeId = botState.UtilizationTypeId, SpaceAddress = label.label }));
-        }
-
-        if (!labels.Any())
-        {
-            RowButton("Try again"!);
-            await Send("Nothing found");
-        }
-        else
-        {
-            _telegramToAddressResolver.TryAddCurrentAddressList(chatId.Value, telegramToAddressList);
-
-            if (_telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.Count > 1)
-            {
-                await Send("Choose the right address");   
-            }
-            else
-            {
-                await Send("Address");   
-            }
-        }
-    }
-    
-     [Action]
-     private async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
-     {
-         var chatId = Context.GetSafeChatId();
-         if (!chatId.HasValue) return;
-         
-        //only for demo
-        if (botState.UtilizationTypeId == 11)
-        {
-            //only for demo 
-            var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
-            
-            var nearestParkingSpaces = await _spaceService.GetNearestSpaces(targetSpaces, 
-                telegramToAddressModel.OriginalAddressLatitude, telegramToAddressModel.OriginalAddressLongitude, 7);
-
-            if (nearestParkingSpaces.Any())
-            {
-                var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
-                var counter = 1;
-                foreach (var nearestParkingSpace in nearestParkingSpaces)
-                {
-                    var tamModel = new TelegramToAddressModel
-                    {
-                        latitude = nearestParkingSpace.Value.Latitude,
-                        longitude = nearestParkingSpace.Value.Longitude
-                    };
-                    //
-                    RowButton($"{counter}. In {nearestParkingSpace.Key} meters. Tap to details",
-                        Q(parkingControllerService.PressToParkingButton, tamModel,
-                            new BotState
-                            {
-                                UtilizationTypeId = botState.UtilizationTypeId, SpaceId = nearestParkingSpace.Value.Id, SpaceAddress =botState.SpaceAddress
-                            }));
-                    counter++;
-                }  
-                var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
-                RowButton("Go Back", Q(mainControllerService.PressToRentButton));
-         
-                PushL($"Found!");
-            }
-            else
-            {
-                RowButton("Try again"!);
-                await Send("Nothing found"); 
-            }
-        }
-     }
-    
-    [Action]
-    public async Task PressToParkingButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
-    {
-        //for example
-        //var urlToAddressProperties = $"https://maps.googleapis.com/maps/api/geocode/json?latlng={telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture)},{telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture)}&key=.....&language=en";
-
-        var latitude = telegramToAddressModel.latitude.ToString(CultureInfo.InvariantCulture);
-        var longitude = telegramToAddressModel.longitude.ToString(CultureInfo.InvariantCulture);
-        
-        var urlToAddressProperties = $"https://www.google.com/maps/search/?api=1&query={latitude},{longitude}";
-        RowButton("Look on the map", urlToAddressProperties);
-        RowButton("Make a reservation", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
-        RowButton("Go Back", Q(EnterAddress, botState));
-
-        PushL("Details");
-        await SendOrUpdate();
-    }
-    
-    [Action]
-    public async Task PressToEnterTheStartEndTime(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
-    {
-        var chatId = Context.GetSafeChatId();
+     var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
         
         if (botState.MessageId != default)
@@ -242,8 +104,9 @@ public class ParkingController : BotController, IParkingController
             
             RowButton($"Make a reservation! {totalPrice} {targetPriceSpecification.PriceCurrency}", Q(PressMakeAReservation, botState));   
         }
-        
-        RowButton("Go Back", Q(EnterAddress, botState));
+        var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
+        RowButton("Choose a parking space", Q(PressMakeAReservation, botState));
+        RowButton("Go Back", Q(mainControllerService.PressToRentButton));
 
         if (string.IsNullOrEmpty(time))
         {
@@ -253,81 +116,7 @@ public class ParkingController : BotController, IParkingController
         else
         {
             await Send("Parking reservation"); 
-        }
-    }
-    
-    [Action]
-    private async Task PressMakeAReservation(BotState botState)
-    {
-        if (botState.StartRent == null) throw new ArgumentNullException(nameof(botState.StartRent));
-        if (botState.EndRent == null) throw new ArgumentNullException(nameof(botState.EndRent));
-        
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-        
-        try
-        {
-            var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
-            //var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(botState.SpaceId)).FirstOrDefault();
-            //if (targetPriceSpecification == null) return;
-
-            var addReservationModel = new AddReservationModel
-            {
-                TenantUserId = user.Id,
-                SpaceId = botState.SpaceId,
-                ReservationDateTimeUtc = DateTime.UtcNow,
-                ReservationFromUtc = botState.StartRent.Value,
-                ReservationToUtc = botState.EndRent.Value,
-                Description = string.IsNullOrEmpty(botState.SpaceName) ? botState.SpaceAddress : botState.SpaceName,
-            };
-            var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null!, botState.StartRent.Value,
-                botState.EndRent.Value);
-            if (checkedReservation.Any())
-            {
-               _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserve a space {botState.SpaceName} with id " +
-                                      $"{botState.SpaceId}. But this time is already reserved");
-
-               PushL("This time is already reserved");
-               RowButton("Go to reservation and try again", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
-               await SendOrUpdate();
-            }
-            else
-            {
-                var reservation = await _reservationService.AddReservation(addReservationModel, 2.ToString());
-
-                if (reservation != null)
-                {
-                    var spaceAddress = botState.SpaceAddress;
-                        //(await _unitOfWork.Spaces.GetById(addReservationModel.SpaceId))?.SpaceAddress;
-                    
-                    var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
-                    RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
-
-                    _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved parking {botState.SpaceId} from " +
-                                           $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
-                                           $"ReservationId: {reservation.Id}");
-                    //only for demo utc +2
-                    var startTimeToDemo = botState.StartRent.Value + TimeSpan.FromHours(2);
-                    var endTimeToDemo = botState.EndRent.Value + TimeSpan.FromHours(2);
-                    PushL("🎉 Congratulations! Your space reservation has been successfully confirmed. " +
-                          "You're all set to enjoy your reserved space. Please find the details below: \n\r \n\r" +
-                          $"📅 Date: {startTimeToDemo:dddd, MMMM dd}\n\r" +
-                          $"⌚ Time: {startTimeToDemo:HH:mm} to {endTimeToDemo:HH:mm}\n\r"  +
-                          $"📍 Location: {spaceAddress}\n\r" +
-                          $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
-                          "If you have any questions or need to make changes to your reservation, " +
-                          "please feel free to contact our support team at @AlgoTecture." +
-                          " Thank you for choosing our service! 🙌");
-
-                    await SendOrUpdate();
-                }   
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        }    
     }
     
     [Action]
@@ -353,7 +142,7 @@ public class ParkingController : BotController, IParkingController
                 .SetState(state)
                 .OnNavigatePath(s => Q(Calendar, s, botState, true, rentTimeState))
                 .OnSelectPath(date =>
-                    Q(PressToEnterTheStartEndTime, botState, rentTimeState, date));
+                    Q(PressToMainBookingPage, botState, rentTimeState, date));
         }
         else
         {
@@ -363,16 +152,152 @@ public class ParkingController : BotController, IParkingController
                 .SetState(state)
                 .OnNavigatePath(s => Q(Calendar, s, botState, true, rentTimeState))
                 .OnSelectPath(date =>
-                    Q(PressToEnterTheStartEndTime, botState, rentTimeState, date))
+                    Q(PressToMainBookingPage, botState, rentTimeState, date))
                 .SkipDay(d => d.Day < now.Day);
         }
 
         calendar.Build(Message, new PagingService());
 
-        RowButton("Go Back", Q(PressToEnterTheStartEndTime, botState, RentTimeState.None, null!));
+        RowButton("Go Back", Q(PressToMainBookingPage, botState, RentTimeState.None, null!));
         PushL("Pick the date");
         await SendOrUpdate();
     }
     
-    
+    [Action]
+    public async Task PressMakeAReservation(BotState botState)
+    {
+        //only for demo
+        const int parkingTargetOfSpaceId = 15;
+        if (botState.UtilizationTypeId != parkingTargetOfSpaceId)
+        {
+            return;
+        }
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        if (botState.MessageId != default)
+        {
+            await Client.DeleteMessageAsync(chatId, botState.MessageId);
+            botState.MessageId = default;
+            botState.SpaceId = default;
+            botState.SpaceName = default;
+        }
+        // var chatId = Context.GetSafeChatId();
+        // if (!chatId.HasValue) return;
+        // var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
+        // var checkedReservation = await _reservationService.CheckReservation(botState.SpaceId, null!, botState.StartRent.Value,
+        //     botState.EndRent.Value);
+        // if (checkedReservation.Any())
+        // {
+        //     _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserve a space {botState.SpaceName} with id " +
+        //                            $"{botState.SpaceId}. But this time is already reserved");
+        //
+        //     PushL("This time is already reserved");
+        //     RowButton("Go to previous and try again", Q(PressToMainBookingPage, botState, RentTimeState.None, null!));
+        //     await SendOrUpdate();
+        // }
+        
+        RowButton("Street parking", Q(PressFloorButton, new BotState{UtilizationTypeId = 11, SpaceName = "Street parking", StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        RowButton("P -1", Q(PressFloorButton, new BotState{UtilizationTypeId = 11, SpaceName = "P -1", StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        RowButton("P -2", Q(PressFloorButton, new BotState{UtilizationTypeId = 11, SpaceName = "P -2", StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        RowButton("P -3", Q(PressFloorButton, new BotState{UtilizationTypeId = 11, SpaceName = "P -3", StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        RowButton("P -4", Q(PressFloorButton, new BotState{UtilizationTypeId = 11, SpaceName = "P -4", StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        RowButton("Floor and location don't matter. Any",
+            Q(PressFloorButton,
+                new BotState { UtilizationTypeId = 11, SpaceName = "Floor and location don't matter. Any" , StartRent = botState.StartRent, EndRent = botState.EndRent}));
+        
+        RowButton("Go Back", Q(PressToMainBookingPage, botState, RentTimeState.None, null!));
+        
+        PushL("Select parking floor");
+        await SendOrUpdate();   
+    }
+
+    [Action]
+    public async Task PressFloorButton(BotState botState)
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        
+        if (botState.SpaceName == "Floor and location don't matter. Any")
+        {
+            return;
+        }
+
+        var targetSpace = await _spaceGetter.GetById(3379);
+        if (targetSpace != null)
+        {
+            var targetSpaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(targetSpace.SpaceProperty);
+
+            if (targetSpaceProperty == null) throw new ArgumentNullException(nameof(targetSpaceProperty));
+            
+            var targetPriceSpecification = (await _unitOfWork.PriceSpecifications.GetBySpaceId(3379)).FirstOrDefault();
+            if (targetPriceSpecification == null) return;
+
+            var imageNames = targetSpaceProperty.Images;
+
+            if (imageNames != null && imageNames.Any())
+            {
+                var pathToBoatImage =
+                    System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces",
+                        targetSpace.Id.ToString(), imageNames.First());
+
+                await using var stream = File.OpenRead(pathToBoatImage);
+                var inputOnlineFile = new InputOnlineFile(stream, targetSpaceProperty.Name);
+
+                var message = await Client.SendPhotoAsync(
+                    chatId: chatId,
+                    photo: inputOnlineFile,
+                    caption: $"<b>Price: {targetPriceSpecification.PricePerTime} per hour</b>" + "\n" +
+                             $"<b>Buttons above image 👆</b>",
+                    ParseMode.Html
+                );
+
+                botState.MessageId = message.MessageId;
+                
+            }
+            var targetSpaces = await _spaceGetter.GetByType(15);
+            
+            var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
+            
+            var listToExclude = new List<Space>();
+            foreach (var space in targetSpaces)
+            {
+                var checkedReservation = await _reservationService.CheckReservation(space.Id, null!, botState.StartRent.Value,
+                    botState.EndRent.Value);
+                if (checkedReservation.Any())
+                {
+                    listToExclude.Add(space);
+                }
+            }
+            
+            var resultSpaces = targetSpaces.Except(listToExclude);
+           
+           
+            
+            if (botState.SpaceName == "Street parking")
+            {
+
+            }
+            if (botState.SpaceName == "P -1")
+            {
+
+            }
+            if (botState.SpaceName == "P -2")
+            {
+
+            }
+            if (botState.SpaceName == "P -3")
+            {
+
+            }
+            if (botState.SpaceName == "P -4")
+            {
+
+            }
+            RowButton("Go Back", Q(PressMakeAReservation, botState));
+            PushL($"Floor plan");
+        }
+        
+        
+    await SendOrUpdate();
+    }
 }

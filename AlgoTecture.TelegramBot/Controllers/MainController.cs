@@ -25,15 +25,16 @@ public class MainController : BotController, IMainController
     private readonly IBoatController _boatController;
     private readonly ISpaceService _spaceService;
     private readonly IParkingController _parkingController;
+    private readonly ICityParkingController _cityParkingController;
 
     private Dictionary<string, string> utilizationTypeToSmile = new()
     {
-        { "Residential", "🏠" }, { "Parking", "🚙" }, { "Boat", "🚤" }, { "Coworking", "🏢" }
+        { "Residential", "🏠" }, { "Parking", "🚙" }, { "City Parking", "🅿️" }, { "Boat", "🚤" }, { "Coworking", "🏢" }
     };
 
     public MainController(ITelegramUserInfoService telegramUserInfoService, IBoatController boatController, IUtilizationTypeGetter utilizationTypeGetter, 
         IUnitOfWork unitOfWork, ILogger<MainController> logger, IGeoAdminSearcher geoAdminSearcher, ITelegramToAddressResolver telegramToAddressResolver, 
-        ISpaceGetter spaceGetter, IServiceProvider serviceProvider, ISpaceService spaceService, IParkingController parkingController)
+        ISpaceGetter spaceGetter, IServiceProvider serviceProvider, ISpaceService spaceService, IParkingController parkingController, ICityParkingController cityParkingController)
     {
         _telegramUserInfoService = telegramUserInfoService;
         _boatController = boatController;
@@ -46,6 +47,7 @@ public class MainController : BotController, IMainController
         _serviceProvider = serviceProvider;
         _spaceService = spaceService;
         _parkingController = parkingController;
+        _cityParkingController = cityParkingController;
     }
 
     [Action("/start", "start the bot")]
@@ -78,7 +80,7 @@ public class MainController : BotController, IMainController
     public async Task PressToRentButton()
     {
         //only for demo
-        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Parking", "Boat"})
+        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Parking", "City Parking", "Boat"})
             .Contains(x.Name)).ToList();
         
         foreach (var utilizationType in utilizationTypes)
@@ -95,8 +97,10 @@ public class MainController : BotController, IMainController
             //it is not yet known what to do with the rest of the types only!
             if (utilizationType.Name == "Boat")
                 RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));
+            if (utilizationType.Name == "City Parking")
+                RowButton(utilizationTypeOut.Name, Q(_cityParkingController.PressToMainBookingPage, botState));
             if (utilizationType.Name == "Parking")
-                RowButton(utilizationTypeOut.Name, Q(_parkingController.PressToMainBookingPage, botState));
+                RowButton(utilizationTypeOut.Name, Q(_parkingController.PressToMainBookingPage, botState, RentTimeState.None, null!));
             // else
             //     RowButton(utilizationTypeOut.Name, Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
         }
@@ -177,7 +181,7 @@ public class MainController : BotController, IMainController
 
             if (nearestParkingSpaces.Any())
             {
-                var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
+                var cityParkingControllerService = _serviceProvider.GetRequiredService<ICityParkingController>();
                 var counter = 1;
                 foreach (var nearestParkingSpace in nearestParkingSpaces)
                 {
@@ -186,7 +190,7 @@ public class MainController : BotController, IMainController
                         latitude = nearestParkingSpace.Value.Latitude,
                         longitude = nearestParkingSpace.Value.Longitude,
                     };
-                    RowButton($"Parking {counter} in {nearestParkingSpace.Key} meters. Tap to details", Q(parkingControllerService.PressToParkingButton, tamModel, botState));
+                    RowButton($"Parking {counter} in {nearestParkingSpace.Key} meters. Tap to details", Q(cityParkingControllerService.PressToParkingButton, tamModel, botState));
                     counter++;
                 }  
                 RowButton("Go Back", Q(PressToRentButton));

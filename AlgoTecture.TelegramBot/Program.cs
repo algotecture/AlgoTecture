@@ -49,6 +49,7 @@ public static class Program
             webAppBuilder.Services.AddTransient<IMainController, MainController>();
             webAppBuilder.Services.AddTransient<IBoatController, BoatController>();
             webAppBuilder.Services.AddTransient<IParkingController, ParkingController>();
+            webAppBuilder.Services.AddTransient<ICityParkingController, CityParkingController>();
 
             var webApp = webAppBuilder.Build();
 
