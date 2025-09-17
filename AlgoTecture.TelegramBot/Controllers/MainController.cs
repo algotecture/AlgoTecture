@@ -216,7 +216,8 @@ public class MainController : BotController, IMainController
                 PushL("This space will soon be available for rent. Go to space properties or /start to try again");
              
                 var urlToAddressProperties = $"https://algotecture.io/webapi-qrcode/spacePropertyPage?featureId={formattedGeoAdminFeatureId}&label={telegramToAddressModel.Address}";
-                RowButton("Go to space properties", urlToAddressProperties);
+                Button(WebApp("Look on the map", urlToAddressProperties));
+                //RowButton("Go to space properties", urlToAddressProperties);
                 await SendOrUpdate();
             }
             else
