@@ -76,6 +76,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Infrastructure", "AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj", "{F8EA86F2-0240-4044-AD45-CB52649D1A6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Infrastructure.DbMigrator", "AlgoTecture.TelegramBot.Infrastructure.DbMigrator\AlgoTecture.TelegramBot.Infrastructure.DbMigrator.csproj", "{99773860-796B-43C6-9548-5C4A10605C2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecturer.TelegramBot.Contracts", "AlgoTecturer.TelegramBot.Contracts\AlgoTecturer.TelegramBot.Contracts.csproj", "{7FA803B0-939F-45CC-AB83-D58AB0A8742E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +198,14 @@ Global
 		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8EA86F2-0240-4044-AD45-CB52649D1A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99773860-796B-43C6-9548-5C4A10605C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99773860-796B-43C6-9548-5C4A10605C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99773860-796B-43C6-9548-5C4A10605C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99773860-796B-43C6-9548-5C4A10605C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA803B0-939F-45CC-AB83-D58AB0A8742E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA803B0-939F-45CC-AB83-D58AB0A8742E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA803B0-939F-45CC-AB83-D58AB0A8742E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA803B0-939F-45CC-AB83-D58AB0A8742E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF9E3BCC-102B-4EB6-B1AC-5EA325450989} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
@@ -231,5 +243,7 @@ Global
 		{70A610B4-7DFC-4793-8AEA-B1EC5651DBCF} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
 		{C6A24250-4E61-4763-8E79-3DA0C7BDD1F9} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
 		{F8EA86F2-0240-4044-AD45-CB52649D1A6A} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
+		{99773860-796B-43C6-9548-5C4A10605C2A} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
+		{7FA803B0-939F-45CC-AB83-D58AB0A8742E} = {C95AACF2-C2DF-42E4-9376-544F8944AE92}
 	EndGlobalSection
 EndGlobal

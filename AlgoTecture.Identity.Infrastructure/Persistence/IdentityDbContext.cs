@@ -16,7 +16,7 @@ public class IdentityDbContext : DbContext
         e.HasKey(x => x.Id);
         e.Property(x => x.UserId);
         e.Property(x => x.Provider).IsRequired();
-        e.Property(x => x.ExternalId);
+        e.Property(x => x.ProviderUserId);
         
         b.AddOutboxMessageEntity();
         

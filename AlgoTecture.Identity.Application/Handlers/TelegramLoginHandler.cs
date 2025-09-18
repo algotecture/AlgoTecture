@@ -18,21 +18,21 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
     public async Task<TelegramLoginResult> Handle(TelegramLoginCommand request, CancellationToken ct)
     {
         const string provider = "Telegram";
-        var extId = request.TelegramUserId.ToString();
+        var providerUserId = request.TelegramUserId.ToString();
 
         var identity = await _db.Identities
-            .FirstOrDefaultAsync(x => x.Provider == provider && x.ExternalId == extId, ct);
+            .FirstOrDefaultAsync(x => x.Provider == provider && x.ProviderUserId == providerUserId, ct);
 
         if (identity is null)
         {
             identity = new Domain.Identity {
                 Provider = provider,
-                ExternalId = extId,
+                ProviderUserId = providerUserId,
                 CreatedAt = DateTime.UtcNow
             };
             _db.Identities.Add(identity);
             
-            await _publish.Publish(new IdentityCreated(identity.Id, provider, extId), ct);
+            await _publish.Publish(new IdentityCreated(identity.Id, provider, providerUserId), ct);
             
             await _db.SaveChangesAsync(ct);
             throw new Exception();

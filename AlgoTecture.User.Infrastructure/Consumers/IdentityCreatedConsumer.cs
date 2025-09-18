@@ -17,6 +17,6 @@ public class IdentityCreatedConsumer : IConsumer<IdentityCreated>
         var user = new Domain.User();
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
-        await _publish.Publish(new UserCreated(user.Id, ctx.Message.IdentityId));
+        await _publish.Publish(new UserCreated(user.Id, ctx.Message.IdentityId, ctx.Message.Provider, ctx.Message.ProviderUserId));
     }    
 }

@@ -33,11 +33,11 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ExternalId")
-                        .HasColumnType("text");
-
                     b.Property<string>("Provider")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderUserId")
                         .HasColumnType("text");
 
                     b.Property<long?>("UserId")

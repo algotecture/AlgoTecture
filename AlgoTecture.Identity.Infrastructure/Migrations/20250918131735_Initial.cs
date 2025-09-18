@@ -7,11 +7,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddOutbox : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "ExternalId",
+                table: "Identities",
+                newName: "ProviderUserId");
+
             migrationBuilder.CreateTable(
                 name: "InboxState",
                 columns: table => new
@@ -127,6 +132,11 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "OutboxState");
+
+            migrationBuilder.RenameColumn(
+                name: "ProviderUserId",
+                table: "Identities",
+                newName: "ExternalId");
         }
     }
 }

@@ -8,7 +8,7 @@ public class Identity
 
     public required string Provider { get; set; }
 
-    public string? ExternalId { get; set; }
+    public string? ProviderUserId { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

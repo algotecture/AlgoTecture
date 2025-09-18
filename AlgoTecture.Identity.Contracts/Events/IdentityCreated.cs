@@ -2,7 +2,7 @@
 
 namespace AlgoTecture.Identity.Contracts.Events;
 
-public record IdentityCreated(long IdentityId, string Provider, string ExternalId)
+public record IdentityCreated(long IdentityId, string Provider, string ProviderUserId)
     : IIntegrationEvent
 {
     public long Id { get; init; }
