@@ -27,13 +27,14 @@ public class Space
 
     public string? Description { get; set; }
 
-    public string? SpaceProperties { get; set; }
-    
+    public string SpaceProperties { get; set; } = "{}";
     
     public string? DataSource { get; set; }
+
+    public string? ExternalId { get; set; }
     
     public ICollection<SpaceImage> Images { get; set; } = new List<SpaceImage>();
-
+    
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 
     public bool IsDeleted { get; set; }

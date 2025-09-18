@@ -50,8 +50,15 @@ public class SpaceDbContext : DbContext
 
             entity.Property(s => s.SpaceProperties)
                 .IsRequired(false);
+            
+            entity.Property(x=>x.SpaceProperties).HasColumnType("jsonb");
+            entity.HasIndex(u => u.SpaceProperties).HasMethod("gin");
 
             entity.Property(s => s.Area);
+            
+            entity.Property(s => s.ExternalId)
+                .HasMaxLength(500)
+                .IsRequired(false);
 
             entity.Property(s => s.CreatedAt);
         });

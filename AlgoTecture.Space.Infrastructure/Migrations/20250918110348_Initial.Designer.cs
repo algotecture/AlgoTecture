@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Space.Infrastructure.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    [Migration("20250916131223_Initial")]
+    [Migration("20250918110348_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -48,6 +48,10 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
+                    b.Property<string>("ExternalId")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -66,7 +70,7 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("SpaceProperties")
-                        .HasColumnType("text");
+                        .HasColumnType("jsonb");
 
                     b.Property<int>("SpaceTypeId")
                         .HasColumnType("integer");
@@ -78,6 +82,10 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Location"), "GIST");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("SpaceProperties");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SpaceProperties"), "gin");
 
                     b.HasIndex("SpaceTypeId");
 

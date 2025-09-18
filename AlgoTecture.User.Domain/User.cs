@@ -10,7 +10,12 @@ public class User
     
     public string? Phone { get; set; }
     
+
+    public string CarNumbers { get; set; } = "{}";
+    
+    
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    
 
     public bool IsDeleted { get; set; }
 }

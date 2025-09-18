@@ -15,5 +15,7 @@ public class UserDbContext : DbContext
         e.Property(x => x.Email);
         e.Property(x => x.FullName);
         e.Property(x => x.Phone);
+        e.Property(x=>x.CarNumbers).HasColumnType("jsonb");
+        e.HasIndex(u => u.CarNumbers).HasMethod("gin");
     }
 }
