@@ -1,3 +1,4 @@
+using System.Globalization;
 using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.Dto;
@@ -72,56 +73,11 @@ public class MainController : BotController, IMainController
         
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        RowButton("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
+        var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
+        RowButton("🔍 Explore & 📌 Reserve Spaces", Q(parkingControllerService.EnterAddress, new BotState {UtilizationTypeId = 15}));
         RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
     }
     
-    [Action]
-    public async Task PressToRentButton()
-    {
-        //only for demo
-        var utilizationTypes = (await _utilizationTypeGetter.GetAll()).Where(x=> (new List<string>(){"Parking", "City Parking", "Boat"})
-            .Contains(x.Name)).ToList();
-        
-        foreach (var utilizationType in utilizationTypes)
-        {
-            var utilizationTypeOut = new UtilizationTypeToTelegramOut
-            {
-                Name = utilizationTypeToSmile.TryGetValue(utilizationType.Name, out var smile) ? utilizationType.Name + " " + smile : utilizationType.Name,
-                Id = utilizationType.Id
-            };
-
-            var botState = new BotState
-                { UtilizationTypeId = utilizationType.Id, UtilizationName = utilizationType.Name, MessageId = default };
-
-            //it is not yet known what to do with the rest of the types only!
-            if (utilizationType.Name == "Boat")
-                RowButton(utilizationTypeOut.Name, Q(_boatController.PressToMainBookingPage, botState));
-            if (utilizationType.Name == "City Parking")
-                RowButton(utilizationTypeOut.Name, Q(_cityParkingController.PressToMainBookingPage, botState));
-            if (utilizationType.Name == "Parking")
-                RowButton(utilizationTypeOut.Name, Q(_parkingController.PressToMainBookingPage, botState, RentTimeState.None, null!));
-            // else
-            //     RowButton(utilizationTypeOut.Name, Q(PressToCommonButtonToAnotherUtilizationTypes, botState));
-        }
-        RowButton("Go Back", Q(Start));
-
-        PushL("Choose your type");
-        await SendOrUpdate();
-    }
-
-    [Action]
-    public async Task PressToCommonButtonToAnotherUtilizationTypes(BotState botState)
-    {
-        RowButton("Enter address", Q(EnterAddress, new BotState()));
-        RowButton("Go Back", Q(PressToRentButton));
-
-        if (botState.UtilizationName != null) 
-            PushL(botState.UtilizationName);
-        await SendOrUpdate();
-    }
-    
-
     [Action]
     public async Task PressToFindReservationsButton()
     {
@@ -164,14 +120,14 @@ public class MainController : BotController, IMainController
     }
     
      [Action]
-     private async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
+     public async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel, BotState botState)
      {
          var chatId = Context.GetSafeChatId();
          if (!chatId.HasValue) return;
          
          var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.FirstOrDefault(x => x.FeatureId == telegramToAddressModel.FeatureId);
         //only for demo
-        if (botState.UtilizationTypeId == 11)
+        if (botState.UtilizationTypeId == 15)
         {
             //only for demo 
             var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
@@ -181,19 +137,19 @@ public class MainController : BotController, IMainController
 
             if (nearestParkingSpaces.Any())
             {
-                var cityParkingControllerService = _serviceProvider.GetRequiredService<ICityParkingController>();
+                var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
                 var counter = 1;
                 foreach (var nearestParkingSpace in nearestParkingSpaces)
                 {
                     var tamModel = new TelegramToAddressModel
                     {
                         latitude = nearestParkingSpace.Value.Latitude,
-                        longitude = nearestParkingSpace.Value.Longitude,
+                        longitude = nearestParkingSpace.Value.Longitude
                     };
-                    RowButton($"Parking {counter} in {nearestParkingSpace.Key} meters. Tap to details", Q(cityParkingControllerService.PressToParkingButton, tamModel, botState));
+                    RowButton($"Parking at {telegramToAddressModel.Address} in {nearestParkingSpace.Key} meters. Tap to details", Q(parkingControllerService.PressToParkingButton, tamModel, botState));
                     counter++;
                 }  
-                RowButton("Go Back", Q(PressToRentButton));
+                RowButton("Go Back", Q(EnterAddress, botState));
          
                 PushL($"Found!");
             }

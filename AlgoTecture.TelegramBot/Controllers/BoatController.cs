@@ -52,7 +52,7 @@ public class BoatController : BotController, IBoatController
 
         var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
 
-        RowButton("Go Back", Q(mainControllerService.PressToRentButton));
+        //RowButton("Go Back", Q(mainControllerService.PressToRentButton));
 
         PushL("Reservation");
         await SendOrUpdate();
