@@ -19,6 +19,7 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
     {
         const string provider = "Telegram";
         var providerUserId = request.TelegramUserId.ToString();
+        var providerUserFullName = request.TelegramUserFullName;
 
         var identity = await _db.Identities
             .FirstOrDefaultAsync(x => x.Provider == provider && x.ProviderUserId == providerUserId, ct);
@@ -32,7 +33,7 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
             };
             _db.Identities.Add(identity);
             
-            await _publish.Publish(new IdentityCreated(identity.Id, provider, providerUserId), ct);
+            await _publish.Publish(new IdentityCreated(identity.Id, provider, providerUserId, providerUserFullName), ct);
             
             await _db.SaveChangesAsync(ct);
             throw new Exception();

@@ -1,4 +1,5 @@
 ﻿using System;
+using AlgoTecture.User.Contracts.Events;
 using AlgoTecture.User.Infrastructure;
 using AlgoTecture.User.Infrastructure.Consumers;
 using AlgoTecture.User.Infrastructure.Persistence;
@@ -39,6 +40,10 @@ builder.Services.AddMassTransit(x =>
             h.Password(cfg["Rabbit:Password"] ?? "guest");
         });
         mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
+        mq.Message<UserCreated>(e =>
+        {
+            e.SetEntityName("user-created"); 
+        });
         mq.ReceiveEndpoint("user-service-identity-events", e =>
         {
             e.ConfigureConsumeTopology = false;

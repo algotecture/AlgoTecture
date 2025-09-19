@@ -45,10 +45,34 @@ public class HttpService : IHttpService
             throw new HttpServiceException($"POST {url} failed", ex);
         }
     }
+    
+    public async Task<TResponse> PostAsync<TRequest, TResponse>(
+        string url,
+        TRequest data,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync(url, data, cancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<TResponse>(
+                cancellationToken: cancellationToken);
+
+            if (result is null)
+                throw new HttpServiceException($"Empty response for POST {url}");
+
+            return result;
+        }
+        catch (HttpRequestException ex)
+        {
+            throw new HttpServiceException($"Request to {url} failed", ex);
+        }
+    }
 }
 
 public class HttpServiceException : Exception
 {
-    public HttpServiceException(string message, Exception innerException) 
+    public HttpServiceException(string message, Exception innerException = null) 
         : base(message, innerException) { }
 }

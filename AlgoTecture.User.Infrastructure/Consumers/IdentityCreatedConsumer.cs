@@ -15,6 +15,8 @@ public class IdentityCreatedConsumer : IConsumer<IdentityCreated>
     public async Task Consume(ConsumeContext<IdentityCreated> ctx)
     {
         var user = new Domain.User();
+        user.FullName = ctx.Message.ProviderUserFullName;
+        
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
         await _publish.Publish(new UserCreated(user.Id, ctx.Message.IdentityId, ctx.Message.Provider, ctx.Message.ProviderUserId));

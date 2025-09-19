@@ -8,7 +8,25 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AlgoTecturer.TelegramBot.Contracts\AlgoTecturer.TelegramBot.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.4.1" />
+        <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.4.1" />
+        <PackageReference Include="MassTransit.Extensions.Logging" Version="5.5.6" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.1" />
+        <PackageReference Include="MediatR" Version="12.3.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+        <PackageReference Include="Deployf.Botf" Version="0.17.3" />
     </ItemGroup>
 
 </Project>

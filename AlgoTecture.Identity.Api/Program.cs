@@ -40,11 +40,6 @@ builder.Services.AddMediatR(configuration =>
 });
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<TelegramLoginValidator>();
-// builder.Services.AddLogging(configure => 
-// {
-//     configure.AddConsole(); 
-//     configure.SetMinimumLevel(LogLevel.Debug); 
-// });
 
 builder.Services.AddMassTransit(x =>
 {

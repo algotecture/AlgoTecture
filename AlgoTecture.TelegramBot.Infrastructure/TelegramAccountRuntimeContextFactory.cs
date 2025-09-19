@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AlgoTecture.TelegramBot.Infrastructure;
 
-public class UserRuntimeContextFactory : IDbContextFactory<TelegramAccountDbContext>
+public class TelegramAccountRuntimeContextFactory : IDbContextFactory<TelegramAccountDbContext>
 {
     public TelegramAccountDbContext CreateDbContext()
     {
