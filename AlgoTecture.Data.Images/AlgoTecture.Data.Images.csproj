@@ -19,6 +19,9 @@
       <None Update="Spaces\3379\10000000-d55c-46ee-b65b-137aa08b3c9a.jpg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Spaces\0\10000000-0000-46ee-b65b-137aa08b3c9a.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
