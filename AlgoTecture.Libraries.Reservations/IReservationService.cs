@@ -16,4 +16,7 @@ public interface IReservationService
     Task<Reservation?> UpdateReservationStatus(string reservationStatus, long reservationId);
     
     Task<Reservation?> GetByReservationUniqueIdentifier(string reservationUniqueIdentifier);
+
+    Task<IEnumerable<Reservation>> GetReserved(IEnumerable<long> spaceIds, string subSpaceId,
+        DateTime reservationFrom, DateTime reservationTo);
 }

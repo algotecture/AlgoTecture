@@ -17,5 +17,7 @@ public class BotState
     public string? UtilizationName { get; set; }
     
     public string? SpaceAddress { get; set; }
+
+    public string? CarNumber { get; set; }
     
 }

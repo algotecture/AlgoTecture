@@ -24,6 +24,13 @@ public class ReservationService : IReservationService
         return reservation;
     }
     
+    public async Task<IEnumerable<Reservation>> GetReserved(IEnumerable<long> spaceIds, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
+    {
+        var reservation = await _unitOfWork.Reservations.GetReserved(spaceIds, subSpaceId, reservationFrom, reservationTo);
+
+        return reservation;
+    }
+    
     public async Task<Reservation?> AddReservation(AddReservationModel addReservationModel, string pricePerTime = null)
     {
         if (addReservationModel == null) throw new ArgumentNullException(nameof(addReservationModel));

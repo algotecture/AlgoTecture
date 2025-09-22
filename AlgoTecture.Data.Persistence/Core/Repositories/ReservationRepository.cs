@@ -32,6 +32,26 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
 
         return result;
     }
+    
+    public async Task<IEnumerable<Reservation>> GetReserved(IEnumerable<long> spaceIds, string subSpaceId, DateTime reservationFrom, DateTime reservationTo)
+    {
+        var query = dbSet.AsQueryable();
+        if (!string.IsNullOrEmpty(subSpaceId))
+        {
+            query = query.Where(x => x.SubSpaceId == subSpaceId);
+        }
+        else
+        {
+            query = query.Where(x => spaceIds.Contains(x.SpaceId));
+        }
+        query = query.Where(x => x.ReservationStatus != ((ReservationStatusType)3).ToString());
+        query = query.Where(x => x.ReservationFromUtc <= reservationTo);
+        query = query.Where(x => x.ReservationToUtc >= reservationFrom);
+
+        var result =  await query.ToListAsync();
+
+        return result;
+    }
 
     public async Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId)
     {

@@ -11,4 +11,7 @@ public interface IReservationRepository : IGenericRepository<Reservation>
     Task<IEnumerable<Reservation>> GetReservationsBySpaceId(long spaceId);
     
     Task<Reservation?> GetByReservationUniqueIdentifier(string reservationUniqueIdentifier);
+
+    Task<IEnumerable<Reservation>> GetReserved(IEnumerable<long> spaceIds, string subSpaceId,
+        DateTime reservationFrom, DateTime reservationTo);
 }
