@@ -305,7 +305,14 @@ public class ParkingController : BotController, IParkingController
         var curNumbersStr = (await _unitOfWork.Users.GetByTelegramChatId(chatId.Value)).CarNumbers;
         if (string.IsNullOrEmpty(curNumbersStr))
         {
-            RowButton("Specify car number", Q(EnterCarNumber, botState));
+            PushL("Enter your car number");
+            await SendOrUpdate();
+            var carNumber = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
+            botState.CarNumber = carNumber;
+            RowButton("Reserve a space for this car number",
+                Q(PressMakeAReservation, botState));
+            await Send($"Car number: {carNumber}"); 
+            //RowButton("Specify car number", Q(EnterCarNumber, botState));
         }
         else
         {
@@ -381,7 +388,7 @@ public class ParkingController : BotController, IParkingController
             var reservedSpaces = await _reservationService.GetReserved(spacesByType.Select(x=>x.Id), null!, botState.StartRent.Value,
                 botState.EndRent.Value);
             
-            var availableSpaces = spacesByType.Select(x=>x.Id).Except(reservedSpaces.Select(x=>x.Id));
+            var availableSpaces = spacesByType.Select(x=>x.Id).Except(reservedSpaces.Select(x=>x.SpaceId)).ToList();
             if (!availableSpaces.Any())
             {
                _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} tried to reserve a space {botState.SpaceName} with id " +
@@ -421,7 +428,7 @@ public class ParkingController : BotController, IParkingController
                     PushL("🎉 Congratulations! Your space reservation has been successfully confirmed. " +
                           "You're all set to enjoy your reserved space. Please find the details below: \n\r \n\r" +
                           $"📅 Date: {botState.StartRent.Value:dddd, MMMM dd}\n\r" +
-                          $"⌚ Time: {botState.StartRent.Value:HH:mm}\n\r" +
+                          $"⌚ Time: {botState.StartRent.Value:HH:mm}\n\r" + " - " + $"{botState.EndRent.Value:HH:mm}" +
                           $"📍 Location: {spaceAddress}\n\r" +
                           $"📍 Parking Number: {parkingSpaceNumber}\n\r" +
                           $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
