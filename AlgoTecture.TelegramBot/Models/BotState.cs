@@ -19,5 +19,7 @@ public class BotState
     public string? SpaceAddress { get; set; }
 
     public string? CarNumber { get; set; }
+
+    public long? ReservationId { get; set; }
     
 }

@@ -178,7 +178,6 @@ public class ParkingController : BotController, IParkingController
         await SendOrUpdate();
     }
     
-
     [Action]
     public async Task PressToEnterTheStartEndTime(BotState botState, RentTimeState rentTimeState, DateTime? dateTime)
     {
@@ -312,7 +311,6 @@ public class ParkingController : BotController, IParkingController
             RowButton("Reserve a space for this car number",
                 Q(PressMakeAReservation, botState));
             await Send($"Car number: {carNumber}"); 
-            //RowButton("Specify car number", Q(EnterCarNumber, botState));
         }
         else
         {
@@ -332,36 +330,6 @@ public class ParkingController : BotController, IParkingController
             }
         }
         PushL("Specify car number");
-    }
-    
-    [Action]
-    public async Task EnterCarNumber(BotState botState)
-    {
-        
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-
-        if (botState.MessageId != default)
-        {
-            await Client.DeleteMessageAsync(chatId, botState.MessageId);
-            botState.MessageId = default;
-            botState.SpaceId = default;
-            botState.SpaceName = default;
-        }
-         
-        PushL("Enter car number");
-        await SendOrUpdate();
-         
-        var carNumber = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
-
-        var user = await _unitOfWork.TelegramUserInfos.GetByTelegramChatId(chatId.Value);
-         
-        _logger.LogInformation($"User {user?.TelegramUserFullName} entered text {carNumber} to car number");
-        
-        botState.CarNumber = carNumber;
-        RowButton(carNumber,
-            Q(PressMakeAReservation, botState));
-        await Send($"Car number"); 
     }
     
     [Action]
@@ -446,5 +414,4 @@ public class ParkingController : BotController, IParkingController
             throw;
         }
     }
-    
 }
