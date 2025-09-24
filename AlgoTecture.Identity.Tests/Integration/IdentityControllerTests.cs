@@ -22,7 +22,7 @@ public class IdentityControllerTests : IClassFixture<DatabaseFixture>
         await _databaseFixture.ResetDatabaseAsync();
         await _databaseFixture.SeedTestData(_databaseFixture.GetIdentityDbContextAsync());
         // Arrange
-        var data = new TelegramLoginCommand(123);
+        var data = new TelegramLoginCommand(123, "sss");
         var jsonContent = JsonConvert.SerializeObject(data);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         // Act

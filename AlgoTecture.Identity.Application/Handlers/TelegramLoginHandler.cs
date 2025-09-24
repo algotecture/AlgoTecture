@@ -36,7 +36,6 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
             await _publish.Publish(new IdentityCreated(identity.Id, provider, providerUserId, providerUserFullName), ct);
             
             await _db.SaveChangesAsync(ct);
-            throw new Exception();
         }
 
         return new TelegramLoginResult(identity.Id, identity.UserId);

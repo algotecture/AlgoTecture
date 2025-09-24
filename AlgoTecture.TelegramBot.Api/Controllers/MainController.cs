@@ -1,7 +1,9 @@
-﻿using AlgoTecture.HttpClient;
+﻿using System.Reflection;
+using AlgoTecture.HttpClient;
 using AlgoTecture.Identity.Contracts.Commands;
 using AlgoTecture.TelegramBot.Api.Interfaces;
 using Deployf.Botf;
+using Telegram.Bot.Framework;
 
 namespace AlgoTecture.TelegramBot.Api.Controllers;
 
@@ -26,16 +28,16 @@ public class MainController : BotController, IMainController
         var telegramLoginCommand = new TelegramLoginCommand(userId.Value, userFullName);
         
         var response = await _httpService.PostAsync<TelegramLoginCommand, TelegramLoginResult>(
-            "\"/identity/api/auth/telegram-login\"",
+            "http://localhost:5000/identity/api/auth/telegram-login",
             telegramLoginCommand
         );
 
 
         //_logger.LogInformation($"User {user.TelegramUserFullName} logged in by telegram bot");
-
+        Thread.Sleep(100000);
         PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
 
-        RowButton("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
-        RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
+       // RowButton("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
+      //  RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
     }
 }

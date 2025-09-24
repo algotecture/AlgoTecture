@@ -1,4 +1,7 @@
-﻿using AlgoTecture.TelegramBot.Infrastructure;
+﻿using AlgoTecture.TelegramBot.Api.Controllers;
+using AlgoTecture.TelegramBot.Api.Extensions;
+using AlgoTecture.TelegramBot.Api.Interfaces;
+using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
 using Deployf.Botf;
@@ -12,10 +15,8 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
-}
+builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
+builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
 
 var cfg = builder.Configuration;
 
@@ -41,11 +42,17 @@ builder.Services.AddMassTransit(x =>
 
         mq.ReceiveEndpoint("telegram-bot-user-created", e =>
         {
+            e.ConfigureConsumeTopology = false; 
+            e.Bind("user-created");           
             e.ConfigureConsumer<UserCreatedConsumer>(ctx);
         });
         mq.ConfigureEndpoints(ctx);
     });
 });
+builder = BotFExtensions.ConfigureBot(args, builder);
+
+builder.Services.AddTransient<IMainController, MainController>();
+builder.Services.AddTransient<IParkingController, ParkingController>();
 
 var app = builder.Build();
 

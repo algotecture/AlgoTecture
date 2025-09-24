@@ -13,10 +13,7 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
-}
+builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
 
 var cfg = builder.Configuration;
 
@@ -40,10 +37,7 @@ builder.Services.AddMassTransit(x =>
             h.Password(cfg["Rabbit:Password"] ?? "guest");
         });
         mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
-        mq.Message<UserCreated>(e =>
-        {
-            e.SetEntityName("user-created"); 
-        });
+        mq.Message<UserCreated>(e => { e.SetEntityName("user-created"); });
         mq.ReceiveEndpoint("user-service-identity-events", e =>
         {
             e.ConfigureConsumeTopology = false;
@@ -63,7 +57,8 @@ var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
 {
-    app.UseSwagger(); app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.Run();

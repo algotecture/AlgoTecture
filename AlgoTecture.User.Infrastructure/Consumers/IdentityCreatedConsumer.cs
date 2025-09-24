@@ -18,7 +18,7 @@ public class IdentityCreatedConsumer : IConsumer<IdentityCreated>
         user.FullName = ctx.Message.ProviderUserFullName;
         
         _db.Users.Add(user);
-        await _db.SaveChangesAsync();
+
         await _publish.Publish(new UserCreated(user.Id, ctx.Message.IdentityId, ctx.Message.Provider, ctx.Message.ProviderUserId));
     }    
 }
