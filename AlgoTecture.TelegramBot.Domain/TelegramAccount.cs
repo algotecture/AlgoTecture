@@ -2,7 +2,7 @@
 
 public class TelegramAccount
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
     public long? TelegramUserId { get; set; }
 
@@ -12,7 +12,7 @@ public class TelegramAccount
 
     public string? TelegramUserFullName { get; set; }
 
-    public long? LinkedUserId { get; set; }
+    public Guid? LinkedUserId { get; set; }
     
     public string? LanguageCode { get; set; }
     

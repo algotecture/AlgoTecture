@@ -5,9 +5,9 @@ namespace AlgoTecture.Space.Domain;
 
 public class Space
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
     
-    public long? ParentId { get; set; }
+    public Guid? ParentId { get; set; }
     
     public Space? Parent { get; set; }
     

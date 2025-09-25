@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Space.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,9 +35,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                 name: "Spaces",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ParentId = table.Column<long>(type: "bigint", nullable: true),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ParentId = table.Column<Guid>(type: "uuid", nullable: true),
                     SpaceTypeId = table.Column<int>(type: "integer", nullable: false),
                     SpaceAddress = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     Location = table.Column<Point>(type: "geography(Point)", nullable: true),
@@ -71,9 +70,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                 name: "SpaceImages",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SpaceId = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    SpaceId = table.Column<Guid>(type: "uuid", nullable: false),
                     Url = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     Path = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
                     ContentType = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),

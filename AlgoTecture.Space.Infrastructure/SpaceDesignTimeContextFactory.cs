@@ -13,7 +13,6 @@ public class SpaceDesignTimeContextFactory : IDesignTimeDbContextFactory<SpaceDb
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory()) 
             .AddJsonFile("appsettings.Development.json", optional: true)
-            .AddJsonFile("appsettings.json", optional: true) 
             .Build();
         
         var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");

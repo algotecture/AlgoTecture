@@ -24,11 +24,9 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
 
             modelBuilder.Entity("AlgoTecture.Identity.Domain.Identity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -40,8 +38,8 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
                     b.Property<string>("ProviderUserId")
                         .HasColumnType("text");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

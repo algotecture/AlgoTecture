@@ -24,11 +24,9 @@ namespace AlgoTecture.User.Infrastructure.Migrations
 
             modelBuilder.Entity("AlgoTecture.User.Domain.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CarNumbers")
                         .IsRequired()

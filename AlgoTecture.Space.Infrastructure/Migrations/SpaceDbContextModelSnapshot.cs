@@ -26,11 +26,9 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
 
             modelBuilder.Entity("AlgoTecture.Space.Domain.Space", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<decimal?>("Area")
                         .HasColumnType("numeric");
@@ -59,8 +57,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("SpaceAddress")
                         .HasMaxLength(500)
@@ -91,11 +89,9 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
 
             modelBuilder.Entity("AlgoTecture.Space.Domain.SpaceImage", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ContentType")
                         .HasMaxLength(100)
@@ -108,8 +104,8 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<long>("SpaceId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("SpaceId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Url")
                         .HasMaxLength(2000)

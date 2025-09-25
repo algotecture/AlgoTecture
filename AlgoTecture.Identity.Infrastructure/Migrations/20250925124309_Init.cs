@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,24 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
                 name: "ExternalId",
                 table: "Identities",
                 newName: "ProviderUserId");
+
+            migrationBuilder.AlterColumn<Guid>(
+                name: "UserId",
+                table: "Identities",
+                type: "uuid",
+                nullable: true,
+                oldClrType: typeof(long),
+                oldType: "bigint",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<Guid>(
+                name: "Id",
+                table: "Identities",
+                type: "uuid",
+                nullable: false,
+                oldClrType: typeof(long),
+                oldType: "bigint")
+                .OldAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             migrationBuilder.CreateTable(
                 name: "InboxState",
@@ -137,6 +155,24 @@ namespace AlgoTecture.Identity.Infrastructure.Migrations
                 name: "ProviderUserId",
                 table: "Identities",
                 newName: "ExternalId");
+
+            migrationBuilder.AlterColumn<long>(
+                name: "UserId",
+                table: "Identities",
+                type: "bigint",
+                nullable: true,
+                oldClrType: typeof(Guid),
+                oldType: "uuid",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<long>(
+                name: "Id",
+                table: "Identities",
+                type: "bigint",
+                nullable: false,
+                oldClrType: typeof(Guid),
+                oldType: "uuid")
+                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
         }
     }
 }

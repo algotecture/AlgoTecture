@@ -2,9 +2,9 @@
 
 public class SpaceImage
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
-    public long SpaceId { get; set; }
+    public Guid SpaceId { get; set; }
     
     public Space Space { get; set; } = null!;
 

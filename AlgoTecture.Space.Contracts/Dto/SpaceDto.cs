@@ -3,8 +3,8 @@
 namespace AlgoTecture.Space.Contracts.Dto;
 
 public record SpaceDto(
-    long Id,
-    long? ParentId,
+    Guid Id,
+    Guid? ParentId,
     string? ParentName,
     int SpaceTypeId,
     string SpaceTypeName,
@@ -21,7 +21,7 @@ public record SpaceDto(
     List<SpaceImageDto> Images);
 
 public record SpaceImageDto(
-    long Id,
+    Guid Id,
     string? Url,
     string? Path,
     string? ContentType,
