@@ -276,6 +276,7 @@ __pycache__
 
 appsettings.json
 appsettings.Development.json
+appsettings.Test.json
 app.db-shm
 app.db-wal
 .DS_Store

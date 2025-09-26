@@ -1,9 +1,10 @@
-﻿using AlgoTecture.TelegramBot.Domain;
+﻿using AlgoTecture.TelegramBot.Application;
+using AlgoTecture.TelegramBot.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlgoTecture.TelegramBot.Infrastructure.Persistence;
 
-public class TelegramAccountDbContext : DbContext
+public class TelegramAccountDbContext : DbContext, ITelegramAccountDbContext
 {
     public TelegramAccountDbContext(DbContextOptions<TelegramAccountDbContext> options) : base(options) {}
     

@@ -1,6 +1,8 @@
 ﻿using AlgoTecture.TelegramBot.Api.Controllers;
 using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Api.Interfaces;
+using AlgoTecture.TelegramBot.Application;
+using AlgoTecture.TelegramBot.Application.Services;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
@@ -22,6 +24,13 @@ var cfg = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis")
+                            ?? "localhost:6379"; 
+    options.InstanceName = "TelegramBot_"; // префикс ключей (чтобы отделить кеши разных сервисов)
+});
 
 builder.Services.AddDbContext<TelegramAccountDbContext>(options =>
 {
@@ -53,6 +62,10 @@ builder = BotFExtensions.ConfigureBot(args, builder);
 
 builder.Services.AddTransient<IMainController, MainController>();
 builder.Services.AddTransient<IParkingController, ParkingController>();
+
+builder.Services.AddScoped<IUserCache, UserCache>();
+builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
+builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
 
 var app = builder.Build();
 

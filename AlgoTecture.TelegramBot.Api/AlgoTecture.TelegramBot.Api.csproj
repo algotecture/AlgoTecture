@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
       <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj" />
       <ProjectReference Include="..\AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj" />
     </ItemGroup>
 
@@ -24,6 +25,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.11" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
         <PackageReference Include="Deployf.Botf" Version="0.17.3" />

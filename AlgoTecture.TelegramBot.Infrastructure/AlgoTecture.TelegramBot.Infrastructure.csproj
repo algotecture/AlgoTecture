@@ -21,6 +21,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj" />
       <ProjectReference Include="..\AlgoTecture.TelegramBot.Domain\AlgoTecture.TelegramBot.Domain.csproj" />
       <ProjectReference Include="..\AlgoTecture.User.Contracts\AlgoTecture.User.Contracts.csproj" />
     </ItemGroup>

@@ -15,10 +15,13 @@ public class IdentityCreatedConsumer : IConsumer<IdentityCreated>
     public async Task Consume(ConsumeContext<IdentityCreated> ctx)
     {
         var user = new Domain.User();
+        user.Id = Guid.NewGuid();
         user.FullName = ctx.Message.ProviderUserFullName;
         
         _db.Users.Add(user);
 
         await _publish.Publish(new UserCreated(user.Id, ctx.Message.IdentityId, ctx.Message.Provider, ctx.Message.ProviderUserId));
+        
+        await _db.SaveChangesAsync();
     }    
 }

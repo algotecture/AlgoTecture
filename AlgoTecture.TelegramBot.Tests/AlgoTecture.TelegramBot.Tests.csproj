@@ -20,5 +20,11 @@
       <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
       <ProjectReference Include="..\AlgoTecture.TelegramBot.Api\AlgoTecture.TelegramBot.Api.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.Test.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
     
 </Project>

@@ -24,9 +24,11 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
         var identity = await _db.Identities
             .FirstOrDefaultAsync(x => x.Provider == provider && x.ProviderUserId == providerUserId, ct);
 
+        var newIdentityId = Guid.NewGuid();
         if (identity is null)
         {
             identity = new Domain.Identity {
+                Id = newIdentityId,
                 Provider = provider,
                 ProviderUserId = providerUserId,
                 CreatedAt = DateTime.UtcNow
@@ -38,6 +40,6 @@ public class TelegramLoginHandler : IRequestHandler<TelegramLoginCommand, Telegr
             await _db.SaveChangesAsync(ct);
         }
 
-        return new TelegramLoginResult(identity.Id, identity.UserId);
+        return new TelegramLoginResult(newIdentityId, identity.UserId);
     }
 }   
