@@ -82,6 +82,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecturer.TelegramBot.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Tests", "AlgoTecture.TelegramBot.Tests\AlgoTecture.TelegramBot.Tests.csproj", "{9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Space.Providers", "AlgoTecture.Space.Providers\AlgoTecture.Space.Providers.csproj", "{69E35B19-8628-45F8-89AC-9D70DB0643AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -212,6 +214,10 @@ Global
 		{9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E35B19-8628-45F8-89AC-9D70DB0643AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E35B19-8628-45F8-89AC-9D70DB0643AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E35B19-8628-45F8-89AC-9D70DB0643AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E35B19-8628-45F8-89AC-9D70DB0643AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF9E3BCC-102B-4EB6-B1AC-5EA325450989} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
@@ -252,5 +258,6 @@ Global
 		{99773860-796B-43C6-9548-5C4A10605C2A} = {9D73D590-A80D-4249-8905-B29DEE2E5FE9}
 		{7FA803B0-939F-45CC-AB83-D58AB0A8742E} = {C95AACF2-C2DF-42E4-9376-544F8944AE92}
 		{9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A} = {59F57283-AB7D-4BE2-AC3C-19CD0CC3B12A}
+		{69E35B19-8628-45F8-89AC-9D70DB0643AB} = {D6DB7F4E-13A6-489B-8E68-7E2C6B4CFC9D}
 	EndGlobalSection
 EndGlobal
