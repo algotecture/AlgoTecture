@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Deployf.Botf" Version="0.17.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+      <PackageReference Include="NetTopologySuite" Version="2.6.0" />
     </ItemGroup>
 
     <ItemGroup>

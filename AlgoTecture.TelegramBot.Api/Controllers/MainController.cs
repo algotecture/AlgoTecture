@@ -1,11 +1,10 @@
 ﻿using AlgoTecture.HttpClient;
-using AlgoTecture.TelegramBot.Api.Interfaces;
 using AlgoTecture.TelegramBot.Application.Services;
 using Deployf.Botf;
 
 namespace AlgoTecture.TelegramBot.Api.Controllers;
 
-public class MainController : BotController, IMainController
+public class MainController : BotController
 {
     private readonly HttpService _httpService;
     private readonly ITelegramBotService _telegramBotService;
@@ -36,10 +35,10 @@ public class MainController : BotController, IMainController
         if (linkedUserId == Guid.Empty) return;
         //Idustriestrasse 24 8305
         Thread.Sleep(100000);
-        PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
-
-        //RowButton("🔍 Explore & 📌 Reserve Spaces", Q(PressToRentButton));
-        //RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
+        PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
+        RowButton("🚗 Reserve a parking", Q<ParkingController>(c => c.StartParkingFlow));
+        //RowButton("🔍 Reserve a parking", Q(_parkingController.PressToEnterTheStartEndTime()));
+        //RowButton("📅 Manage reservations", Q(PressToFindReservationsButton));
     }
     
     [On(Handle.Exception)]

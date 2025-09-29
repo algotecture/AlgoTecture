@@ -1,6 +1,4 @@
-﻿using AlgoTecture.TelegramBot.Api.Controllers;
-using AlgoTecture.TelegramBot.Api.Extensions;
-using AlgoTecture.TelegramBot.Api.Interfaces;
+﻿using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
 using AlgoTecture.TelegramBot.Infrastructure;
@@ -60,13 +58,11 @@ builder.Services.AddMassTransit(x =>
 });
 builder = BotFExtensions.ConfigureBot(args, builder);
 
-builder.Services.AddTransient<IMainController, MainController>();
-builder.Services.AddTransient<IParkingController, ParkingController>();
-
 builder.Services.AddScoped<IUserCache, UserCache>();
 builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
 builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
 
 var app = builder.Build();
 
