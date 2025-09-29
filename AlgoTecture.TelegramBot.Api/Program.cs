@@ -66,6 +66,7 @@ builder.Services.AddTransient<IParkingController, ParkingController>();
 builder.Services.AddScoped<IUserCache, UserCache>();
 builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
 builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
+builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
 var app = builder.Build();
 
