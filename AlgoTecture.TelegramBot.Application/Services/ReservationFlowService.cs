@@ -19,23 +19,23 @@ public class ReservationFlowService : IReservationFlowService
         var parsed = DateTimeParser.GetDateTimeUtc(selectedDate, timeText);
 
         if (stage == TimeSelectionStage.Start)
-            state.PendingStartRentUtc = parsed;
+            state.CurrentReservation.PendingStartRentUtc = parsed;
         else if (stage == TimeSelectionStage.End)
-            state.PendingEndRentUtc = parsed;
+            state.CurrentReservation.PendingEndRentUtc = parsed;
     }
 
     public void ValidateRentalPeriod(BotSessionState state)
     {
         var now = DateTime.UtcNow;
 
-        if (state.PendingEndRentUtc != null && state.PendingEndRentUtc <= now)
-            state.PendingEndRentUtc = null;
+        if (state.CurrentReservation.PendingEndRentUtc != null && state.CurrentReservation.PendingEndRentUtc <= now)
+            state.CurrentReservation.PendingEndRentUtc = null;
 
-        if (state.PendingStartRentUtc != null && state.PendingStartRentUtc <= now)
-            state.PendingStartRentUtc = null;
+        if (state.CurrentReservation.PendingStartRentUtc != null && state.CurrentReservation.PendingStartRentUtc <= now)
+            state.CurrentReservation.PendingStartRentUtc = null;
 
-        if (state.PendingStartRentUtc != null && state.PendingEndRentUtc!= null &&
-            state.PendingEndRentUtc <= state.PendingStartRentUtc)
-            state.PendingEndRentUtc = null;
+        if (state.CurrentReservation.PendingStartRentUtc != null && state.CurrentReservation.PendingEndRentUtc!= null &&
+            state.CurrentReservation.PendingEndRentUtc <= state.CurrentReservation.PendingStartRentUtc)
+            state.CurrentReservation.PendingEndRentUtc = null;
     }
 }

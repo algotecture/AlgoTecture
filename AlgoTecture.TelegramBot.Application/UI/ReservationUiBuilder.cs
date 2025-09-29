@@ -6,25 +6,31 @@ namespace AlgoTecture.TelegramBot.Application.UI;
 
 public class ReservationUiBuilder
 {
+    private readonly TimeZoneInfo _zurichTz = TimeZoneInfo.FindSystemTimeZoneById("Europe/Zurich");
     public void BuildSummaryButtons(
         BotController ctrl,
         BotSessionState state,
         Func<BotSessionState, TimeSelectionStage, Delegate> dateAction,
         Func<BotSessionState, Delegate> reservationAction,
-        Func<BotSessionState, Delegate> backAction)
+        Func<object> backAction)
     {
-        var startForUser = state.PendingStartRentUtc?.AddHours(2); // demo shift
-        var endForUser = state.PendingEndRentUtc?.AddHours(2);
+        DateTime? startForUser = state.CurrentReservation.PendingStartRentUtc.HasValue
+            ? TimeZoneInfo.ConvertTimeFromUtc(state.CurrentReservation.PendingStartRentUtc.Value, _zurichTz)
+            : null;
+
+        DateTime? endForUser = state.CurrentReservation.PendingEndRentUtc.HasValue
+            ? TimeZoneInfo.ConvertTimeFromUtc(state.CurrentReservation.PendingEndRentUtc.Value, _zurichTz)
+            : null;
 
         ctrl.RowButton(
-            state.PendingStartRentUtc != null ? $"{startForUser:dddd, MMMM dd yyyy HH:mm}" : "Rental start time",
+            state.CurrentReservation.PendingStartRentUtc != null ? $"{startForUser:dddd, MMMM dd yyyy HH:mm}" : "Rental start time",
             ctrl.Q(dateAction(state, TimeSelectionStage.Start)));
 
         ctrl.RowButton(
-            state.PendingEndRentUtc != null ? $"{endForUser:dddd, MMMM dd yyyy HH:mm}" : "Rental end time",
+            state.CurrentReservation.PendingEndRentUtc != null ? $"{endForUser:dddd, MMMM dd yyyy HH:mm}" : "Rental end time",
             ctrl.Q(dateAction(state, TimeSelectionStage.End)));
 
-        if (state.PendingStartRentUtc != null && state.PendingEndRentUtc != null && state.SelectedSpaceId != default)
+        if (state.CurrentReservation.PendingStartRentUtc != null && state.CurrentReservation.PendingEndRentUtc != null && state.CurrentReservation.SelectedSpaceId != default)
         {
             // var spec = new PriceSpecification { PricePerTime = "2", PriceCurrency = "CHF" };
             // var total = _priceCalculator.CalculateTotalPriceToReservation(
@@ -38,6 +44,6 @@ public class ReservationUiBuilder
                 ctrl.Q(reservationAction(state)));
         }
 
-        ctrl.RowButton("🔙 Go Back", ctrl.Q(backAction(state)));
+        ctrl.RowButton("🔙 Go Back", ctrl.Q(backAction));
     }
 }

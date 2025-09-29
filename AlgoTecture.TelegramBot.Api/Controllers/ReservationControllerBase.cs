@@ -13,6 +13,7 @@ public class ReservationControllerBase : BotController
     private readonly ReservationFlowService _flowService;
     private readonly ReservationUiBuilder _uiBuilder;
 
+
     protected ReservationControllerBase(ReservationFlowService flowService, ReservationUiBuilder uiBuilder)
     {
         _flowService = flowService;
@@ -36,10 +37,10 @@ public class ReservationControllerBase : BotController
             RowButton("▶️ +1h", Q(SetStartTimeQuick, state, TimeSpan.FromHours(1)));
             RowButton("▶️ +2h", Q(SetStartTimeQuick, state, TimeSpan.FromHours(2)));
 
-            RowButton("⌨️ Enter manually (in HH:mm format e.g., 14:15)", Q(EnterStartTimeManual, state));
+            RowButton("⌨️ Enter manually", Q(EnterStartTimeManual, state));
 
             await SendOrUpdate();
-            
+
             // PushL("⏰ Enter the rental time in HH:mm format (e.g., 14:15)");
             // await Send();
             // userInputTime = await AwaitText(() => Send("⚠️ Timeout. Use /start to try again"));
@@ -47,14 +48,14 @@ public class ReservationControllerBase : BotController
 
         _flowService.ApplyTimeSelection(state, stage, selectedDate, userInputTime);
         _flowService.ValidateRentalPeriod(state);
-
-        // _uiBuilder.BuildSummaryButtons(
-        //     this,
-        //     state,
-        //     (s, stage) => (Func<Task>)(() => SelectDate(s, stage)),
-        //   //  s => (Func<Task>)(() => PressMakeAReservation(s)),
-        //   //  s => (Func<Task>)(() => EnterAddress(s))
-        // );
+        Q<ParkingController>(c => c.StartParkingFlow))
+        _uiBuilder.BuildSummaryButtons(
+            this,
+            state,
+            (s, timeSelectionStage) => (Func<Task>)(() => SelectDate(s, timeSelectionStage)),
+            s => (Func<Task>)(() => PressMakeAReservation(s)),
+            () => Q<MainController>(c => c.Start)
+        );
 
         if (string.IsNullOrEmpty(userInputTime))
             await SendOrUpdate();
@@ -69,7 +70,8 @@ public class ReservationControllerBase : BotController
     }
 
     [Action]
-    public async Task ShowCalendar(string navigationState, BotSessionState state, bool isNavigation, TimeSelectionStage stage)
+    public async Task ShowCalendar(string navigationState, BotSessionState state, bool isNavigation,
+        TimeSelectionStage stage)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
@@ -92,11 +94,11 @@ public class ReservationControllerBase : BotController
         PushL("📅 Pick the date");
         await SendOrUpdate();
     }
-    
+
     [Action]
     private Task SetStartTimeQuick(BotSessionState state, TimeSpan offset)
     {
-        state.PendingStartRentUtc = DateTime.UtcNow.Add(offset);
+        state.CurrentReservation.PendingStartRentUtc = DateTime.UtcNow.Add(offset);
         return SelectRentalTime(state, TimeSelectionStage.End, null);
     }
 
@@ -105,7 +107,7 @@ public class ReservationControllerBase : BotController
     {
         PushL("⌨️ Enter time in HH:mm format (e.g., 14:15)");
         var input = await AwaitText();
-        state.PendingStartRentUtc = DateTimeParser.GetDateTimeUtc(DateTime.UtcNow, input);
+        state.CurrentReservation.PendingStartRentUtc = DateTimeParser.GetDateTimeUtc(DateTime.UtcNow, input);
         await SelectRentalTime(state, TimeSelectionStage.End, null);
     }
 

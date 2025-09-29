@@ -8,13 +8,23 @@ namespace AlgoTecture.TelegramBot.Api.Controllers;
 
 public class ParkingController : ReservationControllerBase
 {
-    public ParkingController(ReservationFlowService flow, ReservationUiBuilder ui) 
-        : base(flow, ui) { }
+    public ParkingController(ReservationFlowService flow, ReservationUiBuilder ui)
+        : base(flow, ui)
+    {
+    }
+
 
     [Action("/parking", "reserve parking")]
     public async Task StartParkingFlow()
     {
-        var state = new BotSessionState { SelectedSpaceTypeId = 1 };
-        await SelectRentalTime(state, TimeSelectionStage.None, null);
+        var state = new BotSessionState
+            { CurrentReservation = new ParkingReservationDraft { SelectedSpaceTypeId = 1 } };
+
+        RowButton("⏱️ When to park?", Q(SelectRentalTime, state, TimeSelectionStage.None, null!));
+        //RowButton("📍 Where to park?", Q(_parkingController.PressToEnterTheStartEndTime()));
+
+        RowButton("↩️ Go back", Q<MainController>(m => m.Start));
+
+        await SendOrUpdate();
     }
 }
