@@ -141,8 +141,8 @@ public class CityParkingController :  BotController, ICityParkingController
                 {
                     var tamModel = new TelegramToAddressModel
                     {
-                        latitude = nearestParkingSpace.Value.Latitude,
-                        longitude = nearestParkingSpace.Value.Longitude
+                        latitude = nearestParkingSpace.Value.Latitude.ToString(CultureInfo.InvariantCulture),
+                        longitude = nearestParkingSpace.Value.Longitude.ToString(CultureInfo.InvariantCulture)
                     };
                     //
                     RowButton($"{counter}. In {nearestParkingSpace.Key} meters. Tap to details",
@@ -192,7 +192,7 @@ public class CityParkingController :  BotController, ICityParkingController
         
         if (botState.MessageId != default)
         {
-            await Client.DeleteMessageAsync(chatId, botState.MessageId);
+         //   await Client.DeleteMessageAsync(chatId, botState.MessageId);
             botState.MessageId = default;
         }
 

@@ -64,13 +64,13 @@ public class BoatController : BotController, IBoatController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        if (botState.MessageId != default)
-        {
-            await Client.DeleteMessageAsync(chatId, botState.MessageId);
-            botState.MessageId = default;
-            botState.SpaceId = default;
-            botState.SpaceName = default;
-        }
+        // if (botState.MessageId != default)
+        // {
+        //     await Client.DeleteMessageAsync(chatId, botState.MessageId);
+        //     botState.MessageId = default;
+        //     botState.SpaceId = default;
+        //     botState.SpaceName = default;
+        // }
         
         var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
 
@@ -106,7 +106,7 @@ public class BoatController : BotController, IBoatController
         
         if (botState.MessageId != default)
         {
-            await Client.DeleteMessageAsync(chatId, botState.MessageId);
+      //      await Client.DeleteMessageAsync(chatId, botState.MessageId);
             botState.MessageId = default;
         }
 

@@ -31,6 +31,7 @@ public class MainController : BotController, IMainController
     private readonly ISpaceService _spaceService;
     private readonly IParkingController _parkingController;
     private readonly ICityParkingController _cityParkingController;
+    private readonly TimeZoneInfo _zurichTz = TimeZoneInfo.FindSystemTimeZoneById("Europe/Zurich");
 
     private Dictionary<string, string> utilizationTypeToSmile = new()
     {
@@ -78,12 +79,12 @@ public class MainController : BotController, IMainController
 
         _logger.LogInformation($"User {user.TelegramUserFullName} logged in by telegram bot");
 
-        PushL("I am your assistant 💁‍♀️ in searching and renting sustainable spaces around the globe 🌍 (test mode)");
+        PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
 
         var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
-        RowButton("🔍 Explore & 📌 Reserve Spaces",
-            Q(parkingControllerService.EnterAddress, new BotState { UtilizationTypeId = 15 }));
-        RowButton("📅 Control & 📝 Manage Reservations", Q(PressToFindReservationsButton));
+        RowButton("🔍 reserve a parking",
+            Q(parkingControllerService.PressToStartParkingButton, new BotState { UtilizationTypeId = 15 }));
+        RowButton("📅 manage reservations", Q(PressToFindReservationsButton));
     }
 
     [Action]
@@ -102,7 +103,7 @@ public class MainController : BotController, IMainController
             var reservationToTelegram = new ReservationToTelegramOut
             {
                 Id = reservation.Id,
-                DateTimeFrom = $"{reservation.ReservationFromUtc!.Value + TimeSpan.FromHours(2):dd-MM-yyyy HH:mm}",
+                DateTimeFrom = $"{TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dd-MM-yyyy HH:mm}", 
                 Description = reservation.Description,
                 TotlaPrice = reservation.TotalPrice,
                 PriceCurrency = reservation.PriceSpecification?.PriceCurrency,
@@ -134,7 +135,12 @@ public class MainController : BotController, IMainController
         var space = await _spaceGetter.GetById(reservation.SpaceId);
         var spaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(space.SpaceProperty);
 
-
+        var curNumbersStr = (await _unitOfWork.Users.GetByTelegramChatId(chatId.Value)).CarNumbers;
+        if (!string.IsNullOrEmpty(curNumbersStr))
+        {
+            var carNumbers = curNumbersStr.Split(";").ToList();
+            botState.CarNumber = carNumbers[0];
+        }
         var imageNames = spaceProperty.Images;
 
         if (imageNames != null && imageNames.Any() && space.UtilizationTypeId == 15)
@@ -157,10 +163,11 @@ public class MainController : BotController, IMainController
             botState.MessageId = message.MessageId;
         }
 
-        PushL($"📅 Reservation date: {reservation.ReservationToUtc.Value + TimeSpan.FromHours(2):dddd, MMMM dd}\n\r" +
-              $"⌚ Time: {reservation.ReservationFromUtc.Value + TimeSpan.FromHours(2):HH:mm}" + " - " + $"{reservation.ReservationToUtc.Value + TimeSpan.FromHours(2):HH:mm}\n\r" +
+        PushL($"📅 Reservation date: {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n\r" +
+              $"⌚ Time: {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm}" + " - " + $"{TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n\r" +
               $"📍 Location: {space.SpaceAddress}\n\r" +
               $"📍 Parking Number: {spaceProperty.Name}\n\r" +
+              $"📍 Car Number: {botState.CarNumber}\n\r" +
               $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
               "If you have any questions or need to make changes to your reservation, " +
               "please feel free to contact our support team at @AlgoTecture." +
@@ -185,7 +192,7 @@ public class MainController : BotController, IMainController
             var targetSpaces = await _spaceGetter.GetByType(botState.UtilizationTypeId);
 
             var nearestParkingSpaces = await _spaceService.GetNearestSpaces(targetSpaces,
-                telegramToAddressModel.latitude, telegramToAddressModel.longitude, 7);
+                Convert.ToDouble(telegramToAddressModel.latitude), Convert.ToDouble(telegramToAddressModel.longitude), 7);
 
             if (nearestParkingSpaces.Any())
             {
@@ -195,8 +202,8 @@ public class MainController : BotController, IMainController
                 {
                     var tamModel = new TelegramToAddressModel
                     {
-                        latitude = nearestParkingSpace.Value.Latitude,
-                        longitude = nearestParkingSpace.Value.Longitude
+                        latitude = nearestParkingSpace.Value.Latitude.ToString(CultureInfo.InvariantCulture),
+                        longitude = nearestParkingSpace.Value.Longitude.ToString(CultureInfo.InvariantCulture)
                     };
                     RowButton(
                         $"Parking at {telegramToAddressModel.Address} in {nearestParkingSpace.Key} meters. Tap to details",
@@ -217,7 +224,7 @@ public class MainController : BotController, IMainController
 
         else
         {
-            var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
+            var targetSpace = await _spaceGetter.GetByCoordinates(Convert.ToDouble(targetAddress!.latitude), Convert.ToDouble(targetAddress.longitude));
 
             _telegramToAddressResolver.RemoveAddressListByChatId(chatId.Value);
 
@@ -277,8 +284,8 @@ public class MainController : BotController, IMainController
             var telegramToAddressModel = new TelegramToAddressModel
             {
                 FeatureId = label.featureId,
-                latitude = label.lat,
-                longitude = label.lon,
+                latitude = label.lat.ToString(CultureInfo.InvariantCulture),
+                longitude = label.lon.ToString(CultureInfo.InvariantCulture),
                 Address = label.label
             };
             telegramToAddressList.Add(telegramToAddressModel);

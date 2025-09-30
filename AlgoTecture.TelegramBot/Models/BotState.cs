@@ -4,7 +4,7 @@ public class BotState
 {
     public int UtilizationTypeId { get; set; }
 
-    public int MessageId { get; set; }
+    public long MessageId { get; set; }
 
     public long SpaceId { get; set; }
 

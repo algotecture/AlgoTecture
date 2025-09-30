@@ -1,3 +1,4 @@
+using System.Globalization;
 using AlgoTecture.Data.Persistence.Core.Interfaces;
 using AlgoTecture.Domain.Models;
 using AlgoTecture.Domain.Models.RepositoryModels;
@@ -73,8 +74,8 @@ public class TelegramBotTestController : BotController
             var telegramToAddressModel = new TelegramToAddressModel
             {
                 FeatureId = label.featureId,
-                latitude = label.lat,
-                longitude = label.lon,
+             //   latitude = label.lat,
+            //    longitude = label.lon,
                 Address = label.label
             };
             telegramToAddressList.Add(telegramToAddressModel);
@@ -102,15 +103,15 @@ public class TelegramBotTestController : BotController
         var targetAddress = _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)?.FirstOrDefault(x => x.FeatureId == geoAdminFeatureId);
 
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
-        var targetSpace = await _spaceGetter.GetByCoordinates(targetAddress!.latitude, targetAddress.longitude);
+        var targetSpace = await _spaceGetter.GetByCoordinates(Convert.ToDouble(targetAddress.latitude), Convert.ToDouble(targetAddress.longitude));
         //only for parking
         if (targetSpace == null)
         {
             var newSpace = new Space
             {
                 UtilizationTypeId = 1,
-                Latitude = targetAddress.latitude,
-                Longitude = targetAddress.longitude,
+             //   Latitude = targetAddress.latitude,
+             //   Longitude = targetAddress.longitude,
                 SpaceAddress = targetAddress.Address!
             };
             var spaceEntity = await _unitOfWork.Spaces.Add(newSpace);
