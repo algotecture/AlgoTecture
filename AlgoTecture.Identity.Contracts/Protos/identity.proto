@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package identity.grpc;
+
+message TelegramLoginRequest {
+  int64 telegram_user_id = 1;
+  string telegram_user_full_name = 2;
+}
+
+message TelegramLoginResponse {
+  string identity_id = 1; 
+  string user_id = 2;     
+}
+
+service TelegramAuth {
+  rpc TelegramLogin (TelegramLoginRequest) returns (TelegramLoginResponse);
+}

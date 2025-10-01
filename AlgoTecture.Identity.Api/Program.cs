@@ -3,6 +3,7 @@ using AlgoTecture.Identity.Contracts.Events;
 using AlgoTecture.Identity.Infrastructure;
 using AlgoTecture.Identity.Infrastructure.Consumers;
 using AlgoTecture.Identity.Infrastructure.Persistence;
+using AlgoTecture.IdentityService.Grpc;
 using AlgoTecture.IdentityService.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -30,6 +31,8 @@ builder.Services.AddDbContext<IdentityDbContext>(options =>
 {
     IdentityRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<IdentityDbContext>)options);
 });
+
+builder.Services.AddGrpc();
 
 builder.Services.AddMediatR(configuration => 
 {
@@ -70,6 +73,7 @@ builder.Services.AddMassTransit(x =>
 });
 
 var app = builder.Build();
+app.MapGrpcService<TelegramAuthGrpcService>();
 
 app.MapControllers();
 
