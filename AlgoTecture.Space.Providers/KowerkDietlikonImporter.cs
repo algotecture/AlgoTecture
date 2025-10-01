@@ -19,7 +19,8 @@ public class KowerkDietlikonImporter : ISpaceProviderImporter
          Location = new Point(47.413565, 8.620584),
          Description = "Main building with underground and street parking",
          DataSource = ProviderName,
-         ExternalId = null
+         ExternalId = null,
+         TimeZoneId = "Europe/Zurich"
       };
 
       var spaces = new List<Domain.Space> { building };
@@ -38,7 +39,8 @@ public class KowerkDietlikonImporter : ISpaceProviderImporter
             Location = building.Location,
             DataSource = ProviderName,
             ExternalId = null,
-            SpaceProperties = """{ "Level": -1, "Covered": true, "Type": "Underground" }"""
+            SpaceProperties = """{ "Level": -1, "Covered": true, "Type": "Underground" }""",
+            TimeZoneId = "Europe/Zurich"
          });
       }
 
@@ -56,7 +58,8 @@ public class KowerkDietlikonImporter : ISpaceProviderImporter
             Location = building.Location,
             DataSource = ProviderName,
             ExternalId = null,
-            SpaceProperties = """{ "Type": "Street", "Covered": false }"""
+            SpaceProperties = """{ "Type": "Street", "Covered": false }""",
+            TimeZoneId = "Europe/Zurich"
          });
       }
 

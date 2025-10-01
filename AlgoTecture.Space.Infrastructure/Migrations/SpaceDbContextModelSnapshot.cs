@@ -70,6 +70,13 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     b.Property<int>("SpaceTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("TimeZoneId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasDefaultValue("UTC");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Location");

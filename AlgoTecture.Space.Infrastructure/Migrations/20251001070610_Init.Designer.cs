@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlgoTecture.Space.Infrastructure.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    [Migration("20250925124322_Init")]
+    [Migration("20251001070610_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -72,6 +72,13 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
 
                     b.Property<int>("SpaceTypeId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("TimeZoneId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasDefaultValue("UTC");
 
                     b.HasKey("Id");
 

@@ -47,6 +47,7 @@ namespace AlgoTecture.Space.Infrastructure.Migrations
                     DataSource = table.Column<string>(type: "text", nullable: true),
                     ExternalId = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    TimeZoneId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: "UTC"),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

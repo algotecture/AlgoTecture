@@ -61,6 +61,12 @@ public class SpaceDbContext : DbContext
                 .IsRequired(false);
 
             entity.Property(s => s.CreatedAt);
+
+            entity.Property(s => s.TimeZoneId)
+                .HasMaxLength(100)
+                .IsRequired()
+                .HasDefaultValue("UTC");
+
         });
 
         b.Entity<SpaceType>(entity =>

@@ -37,5 +37,7 @@ public class Space
     
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 
+    public string TimeZoneId { get; set; } = "UTC";
+
     public bool IsDeleted { get; set; }
 }
