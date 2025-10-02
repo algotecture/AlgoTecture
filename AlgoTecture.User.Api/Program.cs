@@ -1,19 +1,14 @@
-﻿using System;
-using AlgoTecture.User.Contracts.Events;
+﻿using AlgoTecture.User.Contracts.Events;
 using AlgoTecture.User.Infrastructure;
 using AlgoTecture.User.Infrastructure.Consumers;
 using AlgoTecture.User.Infrastructure.Persistence;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
 
 var cfg = builder.Configuration;
 

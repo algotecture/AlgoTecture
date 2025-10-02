@@ -1,6 +1,8 @@
-﻿using AlgoTecture.TelegramBot.Api.Extensions;
+﻿using AlgoTecture.HttpClient;
+using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
+using AlgoTecture.TelegramBot.Application.UI;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
@@ -9,6 +11,7 @@ using Grpc.Net.Client;
 using Identity.Grpc;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +19,7 @@ using Microsoft.Extensions.Hosting;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Configuration.AddJsonFile("hosting.json", optional: true, reloadOnChange: true);
-builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+builder.WebHost.UseConfiguration(builder.Configuration);
 
 var cfg = builder.Configuration;
 
@@ -29,7 +30,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis")
                             ?? "localhost:6379"; 
-    options.InstanceName = "TelegramBot_"; // префикс ключей (чтобы отделить кеши разных сервисов)
+    options.InstanceName = "TelegramBot_"; 
 });
 
 builder.Services.AddDbContext<TelegramAccountDbContext>(options =>
@@ -60,11 +61,14 @@ builder.Services.AddMassTransit(x =>
 });
 builder = BotFExtensions.ConfigureBot(args, builder);
 
+builder.Services.AddHttpClient<HttpService>();
 builder.Services.AddScoped<IUserCache, UserCache>();
 builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
 builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
+builder.Services.AddScoped<ReservationUiBuilder>();
+
 
 builder.Services.AddSingleton(sp =>
 {

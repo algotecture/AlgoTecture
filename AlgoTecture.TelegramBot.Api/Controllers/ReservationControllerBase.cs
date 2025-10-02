@@ -14,7 +14,7 @@ public class ReservationControllerBase : BotController
     private readonly ReservationUiBuilder _uiBuilder;
 
 
-    protected ReservationControllerBase(ReservationFlowService flowService, ReservationUiBuilder uiBuilder)
+    public ReservationControllerBase(ReservationFlowService flowService, ReservationUiBuilder uiBuilder)
     {
         _flowService = flowService;
         _uiBuilder = uiBuilder;
@@ -48,19 +48,19 @@ public class ReservationControllerBase : BotController
 
         _flowService.ApplyTimeSelection(state, stage, selectedDate, userInputTime);
         _flowService.ValidateRentalPeriod(state);
-        Q<ParkingController>(c => c.StartParkingFlow))
-        _uiBuilder.BuildSummaryButtons(
-            this,
-            state,
-            (s, timeSelectionStage) => (Func<Task>)(() => SelectDate(s, timeSelectionStage)),
-            s => (Func<Task>)(() => PressMakeAReservation(s)),
-            () => Q<MainController>(c => c.Start)
-        );
-
-        if (string.IsNullOrEmpty(userInputTime))
-            await SendOrUpdate();
-        else
-            await Send("Reservation");
+        // Q<ParkingController>(c => c.StartParkingFlow))
+        // _uiBuilder.BuildSummaryButtons(
+        //     this,
+        //     state,
+        //     (s, timeSelectionStage) => (Func<Task>)(() => SelectDate(s, timeSelectionStage)),
+        //     s => (Func<Task>)(() => null),
+        //     () => Q<MainController>(c => c.Start)
+        // );
+        //
+        // if (string.IsNullOrEmpty(userInputTime))
+        //     await SendOrUpdate();
+        // else
+        //     await Send("Reservation");
     }
 
     [Action]

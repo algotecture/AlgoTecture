@@ -4,6 +4,8 @@ using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
+using Grpc.Net.Client;
+using Identity.Grpc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +35,15 @@ public class MainControllerTests
             .AddJsonFile("appsettings.Test.json", optional: false) // отдельный конфиг для тестов
             .AddEnvironmentVariables()
             .Build();
+        
+        services.AddSingleton(sp =>
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            // Здесь можно направить сразу на Identity.Api (если он поднят через Testcontainers или локально)
+            var channel = GrpcChannel.ForAddress("http://localhost:5001"); 
+            return new TelegramAuth.TelegramAuthClient(channel);
+        });
 
         services.AddSingleton<IConfiguration>(configuration);
         var connectionString = configuration.GetConnectionString("AlgoTecturePostgresTelegramAccountTest");
@@ -45,6 +56,7 @@ public class MainControllerTests
         // Сервисы
         services.AddHttpClient<HttpService>();
         services.AddScoped<ITelegramBotService, TelegramBotService>();
+        services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
         // Контроллер (тоже через DI)
         services.AddScoped<MainController>();

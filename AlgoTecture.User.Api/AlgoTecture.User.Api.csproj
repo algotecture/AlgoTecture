@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="hosting.json">
+      <None Update="appsettings.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
