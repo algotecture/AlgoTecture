@@ -1,11 +1,9 @@
-﻿
-using AlgoTecture.Space.Infrastructure;
+﻿using AlgoTecture.Space.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-Console.WriteLine($"{nameof(AlgoTecture.Space.Infrastructure)} has been started");
+Console.WriteLine($"{typeof(Program).Assembly.GetName().Name} has been started");
 
 var context = new SpaceDesignTimeContextFactory().CreateDbContext([]);
-await context.Database.EnsureCreatedAsync();
 await context.Database.MigrateAsync();
 
 Console.WriteLine("done");
