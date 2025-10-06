@@ -7,6 +7,7 @@ namespace AlgoTecture.TelegramBot.Application.Services;
 public interface IReservationFlowService
 {
     void ApplyTimeSelection(BotSessionState state, TimeSelectionStage stage, DateTime? selectedDate, string? timeText);
+    void ValidateRentalPeriod(BotSessionState state);
 }
 
 public class ReservationFlowService : IReservationFlowService
