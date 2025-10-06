@@ -2,6 +2,7 @@
 using AlgoTecture.TelegramBot.Api.Controllers;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
+using AlgoTecture.TelegramBot.Application.UI;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
 using Grpc.Net.Client;
@@ -57,6 +58,8 @@ public class MainControllerTests
         services.AddHttpClient<HttpService>();
         services.AddScoped<ITelegramBotService, TelegramBotService>();
         services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+        services.AddScoped<IReservationFlowService, ReservationFlowService>();
+        services.AddScoped<ReservationUiBuilder>();
 
         // Контроллер (тоже через DI)
         services.AddScoped<MainController>();
