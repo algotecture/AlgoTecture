@@ -7,8 +7,6 @@ using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
 using Deployf.Botf;
-using Grpc.Net.Client;
-using Identity.Grpc;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.WebHost.UseConfiguration(builder.Configuration);
 
 var cfg = builder.Configuration;
@@ -69,22 +68,11 @@ builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService
 builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
 builder.Services.AddScoped<ReservationUiBuilder>();
 
-
-builder.Services.AddSingleton(sp =>
-{
-    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
-    var gatewayUrl = builder.Configuration["Gateway:BaseUrl"] ?? "http://localhost:5000";
-    var channel = GrpcChannel.ForAddress(gatewayUrl);
-    return new TelegramAuth.TelegramAuthClient(channel);
-});
-
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger(); app.UseSwaggerUI();
 }
-
 app.UseBotf();
 app.Run();

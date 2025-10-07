@@ -7,23 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Google.Protobuf" Version="3.32.1" />
-      <PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
-      <PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="All">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
       <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.Shared.Contracts\AlgoTecture.Shared.Contracts.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Protobuf Include="Protos\identity.proto"
-            GrpcServices="Both"
-            ProtoRoot="Protos" />
     </ItemGroup>
 
 </Project>

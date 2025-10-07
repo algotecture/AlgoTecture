@@ -48,11 +48,12 @@
     &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d19db880_002Dbfa3_002D456f_002D9d89_002Dcff01e02f298/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Assert_That_Will_be_Returned_Null_If_In_Target_Time_Reservation_Exist" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b87f4505_002D21d1_002D422f_002Dafe9_002Db7b2ca1ab7ec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Start_ShouldLoginUserViaIdentityService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e8c4fbb3_002Dc5d1_002D492b_002D8d37_002D9d28da420e15/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Start_ShouldLoginUserViaIdentityService #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
