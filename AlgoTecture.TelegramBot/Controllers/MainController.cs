@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace AlgoTecture.TelegramBot.Controllers;
 
@@ -66,6 +67,7 @@ public class MainController : BotController, IMainController
         var userId = Context.GetSafeUserId();
         var userName = Context.GetUsername();
         var fullUserName = Context.GetUserFullName();
+        
 
         var addTelegramUserInfoModel = new AddOrUpdateTelegramUserInfoModel
         {
@@ -83,12 +85,12 @@ public class MainController : BotController, IMainController
 
         var parkingControllerService = _serviceProvider.GetRequiredService<IParkingController>();
         RowButton("🔍 reserve a parking",
-            Q(parkingControllerService.PressToStartParkingButton, new BotState { UtilizationTypeId = 15 }));
-        RowButton("📅 manage reservations", Q(PressToFindReservationsButton));
+            Q(parkingControllerService.PressToEnterTheStartEndTime, new BotState { UtilizationTypeId = 15 }, RentTimeState.None, null!));
+        RowButton("📅 manage reservations", Q(PressToFindReservationsButton, new BotState { UtilizationTypeId = 15 }));
     }
 
     [Action]
-    public async Task PressToFindReservationsButton()
+    public async Task PressToFindReservationsButton(BotState? botState = null)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
@@ -96,85 +98,100 @@ public class MainController : BotController, IMainController
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
         var reservations = await _unitOfWork.Reservations.GetReservationsByUserId(user.Id);
 
-        var reservationList = new List<ReservationToTelegramOut>();
+        PushL("Reservations");
 
         foreach (var reservation in reservations)
         {
-            var reservationToTelegram = new ReservationToTelegramOut
-            {
-                Id = reservation.Id,
-                DateTimeFrom = $"{TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dd-MM-yyyy HH:mm}", 
-                Description = reservation.Description,
-                TotlaPrice = reservation.TotalPrice,
-                PriceCurrency = reservation.PriceSpecification?.PriceCurrency,
-                Address = string.IsNullOrEmpty(reservation.Space?.SpaceAddress)
-                    ? reservation.Description
-                    : reservation.Space?.SpaceAddress
-            };
-            //only for demo utc +2
-            reservationList.Add(reservationToTelegram);
-            var description =
-                $"{reservationToTelegram.Address.Substring(0,10)}..., \n\r{reservationToTelegram.DateTimeFrom}, {reservationToTelegram.TotlaPrice} \n\r" +
-                $"{reservationToTelegram.PriceCurrency?.ToUpper()}";
-            RowButton(description, Q(PressToManageContract, new BotState() { ReservationId = reservation.Id }));
+            var dateFrom = TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz);
+            var description = $"{reservation.Space?.SpaceAddress?[..Math.Min(12, reservation.Space.SpaceAddress.Length)]}... " +
+                              $"{dateFrom:dd-MM HH:mm}, {reservation.TotalPrice} {reservation.PriceSpecification?.PriceCurrency?.ToUpper()}";
+
+            RowButton(description, Q(PressToManageContract, new BotState { ReservationId = reservation.Id }));
         }
 
-        RowButton("Go Back", Q(Start));
+        RowButton("↩️ go back", Q(Start));
 
-        PushL("Reservations");
-        await SendOrUpdate();
-    }
-
-    [Action]
-    public async Task PressToManageContract(BotState botState)
-    {
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-        var reservation = await _unitOfWork.Reservations.GetById(botState.ReservationId.Value);
-
-        var space = await _spaceGetter.GetById(reservation.SpaceId);
-        var spaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(space.SpaceProperty);
-
-        var curNumbersStr = (await _unitOfWork.Users.GetByTelegramChatId(chatId.Value)).CarNumbers;
-        if (!string.IsNullOrEmpty(curNumbersStr))
-        {
-            var carNumbers = curNumbersStr.Split(";").ToList();
-            botState.CarNumber = carNumbers[0];
-        }
-        var imageNames = spaceProperty.Images;
-
-        if (imageNames != null && imageNames.Any() && space.UtilizationTypeId == 15)
-        {
-            var pathToBoatImage =
-                System.IO.Path.Combine(AlgoTectureEnvironments.GetPathToImages(), "Spaces", "0",
-                    "10000000-0000-46ee-b65b-137aa08b3c9a.png");
-
-            await using var stream = File.OpenRead(pathToBoatImage);
-            var inputOnlineFile = new InputOnlineFile(stream, spaceProperty.Name);
-
-            var message = await Client.SendPhotoAsync(
-                chatId: chatId,
-                photo: inputOnlineFile,
-                caption: $"<b>{spaceProperty.Name}</b>" + "\n" +
-                         $"<b>Button above image 👆</b>",
-                ParseMode.Html
-            );
-
+        var message = await SendOrUpdate();
+        if (botState != null)
             botState.MessageId = message.MessageId;
-        }
-
-        PushL($"📅 Reservation date: {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n\r" +
-              $"⌚ Time: {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm}" + " - " + $"{TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n\r" +
-              $"📍 Location: {space.SpaceAddress}\n\r" +
-              $"📍 Parking Number: {spaceProperty.Name}\n\r" +
-              $"📍 Car Number: {botState.CarNumber}\n\r" +
-              $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
-              "If you have any questions or need to make changes to your reservation, " +
-              "please feel free to contact our support team at @AlgoTecture." +
-              " Thank you for choosing our service! 🙌");
-        RowButton("Go Back", Q(PressToFindReservationsButton));
-        await SendOrUpdate();
     }
+
+ [Action]
+public async Task PressToManageContract(BotState botState)
+{
+    var chatId = Context.GetSafeChatId();
+    if (!chatId.HasValue) return;
+    
+    if (botState.MessageId != default)
+    {
+        try { await Client.DeleteMessageAsync(chatId.Value, (int)botState.MessageId); }
+        catch { /* ignore, если уже удалено */ }
+    }
+
+    var reservation = await _unitOfWork.Reservations.GetById(botState.ReservationId.Value);
+    var space = await _spaceGetter.GetById(reservation.SpaceId);
+    var spaceProperty = JsonConvert.DeserializeObject<SpaceProperty>(space.SpaceProperty);
+
+    var curNumbersStr = (await _unitOfWork.Users.GetByTelegramChatId(chatId.Value)).CarNumbers;
+    if (!string.IsNullOrEmpty(curNumbersStr))
+    {
+        var carNumbers = curNumbersStr.Split(";").ToList();
+        botState.CarNumber = carNumbers[0];
+    }
+
+    var imageNames = spaceProperty.Images;
+
+    if (imageNames != null && imageNames.Any() && space.UtilizationTypeId == 15 || space.UtilizationTypeId == 16)
+    {
+        var pathToBoatImage = System.IO.Path.Combine(
+            AlgoTectureEnvironments.GetPathToImages(),
+            "Spaces", "0", "10000000-0000-46ee-b65b-137aa08b3c9a.png"
+        );
+
+        await using var stream = File.OpenRead(pathToBoatImage);
+        var inputOnlineFile = new InputOnlineFile(stream, spaceProperty.Name);
+
+        // ✅ Собираем inline-markup для кнопок
+        var inlineKeyboard = new InlineKeyboardMarkup(new[]
+        {
+            // Inline кнопки в 1 ряд
+            new[]
+            {
+                InlineKeyboardButton.WithCallbackData("↩️ go back", Q(PressToFindReservationsButton, botState))
+            }
+        });
+
+        // ✅ Отправляем фото сразу с подписью и кнопками
+        var message = await Client.SendPhotoAsync(
+            chatId: chatId,
+            photo: inputOnlineFile,
+            caption:
+                $"<b>{spaceProperty.Name}</b>\n\n" +
+                $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n" +
+                $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n" +
+                $"📍 <b>Location:</b> {space.SpaceAddress}\n" +
+                $"🚗 <b>Car Number:</b> {botState.CarNumber}\n" +
+                $"🔢 <b>Confirmation:</b> {reservation.ReservationUniqueIdentifier}\n\n" +
+                $"If you have any questions, contact @AlgoTecture 🙌",
+            parseMode: ParseMode.Html,
+            replyMarkup: inlineKeyboard
+        );
+
+        botState.MessageId = message.MessageId;
+        return;
+    }
+
+    // fallback если нет фото
+    PushL( $"<b>{spaceProperty.Name}</b>\n\n" +
+           $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n" +
+           $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n" +
+           $"📍 <b>Location:</b> {space.SpaceAddress}\n" +
+           $"🚗 <b>Car Number:</b> {botState.CarNumber}\n" +
+           $"🔢 <b>Confirmation:</b> {reservation.ReservationUniqueIdentifier}\n\n" +
+           $"If you have any questions, contact @AlgoTecture 🙌");
+    RowButton("↩️ go back", Q(PressToFindReservationsButton, botState));
+    await SendOrUpdate();
+}
 
     [Action]
     public async Task PressAddressToRentButton(TelegramToAddressModel telegramToAddressModel, BotState botState)

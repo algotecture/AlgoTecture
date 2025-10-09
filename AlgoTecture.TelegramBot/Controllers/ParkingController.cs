@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace AlgoTecture.TelegramBot.Controllers;
 
@@ -183,15 +184,60 @@ public class ParkingController : BotController, IParkingController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
         var curNumbersStr = (await _unitOfWork.Users.GetByTelegramChatId(chatId.Value)).CarNumbers;
-        RowButton("look on the map", urlToAddressProperties);
-       
-        RowButton("make a reservation", Q(PressMakeAReservation, botState, telegramToAddressModel));
+        RowButton("🗺️ view on map", urlToAddressProperties);
+        
+        RowButton(" 🖼️ view pictures", Q(PressToViewPicturersButton, botState, telegramToAddressModel));
+
+        RowButton("🅿️ reserve parking", Q(PressMakeAReservation, botState, telegramToAddressModel));
        
         RowButton("️↩️ go back", Q(PressAddressToRentButton, telegramToAddressModel, botState));
 
         PushL("Details");
+        var msg = await SendOrUpdate();
+        botState.MessageId = msg.MessageId;
+    }
+
+    [Action]
+    public async Task PressToViewPicturersButton(BotState botState, TelegramToAddressModel telegramToAddressModel)
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        await DeletePreviousMessageIfNeeded(botState, chatId.Value);
+            var pathToBoatImage = System.IO.Path.Combine(
+                AlgoTectureEnvironments.GetPathToImages(),
+                "Spaces", "0", "10000000-0000-46ee-b65b-137aa08b3c9a.png"
+            );
+
+            await using var stream = File.OpenRead(pathToBoatImage);
+            var inputOnlineFile = new InputOnlineFile(stream, "Parking");
+
+            var inlineKeyboard = new InlineKeyboardMarkup(new[]
+            {
+                new[]
+                {
+                    InlineKeyboardButton.WithCallbackData("️↩️ go back", Q(PressToParkingButton, telegramToAddressModel, botState))
+                }
+            });
+            
+            // ✅ Отправляем фото сразу с подписью и кнопками
+            var message = await Client.SendPhotoAsync(
+                chatId: chatId,
+                photo: inputOnlineFile,
+                caption:
+                $"<b>{"Parking"}</b>",
+                parseMode: ParseMode.Html,
+                replyMarkup: inlineKeyboard
+            );
+            botState.MessageId = message.MessageId;
+            return;
+        
+        // fallback если нет фото
+        PushL($"<b>no image</b>");
+        RowButton("️↩️ go back", Q(PressToParkingButton, telegramToAddressModel, botState));
         await SendOrUpdate();
     }
+    
+
     
     [Action]
     public async Task PressToStartParkingButton(BotState botState)
@@ -443,23 +489,16 @@ public class ParkingController : BotController, IParkingController
                     var spaceAddress = (await _unitOfWork.Spaces.GetById(addReservationModel.SpaceId))?.SpaceAddress;
                     
                     var mainControllerService = _serviceProvider.GetRequiredService<IMainController>();
-                    RowButton("Go to my reservations", Q(mainControllerService.PressToFindReservationsButton));
+                    RowButton("💳 pay with card", Q(mainControllerService.PressToFindReservationsButton, botState));
+                    RowButton("🔗 confirm on blockchain", Q(mainControllerService.PressToFindReservationsButton, botState));
+                    RowButton("📅 manage reservations", Q(mainControllerService.PressToFindReservationsButton, botState));
+                    RowButton("↩️ back to options", Q(PressToParkingButton,telegramToAddressModel, botState));
 
                     _logger.LogInformation($"User {user.TelegramUserInfo?.TelegramUserFullName} reserved boat {botState.SpaceName} from " +
                                            $"{botState.StartRent.Value:dddd, MMMM dd yyyy HH:mm} to {botState.EndRent.Value:dddd, MMMM dd yyyy HH:mm} by telegram bot. " +
                                            $"ReservationId: {reservation.Id}");
 
-                    PushL("🎉 Congratulations! Your space reservation has been successfully confirmed. " +
-                          "You're all set to enjoy your reserved space. Please find the details below: \n\r \n\r" +
-                          $"📅 Date: {botState.StartRent.Value:dddd, MMMM dd}\n\r" +
-                          $"⌚ Time: {botState.StartRent.Value:HH:mm}\n\r" + " - " + $"{botState.EndRent.Value:HH:mm}" +
-                          $"📍 Location: {spaceAddress}\n\r" +
-                          $"📍 Parking Number: {parkingSpaceNumber}\n\r" +
-                          $"📍 Car Number: {botState.CarNumber}\n\r" +
-                          $"🔢 Confirmation Number: {reservation.ReservationUniqueIdentifier}\n\r \n\r" +
-                          "If you have any questions or need to make changes to your reservation, " +
-                          "please feel free to contact our support team at @AlgoTecture." +
-                          " Thank you for choosing our service! 🙌");
+                    PushL("✅ your reservation is saved, though not yet confirmed  to complete it, choose how you’d like to confirm your reservation. \nyour parking is held for 10 minutes.\n");
 
                     await SendOrUpdate();
                 }   

@@ -8,7 +8,7 @@ public interface IMainController
 
     //Task PressToRentButton();
     
-    Task PressToFindReservationsButton();
+    Task PressToFindReservationsButton(BotState? botState = null);
     
     Task EnterAddress(BotState botState);
 
