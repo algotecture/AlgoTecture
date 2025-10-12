@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Deployf.Botf" Version="0.17.3" />
+      <PackageReference Include="OpenAI" Version="2.5.0" />
     </ItemGroup>
 
     <ItemGroup>

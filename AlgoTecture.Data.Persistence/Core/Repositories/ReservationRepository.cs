@@ -55,7 +55,7 @@ public class ReservationRepository : GenericRepository<Reservation>, IReservatio
 
     public async Task<IEnumerable<Reservation>> GetReservationsByUserId(long userId)
     {
-        return await dbSet.Include(x => x.PriceSpecification)
+        return await dbSet.Where(x=>x.ReservationToUtc >= DateTime.UtcNow).Include(x => x.PriceSpecification)
             .Include(x => x.Space)
             .Where(x => x.TenantUserId == userId).ToListAsync();
     }

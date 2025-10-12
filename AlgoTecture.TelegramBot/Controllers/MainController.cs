@@ -7,6 +7,7 @@ using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.Spaces.Interfaces;
 using AlgoTecture.Libraries.UtilizationTypes;
 using AlgoTecture.TelegramBot.Controllers.Interfaces;
+using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
 using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
@@ -34,6 +35,9 @@ public class MainController : BotController, IMainController
     private readonly ICityParkingController _cityParkingController;
     private readonly TimeZoneInfo _zurichTz = TimeZoneInfo.FindSystemTimeZoneById("Europe/Zurich");
 
+    private readonly IntentRecognitionService _intentRecognitionService;
+    private readonly BookingActionService _bookingActionService;
+
     private Dictionary<string, string> utilizationTypeToSmile = new()
     {
         { "Residential", "🏠" }, { "Parking", "🚙" }, { "City Parking", "🅿️" }, { "Boat", "🚤" }, { "Coworking", "🏢" }
@@ -44,7 +48,7 @@ public class MainController : BotController, IMainController
         IUnitOfWork unitOfWork, ILogger<MainController> logger, IGeoAdminSearcher geoAdminSearcher,
         ITelegramToAddressResolver telegramToAddressResolver,
         ISpaceGetter spaceGetter, IServiceProvider serviceProvider, ISpaceService spaceService,
-        IParkingController parkingController, ICityParkingController cityParkingController)
+        IParkingController parkingController, ICityParkingController cityParkingController, IntentRecognitionService intentRecognitionService, BookingActionService bookingActionService)
     {
         _telegramUserInfoService = telegramUserInfoService;
         _boatController = boatController;
@@ -58,6 +62,8 @@ public class MainController : BotController, IMainController
         _spaceService = spaceService;
         _parkingController = parkingController;
         _cityParkingController = cityParkingController;
+        _intentRecognitionService = intentRecognitionService;
+        _bookingActionService = bookingActionService;
     }
 
     [Action("/start", "start the bot")]
@@ -348,13 +354,31 @@ public async Task PressToManageContract(BotState botState)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
+        if (Context.Update.Message?.Text is { } messageText)
+        {
+            // Распознаем намерение
+            var intent = await _intentRecognitionService.RecognizeIntentAsync(messageText);
 
-        RowButton("Enter address", Q(EnterAddress, new BotState()));
-        RowButton("Go back", Q(Start));
+            // Выполняем действие
+            var result = await _bookingActionService.ExecuteActionAsync(intent);
 
-        PushL(
-            "I'm sorry, but I'm not yet able to understand natural language requests at the moment. Enter an address to search for the space");
-        await SendOrUpdate();
+            if (result.Item2 == null)
+            {
+                return;
+            }
+            
+            PushL( $"<b>Parking</b>\n\n" +
+                   $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value, _zurichTz):dddd, MMMM dd}\n" +
+                   $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.EndRent!.Value, _zurichTz):HH:mm}\n" +
+                   $"📍 <b>Location:</b> {result.Item2.SpaceAddress}\n" +
+                   $"🚗 <b>Car Number:</b> {result.Item2.CarNumber}\n" +
+                   $"Ready to reserve 🙌");
+            
+            result.Item2.MessageId = 0; 
+            await Call<ParkingController>(m => m.PressToParkingButton(result.Item3, result.Item2));
+
+            //await botClient.SendTextMessageAsync(chatId, result, cancellationToken: cancellationToken);
+        }
     }
 
     [On(Handle.ChainTimeout)]

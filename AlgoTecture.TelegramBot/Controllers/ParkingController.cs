@@ -54,13 +54,21 @@ public class ParkingController : BotController, IParkingController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
          
-        PushL("Enter the address or part of the address");
+        PushL("Enter the address or part of the address (or type 'back' to return)");
         var msg = await SendOrUpdate();
         botState.MessageId = msg.MessageId;
          
         var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
+        
+        if (address.Equals("back", StringComparison.OrdinalIgnoreCase))
+        {
+            botState.MessageId = 0; 
+            await Call<ParkingController>(m => m.PressToEnterTheStartEndTime(botState, RentTimeState.None, null));
+            return;
+        }
+        
         await DeletePreviousMessageIfNeeded(botState, chatId.Value);
-
+        
         var user = await _unitOfWork.TelegramUserInfos.GetByTelegramChatId(chatId.Value);
          
         _logger.LogInformation($"User {user?.TelegramUserFullName} entered text {address} to search for an address");
@@ -262,8 +270,14 @@ public class ParkingController : BotController, IParkingController
         if (dateTime != null)
         {
             PushL("Enter the rental start time (in HH:mm format, for example, 14:15)");
-            var msg = await SendOrUpdate();
-            botState.MessageId = msg.MessageId;
+            if (botState.MessageId == 0)
+                await Send();
+            else
+            {
+                var msg = await SendOrUpdate();
+                botState.MessageId = msg.MessageId;     
+            }
+           
             time = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
 
             await DeletePreviousMessageIfNeeded(botState, chatId.Value);

@@ -1,5 +1,7 @@
 using AlgoTecture.Common;
 using AlgoTecture.Data.Persistence;
+using AlgoTecture.Data.Persistence.Core.Interfaces;
+using AlgoTecture.Data.Persistence.Core.Repositories;
 using AlgoTecture.Libraries.GeoAdminSearch;
 using AlgoTecture.Libraries.PriceSpecifications;
 using AlgoTecture.Libraries.Reservations;
@@ -10,6 +12,7 @@ using AlgoTecture.TelegramBot.Controllers.Interfaces;
 using AlgoTecture.TelegramBot.Extensions;
 using AlgoTecture.TelegramBot.Implementations;
 using AlgoTecture.TelegramBot.Interfaces;
+using AlgoTecture.TelegramBot.Models;
 using Deployf.Botf;
 using Serilog;
 
@@ -20,6 +23,8 @@ public static class Program
     public static async Task Main(string[] args)
     {
         var webAppBuilder = WebAppBuilder.CreateWebApplicationBuilder(args);
+        webAppBuilder.Services.Configure<DeepSeekConfig>(
+            webAppBuilder.Configuration.GetSection("DeepSeek"));
 
         try
         {
@@ -50,6 +55,16 @@ public static class Program
             webAppBuilder.Services.AddTransient<IBoatController, BoatController>();
             webAppBuilder.Services.AddTransient<IParkingController, ParkingController>();
             webAppBuilder.Services.AddTransient<ICityParkingController, CityParkingController>();
+            webAppBuilder.Services.AddTransient<IReservationService, ReservationService>();
+            
+            webAppBuilder.Services.AddSingleton(provider =>
+            {
+                var config = provider.GetRequiredService<Microsoft.Extensions.Options.IOptions<DeepSeekConfig>>().Value;
+                return new DeepSeekService(config.ApiKey, config.BaseUrl);
+            });
+
+            webAppBuilder.Services.AddTransient<IntentRecognitionService>();
+            webAppBuilder.Services.AddTransient<BookingActionService>();
 
             var webApp = webAppBuilder.Build();
 
