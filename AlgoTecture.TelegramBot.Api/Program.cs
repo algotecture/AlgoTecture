@@ -24,8 +24,7 @@ builder.WebHost.UseConfiguration(builder.Configuration);
 var cfg = builder.Configuration;
 
 builder.Services.AddOptions<GeoAdminSettings>()
-    .Bind(builder.Configuration.GetSection("GeoAdminSettings"))
-    .ValidateDataAnnotations()
+    .BindConfiguration("GeoAdminSettings")
     .ValidateOnStart();
 
 builder.Services.AddEndpointsApiExplorer();

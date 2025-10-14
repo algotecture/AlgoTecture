@@ -1,6 +1,6 @@
 ﻿namespace AlgoTecture.TelegramBot.Application.Models;
 
-public class GeoAdminSettings
+public record GeoAdminSettings
 {
-    public string GeoAdminBaseUrl { get; set; } = default!;
+    public string GeoAdminBaseUrl { get; init; } = default!;
 }

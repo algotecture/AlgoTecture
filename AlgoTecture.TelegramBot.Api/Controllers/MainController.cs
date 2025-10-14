@@ -201,7 +201,7 @@ public class MainController : ReservationControllerBase
             var geoAddressInput = new GeoAddressInput
             {
                 FeatureId = label.featureId,
-                Location = new Point(label.x, label.y),
+                Location = new Point(label.lat, label.lon),
                 NormalizedAddress = label.label
             };
             geoAddressInputList.Add(geoAddressInput);
