@@ -2,7 +2,6 @@
 using AlgoTecture.TelegramBot.Api.Controllers;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
-using AlgoTecture.TelegramBot.Application.UI;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -46,8 +45,6 @@ public class MainControllerTests
         services.AddScoped<ITelegramBotService, TelegramBotService>();
         services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
         services.AddScoped<IReservationFlowService, ReservationFlowService>();
-        services.AddScoped<ReservationUiBuilder>();
-
         
         services.AddScoped<MainController>();
 

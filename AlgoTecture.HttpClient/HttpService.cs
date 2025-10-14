@@ -7,7 +7,10 @@ public interface IHttpService
     Task<string> GetAsync(string url, CancellationToken cancellationToken = default);
 
     Task<string> PostAsync<T>(string url, T content, CancellationToken cancellationToken = default);
+    
+    Task<TResponse> PostAsync<TRequest, TResponse>( string url, TRequest data, CancellationToken cancellationToken = default);
 }
+
 
 public class HttpService : IHttpService
 {

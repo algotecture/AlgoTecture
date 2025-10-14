@@ -1,8 +1,9 @@
-﻿using AlgoTecture.HttpClient;
+﻿using AlgoTecture.GeoAdminSearch;
+using AlgoTecture.HttpClient;
 using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
+using AlgoTecture.TelegramBot.Application.Models;
 using AlgoTecture.TelegramBot.Application.Services;
-using AlgoTecture.TelegramBot.Application.UI;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
@@ -21,6 +22,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseConfiguration(builder.Configuration);
 
 var cfg = builder.Configuration;
+
+builder.Services.AddOptions<GeoAdminSettings>()
+    .Bind(builder.Configuration.GetSection("GeoAdminSettings"))
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -60,13 +66,13 @@ builder.Services.AddMassTransit(x =>
 });
 builder = BotFExtensions.ConfigureBot(args, builder);
 
-builder.Services.AddHttpClient<HttpService>();
 builder.Services.AddScoped<IUserCache, UserCache>();
 builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
 builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
-builder.Services.AddScoped<ReservationUiBuilder>();
+builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
+builder.Services.AddScoped<IHttpService, HttpService>();
 
 var app = builder.Build();
 

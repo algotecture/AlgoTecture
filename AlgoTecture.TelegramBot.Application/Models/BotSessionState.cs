@@ -2,7 +2,7 @@
 
 public class BotSessionState
 {
-    public int LastMessageId { get; set; }
+    public int MessageId { get; set; }
     
     public ReservationDraft CurrentReservation { get; set; } = new();
 }

@@ -15,9 +15,9 @@ public interface IUserAuthenticationService
 public class UserAuthenticationService : IUserAuthenticationService
 {
     private readonly ITelegramBotService _telegramBotService;
-    private readonly HttpService _httpService;
+    private readonly IHttpService _httpService;
 
-    public UserAuthenticationService(ITelegramBotService telegramBotService, HttpService httpService)
+    public UserAuthenticationService(ITelegramBotService telegramBotService, IHttpService httpService)
     {
         _telegramBotService = telegramBotService;
         _httpService = httpService;

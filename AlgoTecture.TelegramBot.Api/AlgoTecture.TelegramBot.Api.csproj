@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.GeoAdminSearch\AlgoTecture.GeoAdminSearch.csproj" />
       <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
       <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
       <ProjectReference Include="..\AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj" />
