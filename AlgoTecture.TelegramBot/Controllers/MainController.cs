@@ -100,11 +100,14 @@ public class MainController : BotController, IMainController
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
+        
+        await DeletePreviousMessageIfNeeded(botState, chatId.Value);
+        
 
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
         var reservations = await _unitOfWork.Reservations.GetReservationsByUserId(user.Id);
 
-        PushL("Reservations");
+        
 
         foreach (var reservation in reservations)
         {
@@ -112,11 +115,11 @@ public class MainController : BotController, IMainController
             var description = $"{reservation.Space?.SpaceAddress?[..Math.Min(12, reservation.Space.SpaceAddress.Length)]}... " +
                               $"{dateFrom:dd-MM HH:mm}, {reservation.TotalPrice} {reservation.PriceSpecification?.PriceCurrency?.ToUpper()}";
 
-            RowButton(description, Q(PressToManageContract, new BotState { ReservationId = reservation.Id }));
+            RowButton(description, Q(PressToManageContract, new BotState { ReservationId = reservation.Id}));
         }
 
         RowButton("↩️ go back", Q(Start));
-
+        PushL("Reservations");
         var message = await SendOrUpdate();
         if (botState != null)
             botState.MessageId = message.MessageId;
@@ -128,11 +131,8 @@ public async Task PressToManageContract(BotState botState)
     var chatId = Context.GetSafeChatId();
     if (!chatId.HasValue) return;
     
-    if (botState.MessageId != default)
-    {
-        try { await Client.DeleteMessageAsync(chatId.Value, (int)botState.MessageId); }
-        catch { /* ignore, если уже удалено */ }
-    }
+    await DeletePreviousMessageIfNeeded(botState, chatId.Value);
+    
 
     var reservation = await _unitOfWork.Reservations.GetById(botState.ReservationId.Value);
     var space = await _spaceGetter.GetById(reservation.SpaceId);
@@ -182,21 +182,23 @@ public async Task PressToManageContract(BotState botState)
             parseMode: ParseMode.Html,
             replyMarkup: inlineKeyboard
         );
-
-        botState.MessageId = message.MessageId;
-        return;
     }
-
-    // fallback если нет фото
-    PushL( $"<b>{spaceProperty.Name}</b>\n\n" +
-           $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n" +
-           $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n" +
-           $"📍 <b>Location:</b> {space.SpaceAddress}\n" +
-           $"🚗 <b>Car Number:</b> {botState.CarNumber}\n" +
-           $"🔢 <b>Confirmation:</b> {reservation.ReservationUniqueIdentifier}\n\n" +
-           $"If you have any questions, contact @AlgoTecture 🙌");
-    RowButton("↩️ go back", Q(PressToFindReservationsButton, botState));
-    await SendOrUpdate();
+    else
+    {
+        // fallback 
+        PushL( $"<b>{spaceProperty.Name}</b>\n\n" +
+               $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):dddd, MMMM dd}\n" +
+               $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationFromUtc!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(reservation.ReservationToUtc!.Value, _zurichTz):HH:mm}\n" +
+               $"📍 <b>Location:</b> {space.SpaceAddress}\n" +
+               $"🚗 <b>Car Number:</b> {botState.CarNumber}\n" +
+               $"🔢 <b>Confirmation:</b> {reservation.ReservationUniqueIdentifier}\n\n" +
+               $"If you have any questions, contact @AlgoTecture 🙌");
+        
+    }
+    RowButton("↩️ go back", Q(PressToFindReservationsButton, botState));   
+    var message1 = await SendOrUpdate();
+    if (botState != null)
+        botState.MessageId = message1.MessageId;
 }
 
     [Action]
@@ -205,6 +207,8 @@ public async Task PressToManageContract(BotState botState)
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
+        await DeletePreviousMessageIfNeeded(botState, chatId.Value);
+        
         var targetAddress =
             _telegramToAddressResolver.TryGetAddressListByChatId(chatId.Value)!.FirstOrDefault(x =>
                 x.FeatureId == telegramToAddressModel.FeatureId);
@@ -356,10 +360,8 @@ public async Task PressToManageContract(BotState botState)
         if (!chatId.HasValue) return;
         if (Context.Update.Message?.Text is { } messageText)
         {
-            // Распознаем намерение
             var intent = await _intentRecognitionService.RecognizeIntentAsync(messageText);
-
-            // Выполняем действие
+            
             var result = await _bookingActionService.ExecuteActionAsync(intent);
 
             if (result.Item2 == null)
@@ -385,5 +387,13 @@ public async Task PressToManageContract(BotState botState)
     void ChainTimeout(Exception ex)
     {
         _logger.LogError(ex, "Handle.Exception on telegram-bot");
+    }
+    
+    protected async Task DeletePreviousMessageIfNeeded(BotState state, long chatId)
+    {
+        if (state.MessageId == default) return;
+
+        await Client.DeleteMessageAsync(chatId, (int)state.MessageId);
+        state.MessageId = default;
     }
 }

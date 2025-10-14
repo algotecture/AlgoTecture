@@ -122,8 +122,8 @@ public class BookingActionService
                 ($"✅ Parking space ready to book!\n📍 Address: {address}\n🚗 Vehicle: {carNumber}\n📅 From {dateFrom.Value:MM/dd/yyyy} to {dateTo.Value:MM/dd/yyyy}\n🏷 Type: {parkingType}", new BotState()
                 {
                     CarNumber = carNumber,
-                    EndRent = DateTime.SpecifyKind(dateTo.Value, DateTimeKind.Utc) ,
-                    StartRent = DateTime.SpecifyKind(dateFrom.Value, DateTimeKind.Utc) ,
+                    EndRent = DateTime.SpecifyKind(dateTo.Value.ToUniversalTime(), DateTimeKind.Utc) ,
+                    StartRent = DateTime.SpecifyKind(dateFrom.Value.ToUniversalTime(), DateTimeKind.Utc) ,
                     SpaceAddress = telegramToAddressModel.Address,
                     SpaceId = nearestParkingSpaces.First().Value.Id,
                     UtilizationTypeId = nearestParkingSpaces.First().Value.UtilizationTypeId,
