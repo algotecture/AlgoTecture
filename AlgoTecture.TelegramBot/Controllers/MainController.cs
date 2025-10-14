@@ -370,8 +370,8 @@ public async Task PressToManageContract(BotState botState)
             }
             
             PushL( $"<b>Parking</b>\n\n" +
-                   $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value, _zurichTz):dddd, MMMM dd}\n" +
-                   $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value, _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.EndRent!.Value, _zurichTz):HH:mm}\n" +
+                   $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value.ToUniversalTime(), _zurichTz):dddd, MMMM dd}\n" +
+                   $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value.ToUniversalTime(), _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.EndRent!.Value.ToUniversalTime(), _zurichTz):HH:mm}\n" +
                    $"📍 <b>Location:</b> {result.Item2.SpaceAddress}\n" +
                    $"🚗 <b>Car Number:</b> {result.Item2.CarNumber}\n" +
                    $"Ready to reserve 🙌");
