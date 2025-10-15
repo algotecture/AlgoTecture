@@ -13,7 +13,7 @@ public class DeepSeekService
     public DeepSeekService(string apiKey, string baseUrl = "https://openrouter.ai/api/v1", string model = "deepseek/deepseek-chat-v3-0324")
     {
         _httpClient = new HttpClient();
-        _apiKey = apiKey.Trim(); // важно: убираем лишние \n или пробелы
+        _apiKey = apiKey.Trim();
         _baseUrl = baseUrl.TrimEnd('/');
         _model = model;
     }
