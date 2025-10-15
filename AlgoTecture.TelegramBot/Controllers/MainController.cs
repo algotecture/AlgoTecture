@@ -101,7 +101,7 @@ public class MainController : BotController, IMainController
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
         
-        await DeletePreviousMessageIfNeeded(botState, chatId.Value);
+        //await DeletePreviousMessageIfNeeded(botState, chatId.Value);
         
 
         var user = await _unitOfWork.Users.GetByTelegramChatId(chatId.Value);
@@ -370,8 +370,8 @@ public async Task PressToManageContract(BotState botState)
             }
             
             PushL( $"<b>Parking</b>\n\n" +
-                   $"📅 <b>Reservation date:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value.ToUniversalTime(), _zurichTz):dddd, MMMM dd}\n" +
-                   $"⌚ <b>Time:</b> {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.StartRent!.Value.ToUniversalTime(), _zurichTz):HH:mm} - {TimeZoneInfo.ConvertTimeFromUtc(result.Item2.EndRent!.Value.ToUniversalTime(), _zurichTz):HH:mm}\n" +
+                   $"📅 <b>Reservation date:</b> {result.Item2.StartRent!.Value:dddd, MMMM dd}\n" +
+                   $"⌚ <b>Time:</b> {result.Item2.StartRent!.Value:HH:mm} - {result.Item2.EndRent!.Value:HH:mm}\n" +
                    $"📍 <b>Location:</b> {result.Item2.SpaceAddress}\n" +
                    $"🚗 <b>Car Number:</b> {result.Item2.CarNumber}\n" +
                    $"Ready to reserve 🙌");
