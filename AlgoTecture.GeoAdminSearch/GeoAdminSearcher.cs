@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using AlgoTecture.GeoAdminSearch.Models;
 using AlgoTecture.GeoAdminSearch.Models.GeoAdminModels;
 using AlgoTecture.HttpClient;
-using Newtonsoft.Json;
 
 namespace AlgoTecture.GeoAdminSearch
 {
@@ -21,9 +20,8 @@ namespace AlgoTecture.GeoAdminSearch
         {
             var url = $"{baseEndpoint}?searchText={term}&type=locations&origins=address&limit={limitAddress}";
 
-            var responseFromServer = await _httpService.GetAsync(url);
+            var addressResults = await _httpService.GetAsync<GeoadminApiSearch>(url);
 
-            var addressResults = JsonConvert.DeserializeObject<GeoadminApiSearch>(responseFromServer);
             var labels = addressResults?.results?.Select(x => x.attrs);
 
             return GetNormalizedLabels(labels!);

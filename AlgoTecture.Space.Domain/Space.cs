@@ -35,7 +35,7 @@ public class Space
     
     public ICollection<SpaceImage> Images { get; set; } = new List<SpaceImage>();
     
-    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+    public DateTimeOffset CreatedAt { get; set; } =  DateTimeOffset.UtcNow;
 
     public string TimeZoneId { get; set; } = "UTC";
 

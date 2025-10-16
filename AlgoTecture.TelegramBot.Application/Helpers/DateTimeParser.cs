@@ -26,4 +26,36 @@ public class DateTimeParser
 
         return targetDateTime.ToUniversalTime();
     }
+    
+    public static DateTimeOffset? GetLocalDateTime(DateTime? date, string time, string timeZone = "Europe/Zurich")
+    {
+        if (!date.HasValue) return null;
+        if (string.IsNullOrEmpty(time)) return null;
+
+        string[] formats = {
+            "HH:mm", "H:mm",    // 12:00, 9:30
+            "HH.mm", "H.mm",    // 12.00, 9.30
+            "h:mm tt", "h.mm tt" // 12:00 PM, 12.00 PM
+        };
+
+        var isValidTime = DateTime.TryParseExact(time, formats,
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.None,
+            out var targetTime);
+        
+        if (!isValidTime) return null;
+        
+        var timeZoneId = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
+        
+        var localDateTime = new DateTime(
+            date.Value.Year, date.Value.Month, date.Value.Day,
+            targetTime.Hour, targetTime.Minute, targetTime.Second,
+            DateTimeKind.Unspecified);
+        
+        var utcOffset = timeZoneId.GetUtcOffset(localDateTime);
+
+        var targetDateTime = new DateTimeOffset(localDateTime, utcOffset);
+
+        return targetDateTime;
+    }
 }

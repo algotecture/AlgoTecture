@@ -1,4 +1,5 @@
-﻿using AlgoTecture.User.Contracts.Events;
+﻿using System.Globalization;
+using AlgoTecture.User.Contracts.Events;
 using AlgoTecture.User.Infrastructure;
 using AlgoTecture.User.Infrastructure.Consumers;
 using AlgoTecture.User.Infrastructure.Persistence;
@@ -55,5 +56,9 @@ if (builder.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var defaultCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
 app.Run();

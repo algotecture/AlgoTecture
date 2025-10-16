@@ -4,7 +4,7 @@ namespace AlgoTecture.HttpClient;
 
 public interface IHttpService
 {
-    Task<string> GetAsync(string url, CancellationToken cancellationToken = default);
+    Task<TResponse?> GetAsync<TResponse>(string url, CancellationToken cancellationToken = default);
 
     Task<string> PostAsync<T>(string url, T content, CancellationToken cancellationToken = default);
     
@@ -21,13 +21,13 @@ public class HttpService : IHttpService
         _httpClient = httpClient;
     }
 
-    public async Task<string> GetAsync(string url, CancellationToken cancellationToken = default)
+    public async Task<TResponse?> GetAsync<TResponse>(string url, CancellationToken cancellationToken = default)
     {
         try
         {
             var response = await _httpClient.GetAsync(url, cancellationToken);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync(cancellationToken);
+            return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken);
         }
         catch (HttpRequestException ex)
         {

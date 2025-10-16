@@ -6,8 +6,10 @@ public class ReservationDraft
 
     public int SelectedSpaceTypeId { get; set; }
     
-    public DateTime? PendingStartRentUtc { get; set; }
-    public DateTime? PendingEndRentUtc { get; set; }
+    public DateTimeOffset? PendingStartRentLocal { get; set; }
+    public DateTimeOffset? PendingEndRentLocal { get; set; }
+    
+    public string SpaceTimeZone { get; set; } = "Europe/Zurich";
     
     public string? SpaceName { get; set; }
     
@@ -17,7 +19,7 @@ public class ReservationDraft
 
     public bool IsComplete =>
         SelectedSpaceId != default &&
-        PendingStartRentUtc.HasValue &&
-        PendingEndRentUtc.HasValue &&
-        PendingEndRentUtc > PendingStartRentUtc;
+        PendingStartRentLocal.HasValue &&
+        PendingEndRentLocal.HasValue &&
+        PendingEndRentLocal > PendingStartRentLocal;
 }

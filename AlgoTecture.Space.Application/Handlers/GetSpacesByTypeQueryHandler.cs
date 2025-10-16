@@ -44,7 +44,8 @@ public class GetSpacesByTypeQueryHandler: IRequestHandler<GetSpacesByTypeQuery, 
                     image.Path,
                     image.ContentType,
                     image.CreatedAt
-                )).ToList()
+                )).ToList(),
+                null
             ))
             .ToListAsync(cancellationToken);
     }

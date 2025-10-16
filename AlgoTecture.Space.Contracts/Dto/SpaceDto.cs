@@ -16,13 +16,14 @@ public record SpaceDto(
     string? Description,
     string? SpaceProperties,
     string? DataSource,
-    DateTime CreatedAt,
+    DateTimeOffset CreatedAt,
     bool IsDeleted,
-    List<SpaceImageDto> Images);
+    List<SpaceImageDto> Images,
+    double? DistanceMeters = null);
 
 public record SpaceImageDto(
     Guid Id,
     string? Url,
     string? Path,
     string? ContentType,
-    DateTime CreatedAt);
+    DateTimeOffset CreatedAt);

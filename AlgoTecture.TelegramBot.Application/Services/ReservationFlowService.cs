@@ -13,16 +13,16 @@ public class ReservationFlowService : IReservationFlowService
 {
     public void ValidateRentalPeriod(BotSessionState state)
     {
-        var now = DateTime.UtcNow;
+        var now = DateTimeOffset.UtcNow;
 
-        if (state.CurrentReservation.PendingEndRentUtc != null && state.CurrentReservation.PendingEndRentUtc <= now)
-            state.CurrentReservation.PendingEndRentUtc = null;
+        if (state.CurrentReservation.PendingEndRentLocal != null && state.CurrentReservation.PendingEndRentLocal <= now)
+            state.CurrentReservation.PendingEndRentLocal = null;
 
-        if (state.CurrentReservation.PendingStartRentUtc != null && state.CurrentReservation.PendingStartRentUtc <= now)
-            state.CurrentReservation.PendingStartRentUtc = null;
+        if (state.CurrentReservation.PendingStartRentLocal != null && state.CurrentReservation.PendingStartRentLocal <= now)
+            state.CurrentReservation.PendingStartRentLocal = null;
 
-        if (state.CurrentReservation.PendingStartRentUtc != null && state.CurrentReservation.PendingEndRentUtc!= null &&
-            state.CurrentReservation.PendingEndRentUtc <= state.CurrentReservation.PendingStartRentUtc)
-            state.CurrentReservation.PendingEndRentUtc = null;
+        if (state.CurrentReservation.PendingStartRentLocal != null && state.CurrentReservation.PendingEndRentLocal!= null &&
+            state.CurrentReservation.PendingEndRentLocal <= state.CurrentReservation.PendingStartRentLocal)
+            state.CurrentReservation.PendingEndRentLocal = null;
     }
 }

@@ -1,4 +1,5 @@
-﻿using AlgoTecture.GeoAdminSearch;
+﻿using System.Globalization;
+using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.HttpClient;
 using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
@@ -72,6 +73,7 @@ builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService
 builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
 builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
 builder.Services.AddScoped<IHttpService, HttpService>();
+builder.Services.AddScoped<ISpaceServiceClient, SpaceServiceClient>();
 
 var app = builder.Build();
 
@@ -80,4 +82,9 @@ if (builder.Environment.IsDevelopment())
     app.UseSwagger(); app.UseSwaggerUI();
 }
 app.UseBotf();
+
+var defaultCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
 app.Run();

@@ -1,4 +1,5 @@
-﻿using AlgoTecture.Space.Application.Handlers;
+﻿using System.Globalization;
+using AlgoTecture.Space.Application.Handlers;
 using AlgoTecture.Space.Infrastructure;
 using AlgoTecture.Space.Infrastructure.Persistence;
 using FluentValidation;
@@ -39,4 +40,9 @@ if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger(); app.UseSwaggerUI();
 }
+
+var defaultCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
 app.Run();

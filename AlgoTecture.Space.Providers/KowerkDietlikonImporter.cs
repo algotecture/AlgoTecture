@@ -16,7 +16,7 @@ public class KowerkDietlikonImporter : ISpaceProviderImporter
          Name = "Parking Building Industriestrasse 24",
          SpaceTypeId = 1, 
          SpaceAddress = "Industriestrasse 24, 8305 Dietlikon",
-         Location = new Point(47.413565, 8.620584),
+         Location = new Point(47.313565, 8.420584),
          Description = "Main building with underground and street parking",
          DataSource = ProviderName,
          ExternalId = null,

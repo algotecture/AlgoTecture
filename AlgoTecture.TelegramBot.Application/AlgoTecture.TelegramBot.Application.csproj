@@ -15,11 +15,8 @@
     <ItemGroup>
       <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
       <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Space.Contracts\AlgoTecture.Space.Contracts.csproj" />
       <ProjectReference Include="..\AlgoTecture.TelegramBot.Domain\AlgoTecture.TelegramBot.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="UI\" />
     </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using AlgoTecture.Space.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
+using Npgsql;
 
 namespace AlgoTecture.Space.Application.Handlers;
 
@@ -25,7 +26,7 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
         double maxDistanceMeters = request.MaxDistanceMeters;
 
         //todo check result on real data
-        var result = await _db.Set<Domain.Space>().FromSqlInterpolated($@"
+        var result = await _db.Database.SqlQueryRaw<SpaceSqlProjection>($@"
     WITH filtered_spaces AS (
         SELECT s.""Id"",
                s.""ParentId"",
@@ -42,7 +43,8 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
                s.""SpaceProperties"",
                s.""DataSource"",
                s.""CreatedAt"",
-               s.""IsDeleted""
+               s.""IsDeleted"",
+               ST_Distance(s.""Location""::geography, ST_MakePoint(@lat, @lng)::geography) AS ""DistanceMeters""
         FROM ""Spaces"" s
         LEFT JOIN ""Spaces"" p ON p.""Id"" = s.""ParentId""
         LEFT JOIN ""SpaceTypes"" st ON st.""Id"" = s.""SpaceTypeId""
@@ -50,22 +52,24 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
         WHERE s.""SpaceTypeId"" = {spaceTypeId}
           AND ST_DWithin(
                 s.""Location""::geography,
-                ST_MakePoint({longitude}, {latitude})::geography,
+                ST_MakePoint(@lat, @lng)::geography,
                 {maxDistanceMeters}
           )
-        ORDER BY s.""Location""::geography <-> ST_MakePoint({longitude}, {latitude})::geography
+        ORDER BY s.""Location""::geography <-> ST_MakePoint(@lat, @lng)::geography
         LIMIT {limit}
     )
     SELECT * FROM filtered_spaces
-").ToListAsync(cancellationToken: cancellationToken);
-        var res = result.Select(space => new SpaceDto(space.Id,
+", new NpgsqlParameter("@lng", request.Longitude),
+            new NpgsqlParameter("@lat", request.Latitude)).ToListAsync(cancellationToken: cancellationToken);
+        var res = result.Select(space => new SpaceDto(
+            space.Id,
             space.ParentId,
-            space.Parent?.Name,
+            space.ParentName,
             space.SpaceTypeId,
-            "",
+            space.SpaceTypeName ?? "",
             space.SpaceAddress,
-            space.Location != null ? space.Location.Y : null,
-            space.Location != null ? space.Location.X : null,
+            space.Latitude,
+            space.Longitude,
             space.Area,
             space.Name ?? "",
             space.Description,
@@ -73,17 +77,30 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
             space.DataSource,
             space.CreatedAt,
             space.IsDeleted,
-            space.Images.Count != 0
-                ? space.Images.Select(image => new SpaceImageDto(
-                    image.Id,
-                    image.Url,
-                    image.Path,
-                    image.ContentType,
-                    image.CreatedAt
-                )).ToList()
-                : [])
-        ).ToList();
+            new List<SpaceImageDto>(),
+            space.DistanceMeters
+        )).ToList();
 
         return res;
     }
+}
+
+internal class SpaceSqlProjection
+{
+    public Guid Id { get; set; }
+    public Guid? ParentId { get; set; }
+    public string? ParentName { get; set; }
+    public int SpaceTypeId { get; set; }
+    public string? SpaceTypeName { get; set; }
+    public string? SpaceAddress { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public decimal? Area { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public string? SpaceProperties { get; set; }
+    public string? DataSource { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public bool IsDeleted { get; set; }
+    public double DistanceMeters { get; set; }
 }

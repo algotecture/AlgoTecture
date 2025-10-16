@@ -9,4 +9,4 @@ var kowerkDietlikonSpaces = await new KowerkDietlikonImporter().ImportAsync();
 db.Spaces.AddRange(kowerkDietlikonSpaces);
 await db.SaveChangesAsync();
 
-Console.WriteLine("✅ Import completed");
+Console.WriteLine("Import completed");
