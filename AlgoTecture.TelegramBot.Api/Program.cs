@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.HttpClient;
+using AlgoTecture.Identity.Contracts;
 using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Models;
@@ -16,6 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Refit;
+using Refit.HttpClientFactory.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +77,9 @@ builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
 builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<ISpaceServiceClient, SpaceServiceClient>();
+
+builder.Services.AddRefitClient<IAuthApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
 
 var app = builder.Build();
 

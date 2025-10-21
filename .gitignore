@@ -282,3 +282,6 @@ app.db-wal
 .DS_Store
 launchSettings.json
 hosting.json
+
+docs/swagger/
+docs/redoc/

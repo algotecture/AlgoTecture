@@ -1,4 +1,5 @@
 ﻿using AlgoTecture.HttpClient;
+using AlgoTecture.Identity.Contracts;
 using AlgoTecture.Identity.Contracts.Commands;
 
 namespace AlgoTecture.TelegramBot.Application.Services;
@@ -16,11 +17,13 @@ public class UserAuthenticationService : IUserAuthenticationService
 {
     private readonly ITelegramBotService _telegramBotService;
     private readonly IHttpService _httpService;
+    private readonly IAuthApi _authApi;
 
-    public UserAuthenticationService(ITelegramBotService telegramBotService, IHttpService httpService)
+    public UserAuthenticationService(ITelegramBotService telegramBotService, IHttpService httpService, IAuthApi authApi)
     {
         _telegramBotService = telegramBotService;
         _httpService = httpService;
+        _authApi = authApi;
     }
 
     public async Task<Guid> EnsureUserAuthenticatedAsync(
@@ -39,10 +42,7 @@ public class UserAuthenticationService : IUserAuthenticationService
         
         var loginCommand = new TelegramLoginCommand(telegramUserId, fullName);
 
-
-         var response = await _httpService.PostAsync<TelegramLoginCommand, TelegramLoginResult>(
-             "http://localhost:5000/identity/api/auth/telegram-login",
-             loginCommand);
+        var response = await _authApi.TelegramLoginAsync(loginCommand);
 
         if (response == null || response.IdentityId == Guid.Empty)
             throw new InvalidOperationException("Не удалось зарегистрировать пользователя");
