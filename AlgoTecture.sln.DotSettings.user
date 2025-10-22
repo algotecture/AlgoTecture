@@ -38,28 +38,20 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AUser_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003Fsipak_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FSourcesCache_003F5e9820b6cf119c9499c8c51a363c2cebcd9c8a0d711f3fbb1597cdc26a188bf_003FUser_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AWebApplicationFactory_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Fssipakov_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FSourcesCache_003Fd7dbe7c4cc75f01532fb6ce687bce710e21c95e6c44fd11dbe73c87d22758_003FWebApplicationFactory_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AXunitTestClassRunner_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Fssipakov_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FSourcesCache_003F324a3fe6867291bf9f132a713ba96965cf689ad2c71dd089bff7b3cf814bd4c_003FXunitTestClassRunner_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=64c0722f_002Daf36_002D447b_002D8018_002Dba9ca17663b5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Start_ShouldLoginUserViaIdentityService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7b98f779_002D1fa6_002D4b08_002D8a45_002Db5f97a6cfbd8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TelegramLogin_Should_ReturnOk #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aa9220a9_002D57d9_002D48cd_002Db2ee_002D12c2f496bdca/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Start_ShouldLoginUserViaIdentityService #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b87f4505_002D21d1_002D422f_002Dafe9_002Db7b2ca1ab7ec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Start_ShouldLoginUserViaIdentityService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D3C8882B-F976-4421-8E2A-35757FC56F5A::net8.0::AlgoTecture.Identity.Tests.IdentityControllerTests.TelegramLogin_Should_ReturnOk&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e8c4fbb3_002Dc5d1_002D492b_002D8d37_002D9d28da420e15/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Start_ShouldLoginUserViaIdentityService #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::9F58411B-A3EF-4AEB-A5F3-D9D1702D2C2A::net8.0::AlgoTecture.TelegramBot.Tests.Integration.MainControllerTests.Start_ShouldLoginUserViaIdentityService&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
