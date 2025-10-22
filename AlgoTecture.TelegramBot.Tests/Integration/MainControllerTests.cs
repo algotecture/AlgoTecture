@@ -1,4 +1,6 @@
-﻿using AlgoTecture.HttpClient;
+﻿using AlgoTecture.GeoAdminSearch;
+using AlgoTecture.HttpClient;
+using AlgoTecture.Identity.Contracts;
 using AlgoTecture.TelegramBot.Api.Controllers;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Services;
@@ -7,6 +9,7 @@ using AlgoTecture.TelegramBot.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 using Xunit;
 
 namespace AlgoTecture.TelegramBot.Tests.Integration;
@@ -45,6 +48,12 @@ public class MainControllerTests
         services.AddScoped<ITelegramBotService, TelegramBotService>();
         services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
         services.AddScoped<IReservationFlowService, ReservationFlowService>();
+        services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
+        services.AddScoped<IHttpService, HttpService>();
+        services.AddScoped<ISpaceServiceClient, SpaceServiceClient>();
+        
+        services.AddRefitClient<IAuthApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
         
         services.AddScoped<MainController>();
 

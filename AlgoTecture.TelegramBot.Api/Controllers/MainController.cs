@@ -44,15 +44,15 @@ public class MainController : ReservationControllerBase
         var userFullName = Context.GetUserFullName();
         if (userId == null) return;
 
-        // var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
-        //     userId.Value,
-        //     chatId!.Value,
-        //     userFullName,
-        //     userName
-        // );
-        // if (linkedUserId == Guid.Empty) return;
+        var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
+            userId.Value,
+            chatId!.Value,
+            userFullName,
+            userName
+        );
+        if (linkedUserId == Guid.Empty) return;
         //Idustriestrasse 24 8305
-        //Thread.Sleep(100000);
+       // Thread.Sleep(100000);
 
         PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
 
