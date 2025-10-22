@@ -40,7 +40,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AXunitTestClassRunner_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FUsers_003Fssipakov_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E2_003Fresharper_002Dhost_003FSourcesCache_003F324a3fe6867291bf9f132a713ba96965cf689ad2c71dd089bff7b3cf814bd4c_003FXunitTestClassRunner_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7b98f779_002D1fa6_002D4b08_002D8a45_002Db5f97a6cfbd8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TelegramLogin_Should_ReturnOk #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::D3C8882B-F976-4421-8E2A-35757FC56F5A::net8.0::AlgoTecture.Identity.Tests.IdentityControllerTests.TelegramLogin_Should_ReturnOk&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D3C8882B-F976-4421-8E2A-35757FC56F5A::net8.0::AlgoTecture.Identity.Tests.IdentityControllerTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

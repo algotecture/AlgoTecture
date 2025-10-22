@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace AlgoTecture.Identity.Tests.Fixtures;
 
-public class TestWebApplicationFactory : WebApplicationFactory<Program>
+public class TestWebApplicationFactory : WebApplicationFactory<Identity.Api.Program>
 {
     private readonly string _connectionString;
 
@@ -29,7 +28,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddMassTransitTestHarness(cfg =>
             {
-                cfg.AddConsumers(typeof(Program).Assembly);
+                cfg.AddConsumers(typeof(Identity.Api.Program).Assembly);
             });
         });
     }

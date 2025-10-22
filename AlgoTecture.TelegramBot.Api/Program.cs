@@ -18,8 +18,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Refit;
-using Refit.HttpClientFactory.Extensions;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
