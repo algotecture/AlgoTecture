@@ -1,13 +1,13 @@
-﻿using System.Globalization;
-using System.Net.Mime;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.TelegramBot.Api.Controllers.Base;
+using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Helpers;
 using AlgoTecture.TelegramBot.Application.Models;
 using AlgoTecture.TelegramBot.Application.Services;
 using AlgoTecture.TelegramBot.Domain;
+using AlgoTecture.User.Contracts;
+using AlgoTecture.User.Contracts.Requests;
 using AlgoTecture.Utils;
 using Deployf.Botf;
 using Microsoft.Extensions.Options;
@@ -24,14 +24,18 @@ public class MainController : ReservationControllerBase
     private readonly IGeoAdminSearcher _geoAdminSearcher;
     private readonly GeoAdminSettings _geoAdminSettings;
     private readonly ISpaceServiceClient _spaceClient;
+    private readonly IUserCarsApi _userCarsApi;
+    private readonly IUserCache _cache;
 
     public MainController(IUserAuthenticationService authService, IReservationFlowService flow,
-        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, ISpaceServiceClient spaceClient)
+        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, ISpaceServiceClient spaceClient, IUserCarsApi userCarsApi, IUserCache cache)
         : base(flow)
     {
         _authService = authService;
         _geoAdminSearcher = geoAdminSearcher;
         _spaceClient = spaceClient;
+        _userCarsApi = userCarsApi;
+        _cache = cache;
         _geoAdminSettings = options.Value;
     }
 
@@ -52,7 +56,7 @@ public class MainController : ReservationControllerBase
         );
         if (linkedUserId == Guid.Empty) return;
         //Idustriestrasse 24 8305
-       // Thread.Sleep(100000);
+        // Thread.Sleep(100000);
 
         PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
 
@@ -269,11 +273,12 @@ public class MainController : ReservationControllerBase
                 OriginalInput = geoAddressInput.OriginalInput,
                 Location = new Point(space.Latitude!.Value, space.Longitude!.Value),
             };
-            
+
             int? roundedDistanceInMeters =
                 space.DistanceMeters.HasValue ? (int)Math.Round(space.DistanceMeters.Value) : null;
 
-            RowButton($"{parkingType} parking — {roundedDistanceInMeters} m", Q(ShowDetails, sessionState, geoAddressInputToNearestPoint));
+            RowButton($"{parkingType} parking — {roundedDistanceInMeters} m",
+                Q(ShowDetails, sessionState, geoAddressInputToNearestPoint));
         }
 
         RowButton("↩️ go back", Q(EnterAddress, sessionState));
@@ -295,19 +300,91 @@ public class MainController : ReservationControllerBase
             longitude: (float)geoAddressInputToNearestPoint.Location.X,
             replyMarkup: new InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton.WithCallbackData("🅿️ make a reservation", 
-                    Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
+                    InlineKeyboardButton.WithCallbackData("🅿️ make a reservation",
+                        Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
                 ],
 
                 [
-                    InlineKeyboardButton.WithCallbackData("↩️ go back", 
-                    Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
+                    InlineKeyboardButton.WithCallbackData("↩️ go back",
+                        Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
                 ]
             ])
         );
 
         PushL("Here is the parking spot 📍");
         await SendOrUpdate();
+    }
+
+    [Action]
+    public async Task MakeAReservation(BotSessionState sessionState, GeoAddressInput geo)
+    {
+        var chatId = Context.GetSafeChatId();
+        var userId = Context.GetSafeUserId();
+        if (userId == null) return;
+
+        var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+          
+        if (cachedLinkedUserId == Guid.Empty)
+        {
+            PushL("User not found in cache. Please /start again.");
+            await SendOrUpdate();
+            return;
+        }
+        
+        var userCarsDto = await _userCarsApi.GetCarNumbersAsync(cachedLinkedUserId!.Value);
+
+        if (userCarsDto.CarNumbers.Count == 0)
+        {
+            PushL("You have no car numbers yet 🚗");
+            await SendOrUpdate();
+            await Client.SendTextMessageAsync(chatId!.Value,
+                "Add your first car number:",
+                replyMarkup: new InlineKeyboardMarkup([
+                    [InlineKeyboardButton.WithCallbackData("➕ Add car number", Q(AddCarNumber, sessionState))]
+                ]));
+            return;
+        }
+
+        PushL("Select a car number for reservation:");
+        await SendOrUpdate();
+
+        var buttons = userCarsDto.CarNumbers
+            .Select(c => new[]
+                { InlineKeyboardButton.WithCallbackData($"🚘 {c}", Q(ConfirmReservation, sessionState, c)) })
+            .ToList();
+
+        buttons.Add(new[] { InlineKeyboardButton.WithCallbackData("➕ Add new", Q(AddCarNumber, sessionState)) });
+
+        await Client.SendTextMessageAsync(chatId!.Value,
+            "Your cars:",
+            replyMarkup: new InlineKeyboardMarkup(buttons));
+    }
+
+    [Action]
+    public async Task AddCarNumber(BotSessionState state)
+    {
+        var chatId = Context.GetSafeChatId();
+        var userId = Context.GetSafeUserId();
+        if (userId == null) return;
+        if (!chatId.HasValue) return;
+
+        PushL("Please enter your car number (e.g., ZH12345):");
+        await SendOrUpdate();
+
+        var input = await AwaitText(() => Send("Timeout. Use /start to try again"));
+        if (string.IsNullOrWhiteSpace(input)) return;
+        
+        var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+        
+        var userCarsDto = await _userCarsApi.AddCarNumberAsync(cachedLinkedUserId!.Value, new AddCarNumberRequest(input));
+
+        PushL($"✅ Added: {input}. You now have {userCarsDto.CarNumbers.Count} car(s).");
+        await SendOrUpdate();
+    }
+
+    [Action]
+    public async Task ConfirmReservation(BotSessionState state)
+    {
     }
 
     [On(Handle.Exception)]

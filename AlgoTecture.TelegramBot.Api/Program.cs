@@ -9,6 +9,7 @@ using AlgoTecture.TelegramBot.Application.Services;
 using AlgoTecture.TelegramBot.Infrastructure;
 using AlgoTecture.TelegramBot.Infrastructure.Consumers;
 using AlgoTecture.TelegramBot.Infrastructure.Persistence;
+using AlgoTecture.User.Contracts;
 using Deployf.Botf;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -78,6 +79,9 @@ builder.Services.AddScoped<ISpaceServiceClient, SpaceServiceClient>();
 
 builder.Services.AddRefitClient<IAuthApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
+
+builder.Services.AddRefitClient<IUserCarsApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/user"));
 
 var app = builder.Build();
 

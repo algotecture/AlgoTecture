@@ -43,7 +43,7 @@ public class UserAuthenticationService : IUserAuthenticationService
         var response = await _authApi.TelegramLoginAsync(loginCommand);
 
         if (response == null || response.IdentityId == Guid.Empty)
-            throw new InvalidOperationException("Не удалось зарегистрировать пользователя");
+            throw new InvalidOperationException("Failed to register user");
 
         return response.UserId ?? Guid.Empty;
     }
