@@ -18,7 +18,7 @@ public class ReservationDraft
     public GeoAddressInput GeoAddressInput { get; set; }
 
     public string? SelectedCarNumber { get; set; }
-
+    
     public bool IsComplete =>
         SelectedSpaceId != default &&
         PendingStartRentLocal.HasValue &&

@@ -11,4 +11,6 @@ public class GeoAddressInput
     public string? NormalizedAddress { get; set; }
     
     public Point OriginalInput { get; set; } = default!;
+
+    public string? Type { get; set; }
 }

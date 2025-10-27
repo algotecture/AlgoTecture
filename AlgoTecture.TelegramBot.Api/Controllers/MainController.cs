@@ -273,6 +273,7 @@ public class MainController : ReservationControllerBase
                 NormalizedAddress = geoAddressInput.NormalizedAddress,
                 OriginalInput = geoAddressInput.OriginalInput,
                 Location = new Point(space.Latitude!.Value, space.Longitude!.Value),
+                Type = parkingType
             };
 
             int? roundedDistanceInMeters =
@@ -362,16 +363,17 @@ public class MainController : ReservationControllerBase
 
         var buttons = userCarsDto.CarNumbers
             .Select(curNumber => new[]
-                { InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}", Q(ConfirmReservation, sessionState, curNumber)) })
+                { InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}", Q(ShowReservationSummary, sessionState, geo, curNumber)) })
             .ToList();
 
         buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState, geo))]);
         
         buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState, geo))]);
 
-        await Client.SendTextMessageAsync(chatId.Value,
+        var msg = await Client.SendTextMessageAsync(chatId.Value,
             "Select to confirm a car number for reservation:",
             replyMarkup: new InlineKeyboardMarkup(buttons));
+        sessionState.MessageId = msg.MessageId;
     }
 
     [Action]
@@ -397,10 +399,104 @@ public class MainController : ReservationControllerBase
         
         await Call<MainController>(m => m.MakeAReservation(sessionState, geo));
     }
+    
+    [Action]
+    public async Task ShowReservationSummary(BotSessionState sessionState, GeoAddressInput geo, string carNumber)
+    {
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        
+        var draft = sessionState.CurrentReservation;
+        if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
+        {
+            await Send("⚠️ Missing reservation data. Please start over with /start");
+            return;
+        }
+
+        var summaryText = $"""
+                           🧾 <b>Reservation summary</b>
+
+                           📍 <b>Address:</b> {geo.NormalizedAddress}
+                           🚗 <b>Car:</b> {carNumber}
+                           🕒 <b>From:</b> {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm}
+                           🕒 <b>To:</b> {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
+                           🏷 <b>Space type:</b> {geo.Type}
+                           💰 <b>Price:</b> will be calculated after confirmation
+                           """;
+
+        var markup = new InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton.WithCallbackData("✅ confirm", Q(ConfirmReservation, sessionState, geo, carNumber))
+            ],
+            [
+                InlineKeyboardButton.WithCallbackData("↩️ go back", Q(MakeAReservation, sessionState, geo))
+            ]
+        ]);
+
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
+
+        var message = await Client.SendTextMessageAsync(
+            chatId: chatId.Value,
+            text: summaryText,
+            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+            replyMarkup: markup
+        );
+
+        sessionState.MessageId = message.MessageId;
+    }
 
     [Action]
-    public async Task ConfirmReservation(BotSessionState state, string carNumber)
+    public async Task ConfirmReservation(BotSessionState sessionState, GeoAddressInput geo, string carNumber)
     {
+        var chatId = Context.GetSafeChatId();
+        var userId = Context.GetSafeUserId();
+        if (userId == null || !chatId.HasValue) return;
+
+        var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+        if (linkedUserId == Guid.Empty)
+        {
+            await Send("⚠️ Session expired. Please /start again.");
+            return;
+        }
+
+        var draft = sessionState.CurrentReservation;
+        if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
+        {
+            await Send("⚠️ Missing reservation data.");
+            return;
+        }
+
+//         var command = new CreateReservationCommand
+//         {
+//             UserId = linkedUserId,
+//             SpaceId = draft.SpaceId ?? Guid.Empty,
+//             Address = geo.NormalizedAddress,
+//             Start = draft.PendingStartRentLocal.Value,
+//             End = draft.PendingEndRentLocal.Value,
+//             CarNumber = carNumber
+//         };
+//
+//         var result = await _flow.CreateReservationAsync(command);
+//
+          var confirmation = $"""
+                              ✅ <b>Reservation confirmed!</b>
+
+                              📍 {geo.NormalizedAddress}
+                              🚗 {carNumber}
+                              🕒 {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm} – {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
+                              🆔 Reservation ID: 
+                              """;
+
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+
+        var message = await Client.SendTextMessageAsync(
+            chatId: chatId.Value,
+            text: confirmation,
+            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
+        );
+
+        sessionState.MessageId = message.MessageId;
     }
 
     [On(Handle.Exception)]
