@@ -1,5 +1,5 @@
-﻿using AlgoTecture.Space.Contracts.Dto;
-using AlgoTecture.Space.Contracts.Queries;
+﻿using AlgoTecture.Space.Application.Queries;
+using AlgoTecture.Space.Contracts.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,7 @@ public class SpaceController : ControllerBase
     public async Task<ActionResult<List<SpaceDto>>> GetBySpaceType(int spaceTypeId)
         => Ok(await _mediator.Send(new GetSpacesByTypeQuery(spaceTypeId)));
     
-    [HttpGet("nearest-by-type/{latitude}/{longitude}/{spaceTypeId}/{maxDistanceMeters}/{count}")]
-    public async Task<ActionResult<List<SpaceDto>>> GetNearestBySpaceType(double latitude, double longitude, int spaceTypeId, int maxDistanceMeters, int count)
+    [HttpGet("nearest/{latitude}/{longitude}/{spaceTypeId}/{maxDistanceMeters}/{count}")]
+    public async Task<ActionResult<List<SpaceDto>>> GetNearestSpaces(double latitude, double longitude, int spaceTypeId, int maxDistanceMeters, int count)
         => Ok(await _mediator.Send(new GetNearestSpacesByTypeQuery(latitude, longitude, spaceTypeId, maxDistanceMeters, count)));
 }

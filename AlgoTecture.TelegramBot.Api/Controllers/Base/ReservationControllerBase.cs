@@ -21,4 +21,11 @@ public abstract class ReservationControllerBase : BotController
         await Client.DeleteMessageAsync(chatId, state.MessageId);
         state.MessageId = 0;
     }
+    
+    protected async Task DeletePreviousLocationMessageIfNeeded(BotSessionState state, long chatId)
+    {
+        if (state.LocationMessageId == 0) return;
+        await Client.DeleteMessageAsync(chatId, state.LocationMessageId);
+        state.LocationMessageId = 0;
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using AlgoTecture.GeoAdminSearch;
+using AlgoTecture.Space.Contracts;
 using AlgoTecture.TelegramBot.Api.Controllers.Base;
 using AlgoTecture.TelegramBot.Application;
 using AlgoTecture.TelegramBot.Application.Helpers;
@@ -23,19 +24,19 @@ public class MainController : ReservationControllerBase
     private readonly IUserAuthenticationService _authService;
     private readonly IGeoAdminSearcher _geoAdminSearcher;
     private readonly GeoAdminSettings _geoAdminSettings;
-    private readonly ISpaceServiceClient _spaceClient;
     private readonly IUserCarsApi _userCarsApi;
     private readonly IUserCache _cache;
+    private readonly ISpaceApi _spaceApi;
 
     public MainController(IUserAuthenticationService authService, IReservationFlowService flow,
-        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, ISpaceServiceClient spaceClient, IUserCarsApi userCarsApi, IUserCache cache)
+        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, IUserCarsApi userCarsApi, IUserCache cache, ISpaceApi spaceApi)
         : base(flow)
     {
         _authService = authService;
         _geoAdminSearcher = geoAdminSearcher;
-        _spaceClient = spaceClient;
         _userCarsApi = userCarsApi;
         _cache = cache;
+        _spaceApi = spaceApi;
         _geoAdminSettings = options.Value;
     }
 
@@ -233,7 +234,8 @@ public class MainController : ReservationControllerBase
         }
         else
         {
-            await Send("Choose the right address");
+            var msg = await Send("Choose the right address");
+            sessionState.MessageId = msg!.MessageId;
         }
     }
 
@@ -242,9 +244,8 @@ public class MainController : ReservationControllerBase
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
-
-
-        var spaces = await _spaceClient.GetNearestByTypeAsync(geoAddressInput.OriginalInput.X,
+        
+        var spaces = await _spaceApi.GetNearestSpacesAsync(geoAddressInput.OriginalInput.X,
             geoAddressInput.OriginalInput.Y, spaceTypeId: 1,
             maxDistanceMeters: 100000, count: 7);
 
@@ -284,7 +285,12 @@ public class MainController : ReservationControllerBase
         RowButton("↩️ go back", Q(EnterAddress, sessionState));
 
         PushL("🅿️ Available parking");
-        await SendOrUpdate();
+        
+        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId!.Value);
+        
+        var textMessage = await Send();
+        sessionState.MessageId = textMessage!.MessageId;
     }
 
     [Action]
@@ -293,15 +299,15 @@ public class MainController : ReservationControllerBase
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-
-        await Client.SendLocationAsync(
+        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+        var locationMessage = await Client.SendLocationAsync(
             chatId: chatId.Value,
             latitude: (float)geoAddressInputToNearestPoint.Location.Y,
             longitude: (float)geoAddressInputToNearestPoint.Location.X,
             replyMarkup: new InlineKeyboardMarkup([
                 [
                     InlineKeyboardButton.WithCallbackData("🅿️ make a reservation",
-                        Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
+                        Q(MakeAReservation, sessionState, geoAddressInputToNearestPoint))
                 ],
 
                 [
@@ -311,8 +317,11 @@ public class MainController : ReservationControllerBase
             ])
         );
 
+        sessionState.LocationMessageId = locationMessage.MessageId;
+
         PushL("Here is the parking spot 📍");
-        await SendOrUpdate();
+        var textMessage = await SendOrUpdate();
+        sessionState.MessageId = textMessage!.MessageId;
     }
 
     [Action]
@@ -332,36 +341,41 @@ public class MainController : ReservationControllerBase
         }
         
         var userCarsDto = await _userCarsApi.GetCarNumbersAsync(cachedLinkedUserId!.Value);
+        
+        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId!.Value);
 
         if (userCarsDto.CarNumbers.Count == 0)
         {
             PushL("You have no car numbers yet 🚗");
-            await SendOrUpdate();
+            
+            var message = await Send();
+            sessionState.MessageId = message!.MessageId;
             await Client.SendTextMessageAsync(chatId!.Value,
                 "Add your first car number:",
                 replyMarkup: new InlineKeyboardMarkup([
-                    [InlineKeyboardButton.WithCallbackData("➕ Add car number", Q(AddCarNumber, sessionState))]
+                    [InlineKeyboardButton.WithCallbackData("➕ add car number", Q(AddCarNumber, sessionState, geo)), 
+                        InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState, geo))]
                 ]));
             return;
         }
 
-        PushL("Select a car number for reservation:");
-        await SendOrUpdate();
-
         var buttons = userCarsDto.CarNumbers
-            .Select(c => new[]
-                { InlineKeyboardButton.WithCallbackData($"🚘 {c}", Q(ConfirmReservation, sessionState, c)) })
+            .Select(curNumber => new[]
+                { InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}", Q(ConfirmReservation, sessionState, curNumber)) })
             .ToList();
 
-        buttons.Add(new[] { InlineKeyboardButton.WithCallbackData("➕ Add new", Q(AddCarNumber, sessionState)) });
+        buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState, geo))]);
+        
+        buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState, geo))]);
 
-        await Client.SendTextMessageAsync(chatId!.Value,
-            "Your cars:",
+        await Client.SendTextMessageAsync(chatId.Value,
+            "Select to confirm a car number for reservation:",
             replyMarkup: new InlineKeyboardMarkup(buttons));
     }
 
     [Action]
-    public async Task AddCarNumber(BotSessionState state)
+    public async Task AddCarNumber(BotSessionState sessionState, GeoAddressInput geo)
     {
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
@@ -380,10 +394,12 @@ public class MainController : ReservationControllerBase
 
         PushL($"✅ Added: {input}. You now have {userCarsDto.CarNumbers.Count} car(s).");
         await SendOrUpdate();
+        
+        await Call<MainController>(m => m.MakeAReservation(sessionState, geo));
     }
 
     [Action]
-    public async Task ConfirmReservation(BotSessionState state)
+    public async Task ConfirmReservation(BotSessionState state, string carNumber)
     {
     }
 

@@ -6,9 +6,9 @@ namespace AlgoTecture.User.Contracts;
 
 public interface IUserCarsApi
 {
-    [Get("/api/users/{userId}/cars")]
+    [Get("/api/user/{userId}/cars")]
     Task<UserCarsDto> GetCarNumbersAsync(Guid userId);
 
-    [Post("/api/users/{userId}/cars")]
+    [Post("/api/user/{userId}/cars")]
     Task<UserCarsDto> AddCarNumberAsync(Guid userId, [Body] AddCarNumberRequest request);
 }

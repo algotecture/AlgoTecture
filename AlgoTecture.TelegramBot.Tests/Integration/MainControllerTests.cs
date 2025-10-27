@@ -50,7 +50,6 @@ public class MainControllerTests
         services.AddScoped<IReservationFlowService, ReservationFlowService>();
         services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
         services.AddScoped<IHttpService, HttpService>();
-        services.AddScoped<ISpaceServiceClient, SpaceServiceClient>();
         
         services.AddRefitClient<IAuthApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));

@@ -4,5 +4,7 @@ public class BotSessionState
 {
     public int MessageId { get; set; }
     
+    public int LocationMessageId { get; set; }
+    
     public ReservationDraft CurrentReservation { get; set; } = new();
 }

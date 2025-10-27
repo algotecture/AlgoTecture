@@ -1,10 +1,9 @@
 ﻿using AlgoTecture.Space.Contracts.Dto;
-using AlgoTecture.Space.Contracts.Queries;
 using AlgoTecture.Space.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 using Npgsql;
+using GetNearestSpacesByTypeQuery = AlgoTecture.Space.Application.Queries.GetNearestSpacesByTypeQuery;
 
 namespace AlgoTecture.Space.Application.Handlers;
 

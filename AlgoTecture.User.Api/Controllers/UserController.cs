@@ -9,10 +9,10 @@ namespace AlgoTecture.User.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class UsersController : ControllerBase
+public sealed class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
-    public UsersController(IMediator mediator) => _mediator = mediator;
+    public UserController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet("{userId:guid}/cars")]
     public async Task<ActionResult<UserCarsDto>> GetCarNumbers(Guid userId, CancellationToken ct)

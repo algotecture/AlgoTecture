@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using AlgoTecture.User.Application.Commands;
 using AlgoTecture.User.Contracts.Events;
 using AlgoTecture.User.Infrastructure;
 using AlgoTecture.User.Infrastructure.Consumers;
@@ -15,10 +16,16 @@ var cfg = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<UserDbContext>(options =>
 {
     UserRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<UserDbContext>)options);
+});
+
+builder.Services.AddMediatR(configuration => 
+{
+    configuration.RegisterServicesFromAssembly(typeof(AddUserCarNumberCommand).Assembly);
 });
 
 builder.Services.AddMassTransit(x =>
@@ -50,6 +57,9 @@ builder.Services.AddMassTransit(x =>
 });
 
 var app = builder.Build();
+
+app.MapControllers();
+
 
 if (builder.Environment.IsDevelopment())
 {

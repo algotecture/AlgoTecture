@@ -1,7 +1,7 @@
 ﻿using AlgoTecture.Space.Contracts.Dto;
 using MediatR;
 
-namespace AlgoTecture.Space.Contracts.Queries;
+namespace AlgoTecture.Space.Application.Queries;
 
 public record GetSpacesByTypeQuery(int SpaceTypeId) : IRequest<List<SpaceDto>>;
 
