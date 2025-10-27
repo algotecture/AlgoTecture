@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text;
+using System.Text.Json.Nodes;
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.Space.Contracts;
 using AlgoTecture.TelegramBot.Api.Controllers.Base;
@@ -412,7 +413,18 @@ public class MainController : ReservationControllerBase
             await Send("⚠️ Missing reservation data. Please start over with /start");
             return;
         }
+        
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
 
+        var locationMessage = await Client.SendLocationAsync(
+            chatId: chatId.Value,
+            latitude: (float)geo.Location.Y,
+            longitude: (float)geo.Location.X
+        );
+        sessionState.LocationMessageId = locationMessage.MessageId;
+
+// 2️⃣ Потом — текстовая карточка
         var summaryText = $"""
                            🧾 <b>Reservation summary</b>
 
@@ -433,17 +445,13 @@ public class MainController : ReservationControllerBase
             ]
         ]);
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
-
-        var message = await Client.SendTextMessageAsync(
+        var textMessage = await Client.SendTextMessageAsync(
             chatId: chatId.Value,
             text: summaryText,
             parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
             replyMarkup: markup
         );
-
-        sessionState.MessageId = message.MessageId;
+        sessionState.MessageId = textMessage.MessageId;
     }
 
     [Action]
@@ -488,12 +496,80 @@ public class MainController : ReservationControllerBase
                               🆔 Reservation ID: 
                               """;
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+          await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+          await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
 
+        var markup = new InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton.WithCallbackData("↩️ go to reservations", Q(ShowReservations, sessionState, geo))
+            ]
+        ]);
+        
         var message = await Client.SendTextMessageAsync(
             chatId: chatId.Value,
             text: confirmation,
-            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
+            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+            replyMarkup: markup
+        );
+
+        sessionState.MessageId = message.MessageId;
+    }
+    
+    [Action]
+    public async Task ShowReservations(BotSessionState sessionState, GeoAddressInput geo)
+    {
+        var chatId = Context.GetSafeChatId();
+        var userId = Context.GetSafeUserId();
+        if (userId == null || !chatId.HasValue) return;
+
+        var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+        if (linkedUserId == Guid.Empty)
+        {
+            await Send("⚠️ Session expired. Please /start again.");
+            return;
+        }
+
+        //var reservations = await _reservationApi.GetUserReservationsAsync(linkedUserId);
+
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+
+        // if (reservations.Count == 0)
+        // {
+        //     var msg = await Client.SendTextMessageAsync(chatId.Value,
+        //         "😔 You have no active reservations.",
+        //         replyMarkup: new InlineKeyboardMarkup([
+        //             [InlineKeyboardButton.WithCallbackData("↩️ Back to menu", Q(Start))]
+        //         ])
+        //     );
+        //     sessionState.MessageId = msg.MessageId;
+        //     return;
+        // }
+
+        // собираем карточки всех актуальных резерваций
+        var summary = new StringBuilder();
+        summary.AppendLine("<b>📋 Your active reservations</b>\n");
+
+//         foreach (var r in reservations)
+//         {
+//             summary.AppendLine($"""
+//                                 🆔 <b>{r.Id}</b>
+//                                 📍 {r.Address}
+//                                 🚗 {r.CarNumber}
+//                                 🕒 {r.Start:dd.MM.yyyy HH:mm} – {r.End:dd.MM.yyyy HH:mm}
+//                                 🏷 <i>{r.Status}</i>
+//                                 """);
+//             summary.AppendLine();
+//         }
+
+        var markup = new InlineKeyboardMarkup([
+            [InlineKeyboardButton.WithCallbackData("↩️ back to start menu", Q(Start))]
+        ]);
+
+        var message = await Client.SendTextMessageAsync(
+            chatId.Value,
+            summary.ToString(),
+            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+            replyMarkup: markup
         );
 
         sessionState.MessageId = message.MessageId;
@@ -509,5 +585,11 @@ public class MainController : ReservationControllerBase
     void ChainTimeout(Exception ex)
     {
         //_logger.LogError(ex, "Handle.Exception on telegram-bot");
+    }
+
+    [On(Handle.Unknown)]
+    public async Task Unknown()
+    {
+        
     }
 }
