@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Text.Json.Nodes;
 using AlgoTecture.GeoAdminSearch;
+using AlgoTecture.Reservation.Contracts;
+using AlgoTecture.Reservation.Contracts.Requests;
 using AlgoTecture.Space.Contracts;
 using AlgoTecture.TelegramBot.Api.Controllers.Base;
 using AlgoTecture.TelegramBot.Application;
@@ -17,7 +19,6 @@ using NetTopologySuite.Geometries;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 
-
 namespace AlgoTecture.TelegramBot.Api.Controllers;
 
 public class MainController : ReservationControllerBase
@@ -28,9 +29,12 @@ public class MainController : ReservationControllerBase
     private readonly IUserCarsApi _userCarsApi;
     private readonly IUserCache _cache;
     private readonly ISpaceApi _spaceApi;
+    private readonly IReservationApi _reservationApi;
 
     public MainController(IUserAuthenticationService authService, IReservationFlowService flow,
-        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, IUserCarsApi userCarsApi, IUserCache cache, ISpaceApi spaceApi)
+        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, IUserCarsApi userCarsApi,
+        IUserCache cache,
+        ISpaceApi spaceApi, IReservationApi reservationApi)
         : base(flow)
     {
         _authService = authService;
@@ -38,6 +42,7 @@ public class MainController : ReservationControllerBase
         _userCarsApi = userCarsApi;
         _cache = cache;
         _spaceApi = spaceApi;
+        _reservationApi = reservationApi;
         _geoAdminSettings = options.Value;
     }
 
@@ -49,6 +54,12 @@ public class MainController : ReservationControllerBase
         var userName = Context.GetUsername();
         var userFullName = Context.GetUserFullName();
         if (userId == null) return;
+        
+        BotSessionState sessionState = new BotSessionState
+            { CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 } };
+        
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+
 
         var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
             userId.Value,
@@ -58,15 +69,13 @@ public class MainController : ReservationControllerBase
         );
         if (linkedUserId == Guid.Empty) return;
         //Idustriestrasse 24 8305
-        // Thread.Sleep(100000);
 
         PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
 
-        BotSessionState state = new BotSessionState
-            { CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 } };
-
-        RowButton("🚗 reserve a parking", Q(SelectRentalTime, state, TimeSelectionStage.None, null!));
-        //RowButton("📅 manage reservations", Q(PressToFindReservationsButton));
+        RowButton("🚗 reserve a parking", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
+        RowButton("📅 manage reservations", Q(ShowReservations, sessionState));
+        var msg =await SendOrUpdate();
+        sessionState.MessageId = msg!.MessageId;
     }
 
     [Action]
@@ -93,31 +102,24 @@ public class MainController : ReservationControllerBase
         }
 
         sessionState.CurrentReservation.PendingStartRentLocal = stage == TimeSelectionStage.Start
-            ? DateTimeParser.GetLocalDateTime(dateTime, time)
+            ? DateTimeParser.GetValidDateTime(dateTime, time)
             : sessionState.CurrentReservation.PendingStartRentLocal;
         sessionState.CurrentReservation.PendingEndRentLocal = stage == TimeSelectionStage.End
-            ? DateTimeParser.GetLocalDateTime(dateTime, time)
+            ? DateTimeParser.GetValidDateTime(dateTime, time)
             : sessionState.CurrentReservation.PendingEndRentLocal;
 
-        if (sessionState.CurrentReservation.PendingEndRentLocal != null &&
-            sessionState.CurrentReservation.PendingEndRentLocal <= DateTimeOffset.UtcNow)
+        var start = sessionState.CurrentReservation.PendingStartRentLocal;
+        var end = sessionState.CurrentReservation.PendingEndRentLocal;
+
+        if (start is not null && end is not null && end <= start)
             sessionState.CurrentReservation.PendingEndRentLocal = null;
 
-        if (sessionState.CurrentReservation.PendingStartRentLocal != null &&
-            sessionState.CurrentReservation.PendingStartRentLocal <= DateTimeOffset.UtcNow)
-            sessionState.CurrentReservation.PendingStartRentLocal = null;
-
-        if (sessionState.CurrentReservation.PendingStartRentLocal != null &&
-            sessionState.CurrentReservation.PendingEndRentLocal != null &&
-            sessionState.CurrentReservation.PendingEndRentLocal <=
-            sessionState.CurrentReservation.PendingStartRentLocal)
-            sessionState.CurrentReservation.PendingEndRentLocal = null;
-
-        RowButton(sessionState.CurrentReservation.PendingStartRentLocal != null
-            ? $"{sessionState.CurrentReservation.PendingStartRentLocal:dddd, MMMM dd yyyy HH:mm}"
+        RowButton(start is not null
+            ? $"{start:dddd, MMMM dd yyyy HH:mm}"
             : "⏱️ start time", Q(PressToChooseTheDate, sessionState, TimeSelectionStage.Start));
-        RowButton(sessionState.CurrentReservation.PendingEndRentLocal != null
-            ? $"{sessionState.CurrentReservation.PendingEndRentLocal:dddd, MMMM dd yyyy HH:mm}"
+
+        RowButton(end is not null
+            ? $"{end:dddd, MMMM dd yyyy HH:mm}"
             : "end time⏱️", Q(PressToChooseTheDate, sessionState, TimeSelectionStage.End));
 
         if (sessionState.CurrentReservation.PendingStartRentLocal != null &&
@@ -236,7 +238,7 @@ public class MainController : ReservationControllerBase
         else
         {
             var msg = await Send("Choose the right address");
-            sessionState.MessageId = msg!.MessageId;
+            sessionState.MessageId = msg.MessageId;
         }
     }
 
@@ -245,7 +247,7 @@ public class MainController : ReservationControllerBase
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
-        
+
         var spaces = await _spaceApi.GetNearestSpacesAsync(geoAddressInput.OriginalInput.X,
             geoAddressInput.OriginalInput.Y, spaceTypeId: 1,
             maxDistanceMeters: 100000, count: 7);
@@ -277,44 +279,59 @@ public class MainController : ReservationControllerBase
                 Type = parkingType
             };
 
+            var newSessionState = new BotSessionState
+            {
+                MessageId = sessionState.MessageId,
+                LocationMessageId = sessionState.LocationMessageId,
+                CurrentReservation = new ReservationDraft
+                {
+                    SelectedSpaceId = space.Id, SelectedSpaceTypeId = space.SpaceTypeId,
+                    PendingStartRentLocal = sessionState.CurrentReservation.PendingStartRentLocal,
+                    PendingEndRentLocal = sessionState.CurrentReservation.PendingEndRentLocal,
+                    SpaceTimeZone = space.TimeZoneId,
+                    SelectedCarNumber = sessionState.CurrentReservation.SelectedCarNumber,
+                    GeoAddressInput = geoAddressInputToNearestPoint
+                }
+            };
+
             int? roundedDistanceInMeters =
                 space.DistanceMeters.HasValue ? (int)Math.Round(space.DistanceMeters.Value) : null;
 
             RowButton($"{parkingType} parking — {roundedDistanceInMeters} m",
-                Q(ShowDetails, sessionState, geoAddressInputToNearestPoint));
+                Q(ShowDetails, newSessionState));
         }
 
         RowButton("↩️ go back", Q(EnterAddress, sessionState));
 
         PushL("🅿️ Available parking");
-        
-        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId!.Value);
-        
+
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
+
         var textMessage = await Send();
         sessionState.MessageId = textMessage!.MessageId;
     }
 
     [Action]
-    public async Task ShowDetails(BotSessionState sessionState, GeoAddressInput geoAddressInputToNearestPoint)
+    public async Task ShowDetails(BotSessionState sessionState)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
         var locationMessage = await Client.SendLocationAsync(
             chatId: chatId.Value,
-            latitude: (float)geoAddressInputToNearestPoint.Location.Y,
-            longitude: (float)geoAddressInputToNearestPoint.Location.X,
+            latitude: (float)sessionState.CurrentReservation.GeoAddressInput.Location.Y,
+            longitude: (float)sessionState.CurrentReservation.GeoAddressInput.Location.X,
             replyMarkup: new InlineKeyboardMarkup([
                 [
                     InlineKeyboardButton.WithCallbackData("🅿️ make a reservation",
-                        Q(MakeAReservation, sessionState, geoAddressInputToNearestPoint))
+                        Q(MakeAReservation, sessionState))
                 ],
 
                 [
                     InlineKeyboardButton.WithCallbackData("↩️ go back",
-                        Q(ShowNearestSpaces, sessionState, geoAddressInputToNearestPoint))
+                        Q(ShowNearestSpaces, sessionState, sessionState.CurrentReservation.GeoAddressInput))
                 ]
             ])
         );
@@ -327,49 +344,54 @@ public class MainController : ReservationControllerBase
     }
 
     [Action]
-    public async Task MakeAReservation(BotSessionState sessionState, GeoAddressInput geo)
+    public async Task MakeAReservation(BotSessionState sessionState)
     {
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
         if (userId == null) return;
 
         var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
-          
+
         if (cachedLinkedUserId == Guid.Empty)
         {
             PushL("User not found in cache. Please /start again.");
             await SendOrUpdate();
             return;
         }
-        
+
         var userCarsDto = await _userCarsApi.GetCarNumbersAsync(cachedLinkedUserId!.Value);
-        
+
         await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId!.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
 
         if (userCarsDto.CarNumbers.Count == 0)
         {
             PushL("You have no car numbers yet 🚗");
-            
+
             var message = await Send();
             sessionState.MessageId = message!.MessageId;
-            await Client.SendTextMessageAsync(chatId!.Value,
+            await Client.SendTextMessageAsync(chatId.Value,
                 "Add your first car number:",
                 replyMarkup: new InlineKeyboardMarkup([
-                    [InlineKeyboardButton.WithCallbackData("➕ add car number", Q(AddCarNumber, sessionState, geo)), 
-                        InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState, geo))]
+                    [
+                        InlineKeyboardButton.WithCallbackData("➕ add car number", Q(AddCarNumber, sessionState)),
+                        InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))
+                    ]
                 ]));
             return;
         }
 
         var buttons = userCarsDto.CarNumbers
             .Select(curNumber => new[]
-                { InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}", Q(ShowReservationSummary, sessionState, geo, curNumber)) })
+            {
+                InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}",
+                    Q(ShowReservationSummary, sessionState, curNumber))
+            })
             .ToList();
 
-        buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState, geo))]);
-        
-        buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState, geo))]);
+        buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState))]);
+
+        buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))]);
 
         var msg = await Client.SendTextMessageAsync(chatId.Value,
             "Select to confirm a car number for reservation:",
@@ -378,7 +400,7 @@ public class MainController : ReservationControllerBase
     }
 
     [Action]
-    public async Task AddCarNumber(BotSessionState sessionState, GeoAddressInput geo)
+    public async Task AddCarNumber(BotSessionState sessionState)
     {
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
@@ -390,58 +412,58 @@ public class MainController : ReservationControllerBase
 
         var input = await AwaitText(() => Send("Timeout. Use /start to try again"));
         if (string.IsNullOrWhiteSpace(input)) return;
-        
+
         var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
-        
-        var userCarsDto = await _userCarsApi.AddCarNumberAsync(cachedLinkedUserId!.Value, new AddCarNumberRequest(input));
+
+        var userCarsDto =
+            await _userCarsApi.AddCarNumberAsync(cachedLinkedUserId!.Value, new AddCarNumberRequest(input));
 
         PushL($"✅ Added: {input}. You now have {userCarsDto.CarNumbers.Count} car(s).");
         await SendOrUpdate();
-        
-        await Call<MainController>(m => m.MakeAReservation(sessionState, geo));
+
+        await Call<MainController>(m => m.MakeAReservation(sessionState));
     }
-    
+
     [Action]
-    public async Task ShowReservationSummary(BotSessionState sessionState, GeoAddressInput geo, string carNumber)
+    public async Task ShowReservationSummary(BotSessionState sessionState, string carNumber)
     {
         var chatId = Context.GetSafeChatId();
         if (!chatId.HasValue) return;
-        
+
         var draft = sessionState.CurrentReservation;
         if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
         {
             await Send("⚠️ Missing reservation data. Please start over with /start");
             return;
         }
-        
+
         await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
         await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
 
         var locationMessage = await Client.SendLocationAsync(
             chatId: chatId.Value,
-            latitude: (float)geo.Location.Y,
-            longitude: (float)geo.Location.X
+            latitude: (float)sessionState.CurrentReservation.GeoAddressInput.Location.Y,
+            longitude: (float)sessionState.CurrentReservation.GeoAddressInput.Location.X
         );
         sessionState.LocationMessageId = locationMessage.MessageId;
 
-// 2️⃣ Потом — текстовая карточка
         var summaryText = $"""
                            🧾 <b>Reservation summary</b>
 
-                           📍 <b>Address:</b> {geo.NormalizedAddress}
+                           📍 <b>Address:</b> {sessionState.CurrentReservation.GeoAddressInput.NormalizedAddress}
                            🚗 <b>Car:</b> {carNumber}
                            🕒 <b>From:</b> {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm}
                            🕒 <b>To:</b> {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
-                           🏷 <b>Space type:</b> {geo.Type}
+                           🏷 <b>Space type:</b> {sessionState.CurrentReservation.GeoAddressInput.Type}
                            💰 <b>Price:</b> will be calculated after confirmation
                            """;
 
         var markup = new InlineKeyboardMarkup([
             [
-                InlineKeyboardButton.WithCallbackData("✅ confirm", Q(ConfirmReservation, sessionState, geo, carNumber))
+                InlineKeyboardButton.WithCallbackData("✅ confirm", Q(ConfirmReservation, sessionState, carNumber))
             ],
             [
-                InlineKeyboardButton.WithCallbackData("↩️ go back", Q(MakeAReservation, sessionState, geo))
+                InlineKeyboardButton.WithCallbackData("↩️ go back", Q(MakeAReservation, sessionState))
             ]
         ]);
 
@@ -455,7 +477,7 @@ public class MainController : ReservationControllerBase
     }
 
     [Action]
-    public async Task ConfirmReservation(BotSessionState sessionState, GeoAddressInput geo, string carNumber)
+    public async Task ConfirmReservation(BotSessionState sessionState, string carNumber)
     {
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
@@ -469,59 +491,79 @@ public class MainController : ReservationControllerBase
         }
 
         var draft = sessionState.CurrentReservation;
+        draft.SelectedCarNumber = carNumber;
         if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
         {
             await Send("⚠️ Missing reservation data.");
             return;
         }
 
-//         var command = new CreateReservationCommand
-//         {
-//             UserId = linkedUserId,
-//             SpaceId = draft.SpaceId ?? Guid.Empty,
-//             Address = geo.NormalizedAddress,
-//             Start = draft.PendingStartRentLocal.Value,
-//             End = draft.PendingEndRentLocal.Value,
-//             CarNumber = carNumber
-//         };
-//
-//         var result = await _flow.CreateReservationAsync(command);
-//
-          var confirmation = $"""
-                              ✅ <b>Reservation confirmed!</b>
+        var tz = TimeZoneInfo.FindSystemTimeZoneById(draft.SpaceTimeZone!);
 
-                              📍 {geo.NormalizedAddress}
-                              🚗 {carNumber}
-                              🕒 {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm} – {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
-                              🆔 Reservation ID: 
-                              """;
+        var startUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingStartRentLocal.Value, tz);
+        var endUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingEndRentLocal.Value, tz);
 
-          await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-          await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
+        var request = new CreateReservationRequest(draft.SelectedSpaceId, linkedUserId!.Value, startUtc, endUtc,
+            draft.SelectedCarNumber);
 
-        var markup = new InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton.WithCallbackData("↩️ go to reservations", Q(ShowReservations, sessionState, geo))
-            ]
-        ]);
-        
-        var message = await Client.SendTextMessageAsync(
-            chatId: chatId.Value,
-            text: confirmation,
-            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
-            replyMarkup: markup
-        );
+        var result = await _reservationApi.CreateReservation(request);
 
-        sessionState.MessageId = message.MessageId;
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
+        if (result.Id == Guid.Empty)
+        {
+            var markupWithNullResult = new InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton.WithCallbackData("↩️ go to reservation summary",
+                        Q(ShowReservationSummary, sessionState, carNumber))
+                ]
+            ]);
+
+            var message = await Client.SendTextMessageAsync(
+                chatId: chatId.Value,
+                text: "Sorry, but it seems this time is busy.",
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                replyMarkup: markupWithNullResult
+            );
+
+            sessionState.MessageId = message.MessageId;
+        }
+        else
+        {
+            var confirmation = $"""
+                                ✅ <b>Reservation confirmed!</b>
+                                📍 {sessionState.CurrentReservation.GeoAddressInput.NormalizedAddress}
+                                🚗 {carNumber}
+                                🕒 {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm} – {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
+                                🆔 Reservation ID {result.PublicId}: 
+                                """;
+
+            var markup = new InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton.WithCallbackData("↩️ go to reservations", Q(ShowReservations, sessionState))
+                ]
+            ]);
+
+            var message = await Client.SendTextMessageAsync(
+                chatId: chatId.Value,
+                text: confirmation,
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                replyMarkup: markup
+            );
+
+            sessionState.MessageId = message.MessageId;
+        }
     }
-    
+
     [Action]
-    public async Task ShowReservations(BotSessionState sessionState, GeoAddressInput geo)
+    public async Task ShowReservations(BotSessionState sessionState)
     {
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
         if (userId == null || !chatId.HasValue) return;
-
+        
+        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        
         var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
         if (linkedUserId == Guid.Empty)
         {
@@ -529,37 +571,32 @@ public class MainController : ReservationControllerBase
             return;
         }
 
-        //var reservations = await _reservationApi.GetUserReservationsAsync(linkedUserId);
+        var activeReservations = await _reservationApi.GetUserReservations(linkedUserId);
+        
+        if (activeReservations.Count == 0)
+        {
+            var msg = await Client.SendTextMessageAsync(chatId.Value,
+                "😔 You have no active reservations.",
+                replyMarkup: new InlineKeyboardMarkup([
+                    [InlineKeyboardButton.WithCallbackData("↩️ go to start", Q(Start))]
+                ])
+            );
+            sessionState.MessageId = msg.MessageId;
+            return;
+        }
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-
-        // if (reservations.Count == 0)
-        // {
-        //     var msg = await Client.SendTextMessageAsync(chatId.Value,
-        //         "😔 You have no active reservations.",
-        //         replyMarkup: new InlineKeyboardMarkup([
-        //             [InlineKeyboardButton.WithCallbackData("↩️ Back to menu", Q(Start))]
-        //         ])
-        //     );
-        //     sessionState.MessageId = msg.MessageId;
-        //     return;
-        // }
-
-        // собираем карточки всех актуальных резерваций
         var summary = new StringBuilder();
         summary.AppendLine("<b>📋 Your active reservations</b>\n");
 
-//         foreach (var r in reservations)
-//         {
-//             summary.AppendLine($"""
-//                                 🆔 <b>{r.Id}</b>
-//                                 📍 {r.Address}
-//                                 🚗 {r.CarNumber}
-//                                 🕒 {r.Start:dd.MM.yyyy HH:mm} – {r.End:dd.MM.yyyy HH:mm}
-//                                 🏷 <i>{r.Status}</i>
-//                                 """);
-//             summary.AppendLine();
-//         }
+        foreach (var r in activeReservations)
+        {
+            summary.AppendLine($"""
+                                🆔 <b>{r.PublicId}</b>
+                                🚗 {r.CarNumber}
+                                🏷 <i>{r.Status}</i>
+                                """);
+            summary.AppendLine();
+        }
 
         var markup = new InlineKeyboardMarkup([
             [InlineKeyboardButton.WithCallbackData("↩️ back to start menu", Q(Start))]
@@ -590,6 +627,5 @@ public class MainController : ReservationControllerBase
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
-        
     }
 }

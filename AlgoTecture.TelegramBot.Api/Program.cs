@@ -2,6 +2,7 @@
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.HttpClient;
 using AlgoTecture.Identity.Contracts;
+using AlgoTecture.Reservation.Contracts;
 using AlgoTecture.Space.Contracts;
 using AlgoTecture.TelegramBot.Api.Extensions;
 using AlgoTecture.TelegramBot.Application;
@@ -85,6 +86,9 @@ builder.Services.AddRefitClient<IUserCarsApi>()
 
 builder.Services.AddRefitClient<ISpaceApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/space"));
+
+builder.Services.AddRefitClient<IReservationApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/reservation"));
 
 var app = builder.Build();
 

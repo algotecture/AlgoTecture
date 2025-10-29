@@ -6,10 +6,10 @@ public class ReservationDraft
 
     public int SelectedSpaceTypeId { get; set; }
     
-    public DateTimeOffset? PendingStartRentLocal { get; set; }
-    public DateTimeOffset? PendingEndRentLocal { get; set; }
+    public DateTime? PendingStartRentLocal { get; set; }
+    public DateTime? PendingEndRentLocal { get; set; }
     
-    public string SpaceTimeZone { get; set; } = "Europe/Zurich";
+    public string? SpaceTimeZone { get; set; } = "Europe/Zurich";
     
     public string? SpaceName { get; set; }
     

@@ -8,16 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AlgoTecture.GeoAdminSearch\AlgoTecture.GeoAdminSearch.csproj" />
-      <ProjectReference Include="..\AlgoTecture.HttpClient\AlgoTecture.HttpClient.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Identity.Contracts\AlgoTecture.Identity.Contracts.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Reservation.Application\AlgoTecture.Reservation.Application.csproj" />
-      <ProjectReference Include="..\AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj" />
-      <ProjectReference Include="..\AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj" />
-      <ProjectReference Include="..\AlgoTecture.Utils\AlgoTecture.Utils.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
         <PackageReference Include="MassTransit" Version="8.4.1" />
         <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.4.1" />
         <PackageReference Include="MassTransit.Extensions.Logging" Version="5.5.6" />
@@ -28,11 +19,19 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.11" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
-        <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
-        <PackageReference Include="Deployf.Botf" Version="0.17.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+        <HintPath>..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\8.0.21\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AlgoTecture.Reservation.Application\AlgoTecture.Reservation.Application.csproj" />
+      <ProjectReference Include="..\AlgoTecture.Reservation.Contracts\AlgoTecture.Reservation.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>

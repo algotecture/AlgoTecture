@@ -41,7 +41,9 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
                s.""Description"",
                s.""SpaceProperties"",
                s.""DataSource"",
+               s.""ExternalId"",
                s.""CreatedAt"",
+               s.""TimeZoneId"",
                s.""IsDeleted"",
                ST_Distance(s.""Location""::geography, ST_MakePoint(@lat, @lng)::geography) AS ""DistanceMeters""
         FROM ""Spaces"" s
@@ -74,7 +76,9 @@ public class GetNearestSpacesByTypeQueryHandler : IRequestHandler<GetNearestSpac
             space.Description,
             space.SpaceProperties,
             space.DataSource,
+            space.ExternalId,
             space.CreatedAt,
+            space.TimeZoneId,
             space.IsDeleted,
             new List<SpaceImageDto>(),
             space.DistanceMeters
@@ -99,7 +103,9 @@ internal class SpaceSqlProjection
     public string? Description { get; set; }
     public string? SpaceProperties { get; set; }
     public string? DataSource { get; set; }
+    public string? ExternalId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
+    public string? TimeZoneId { get; set; }
     public bool IsDeleted { get; set; }
     public double DistanceMeters { get; set; }
 }

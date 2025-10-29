@@ -16,7 +16,9 @@ public record SpaceDto(
     string? Description,
     string? SpaceProperties,
     string? DataSource,
+    string? ExternalId,   
     DateTimeOffset CreatedAt,
+    string? TimeZoneId,
     bool IsDeleted,
     List<SpaceImageDto> Images,
     double? DistanceMeters = null);
