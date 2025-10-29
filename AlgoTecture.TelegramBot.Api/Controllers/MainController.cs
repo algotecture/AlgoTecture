@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json.Nodes;
+using AlgoTecture.AICoreService.Application.Services;
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.Reservation.Contracts;
 using AlgoTecture.Reservation.Contracts.Requests;
@@ -30,11 +31,12 @@ public class MainController : ReservationControllerBase
     private readonly IUserCache _cache;
     private readonly ISpaceApi _spaceApi;
     private readonly IReservationApi _reservationApi;
+    private readonly DeepSeekSettings _deepSeekSettings;
 
     public MainController(IUserAuthenticationService authService, IReservationFlowService flow,
-        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> options, IUserCarsApi userCarsApi,
-        IUserCache cache,
-        ISpaceApi spaceApi, IReservationApi reservationApi)
+        IGeoAdminSearcher geoAdminSearcher, IOptions<GeoAdminSettings> geoAdminSettings, IUserCarsApi userCarsApi,
+        IUserCache cache, ISpaceApi spaceApi, IReservationApi reservationApi,
+        IOptions<DeepSeekSettings> deepSeekSettings)
         : base(flow)
     {
         _authService = authService;
@@ -43,7 +45,8 @@ public class MainController : ReservationControllerBase
         _cache = cache;
         _spaceApi = spaceApi;
         _reservationApi = reservationApi;
-        _geoAdminSettings = options.Value;
+        _geoAdminSettings = geoAdminSettings.Value;
+        _deepSeekSettings = deepSeekSettings.Value;
     }
 
     [Action("/start", "start the bot")]
@@ -54,10 +57,10 @@ public class MainController : ReservationControllerBase
         var userName = Context.GetUsername();
         var userFullName = Context.GetUserFullName();
         if (userId == null) return;
-        
+
         BotSessionState sessionState = new BotSessionState
             { CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 } };
-        
+
         await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
 
 
@@ -74,7 +77,7 @@ public class MainController : ReservationControllerBase
 
         RowButton("🚗 reserve a parking", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
         RowButton("📅 manage reservations", Q(ShowReservations, sessionState));
-        var msg =await SendOrUpdate();
+        var msg = await SendOrUpdate();
         sessionState.MessageId = msg!.MessageId;
     }
 
@@ -561,9 +564,9 @@ public class MainController : ReservationControllerBase
         var chatId = Context.GetSafeChatId();
         var userId = Context.GetSafeUserId();
         if (userId == null || !chatId.HasValue) return;
-        
+
         await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-        
+
         var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
         if (linkedUserId == Guid.Empty)
         {
@@ -572,7 +575,7 @@ public class MainController : ReservationControllerBase
         }
 
         var activeReservations = await _reservationApi.GetUserReservations(linkedUserId);
-        
+
         if (activeReservations.Count == 0)
         {
             var msg = await Client.SendTextMessageAsync(chatId.Value,
@@ -627,5 +630,91 @@ public class MainController : ReservationControllerBase
     [On(Handle.Unknown)]
     public async Task Unknown()
     {
+        //ToDo experimental AI flow!
+
+        var chatId = Context.GetSafeChatId();
+        if (!chatId.HasValue) return;
+        if (Context.Update.Message?.Text is { } messageText)
+        {
+            
+            var progressMsg = await Client.SendTextMessageAsync(
+                chatId: chatId.Value,
+                text: "⏳ Searching for the nearest parking spot... The operation may take a few seconds",
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);
+            
+            var intent = await (new IntentRecognitionService(new DeepSeekService(_deepSeekSettings.ApiKey,
+                _deepSeekSettings.BaseUrl, _deepSeekSettings.Model)).RecognizeIntentAsync(messageText));
+
+            var result = await (new ParkingActionService()).ExecuteActionAsync(intent);
+
+            if (result.DateTimeFrom != null && result.DateTimeTo != null && result.Address != null &&
+                result.Address.Length > 0 && result.CarNumber != null && result.CarNumber.Length > 0)
+            {
+                var baseUrlToAdminSearcher = _geoAdminSettings.GeoAdminBaseUrl;
+
+                var labels = (await _geoAdminSearcher.GetAddress(baseUrlToAdminSearcher, result.Address)).ToList();
+                
+                var sessionState = new BotSessionState();
+                sessionState.MessageId = progressMsg.MessageId;
+                
+                if (labels.Count == 0)
+                {
+                    await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+                    var msg = await Send("No nearby addresses found 😔");
+                    sessionState.MessageId = msg.MessageId;
+                    return;
+                }
+
+                var firstAddress = labels.First();
+
+                var spaces = await _spaceApi.GetNearestSpacesAsync(firstAddress.lat,
+                    firstAddress.lon, spaceTypeId: 1,
+                    maxDistanceMeters: 100000, count: 7);
+
+                if (spaces.Count == 0)
+                {
+                    await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+                    var msg = await Send("No nearby spaces found 😔");
+                    sessionState.MessageId = msg.MessageId;
+                    return;
+                }
+
+                var firstSpace = spaces.First();
+
+                var parkingType = string.Empty;
+                if (!firstSpace.SpaceProperties.IsEmptyJson())
+                {
+                    if (firstSpace.SpaceProperties != null)
+                    {
+                        var node = JsonNode.Parse(firstSpace.SpaceProperties);
+                        parkingType = node?["Type"]?.GetValue<string>();
+                    }
+                }
+
+                var geoAddressInputToNearestPoint = new GeoAddressInput
+                {
+                    FeatureId = firstAddress.featureId,
+                    NormalizedAddress = firstAddress.label,
+                    OriginalInput = new Point(firstAddress.lat, firstAddress.lon),
+                    Location = new Point(firstSpace.Latitude!.Value, firstSpace.Longitude!.Value),
+                    Type = parkingType
+                };
+
+                sessionState.CurrentReservation = new ReservationDraft
+                    {
+                        SelectedSpaceId = firstSpace.Id, 
+                        SelectedSpaceTypeId = firstSpace.SpaceTypeId,
+                        PendingStartRentLocal = result.DateTimeFrom,
+                        PendingEndRentLocal = result.DateTimeTo,
+                        SpaceTimeZone = firstSpace.TimeZoneId,
+                        SelectedCarNumber = result.CarNumber,
+                        GeoAddressInput = geoAddressInputToNearestPoint
+                    };
+                
+                await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+
+                await Call<MainController>(m => m.ShowReservationSummary(sessionState, result.CarNumber));
+            }
+        }
     }
 }

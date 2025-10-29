@@ -32,6 +32,10 @@ builder.Services.AddOptions<GeoAdminSettings>()
     .BindConfiguration("GeoAdminSettings")
     .ValidateOnStart();
 
+builder.Services.AddOptions<DeepSeekSettings>()
+    .BindConfiguration("DeepSeek")
+    .ValidateOnStart();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
