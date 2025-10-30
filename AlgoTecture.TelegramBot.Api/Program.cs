@@ -21,89 +21,122 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Refit;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace AlgoTecture.TelegramBot.Api;
 
-builder.WebHost.UseConfiguration(builder.Configuration);
-
-var cfg = builder.Configuration;
-
-builder.Services.AddOptions<GeoAdminSettings>()
-    .BindConfiguration("GeoAdminSettings")
-    .ValidateOnStart();
-
-builder.Services.AddOptions<DeepSeekSettings>()
-    .BindConfiguration("DeepSeek")
-    .ValidateOnStart();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddStackExchangeRedisCache(options =>
+public class Program
 {
-    options.Configuration = builder.Configuration.GetConnectionString("Redis")
-                            ?? "localhost:6379"; 
-    options.InstanceName = "TelegramBot_"; 
-});
-
-builder.Services.AddDbContext<TelegramAccountDbContext>(options =>
-{
-    TelegramAccountRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<TelegramAccountDbContext>)options);
-});
-
-builder.Services.AddMassTransit(x =>
-{
-    x.SetKebabCaseEndpointNameFormatter();
-    x.AddConsumer<UserCreatedConsumer>();
-    x.UsingRabbitMq((ctx, mq) =>
+    public static void Main(string[] args)
     {
-        mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
+
+        try
         {
-            h.Username(cfg["Rabbit:Username"] ?? "guest");
-            h.Password(cfg["Rabbit:Password"] ?? "guest");
-        });
+            var builder = WebApplication.CreateBuilder(args);
+            var env = builder.Environment;
+            var cfg = builder.Configuration;
 
-        mq.ReceiveEndpoint("telegram-bot-user-created", e =>
+            builder.Host.UseSerilog((context, _, lc) =>
+            {
+                lc.ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
+            });
+
+            builder.WebHost.UseConfiguration(builder.Configuration);
+
+            builder.Services.AddOptions<GeoAdminSettings>()
+                .BindConfiguration("GeoAdminSettings")
+                .ValidateOnStart();
+
+            builder.Services.AddOptions<DeepSeekSettings>()
+                .BindConfiguration("DeepSeek")
+                .ValidateOnStart();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddStackExchangeRedisCache(o =>
+            {
+                o.Configuration = cfg.GetConnectionString("Redis") ?? "localhost:6379";
+                o.InstanceName = "TelegramBot_";
+            });
+
+            builder.Services.AddDbContext<TelegramAccountDbContext>(o =>
+                TelegramAccountRuntimeContextFactory.ConfigureOptions(
+                    (DbContextOptionsBuilder<TelegramAccountDbContext>)o));
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.SetKebabCaseEndpointNameFormatter();
+                x.AddConsumer<UserCreatedConsumer>();
+                x.UsingRabbitMq((ctx, mq) =>
+                {
+                    mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
+                    {
+                        h.Username(cfg["Rabbit:Username"] ?? "guest");
+                        h.Password(cfg["Rabbit:Password"] ?? "guest");
+                    });
+                    mq.ReceiveEndpoint("telegram-bot-user-created", e =>
+                    {
+                        e.ConfigureConsumeTopology = false;
+                        e.Bind("user-created");
+                        e.ConfigureConsumer<UserCreatedConsumer>(ctx);
+                    });
+                    mq.ConfigureEndpoints(ctx);
+                });
+            });
+
+            builder = BotFExtensions.ConfigureBot(args, builder);
+
+            builder.Services.AddScoped<IUserCache, UserCache>();
+            builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
+            builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
+            builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
+            builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
+            builder.Services.AddScoped<IHttpService, HttpService>();
+
+            builder.Services.AddRefitClient<IAuthApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
+
+            builder.Services.AddRefitClient<IUserCarsApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/user"));
+
+            builder.Services.AddRefitClient<ISpaceApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/space"));
+
+            builder.Services.AddRefitClient<IReservationApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/reservation"));
+
+            var app = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseBotf();
+
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            Log.Information("TelegramBotService started successfully");
+            app.Run();
+        }
+        catch (Exception ex)
         {
-            e.ConfigureConsumeTopology = false; 
-            e.Bind("user-created");           
-            e.ConfigureConsumer<UserCreatedConsumer>(ctx);
-        });
-        mq.ConfigureEndpoints(ctx);
-    });
-});
-builder = BotFExtensions.ConfigureBot(args, builder);
-
-builder.Services.AddScoped<IUserCache, UserCache>();
-builder.Services.AddScoped<ITelegramAccountDbContext, TelegramAccountDbContext>();
-builder.Services.AddScoped<ITelegramBotService, TelegramBotService>();
-builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
-builder.Services.AddScoped<IReservationFlowService, ReservationFlowService>();
-builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
-builder.Services.AddScoped<IHttpService, HttpService>();
-
-builder.Services.AddRefitClient<IAuthApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
-
-builder.Services.AddRefitClient<IUserCarsApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/user"));
-
-builder.Services.AddRefitClient<ISpaceApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/space"));
-
-builder.Services.AddRefitClient<IReservationApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/reservation"));
-
-var app = builder.Build();
-
-if (builder.Environment.IsDevelopment())
-{
-    app.UseSwagger(); app.UseSwaggerUI();
+            Log.Fatal(ex, "TelegramBotService terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-app.UseBotf();
-
-var defaultCulture = CultureInfo.InvariantCulture;
-CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
-
-app.Run();

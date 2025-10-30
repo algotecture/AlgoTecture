@@ -2,17 +2,51 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseConfiguration(builder.Configuration);
+namespace AlgoTecture.ApiGateway;
 
-builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
-var app = builder.Build();
-app.MapReverseProxy();
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            var env = builder.Environment;
 
-var defaultCulture = CultureInfo.InvariantCulture;
-CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+            builder.Host.UseSerilog((context, _, lc) =>
+            {
+                lc.ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
+            });
 
-app.Run();
+            builder.WebHost.UseConfiguration(builder.Configuration);
+            builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+            var app = builder.Build();
+            app.MapReverseProxy();
+
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            Log.Information("ApiGateway started successfully");
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "ApiGateway terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}

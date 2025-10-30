@@ -9,66 +9,92 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace AlgoTecture.User.Api;
 
-var cfg = builder.Configuration;
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<UserDbContext>(options =>
+public class Program
 {
-    UserRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<UserDbContext>)options);
-});
-
-builder.Services.AddMediatR(configuration => 
-{
-    configuration.RegisterServicesFromAssembly(typeof(AddUserCarNumberCommand).Assembly);
-});
-
-builder.Services.AddMassTransit(x =>
-{
-    x.SetKebabCaseEndpointNameFormatter();
-    x.AddConsumer<IdentityCreatedConsumer>();
-    x.UsingRabbitMq((ctx, mq) =>
+    public static void Main(string[] args)
     {
-        mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
-        {
-            h.Username(cfg["Rabbit:Username"] ?? "guest");
-            h.Password(cfg["Rabbit:Password"] ?? "guest");
-        });
-        mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
-        mq.Message<UserCreated>(e => { e.SetEntityName("user-created"); });
-        mq.ReceiveEndpoint("user-service-identity-events", e =>
-        {
-            e.ConfigureConsumeTopology = false;
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
-            e.Bind("identity-events", s =>
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            var env = builder.Environment;
+            var cfg = builder.Configuration;
+
+            builder.Host.UseSerilog((context, _, lc) =>
             {
-                s.ExchangeType = "topic";
-                s.RoutingKey = "identity.*";
+                lc.ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
             });
 
-            e.ConfigureConsumer<IdentityCreatedConsumer>(ctx);
-        });
-    });
-});
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+            builder.Services.AddDbContext<UserDbContext>(o =>
+                UserRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<UserDbContext>)o));
 
-app.MapControllers();
+            builder.Services.AddMediatR(c =>
+                c.RegisterServicesFromAssembly(typeof(AddUserCarNumberCommand).Assembly));
 
+            builder.Services.AddMassTransit(x =>
+            {
+                x.SetKebabCaseEndpointNameFormatter();
+                x.AddConsumer<IdentityCreatedConsumer>();
+                x.UsingRabbitMq((ctx, mq) =>
+                {
+                    mq.Host(cfg["Rabbit:Host"] ?? "localhost", h =>
+                    {
+                        h.Username(cfg["Rabbit:Username"] ?? "guest");
+                        h.Password(cfg["Rabbit:Password"] ?? "guest");
+                    });
+                    mq.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
+                    mq.Message<UserCreated>(e => e.SetEntityName("user-created"));
+                    mq.ReceiveEndpoint("user-service-identity-events", e =>
+                    {
+                        e.ConfigureConsumeTopology = false;
+                        e.Bind("identity-events", s =>
+                        {
+                            s.ExchangeType = "topic";
+                            s.RoutingKey = "identity.*";
+                        });
+                        e.ConfigureConsumer<IdentityCreatedConsumer>(ctx);
+                    });
+                });
+            });
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+            var app = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.MapControllers();
+
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            Log.Information("UserService started successfully");
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "UserService terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-
-var defaultCulture = CultureInfo.InvariantCulture;
-CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
-
-app.Run();

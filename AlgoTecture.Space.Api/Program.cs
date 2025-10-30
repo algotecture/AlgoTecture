@@ -8,41 +8,71 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace AlgoTecture.Space.Api;
 
-var cfg = builder.Configuration;
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<IDbContextFactory<SpaceDbContext>, SpaceRuntimeContextFactory>();
-
-builder.Services.AddDbContext<SpaceDbContext>(options =>
+public class Program
 {
-    SpaceRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<SpaceDbContext>)options);
-});
+    public static void Main(string[] args)
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
-builder.Services.AddMediatR(configuration => 
-{
-    configuration.RegisterServicesFromAssembly(typeof(GetSpacesByTypeQueryHandler).Assembly);
-});
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            var env = builder.Environment;
 
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<GetSpacesByTypeQueryHandler>();
+            builder.Host.UseSerilog((context, _, lc) =>
+            {
+                lc.ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
+            });
 
-var app = builder.Build();
+            var cfg = builder.Configuration;
 
-app.MapControllers();
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseSwagger(); app.UseSwaggerUI();
+            builder.Services.AddSingleton<IDbContextFactory<SpaceDbContext>, SpaceRuntimeContextFactory>();
+            builder.Services.AddDbContext<SpaceDbContext>(o =>
+                SpaceRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<SpaceDbContext>)o));
+
+            builder.Services.AddMediatR(c =>
+                c.RegisterServicesFromAssembly(typeof(GetSpacesByTypeQueryHandler).Assembly));
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<GetSpacesByTypeQueryHandler>();
+
+            var app = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.MapControllers();
+
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            Log.Information("SpaceService started successfully");
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "SpaceService terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-
-var defaultCulture = CultureInfo.InvariantCulture;
-CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
-
-app.Run();

@@ -8,41 +8,79 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace AlgoTecture.Reservation.Api;
 
-var cfg = builder.Configuration;
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<IDbContextFactory<ReservationDbContext>, ReservationRuntimeContextFactory>();
-
-builder.Services.AddDbContext<ReservationDbContext>(options =>
+public class Program
 {
-    ReservationRuntimeContextFactory.ConfigureOptions((DbContextOptionsBuilder<ReservationDbContext>)options);
-});
+    public static void Main(string[] args)
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
-builder.Services.AddMediatR(configuration => 
-{
-    configuration.RegisterServicesFromAssembly(typeof(GetUserReservationsQueryHandler).Assembly);
-});
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            var env = builder.Environment;
+            var cfg = builder.Configuration;
 
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<GetUserReservationsQueryHandler>();
+            builder.Host.UseSerilog((context, _, loggerConfig) =>
+            {
+                loggerConfig
+                    .ReadFrom.Configuration(context.Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("App", env.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
+            });
 
-var app = builder.Build();
+            // сервисы
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-app.MapControllers();
+            builder.Services.AddSingleton<IDbContextFactory<ReservationDbContext>, ReservationRuntimeContextFactory>();
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseSwagger(); app.UseSwaggerUI();
+            builder.Services.AddDbContext<ReservationDbContext>(options =>
+            {
+                ReservationRuntimeContextFactory.ConfigureOptions(
+                    (DbContextOptionsBuilder<ReservationDbContext>)options);
+            });
+
+            builder.Services.AddMediatR(configuration =>
+            {
+                configuration.RegisterServicesFromAssembly(typeof(GetUserReservationsQueryHandler).Assembly);
+            });
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<GetUserReservationsQueryHandler>();
+
+            var app = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.MapControllers();
+
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            Log.Information("ReservationService started successfully");
+
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "ReservationService terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-
-var defaultCulture = CultureInfo.InvariantCulture;
-CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
-
-app.Run();
