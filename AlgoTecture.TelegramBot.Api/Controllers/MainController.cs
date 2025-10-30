@@ -62,7 +62,7 @@ public class MainController : ReservationControllerBase
         var userFullName = Context.GetUserFullName();
         if (userId == null) return;
 
-        _logger.LogInformation("User {UserId} started the bot. Username: {Username}, FullName: {FullName}",
+        _logger.LogInformation("Telegram user {UserId} started the bot. Username: {Username}, FullName: {FullName}",
             userId, userName, userFullName);
 
         var sessionState = new BotSessionState
@@ -70,10 +70,10 @@ public class MainController : ReservationControllerBase
             CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 }
         };
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
 
         var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
-            userId.Value, chatId!.Value, userFullName, userName);
+            userId.Value, chatId.Value, userFullName, userName);
 
         if (linkedUserId == Guid.Empty)
         {
@@ -98,8 +98,6 @@ public class MainController : ReservationControllerBase
         if (!chatId.HasValue) return;
 
         var userId = Context.GetSafeUserId();
-        _logger.LogInformation("User {UserId} selecting rental time. Stage: {Stage}, Date: {Date}",
-            userId, stage, dateTime);
 
         var time = string.Empty;
         if (dateTime != null)
@@ -110,8 +108,6 @@ public class MainController : ReservationControllerBase
 
             time = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
             await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-
-            _logger.LogInformation("User {UserId} entered time: {Time}", userId, time);
         }
 
         sessionState.CurrentReservation.PendingStartRentLocal = stage == TimeSelectionStage.Start
