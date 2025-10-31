@@ -8,8 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{5C3BD9C4-9F77-4758-B401-F1335C5F2AF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.ApiGateway", "AlgoTecture.ApiGateway\AlgoTecture.ApiGateway.csproj", "{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Api", "AlgoTecture.Identity.Api\AlgoTecture.Identity.Api.csproj", "{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{2815E6F1-D2F8-48DC-99FF-CE1F564E57F1}"
@@ -114,7 +112,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Inf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Contracts", "AlgoTecture.Reservation.Contracts\AlgoTecture.Reservation.Contracts.csproj", "{0665C7B3-84FC-4F03-A4ED-ACC4CBB2B42A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{31723706-BC0C-479B-A481-9585326FFB65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.ApiGateway", "AlgoTecture.ApiGateway\AlgoTecture.ApiGateway.csproj", "{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,10 +120,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0823CBF-53D2-4F23-8AF2-F2C13353BA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -290,6 +284,10 @@ Global
 		{0665C7B3-84FC-4F03-A4ED-ACC4CBB2B42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0665C7B3-84FC-4F03-A4ED-ACC4CBB2B42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0665C7B3-84FC-4F03-A4ED-ACC4CBB2B42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF9E3BCC-102B-4EB6-B1AC-5EA325450989} = {E917773F-87C9-461A-8EF9-50A2D4B2D141}
@@ -344,7 +342,6 @@ Global
 		{BEB3FAEC-0FB9-4D57-B4E9-827AF3974F74} = {F7D30013-85FA-44F6-AC59-A8BF34676334}
 		{8DBF005E-5763-4DA1-9892-310B59CAC78C} = {F7D30013-85FA-44F6-AC59-A8BF34676334}
 		{0665C7B3-84FC-4F03-A4ED-ACC4CBB2B42A} = {C95AACF2-C2DF-42E4-9376-544F8944AE92}
-		{31723706-BC0C-479B-A481-9585326FFB65} = {FF9E3BCC-102B-4EB6-B1AC-5EA325450989}
-		{C12DD50F-87FE-4D34-A1FE-09AE58078E5C} = {31723706-BC0C-479B-A481-9585326FFB65}
+		{EA2C0A5A-4432-47FA-99D2-B2A51359DCDB} = {FF9E3BCC-102B-4EB6-B1AC-5EA325450989}
 	EndGlobalSection
 EndGlobal
