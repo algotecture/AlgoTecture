@@ -63,7 +63,7 @@ public class Program
             CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
             CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
-            Log.Information("SpaceService started successfully");
+            Log.Warning("SpaceService started successfully");
             app.Run();
         }
         catch (Exception ex)

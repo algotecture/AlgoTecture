@@ -1,43 +1,39 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-
-namespace AlgoTecture.ApiGateway;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
             .WriteTo.Console()
             .CreateBootstrapLogger();
 
         try
         {
+            Log.Information("Starting up ApiGateway");
+
             var builder = WebApplication.CreateBuilder(args);
-            var env = builder.Environment;
 
             builder.Host.UseSerilog((context, _, lc) =>
             {
                 lc.ReadFrom.Configuration(context.Configuration)
                     .Enrich.FromLogContext()
-                    .Enrich.WithProperty("App", env.ApplicationName)
-                    .Enrich.WithProperty("EnvironmentName", env.EnvironmentName);
+                    .Enrich.WithProperty("App", builder.Environment.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName);
             });
 
-            builder.WebHost.UseConfiguration(builder.Configuration);
-            builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+            builder.Services.AddReverseProxy()
+                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
             var app = builder.Build();
             app.MapReverseProxy();
 
-            var defaultCulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+            app.Lifetime.ApplicationStarted.Register(() =>
+                Log.Information("ApiGateway started successfully"));
 
-            Log.Information("ApiGateway started successfully");
             app.Run();
         }
         catch (Exception ex)

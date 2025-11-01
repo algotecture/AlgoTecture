@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net;
 using AlgoTecture.GeoAdminSearch;
 using AlgoTecture.HttpClient;
 using AlgoTecture.Identity.Contracts;
@@ -15,7 +16,9 @@ using AlgoTecture.User.Contracts;
 using Deployf.Botf;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -102,16 +105,16 @@ public class Program
             builder.Services.AddScoped<IHttpService, HttpService>();
 
             builder.Services.AddRefitClient<IAuthApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/identity"));
 
             builder.Services.AddRefitClient<IUserCarsApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/user"));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/user"));
 
             builder.Services.AddRefitClient<ISpaceApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/space"));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/space"));
 
             builder.Services.AddRefitClient<IReservationApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/reservation"));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/reservation"));
 
             var app = builder.Build();
 

@@ -96,7 +96,7 @@ public class Program
 
             app.MapControllers();
 
-            Log.Information("IdentityService started successfully");
+            Log.Warning("IdentityService started successfully");
             app.Run();
         }
         catch (Exception ex)

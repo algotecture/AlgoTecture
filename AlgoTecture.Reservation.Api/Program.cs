@@ -70,7 +70,7 @@ public class Program
             CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
             CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
-            Log.Information("ReservationService started successfully");
+            Log.Warning("ReservationService started successfully");
 
             app.Run();
         }

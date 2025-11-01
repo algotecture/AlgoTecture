@@ -25,7 +25,7 @@ public class SpaceControllerTests : IClassFixture<DatabaseFixture>
 
         // Act
         using var client = new HttpClient();
-        var spaces = await client.GetFromJsonAsync<List<SpaceDto>>("http://localhost:5000/api/space/nearest-by-type/47.3741373184/8.5120681827/1/10000000/10");
+        var spaces = await client.GetFromJsonAsync<List<SpaceDto>>("http://localhost:5006/api/space/nearest-by-type/47.3741373184/8.5120681827/1/10000000/10");
         
         await _databaseFixture.DisposeAsync();
         // Assert

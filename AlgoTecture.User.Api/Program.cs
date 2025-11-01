@@ -85,7 +85,7 @@ public class Program
             CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
             CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
-            Log.Information("UserService started successfully");
+            Log.Warning("UserService started successfully");
             app.Run();
         }
         catch (Exception ex)

@@ -52,7 +52,7 @@ public class MainControllerTests
         services.AddScoped<IHttpService, HttpService>();
         
         services.AddRefitClient<IAuthApi>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5000/identity"));
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/identity"));
         
         services.AddScoped<MainController>();
 

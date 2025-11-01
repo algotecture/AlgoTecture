@@ -56,39 +56,47 @@ public class MainController : ReservationControllerBase
     [Action("/start", "start the bot")]
     public async Task Start()
     {
-        var chatId = Context.GetSafeChatId();
-        var userId = Context.GetSafeUserId();
-        var userName = Context.GetUsername();
-        var userFullName = Context.GetUserFullName();
-        if (userId == null) return;
-
-        _logger.LogInformation("Telegram user {UserId} started the bot. Username: {Username}, FullName: {FullName}",
-            userId, userName, userFullName);
-
-        var sessionState = new BotSessionState
+        try
         {
-            CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 }
-        };
+            var chatId = Context.GetSafeChatId();
+            var userId = Context.GetSafeUserId();
+            var userName = Context.GetUsername();
+            var userFullName = Context.GetUserFullName();
+            if (userId == null) return;
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+            _logger.LogInformation("Telegram user {UserId} started the bot. Username: {Username}, FullName: {FullName}",
+                userId, userName, userFullName);
 
-        var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
-            userId.Value, chatId.Value, userFullName, userName);
+            var sessionState = new BotSessionState
+            {
+                CurrentReservation = new ReservationDraft { SelectedSpaceTypeId = 1 }
+            };
 
-        if (linkedUserId == Guid.Empty)
-        {
-            _logger.LogWarning("User {UserId} failed to authenticate", userId);
-            return;
+            await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+
+            var linkedUserId = await _authService.EnsureUserAuthenticatedAsync(
+                userId.Value, chatId.Value, userFullName, userName);
+
+            if (linkedUserId == Guid.Empty)
+            {
+                _logger.LogWarning("User {UserId} failed to authenticate", userId);
+                return;
+            }
+
+            _logger.LogInformation("Telegram user {UserId} linked to system user {LinkedUserId}", userId, linkedUserId);
+
+            PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
+            RowButton("🚗 reserve a parking", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
+            RowButton("📅 manage reservations", Q(ShowReservations, sessionState));
+
+            var msg = await SendOrUpdate();
+            sessionState.MessageId = msg!.MessageId;
         }
-
-        _logger.LogInformation("Telegram user {UserId} linked to system user {LinkedUserId}", userId, linkedUserId);
-
-        PushL("I am your parking 🅿️ assistant. I help you find and manage spots near you.");
-        RowButton("🚗 reserve a parking", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
-        RowButton("📅 manage reservations", Q(ShowReservations, sessionState));
-
-        var msg = await SendOrUpdate();
-        sessionState.MessageId = msg!.MessageId;
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in /start");
+            throw;
+        }
     }
 
     [Action]
@@ -198,126 +206,142 @@ public class MainController : ReservationControllerBase
     [Action]
     public async Task EnterAddress(BotSessionState sessionState)
     {
-        var chatId = Context.GetSafeChatId();
-        if (!chatId.HasValue) return;
-
-        var userId = Context.GetSafeUserId();
-        PushL("Enter the address or part of the address (or type 'back' to return)");
-        var message = await SendOrUpdate();
-        sessionState.MessageId = message!.MessageId;
-
-        var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
-        _logger.LogInformation("User {UserId} entered address query: {Address}", userId, address);
-
-        if (address.Equals("back", StringComparison.OrdinalIgnoreCase))
+        try
         {
-            _logger.LogInformation("User {UserId} returned from address entry", userId);
-            await Call<MainController>(m => m.SelectRentalTime(sessionState, TimeSelectionStage.None, null!));
-            return;
-        }
+            var chatId = Context.GetSafeChatId();
+            if (!chatId.HasValue) return;
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+            var userId = Context.GetSafeUserId();
+            PushL("Enter the address or part of the address (or type 'back' to return)");
+            var message = await SendOrUpdate();
+            sessionState.MessageId = message!.MessageId;
 
-        var baseUrl = _geoAdminSettings.GeoAdminBaseUrl;
-        var labels = (await _geoAdminSearcher.GetAddress(baseUrl, address)).ToList();
+            var address = await AwaitText(() => Send("Text input timeout. Use /start to try again"));
+            _logger.LogInformation("User {UserId} entered address query: {Address}", userId, address);
 
-        if (!labels.Any())
-        {
-            _logger.LogWarning("No address matches found for user {UserId} and query '{Address}'", userId, address);
-            RowButton("Try again"!, Q(EnterAddress, sessionState));
-            await SendOrUpdate();
-            return;
-        }
-
-        foreach (var label in labels)
-        {
-            RowButton(label.label, Q(ShowNearestSpaces, sessionState, new GeoAddressInput
+            if (address.Equals("back", StringComparison.OrdinalIgnoreCase))
             {
-                FeatureId = label.featureId,
-                NormalizedAddress = label.label,
-                OriginalInput = new Point(label.lat, label.lon)
-            }));
-        }
-
-        RowButton("↩️ go back", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
-
-        var msg = await Send("Choose the right address");
-        sessionState.MessageId = msg.MessageId;
-    }
-
-   [Action]
-    public async Task ShowNearestSpaces(BotSessionState sessionState, GeoAddressInput geoAddressInput)
-    {
-        var userId = Context.GetSafeUserId();
-        _logger.LogInformation("User {UserId} searching nearest spaces for {Address}",
-            userId, geoAddressInput.NormalizedAddress);
-
-        var spaces = await _spaceApi.GetNearestSpacesAsync(
-            geoAddressInput.OriginalInput.X,
-            geoAddressInput.OriginalInput.Y,
-            spaceTypeId: 1,
-            maxDistanceMeters: 100000, count: 7);
-
-        if (spaces.Count == 0)
-        {
-            _logger.LogWarning("No nearby spaces found for user {UserId}", userId);
-            await Send("No nearby spaces found 😔");
-            return;
-        }
-
-        foreach (var space in spaces)
-        {
-            string? parkingType = string.Empty;
-            if (space.SpaceProperties.IsEmptyJson()) continue;
-            if (space.SpaceProperties != null)
-            {
-                var node = JsonNode.Parse(space.SpaceProperties);
-                parkingType = node?["Type"]?.GetValue<string>();
+                _logger.LogInformation("User {UserId} returned from address entry", userId);
+                await Call<MainController>(m => m.SelectRentalTime(sessionState, TimeSelectionStage.None, null!));
+                return;
             }
 
-            if (space is { Latitude: null, Longitude: null }) continue;
+            await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
 
-            var geoAddressInputToNearestPoint = new GeoAddressInput
-            {
-                FeatureId = geoAddressInput.FeatureId,
-                NormalizedAddress = geoAddressInput.NormalizedAddress,
-                OriginalInput = geoAddressInput.OriginalInput,
-                Location = new Point(space.Latitude!.Value, space.Longitude!.Value),
-                Type = parkingType
-            };
+            var baseUrl = _geoAdminSettings.GeoAdminBaseUrl;
+            var labels = (await _geoAdminSearcher.GetAddress(baseUrl, address)).ToList();
 
-            var newSessionState = new BotSessionState
+            if (!labels.Any())
             {
-                MessageId = sessionState.MessageId,
-                LocationMessageId = sessionState.LocationMessageId,
-                CurrentReservation = new ReservationDraft
+                _logger.LogWarning("No address matches found for user {UserId} and query '{Address}'", userId, address);
+                RowButton("Try again"!, Q(EnterAddress, sessionState));
+                await SendOrUpdate();
+                return;
+            }
+
+            foreach (var label in labels)
+            {
+                RowButton(label.label, Q(ShowNearestSpaces, sessionState, new GeoAddressInput
                 {
-                    SelectedSpaceId = space.Id,
-                    SelectedSpaceTypeId = space.SpaceTypeId,
-                    PendingStartRentLocal = sessionState.CurrentReservation.PendingStartRentLocal,
-                    PendingEndRentLocal = sessionState.CurrentReservation.PendingEndRentLocal,
-                    SpaceTimeZone = space.TimeZoneId,
-                    SelectedCarNumber = sessionState.CurrentReservation.SelectedCarNumber,
-                    GeoAddressInput = geoAddressInputToNearestPoint
-                }
-            };
+                    FeatureId = label.featureId,
+                    NormalizedAddress = label.label,
+                    OriginalInput = new Point(label.lat, label.lon)
+                }));
+            }
 
-            int? roundedDistanceInMeters =
-                space.DistanceMeters.HasValue ? (int)Math.Round(space.DistanceMeters.Value) : null;
+            RowButton("↩️ go back", Q(SelectRentalTime, sessionState, TimeSelectionStage.None, null!));
 
-            RowButton($"{parkingType} parking — {roundedDistanceInMeters} m",
-                Q(ShowDetails, newSessionState));
+            var msg = await Send("Choose the right address");
+            sessionState.MessageId = msg.MessageId;
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in /EnterAddress");
+            throw;
+        }
+    }
 
-        RowButton("↩️ go back", Q(EnterAddress, sessionState));
+    [Action]
+    public async Task ShowNearestSpaces(BotSessionState sessionState, GeoAddressInput geoAddressInput)
+    {
+        try
+        {
+            var userId = Context.GetSafeUserId();
+            _logger.LogInformation("User {UserId} searching nearest spaces for {Address}",
+                userId, geoAddressInput.NormalizedAddress);
 
-        PushL("🅿️ Available parking");
+            var spaces = await _spaceApi.GetNearestSpacesAsync(
+                geoAddressInput.OriginalInput.X,
+                geoAddressInput.OriginalInput.Y,
+                spaceTypeId: 1,
+                maxDistanceMeters: 100000, count: 7);
 
-        await DeletePreviousMessageIfNeeded(sessionState, Context.GetSafeChatId()!.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, Context.GetSafeChatId()!.Value);
+            if (spaces.Count == 0)
+            {
+                _logger.LogWarning("No nearby spaces found for user {UserId}", userId);
+                await Send("No nearby spaces found 😔");
+                return;
+            }
 
-        var textMessage = await Send();
-        sessionState.MessageId = textMessage!.MessageId;
+            foreach (var space in spaces)
+            {
+                string? parkingType = string.Empty;
+                if (space.SpaceProperties.IsEmptyJson()) continue;
+                if (space.SpaceProperties != null)
+                {
+                    var node = JsonNode.Parse(space.SpaceProperties);
+                    parkingType = node?["Type"]?.GetValue<string>();
+                }
+
+                if (space is { Latitude: null, Longitude: null }) continue;
+
+                var geoAddressInputToNearestPoint = new GeoAddressInput
+                {
+                    FeatureId = geoAddressInput.FeatureId,
+                    NormalizedAddress = geoAddressInput.NormalizedAddress,
+                    OriginalInput = geoAddressInput.OriginalInput,
+                    Location = new Point(space.Latitude!.Value, space.Longitude!.Value),
+                    Type = parkingType
+                };
+
+                var newSessionState = new BotSessionState
+                {
+                    MessageId = sessionState.MessageId,
+                    LocationMessageId = sessionState.LocationMessageId,
+                    CurrentReservation = new ReservationDraft
+                    {
+                        SelectedSpaceId = space.Id,
+                        SelectedSpaceTypeId = space.SpaceTypeId,
+                        PendingStartRentLocal = sessionState.CurrentReservation.PendingStartRentLocal,
+                        PendingEndRentLocal = sessionState.CurrentReservation.PendingEndRentLocal,
+                        SpaceTimeZone = space.TimeZoneId,
+                        SelectedCarNumber = sessionState.CurrentReservation.SelectedCarNumber,
+                        GeoAddressInput = geoAddressInputToNearestPoint
+                    }
+                };
+
+                int? roundedDistanceInMeters =
+                    space.DistanceMeters.HasValue ? (int)Math.Round(space.DistanceMeters.Value) : null;
+
+                RowButton($"{parkingType} parking — {roundedDistanceInMeters} m",
+                    Q(ShowDetails, newSessionState));
+            }
+
+            RowButton("↩️ go back", Q(EnterAddress, sessionState));
+
+            PushL("🅿️ Available parking");
+
+            await DeletePreviousMessageIfNeeded(sessionState, Context.GetSafeChatId()!.Value);
+            await DeletePreviousLocationMessageIfNeeded(sessionState, Context.GetSafeChatId()!.Value);
+
+            var textMessage = await Send();
+            sessionState.MessageId = textMessage!.MessageId;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in /ShowNearestSpaces");
+            throw;
+        }
     }
 
     [Action]
@@ -354,82 +378,98 @@ public class MainController : ReservationControllerBase
     [Action]
     public async Task MakeAReservation(BotSessionState sessionState)
     {
-        var chatId = Context.GetSafeChatId();
-        var userId = Context.GetSafeUserId();
-        if (userId == null) return;
-
-        var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
-
-        if (cachedLinkedUserId == Guid.Empty)
+        try
         {
-            PushL("User not found in cache. Please /start again.");
-            await SendOrUpdate();
-            return;
-        }
+            var chatId = Context.GetSafeChatId();
+            var userId = Context.GetSafeUserId();
+            if (userId == null) return;
 
-        var userCarsDto = await _userCarsApi.GetCarNumbersAsync(cachedLinkedUserId!.Value);
+            var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
 
-        await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
-
-        if (userCarsDto.CarNumbers.Count == 0)
-        {
-            PushL("You have no car numbers yet 🚗");
-
-            var message = await Send();
-            sessionState.MessageId = message!.MessageId;
-            await Client.SendTextMessageAsync(chatId.Value,
-                "Add your first car number:",
-                replyMarkup: new InlineKeyboardMarkup([
-                    [
-                        InlineKeyboardButton.WithCallbackData("➕ add car number", Q(AddCarNumber, sessionState)),
-                        InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))
-                    ]
-                ]));
-            return;
-        }
-
-        var buttons = userCarsDto.CarNumbers
-            .Select(curNumber => new[]
+            if (cachedLinkedUserId == Guid.Empty)
             {
-                InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}",
-                    Q(ShowReservationSummary, sessionState, curNumber))
-            })
-            .ToList();
+                PushL("User not found in cache. Please /start again.");
+                await SendOrUpdate();
+                return;
+            }
 
-        buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState))]);
+            var userCarsDto = await _userCarsApi.GetCarNumbersAsync(cachedLinkedUserId!.Value);
 
-        buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))]);
+            await DeletePreviousMessageIfNeeded(sessionState, chatId!.Value);
+            await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
 
-        var msg = await Client.SendTextMessageAsync(chatId.Value,
-            "Select to confirm a car number for reservation:",
-            replyMarkup: new InlineKeyboardMarkup(buttons));
-        sessionState.MessageId = msg.MessageId;
+            if (userCarsDto.CarNumbers.Count == 0)
+            {
+                PushL("You have no car numbers yet 🚗");
+
+                var message = await Send();
+                sessionState.MessageId = message!.MessageId;
+                await Client.SendTextMessageAsync(chatId.Value,
+                    "Add your first car number:",
+                    replyMarkup: new InlineKeyboardMarkup([
+                        [
+                            InlineKeyboardButton.WithCallbackData("➕ add car number", Q(AddCarNumber, sessionState)),
+                            InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))
+                        ]
+                    ]));
+                return;
+            }
+
+            var buttons = userCarsDto.CarNumbers
+                .Select(curNumber => new[]
+                {
+                    InlineKeyboardButton.WithCallbackData($"🚘 {curNumber}",
+                        Q(ShowReservationSummary, sessionState, curNumber))
+                })
+                .ToList();
+
+            buttons.Add([InlineKeyboardButton.WithCallbackData("➕ add new", Q(AddCarNumber, sessionState))]);
+
+            buttons.Add([InlineKeyboardButton.WithCallbackData("↩️ go back", Q(ShowDetails, sessionState))]);
+
+            var msg = await Client.SendTextMessageAsync(chatId.Value,
+                "Select to confirm a car number for reservation:",
+                replyMarkup: new InlineKeyboardMarkup(buttons));
+            sessionState.MessageId = msg.MessageId;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in /MakeAReservation");
+            throw;
+        }
     }
 
     [Action]
     public async Task AddCarNumber(BotSessionState sessionState)
     {
-        var chatId = Context.GetSafeChatId();
-        var userId = Context.GetSafeUserId();
-        if (userId == null) return;
-        if (!chatId.HasValue) return;
+        try
+        {
+            var chatId = Context.GetSafeChatId();
+            var userId = Context.GetSafeUserId();
+            if (userId == null) return;
+            if (!chatId.HasValue) return;
 
-        PushL("Please enter your car number (e.g., ZH12345):");
-        await SendOrUpdate();
+            PushL("Please enter your car number (e.g., ZH12345):");
+            await SendOrUpdate();
 
-        var input = await AwaitText(() => Send("Timeout. Use /start to try again"));
-        if (string.IsNullOrWhiteSpace(input)) return;
+            var input = await AwaitText(() => Send("Timeout. Use /start to try again"));
+            if (string.IsNullOrWhiteSpace(input)) return;
 
-        var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+            var cachedLinkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
 
-        var userCarsDto =
-            await _userCarsApi.AddCarNumberAsync(cachedLinkedUserId!.Value, new AddCarNumberRequest(input));
+            var userCarsDto =
+                await _userCarsApi.AddCarNumberAsync(cachedLinkedUserId!.Value, new AddCarNumberRequest(input));
 
-        PushL($"✅ Added: {input}. You now have {userCarsDto.CarNumbers.Count} car(s).");
-        await SendOrUpdate();
+            PushL($"✅ Added: {input}. You now have {userCarsDto.CarNumbers.Count} car(s).");
+            await SendOrUpdate();
 
-        await Call<MainController>(m => m.MakeAReservation(sessionState));
+            await Call<MainController>(m => m.MakeAReservation(sessionState));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in /AddCarNumber");
+            throw;
+        }
     }
 
     [Action]
@@ -487,160 +527,177 @@ public class MainController : ReservationControllerBase
     [Action]
     public async Task ConfirmReservation(BotSessionState sessionState, string carNumber)
     {
-        var chatId = Context.GetSafeChatId();
-        var userId = Context.GetSafeUserId();
-        if (userId == null || !chatId.HasValue) return;
-        
-        _logger.LogInformation("User {UserId} confirming reservation for space {SpaceId} with car {CarNumber}",
-            userId, sessionState.CurrentReservation.SelectedSpaceId, carNumber);
-
-        var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
-        if (linkedUserId == Guid.Empty)
-        {
-            _logger.LogWarning("Linked user not found for Telegram user {UserId}", userId);
-            await Send("⚠️ Session expired. Please /start again.");
-            return;
-        }
-
-        var draft = sessionState.CurrentReservation;
-        draft.SelectedCarNumber = carNumber;
-        if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
-        {
-            await Send("⚠️ Missing reservation data.");
-            return;
-        }
-
-        var tz = TimeZoneInfo.FindSystemTimeZoneById(draft.SpaceTimeZone!);
-
-        var startUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingStartRentLocal.Value, tz);
-        var endUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingEndRentLocal.Value, tz);
-
-        var request = new CreateReservationRequest(draft.SelectedSpaceId, linkedUserId!.Value, startUtc, endUtc,
-            draft.SelectedCarNumber);
-
-        ReservationDto result = null;
         try
         {
-            result = await _reservationApi.CreateReservation(request);
+            var chatId = Context.GetSafeChatId();
+            var userId = Context.GetSafeUserId();
+            if (userId == null || !chatId.HasValue) return;
+
+            _logger.LogInformation("User {UserId} confirming reservation for space {SpaceId} with car {CarNumber}",
+                userId, sessionState.CurrentReservation.SelectedSpaceId, carNumber);
+
+            var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+            if (linkedUserId == Guid.Empty)
+            {
+                _logger.LogWarning("Linked user not found for Telegram user {UserId}", userId);
+                await Send("⚠️ Session expired. Please /start again.");
+                return;
+            }
+
+            var draft = sessionState.CurrentReservation;
+            draft.SelectedCarNumber = carNumber;
+            if (draft.PendingStartRentLocal == null || draft.PendingEndRentLocal == null)
+            {
+                await Send("⚠️ Missing reservation data.");
+                return;
+            }
+
+            var tz = TimeZoneInfo.FindSystemTimeZoneById(draft.SpaceTimeZone!);
+
+            var startUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingStartRentLocal.Value, tz);
+            var endUtc = TimeZoneInfo.ConvertTimeToUtc(draft.PendingEndRentLocal.Value, tz);
+
+            var request = new CreateReservationRequest(draft.SelectedSpaceId, linkedUserId!.Value, startUtc, endUtc,
+                draft.SelectedCarNumber);
+
+            ReservationDto result = null;
+            try
+            {
+                result = await _reservationApi.CreateReservation(request);
+                if (result.Id == Guid.Empty)
+                {
+                    _logger.LogWarning("Reservation conflict: space {SpaceId} already reserved", draft.SelectedSpaceId);
+                    await Send("Sorry, but it seems this time is busy.");
+                }
+                else
+                {
+                    _logger.LogInformation("Reservation created successfully: {ReservationId} for user {UserId}",
+                        result.Id, userId);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating reservation for user {UserId}", userId);
+                await Send("⚠️ Reservation failed. Please try again later.");
+            }
+
+            await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
+            await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
             if (result.Id == Guid.Empty)
             {
-                _logger.LogWarning("Reservation conflict: space {SpaceId} already reserved", draft.SelectedSpaceId);
-                await Send("Sorry, but it seems this time is busy.");
+                var markupWithNullResult = new InlineKeyboardMarkup([
+                    [
+                        InlineKeyboardButton.WithCallbackData("↩️ go to reservation summary",
+                            Q(ShowReservationSummary, sessionState, carNumber))
+                    ]
+                ]);
+
+                var message = await Client.SendTextMessageAsync(
+                    chatId: chatId.Value,
+                    text: "Sorry, but it seems this time is busy.",
+                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                    replyMarkup: markupWithNullResult
+                );
+
+                sessionState.MessageId = message.MessageId;
             }
             else
             {
-                _logger.LogInformation("Reservation created successfully: {ReservationId} for user {UserId}",
-                    result.Id, userId);
+                var confirmation = $"""
+                                    ✅ <b>Reservation confirmed!</b>
+                                    📍 {sessionState.CurrentReservation.GeoAddressInput.NormalizedAddress}
+                                    🚗 {carNumber}
+                                    🕒 {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm} – {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
+                                    🆔 Reservation ID {result.PublicId}: 
+                                    """;
+
+                var markup = new InlineKeyboardMarkup([
+                    [
+                        InlineKeyboardButton.WithCallbackData("↩️ go to reservations",
+                            Q(ShowReservations, sessionState))
+                    ]
+                ]);
+
+                var message = await Client.SendTextMessageAsync(
+                    chatId: chatId.Value,
+                    text: confirmation,
+                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                    replyMarkup: markup
+                );
+
+                sessionState.MessageId = message.MessageId;
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating reservation for user {UserId}", userId);
-            await Send("⚠️ Reservation failed. Please try again later.");
-        }
-
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-        await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
-        if (result.Id == Guid.Empty)
-        {
-            var markupWithNullResult = new InlineKeyboardMarkup([
-                [
-                    InlineKeyboardButton.WithCallbackData("↩️ go to reservation summary",
-                        Q(ShowReservationSummary, sessionState, carNumber))
-                ]
-            ]);
-
-            var message = await Client.SendTextMessageAsync(
-                chatId: chatId.Value,
-                text: "Sorry, but it seems this time is busy.",
-                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
-                replyMarkup: markupWithNullResult
-            );
-
-            sessionState.MessageId = message.MessageId;
-        }
-        else
-        {
-            var confirmation = $"""
-                                ✅ <b>Reservation confirmed!</b>
-                                📍 {sessionState.CurrentReservation.GeoAddressInput.NormalizedAddress}
-                                🚗 {carNumber}
-                                🕒 {draft.PendingStartRentLocal:dd.MM.yyyy HH:mm} – {draft.PendingEndRentLocal:dd.MM.yyyy HH:mm}
-                                🆔 Reservation ID {result.PublicId}: 
-                                """;
-
-            var markup = new InlineKeyboardMarkup([
-                [
-                    InlineKeyboardButton.WithCallbackData("↩️ go to reservations", Q(ShowReservations, sessionState))
-                ]
-            ]);
-
-            var message = await Client.SendTextMessageAsync(
-                chatId: chatId.Value,
-                text: confirmation,
-                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
-                replyMarkup: markup
-            );
-
-            sessionState.MessageId = message.MessageId;
+            _logger.LogError(ex, "Unhandled exception in /ConfirmReservation");
+            throw;
         }
     }
 
     [Action]
     public async Task ShowReservations(BotSessionState sessionState)
     {
-        var chatId = Context.GetSafeChatId();
-        var userId = Context.GetSafeUserId();
-        if (userId == null || !chatId.HasValue) return;
-
-        await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
-
-        var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
-        if (linkedUserId == Guid.Empty)
+        try
         {
-            await Send("⚠️ Session expired. Please /start again.");
-            return;
-        }
+            var chatId = Context.GetSafeChatId();
+            var userId = Context.GetSafeUserId();
+            if (userId == null || !chatId.HasValue) return;
 
-        var activeReservations = await _reservationApi.GetUserReservations(linkedUserId);
+            await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
 
-        if (activeReservations.Count == 0)
-        {
-            var msg = await Client.SendTextMessageAsync(chatId.Value,
-                "😔 You have no active reservations.",
-                replyMarkup: new InlineKeyboardMarkup([
-                    [InlineKeyboardButton.WithCallbackData("↩️ go to start", Q(Start))]
-                ])
+            var linkedUserId = await _cache.GetUserIdByTelegramAsync(userId.Value);
+            if (linkedUserId == Guid.Empty)
+            {
+                await Send("⚠️ Session expired. Please /start again.");
+                return;
+            }
+
+            var activeReservations = await _reservationApi.GetUserReservations(linkedUserId);
+
+            if (activeReservations.Count == 0)
+            {
+                var msg = await Client.SendTextMessageAsync(chatId.Value,
+                    "😔 You have no active reservations.",
+                    replyMarkup: new InlineKeyboardMarkup([
+                        [InlineKeyboardButton.WithCallbackData("↩️ go to start", Q(Start))]
+                    ])
+                );
+                sessionState.MessageId = msg.MessageId;
+                return;
+            }
+
+            var summary = new StringBuilder();
+            summary.AppendLine("<b>📋 Your active reservations</b>\n");
+
+            foreach (var r in activeReservations)
+            {
+                summary.AppendLine($"""
+                                    🆔 <b>{r.PublicId}</b>
+                                    🚗 {r.CarNumber}
+                                    🏷 <i>{r.Status}</i>
+                                    """);
+                summary.AppendLine();
+            }
+
+            var markup = new InlineKeyboardMarkup([
+                [InlineKeyboardButton.WithCallbackData("↩️ back to start menu", Q(Start))]
+            ]);
+
+            var message = await Client.SendTextMessageAsync(
+                chatId.Value,
+                summary.ToString(),
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+                replyMarkup: markup
             );
-            sessionState.MessageId = msg.MessageId;
-            return;
+
+            sessionState.MessageId = message.MessageId;
         }
-
-        var summary = new StringBuilder();
-        summary.AppendLine("<b>📋 Your active reservations</b>\n");
-
-        foreach (var r in activeReservations)
+        catch (Exception ex)
         {
-            summary.AppendLine($"""
-                                🆔 <b>{r.PublicId}</b>
-                                🚗 {r.CarNumber}
-                                🏷 <i>{r.Status}</i>
-                                """);
-            summary.AppendLine();
+            _logger.LogError(ex, "Unhandled exception in /ShowReservations");
+            throw;
         }
-
-        var markup = new InlineKeyboardMarkup([
-            [InlineKeyboardButton.WithCallbackData("↩️ back to start menu", Q(Start))]
-        ]);
-
-        var message = await Client.SendTextMessageAsync(
-            chatId.Value,
-            summary.ToString(),
-            parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
-            replyMarkup: markup
-        );
-
-        sessionState.MessageId = message.MessageId;
     }
 
     [On(Handle.Exception)]
@@ -655,7 +712,7 @@ public class MainController : ReservationControllerBase
         //_logger.LogError(ex, "Handle.Exception on telegram-bot");
     }
 
-   [On(Handle.Unknown)]
+    [On(Handle.Unknown)]
     public async Task Unknown()
     {
         var chatId = Context.GetSafeChatId();
@@ -674,7 +731,8 @@ public class MainController : ReservationControllerBase
             try
             {
                 var intent = await new IntentRecognitionService(
-                    new DeepSeekService(_deepSeekSettings.ApiKey, _deepSeekSettings.BaseUrl, _deepSeekSettings.Model))
+                        new DeepSeekService(_deepSeekSettings.ApiKey, _deepSeekSettings.BaseUrl,
+                            _deepSeekSettings.Model))
                     .RecognizeIntentAsync(messageText);
 
                 _logger.LogInformation("Recognized intent for user {UserId}: {Intent}",
