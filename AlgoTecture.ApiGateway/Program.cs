@@ -16,19 +16,29 @@ public class Program
             Log.Information("Starting up ApiGateway");
 
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Host.UseSerilog((context, _, lc) =>
-            {
-                lc.ReadFrom.Configuration(context.Configuration)
-                    .Enrich.FromLogContext()
-                    .Enrich.WithProperty("App", builder.Environment.ApplicationName)
-                    .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName);
-            });
+            // builder.Host.UseSerilog((ctx, services, lc) => lc
+            //     .ReadFrom.Configuration(ctx.Configuration)
+            //     .ReadFrom.Services(services)
+            //     .Enrich.WithProperty("App", builder.Environment.ApplicationName)
+            //     .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName)
+            //     .WriteTo.Console()
+            // );
 
             builder.Services.AddReverseProxy()
-                .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+                 .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+            WebApplication app;
+            try
+            {
+                app = builder.Build();
+            
+            }
+            catch (Exception buildEx)
+            {
+                Log.Fatal(buildEx, "Error during builder.Build()");
+                throw;
+            }
+            Log.Information("Gateway built");
 
-            var app = builder.Build();
             app.MapReverseProxy();
 
             app.Lifetime.ApplicationStarted.Register(() =>

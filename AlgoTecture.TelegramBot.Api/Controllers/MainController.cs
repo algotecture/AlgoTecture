@@ -79,8 +79,8 @@ public class MainController : ReservationControllerBase
 
             if (linkedUserId == Guid.Empty)
             {
-                _logger.LogWarning("User {UserId} failed to authenticate", userId);
-                return;
+                _logger.LogWarning("User {UserId} failed to authenticate. May be first. Task.Delay(1000)", userId);
+                await Task.Delay(1000);
             }
 
             _logger.LogInformation("Telegram user {UserId} linked to system user {LinkedUserId}", userId, linkedUserId);

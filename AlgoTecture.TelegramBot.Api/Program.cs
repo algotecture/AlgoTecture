@@ -104,17 +104,24 @@ public class Program
             builder.Services.AddScoped<IGeoAdminSearcher, GeoAdminSearcher>();
             builder.Services.AddScoped<IHttpService, HttpService>();
 
+            var apiClientsSection = builder.Configuration.GetSection("ApiClients");
+            var gatewayBaseUrl = apiClientsSection.GetValue<string>("GatewayBaseUrl");
+
             builder.Services.AddRefitClient<IAuthApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/identity"));
+                .ConfigureHttpClient(c =>
+                    c.BaseAddress = new Uri($"{gatewayBaseUrl}{apiClientsSection["Identity:BasePath"]}"));
 
             builder.Services.AddRefitClient<IUserCarsApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/user"));
+                .ConfigureHttpClient(c =>
+                    c.BaseAddress = new Uri($"{gatewayBaseUrl}{apiClientsSection["User:BasePath"]}"));
 
             builder.Services.AddRefitClient<ISpaceApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/space"));
+                .ConfigureHttpClient(c =>
+                    c.BaseAddress = new Uri($"{gatewayBaseUrl}{apiClientsSection["Space:BasePath"]}"));
 
             builder.Services.AddRefitClient<IReservationApi>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5006/reservation"));
+                .ConfigureHttpClient(c =>
+                    c.BaseAddress = new Uri($"{gatewayBaseUrl}{apiClientsSection["Reservation:BasePath"]}"));
 
             var app = builder.Build();
 
