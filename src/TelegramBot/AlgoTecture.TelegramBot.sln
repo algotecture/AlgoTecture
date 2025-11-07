@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Api", "AlgoTecture.TelegramBot.Api\AlgoTecture.TelegramBot.Api.csproj", "{9CBACF21-11E0-46E2-8AAF-E961596EA59C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Application", "AlgoTecture.TelegramBot.Application\AlgoTecture.TelegramBot.Application.csproj", "{212A4130-E710-4509-81B9-D41E29F0CB2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Domain", "AlgoTecture.TelegramBot.Domain\AlgoTecture.TelegramBot.Domain.csproj", "{C3AA199B-D00A-4D9E-B1BF-FC224DDE177C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Infrastructure", "AlgoTecture.TelegramBot.Infrastructure\AlgoTecture.TelegramBot.Infrastructure.csproj", "{0D429222-C92A-4AB1-881A-9E3E3DB35825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.TelegramBot.Infrastructure.DbMigrator", "AlgoTecture.TelegramBot.Infrastructure.DbMigrator\AlgoTecture.TelegramBot.Infrastructure.DbMigrator.csproj", "{FE09D6D8-D26F-4967-8F94-E096E16A2734}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CBACF21-11E0-46E2-8AAF-E961596EA59C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CBACF21-11E0-46E2-8AAF-E961596EA59C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CBACF21-11E0-46E2-8AAF-E961596EA59C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CBACF21-11E0-46E2-8AAF-E961596EA59C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{212A4130-E710-4509-81B9-D41E29F0CB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{212A4130-E710-4509-81B9-D41E29F0CB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{212A4130-E710-4509-81B9-D41E29F0CB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{212A4130-E710-4509-81B9-D41E29F0CB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3AA199B-D00A-4D9E-B1BF-FC224DDE177C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3AA199B-D00A-4D9E-B1BF-FC224DDE177C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3AA199B-D00A-4D9E-B1BF-FC224DDE177C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3AA199B-D00A-4D9E-B1BF-FC224DDE177C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D429222-C92A-4AB1-881A-9E3E3DB35825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D429222-C92A-4AB1-881A-9E3E3DB35825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D429222-C92A-4AB1-881A-9E3E3DB35825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D429222-C92A-4AB1-881A-9E3E3DB35825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE09D6D8-D26F-4967-8F94-E096E16A2734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE09D6D8-D26F-4967-8F94-E096E16A2734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE09D6D8-D26F-4967-8F94-E096E16A2734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE09D6D8-D26F-4967-8F94-E096E16A2734}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

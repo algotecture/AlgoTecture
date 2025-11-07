@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Api", "AlgoTecture.User.Api\AlgoTecture.User.Api.csproj", "{356775D6-FB36-4E7F-A70B-FD57ADFCD049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Application", "AlgoTecture.User.Application\AlgoTecture.User.Application.csproj", "{0DAF0CB5-80A2-4BF9-85CB-9146D46781BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Domain", "AlgoTecture.User.Domain\AlgoTecture.User.Domain.csproj", "{7B049DDC-129E-40AB-A97D-DC7456F531A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Infrastructure", "AlgoTecture.User.Infrastructure\AlgoTecture.User.Infrastructure.csproj", "{5C310960-95AD-4DEC-AB6F-6FD369F17C4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.User.Infrastructure.DbMigrator", "AlgoTecture.User.Infrastructure.DbMigrator\AlgoTecture.User.Infrastructure.DbMigrator.csproj", "{48E5A3B9-BF8D-4F71-AD20-0011338F6BFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{356775D6-FB36-4E7F-A70B-FD57ADFCD049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356775D6-FB36-4E7F-A70B-FD57ADFCD049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356775D6-FB36-4E7F-A70B-FD57ADFCD049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356775D6-FB36-4E7F-A70B-FD57ADFCD049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAF0CB5-80A2-4BF9-85CB-9146D46781BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAF0CB5-80A2-4BF9-85CB-9146D46781BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAF0CB5-80A2-4BF9-85CB-9146D46781BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAF0CB5-80A2-4BF9-85CB-9146D46781BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B049DDC-129E-40AB-A97D-DC7456F531A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B049DDC-129E-40AB-A97D-DC7456F531A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B049DDC-129E-40AB-A97D-DC7456F531A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B049DDC-129E-40AB-A97D-DC7456F531A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C310960-95AD-4DEC-AB6F-6FD369F17C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C310960-95AD-4DEC-AB6F-6FD369F17C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C310960-95AD-4DEC-AB6F-6FD369F17C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C310960-95AD-4DEC-AB6F-6FD369F17C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E5A3B9-BF8D-4F71-AD20-0011338F6BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E5A3B9-BF8D-4F71-AD20-0011338F6BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E5A3B9-BF8D-4F71-AD20-0011338F6BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E5A3B9-BF8D-4F71-AD20-0011338F6BFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

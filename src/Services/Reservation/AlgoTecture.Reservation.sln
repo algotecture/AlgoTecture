@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Api", "AlgoTecture.Reservation.Api\AlgoTecture.Reservation.Api.csproj", "{F1410B00-70CF-42C8-973E-DC5F1B30A606}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Application", "AlgoTecture.Reservation.Application\AlgoTecture.Reservation.Application.csproj", "{7D4CE423-92D1-433A-837C-DAA5B5388114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Domain", "AlgoTecture.Reservation.Domain\AlgoTecture.Reservation.Domain.csproj", "{C0C0EA68-9C5B-4A7F-A9C3-D05399F1D9F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Infrastructure", "AlgoTecture.Reservation.Infrastructure\AlgoTecture.Reservation.Infrastructure.csproj", "{0EF3E736-BBC6-48D5-830A-56215CBA5797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Reservation.Infrastructure.DbMigrator", "AlgoTecture.Reservation.Infrastructure.DbMigrator\AlgoTecture.Reservation.Infrastructure.DbMigrator.csproj", "{F38AE10D-E58B-47EF-83DC-D59149925E58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1410B00-70CF-42C8-973E-DC5F1B30A606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1410B00-70CF-42C8-973E-DC5F1B30A606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1410B00-70CF-42C8-973E-DC5F1B30A606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1410B00-70CF-42C8-973E-DC5F1B30A606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4CE423-92D1-433A-837C-DAA5B5388114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4CE423-92D1-433A-837C-DAA5B5388114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4CE423-92D1-433A-837C-DAA5B5388114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4CE423-92D1-433A-837C-DAA5B5388114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0C0EA68-9C5B-4A7F-A9C3-D05399F1D9F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0C0EA68-9C5B-4A7F-A9C3-D05399F1D9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0C0EA68-9C5B-4A7F-A9C3-D05399F1D9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0C0EA68-9C5B-4A7F-A9C3-D05399F1D9F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF3E736-BBC6-48D5-830A-56215CBA5797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF3E736-BBC6-48D5-830A-56215CBA5797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF3E736-BBC6-48D5-830A-56215CBA5797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF3E736-BBC6-48D5-830A-56215CBA5797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F38AE10D-E58B-47EF-83DC-D59149925E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F38AE10D-E58B-47EF-83DC-D59149925E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F38AE10D-E58B-47EF-83DC-D59149925E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F38AE10D-E58B-47EF-83DC-D59149925E58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

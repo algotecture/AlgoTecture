@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Infrastructure.DbMigrator", "AlgoTecture.Identity.Infrastructure.DbMigrator\AlgoTecture.Identity.Infrastructure.DbMigrator.csproj", "{E7682AE3-6183-4AF6-A17B-F23CC424D61B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Infrastructure", "AlgoTecture.Identity.Infrastructure\AlgoTecture.Identity.Infrastructure.csproj", "{A9C0A77F-109C-4BEF-B47D-453D58B115D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Domain", "AlgoTecture.Identity.Domain\AlgoTecture.Identity.Domain.csproj", "{2BB38C25-2558-416F-BDDF-4752C6B34FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Application", "AlgoTecture.Identity.Application\AlgoTecture.Identity.Application.csproj", "{3D92F36B-0358-4A28-A752-B13DA56C5463}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTecture.Identity.Api", "AlgoTecture.Identity.Api\AlgoTecture.Identity.Api.csproj", "{E1D5A352-AF3F-49DB-9F9A-4F7AE23E69C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7682AE3-6183-4AF6-A17B-F23CC424D61B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7682AE3-6183-4AF6-A17B-F23CC424D61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7682AE3-6183-4AF6-A17B-F23CC424D61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7682AE3-6183-4AF6-A17B-F23CC424D61B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C0A77F-109C-4BEF-B47D-453D58B115D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C0A77F-109C-4BEF-B47D-453D58B115D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C0A77F-109C-4BEF-B47D-453D58B115D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C0A77F-109C-4BEF-B47D-453D58B115D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BB38C25-2558-416F-BDDF-4752C6B34FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB38C25-2558-416F-BDDF-4752C6B34FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB38C25-2558-416F-BDDF-4752C6B34FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB38C25-2558-416F-BDDF-4752C6B34FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D92F36B-0358-4A28-A752-B13DA56C5463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D92F36B-0358-4A28-A752-B13DA56C5463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D92F36B-0358-4A28-A752-B13DA56C5463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D92F36B-0358-4A28-A752-B13DA56C5463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D5A352-AF3F-49DB-9F9A-4F7AE23E69C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D5A352-AF3F-49DB-9F9A-4F7AE23E69C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D5A352-AF3F-49DB-9F9A-4F7AE23E69C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D5A352-AF3F-49DB-9F9A-4F7AE23E69C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
