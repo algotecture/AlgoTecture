@@ -2,20 +2,25 @@
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["AlgoTecture.ApiGateway/AlgoTecture.ApiGateway.csproj", "AlgoTecture.ApiGateway/"]
+COPY ["src/Services/ApiGateway/AlgoTecture.ApiGateway/AlgoTecture.ApiGateway.csproj", "src/Services/ApiGateway/AlgoTecture.ApiGateway/"]
 
 
-RUN dotnet restore "AlgoTecture.ApiGateway/AlgoTecture.ApiGateway.csproj"
+COPY ["src/BuildingBlocks/AlgoTecture.Utils/AlgoTecture.Utils.csproj", "src/BuildingBlocks/AlgoTecture.Utils/"]
+COPY ["src/BuildingBlocks/AlgoTecture.HttpClient/AlgoTecture.HttpClient.csproj", "src/BuildingBlocks/AlgoTecture.HttpClient/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/"]
+
+RUN dotnet restore "src/Services/ApiGateway/AlgoTecture.ApiGateway/AlgoTecture.ApiGateway.csproj"
 
 COPY . .
 
-WORKDIR "/src/AlgoTecture.ApiGateway"
+WORKDIR "/src/src/Services/ApiGateway/AlgoTecture.ApiGateway"
 RUN dotnet publish "AlgoTecture.ApiGateway.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
     /p:UseAppHost=false \
     /p:PublishReadyToRun=false \
     /p:PublishTrimmed=false
+
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 WORKDIR /app
