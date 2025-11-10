@@ -2,36 +2,41 @@
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["AlgoTecture.TelegramBot.Api/AlgoTecture.TelegramBot.Api.csproj", "AlgoTecture.TelegramBot.Api/"]
-COPY ["AlgoTecture.AICore.Application/AlgoTecture.AICore.Application.csproj", "AlgoTecture.AICore.Application/"]
-COPY ["AlgoTecture.AICore.Contracts/AlgoTecture.AICore.Contracts.csproj", "AlgoTecture.AICore.Contracts/"]
-COPY ["AlgoTecture.GeoAdminSearch/AlgoTecture.GeoAdminSearch.csproj", "AlgoTecture.GeoAdminSearch/"]
-COPY ["AlgoTecture.HttpClient/AlgoTecture.HttpClient.csproj", "AlgoTecture.HttpClient/"]
-COPY ["AlgoTecture.Identity.Contracts/AlgoTecture.Identity.Contracts.csproj", "AlgoTecture.Identity.Contracts/"]
-COPY ["AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "AlgoTecture.Shared.Contracts/"]
-COPY ["AlgoTecture.Reservation.Application/AlgoTecture.Reservation.Application.csproj", "AlgoTecture.Reservation.Application/"]
-COPY ["AlgoTecture.Reservation.Contracts/AlgoTecture.Reservation.Contracts.csproj", "AlgoTecture.Reservation.Contracts/"]
-COPY ["AlgoTecture.Reservation.Domain/AlgoTecture.Reservation.Domain.csproj", "AlgoTecture.Reservation.Domain/"]
-COPY ["AlgoTecture.Reservation.Infrastructure/AlgoTecture.Reservation.Infrastructure.csproj", "AlgoTecture.Reservation.Infrastructure/"]
-COPY ["AlgoTecture.TelegramBot.Application/AlgoTecture.TelegramBot.Application.csproj", "AlgoTecture.TelegramBot.Application/"]
-COPY ["AlgoTecture.Space.Contracts/AlgoTecture.Space.Contracts.csproj", "AlgoTecture.Space.Contracts/"]
-COPY ["AlgoTecture.Space.Domain/AlgoTecture.Space.Domain.csproj", "AlgoTecture.Space.Domain/"]
-COPY ["AlgoTecture.TelegramBot.Domain/AlgoTecture.TelegramBot.Domain.csproj", "AlgoTecture.TelegramBot.Domain/"]
-COPY ["AlgoTecture.TelegramBot.Infrastructure/AlgoTecture.TelegramBot.Infrastructure.csproj", "AlgoTecture.TelegramBot.Infrastructure/"]
-COPY ["AlgoTecture.User.Contracts/AlgoTecture.User.Contracts.csproj", "AlgoTecture.User.Contracts/"]
-COPY ["AlgoTecture.Utils/AlgoTecture.Utils.csproj", "AlgoTecture.Utils/"]
+COPY ["src/TelegramBot/AlgoTecture.TelegramBot.Api/AlgoTecture.TelegramBot.Api.csproj", "src/TelegramBot/AlgoTecture.TelegramBot.Api/"]
+COPY ["src/TelegramBot/AlgoTecture.TelegramBot.Application/AlgoTecture.TelegramBot.Application.csproj", "src/TelegramBot/AlgoTecture.TelegramBot.Application/"]
+COPY ["src/TelegramBot/AlgoTecture.TelegramBot.Domain/AlgoTecture.TelegramBot.Domain.csproj", "src/TelegramBot/AlgoTecture.TelegramBot.Domain/"]
+COPY ["src/TelegramBot/AlgoTecture.TelegramBot.Infrastructure/AlgoTecture.TelegramBot.Infrastructure.csproj", "src/TelegramBot/AlgoTecture.TelegramBot.Infrastructure/"]
 
-RUN dotnet restore "AlgoTecture.TelegramBot.Api/AlgoTecture.TelegramBot.Api.csproj"
+COPY ["src/AICore/AlgoTecture.AICore.Application/AlgoTecture.AICore.Application.csproj", "src/AICore/AlgoTecture.AICore.Application/"]
+
+COPY ["src/Services/Reservation/AlgoTecture.Reservation.Application/AlgoTecture.Reservation.Application.csproj", "src/Services/Reservation/AlgoTecture.Reservation.Application/"]
+COPY ["src/Services/Reservation/AlgoTecture.Reservation.Domain/AlgoTecture.Reservation.Domain.csproj", "src/Services/Reservation/AlgoTecture.Reservation.Domain/"]
+COPY ["src/Services/Reservation/AlgoTecture.Reservation.Infrastructure/AlgoTecture.Reservation.Infrastructure.csproj", "src/Services/Reservation/AlgoTecture.Reservation.Infrastructure/"]
+
+COPY ["src/BuildingBlocks/AlgoTecture.GeoAdminSearch/AlgoTecture.GeoAdminSearch.csproj", "src/BuildingBlocks/AlgoTecture.GeoAdminSearch/"]
+COPY ["src/BuildingBlocks/AlgoTecture.HttpClient/AlgoTecture.HttpClient.csproj", "src/BuildingBlocks/AlgoTecture.HttpClient/"]
+COPY ["src/BuildingBlocks/AlgoTecture.Utils/AlgoTecture.Utils.csproj", "src/BuildingBlocks/AlgoTecture.Utils/"]
+
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Identity.Contracts/AlgoTecture.Identity.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Identity.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Reservation.Contracts/AlgoTecture.Reservation.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Reservation.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Space.Contracts/AlgoTecture.Space.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Space.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.User.Contracts/AlgoTecture.User.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.User.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecturer.TelegramBot.Contracts/AlgoTecturer.TelegramBot.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecturer.TelegramBot.Contracts/"]
+
+RUN dotnet restore "src/TelegramBot/AlgoTecture.TelegramBot.Api/AlgoTecture.TelegramBot.Api.csproj"
 
 COPY . .
 
-WORKDIR "/src/AlgoTecture.TelegramBot.Api"
+WORKDIR "/src/src/TelegramBot/AlgoTecture.TelegramBot.Api"
 RUN dotnet publish "AlgoTecture.TelegramBot.Api.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
     /p:UseAppHost=false \
     /p:PublishReadyToRun=false \
     /p:PublishTrimmed=false
+
+
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 WORKDIR /app

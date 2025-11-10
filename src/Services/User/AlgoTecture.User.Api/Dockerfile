@@ -2,19 +2,20 @@
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["AlgoTecture.User.Api/AlgoTecture.User.Api.csproj", "AlgoTecture.User.Api/"]
-COPY ["AlgoTecture.User.Application/AlgoTecture.User.Application.csproj", "AlgoTecture.User.Application/"]
-COPY ["AlgoTecture.User.Contracts/AlgoTecture.User.Contracts.csproj", "AlgoTecture.User.Contracts/"]
-COPY ["AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "AlgoTecture.Shared.Contracts/"]
-COPY ["AlgoTecture.User.Infrastructure/AlgoTecture.User.Infrastructure.csproj", "AlgoTecture.User.Infrastructure/"]
-COPY ["AlgoTecture.User.Domain/AlgoTecture.User.Domain.csproj", "AlgoTecture.User.Domain/"]
-COPY ["AlgoTecture.Identity.Contracts/AlgoTecture.Identity.Contracts.csproj", "AlgoTecture.Identity.Contracts/"]
+COPY ["src/Services/User/AlgoTecture.User.Api/AlgoTecture.User.Api.csproj", "src/Services/User/AlgoTecture.User.Api/"]
+COPY ["src/Services/User/AlgoTecture.User.Application/AlgoTecture.User.Application.csproj", "src/Services/User/AlgoTecture.User.Application/"]
+COPY ["src/Services/User/AlgoTecture.User.Domain/AlgoTecture.User.Domain.csproj", "src/Services/User/AlgoTecture.User.Domain/"]
+COPY ["src/Services/User/AlgoTecture.User.Infrastructure/AlgoTecture.User.Infrastructure.csproj", "src/Services/User/AlgoTecture.User.Infrastructure/"]
 
-RUN dotnet restore "AlgoTecture.User.Api/AlgoTecture.User.Api.csproj"
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.User.Contracts/AlgoTecture.User.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.User.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Identity.Contracts/AlgoTecture.Identity.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Identity.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/"]
+
+RUN dotnet restore "src/Services/User/AlgoTecture.User.Api/AlgoTecture.User.Api.csproj"
 
 COPY . .
 
-WORKDIR "/src/AlgoTecture.User.Api"
+WORKDIR "/src/src/Services/User/AlgoTecture.User.Api"
 RUN dotnet publish "AlgoTecture.User.Api.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \

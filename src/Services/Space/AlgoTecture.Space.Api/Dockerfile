@@ -2,17 +2,19 @@
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["AlgoTecture.Space.Api/AlgoTecture.Space.Api.csproj", "AlgoTecture.Space.Api/"]
-COPY ["AlgoTecture.Space.Application/AlgoTecture.Space.Application.csproj", "AlgoTecture.Space.Application/"]
-COPY ["AlgoTecture.Space.Contracts/AlgoTecture.Space.Contracts.csproj", "AlgoTecture.Space.Contracts/"]
-COPY ["AlgoTecture.Space.Domain/AlgoTecture.Space.Domain.csproj", "AlgoTecture.Space.Domain/"]
-COPY ["AlgoTecture.Space.Infrastructure/AlgoTecture.Space.Infrastructure.csproj", "AlgoTecture.Space.Infrastructure/"]
+COPY ["src/Services/Space/AlgoTecture.Space.Api/AlgoTecture.Space.Api.csproj", "src/Services/Space/AlgoTecture.Space.Api/"]
+COPY ["src/Services/Space/AlgoTecture.Space.Application/AlgoTecture.Space.Application.csproj", "src/Services/Space/AlgoTecture.Space.Application/"]
+COPY ["src/Services/Space/AlgoTecture.Space.Domain/AlgoTecture.Space.Domain.csproj", "src/Services/Space/AlgoTecture.Space.Domain/"]
+COPY ["src/Services/Space/AlgoTecture.Space.Infrastructure/AlgoTecture.Space.Infrastructure.csproj", "src/Services/Space/AlgoTecture.Space.Infrastructure/"]
 
-RUN dotnet restore "AlgoTecture.Space.Api/AlgoTecture.Space.Api.csproj"
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Space.Contracts/AlgoTecture.Space.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Space.Contracts/"]
+COPY ["src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/AlgoTecture.Shared.Contracts.csproj", "src/BuildingBlocks/Contracts/AlgoTecture.Shared.Contracts/"]
+
+RUN dotnet restore "src/Services/Space/AlgoTecture.Space.Api/AlgoTecture.Space.Api.csproj"
 
 COPY . .
 
-WORKDIR "/src/AlgoTecture.Space.Api"
+WORKDIR "/src/src/Services/Space/AlgoTecture.Space.Api"
 RUN dotnet publish "AlgoTecture.Space.Api.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
