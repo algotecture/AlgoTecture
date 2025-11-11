@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NS: ${{ github.repository_owner }}
+  IMAGE_NS: ${{ github.actor }}
   DOTNET_VERSION: '8.0'
 
 jobs:
