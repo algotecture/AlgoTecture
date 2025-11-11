@@ -49,7 +49,7 @@ jobs:
           sed -i "s|__DB_USER_NAME__|${{ secrets.DB_USER_NAME }}|g"       src/Services/User/AlgoTecture.User.Api/appsettings.json
           sed -i "s|__DB_SPACE_NAME__|${{ secrets.DB_SPACE_NAME }}|g"     src/Services/Space/AlgoTecture.Space.Api/appsettings.json
           sed -i "s|__DB_RESERVATION_NAME__|${{ secrets.DB_RESERVATION_NAME }}|g" src/Services/Reservation/AlgoTecture.Reservation.Api/appsettings.json
-          sed -i "s|__DB_TELEGRAM_NAME__|${{ secrets.DB_TELEGRAM_NAME }}|g" src/Services/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.json
+          sed -i "s|__DB_TELEGRAM_NAME__|${{ secrets.DB_TELEGRAM_NAME }}|g" src/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.json
 
           sed -i "s|__IDENTITY_API_URL__|${{ secrets.IDENTITY_API_URL }}|g"     src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
           sed -i "s|__USER_API_URL__|${{ secrets.USER_API_URL }}|g"             src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
