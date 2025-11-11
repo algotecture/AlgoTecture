@@ -1,51 +1,87 @@
-variable "REGISTRY" { default = "ghcr.io" }
-variable "IMAGE_NS" {}
-variable "GIT_SHA" {}
+# ==========================================================
+# Docker Bake configuration for AlgoTecture microservices
+# Builds and publishes all service images to GHCR
+# ==========================================================
 
-function "tags" {
-  params = [image]
-  result = [
-    "${REGISTRY}/${IMAGE_NS}/${image}:latest",
-    "${REGISTRY}/${IMAGE_NS}/${image}:${GIT_SHA}",
-  ]
+variable "REGISTRY" {
+  default = "ghcr.io"
+}
+
+variable "IMAGE_NS" {
+  default = "sipakov"
+}
+
+variable "BUILD_CONFIGURATION" {
+  default = "Release"
 }
 
 group "default" {
-  targets = ["identity","user","space","reservation","apigateway","telegrambot"]
+  targets = [
+    "identity",
+    "user",
+    "space",
+    "reservation",
+    "apigateway",
+    "telegrambot"
+  ]
 }
 
+# -------------------- Identity Service --------------------
 target "identity" {
-  tags = tags("algotecture-identity")
   context = "."
   dockerfile = "src/Services/Identity/AlgoTecture.Identity.Api/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-identity:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
 
+# -------------------- User Service --------------------
 target "user" {
-  tags = tags("algotecture-user")
   context = "."
   dockerfile = "src/Services/User/AlgoTecture.User.Api/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-user:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
 
+# -------------------- Space Service --------------------
 target "space" {
-  tags = tags("algotecture-space")
   context = "."
   dockerfile = "src/Services/Space/AlgoTecture.Space.Api/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-space:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
 
+# -------------------- Reservation Service --------------------
 target "reservation" {
-  tags = tags("algotecture-reservation")
   context = "."
   dockerfile = "src/Services/Reservation/AlgoTecture.Reservation.Api/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-reservation:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
 
+# -------------------- API Gateway --------------------
 target "apigateway" {
-  tags = tags("algotecture-apigateway")
   context = "."
   dockerfile = "src/Services/ApiGateway/AlgoTecture.ApiGateway/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-apigateway:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
 
+# -------------------- Telegram Bot --------------------
 target "telegrambot" {
-  tags = tags("algotecture-telegrambot")
   context = "."
   dockerfile = "src/TelegramBot/AlgoTecture.TelegramBot.Api/Dockerfile"
+  tags = ["${REGISTRY}/${IMAGE_NS}/algotecture-telegrambot:latest"]
+  args = {
+    BUILD_CONFIGURATION = "${BUILD_CONFIGURATION}"
+  }
 }
