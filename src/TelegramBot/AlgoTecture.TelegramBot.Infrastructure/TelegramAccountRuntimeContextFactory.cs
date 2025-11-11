@@ -27,7 +27,7 @@ public class TelegramAccountRuntimeContextFactory : IDbContextFactory<TelegramAc
             .AddEnvironmentVariables() 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresTelegramAccountTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresTelegramAccount");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(TelegramAccountDbContext).Assembly.FullName));

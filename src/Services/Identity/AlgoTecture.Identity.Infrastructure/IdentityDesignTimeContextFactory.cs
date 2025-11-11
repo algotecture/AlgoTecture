@@ -20,7 +20,7 @@ public class IdentityDesignTimeContextFactory : IDesignTimeDbContextFactory<Iden
             .AddEnvironmentVariables()
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentityTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentity");
         
         var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
 

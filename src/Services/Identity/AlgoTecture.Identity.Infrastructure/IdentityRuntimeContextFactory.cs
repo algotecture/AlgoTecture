@@ -27,7 +27,7 @@ public class IdentityRuntimeContextFactory : IDbContextFactory<IdentityDbContext
             .AddEnvironmentVariables() 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentityTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresIdentity");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName));

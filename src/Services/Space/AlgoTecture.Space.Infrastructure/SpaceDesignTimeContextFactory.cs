@@ -20,7 +20,7 @@ public class SpaceDesignTimeContextFactory : IDesignTimeDbContextFactory<SpaceDb
             .AddEnvironmentVariables() 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresSpace");
         
         var optionsBuilder = new DbContextOptionsBuilder<SpaceDbContext>();
         optionsBuilder.UseNpgsql(connectionString,

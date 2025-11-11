@@ -19,7 +19,7 @@ public class UserDesignTimeContextFactory : IDesignTimeDbContextFactory<UserDbCo
             .AddEnvironmentVariables() 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresUserTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresUser");
         
         var optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

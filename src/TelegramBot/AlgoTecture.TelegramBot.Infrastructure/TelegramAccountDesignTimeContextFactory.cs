@@ -19,7 +19,7 @@ public class TelegramAccountDesignTimeContextFactory : IDesignTimeDbContextFacto
             .AddEnvironmentVariables() 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresTelegramAccountTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresTelegramAccount");
         
         var optionsBuilder = new DbContextOptionsBuilder<TelegramAccountDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

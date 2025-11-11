@@ -27,7 +27,7 @@ public class ReservationRuntimeContextFactory : IDbContextFactory<ReservationDbC
             .AddEnvironmentVariables() 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresReservationTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresReservation");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(ReservationDbContext).Assembly.FullName));

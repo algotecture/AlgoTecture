@@ -19,7 +19,7 @@ public class ReservationDesignTimeContextFactory : IDesignTimeDbContextFactory<R
             .AddEnvironmentVariables() 
             .Build();
         
-        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresReservationTest");
+        var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("AlgoTecturePostgresReservation");
         
         var optionsBuilder = new DbContextOptionsBuilder<ReservationDbContext>();
         optionsBuilder.UseNpgsql(connectionString);

@@ -31,7 +31,7 @@ public class DatabaseFixture : IAsyncLifetime
             .AddJsonFile("appsettings.Development.json", optional: false)
             .Build();
 
-        _connectionString = Configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
+        _connectionString = Configuration.GetConnectionString("AlgoTecturePostgresSpace");
         if (string.IsNullOrEmpty(_connectionString)) throw new InvalidOperationException("Connection string is null");
     }
 

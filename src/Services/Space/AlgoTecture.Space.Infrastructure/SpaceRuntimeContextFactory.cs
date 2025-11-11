@@ -28,7 +28,7 @@ public class SpaceRuntimeContextFactory : IDbContextFactory<SpaceDbContext>
             .AddEnvironmentVariables() 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresSpaceTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresSpace");
 
         optionsBuilder.UseNpgsql(connectionString,
             sqlOptions =>

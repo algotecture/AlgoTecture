@@ -27,7 +27,7 @@ public class UserRuntimeContextFactory : IDbContextFactory<UserDbContext>
             .AddEnvironmentVariables() 
             .Build();
 
-        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresUserTest");
+        var connectionString = configuration.GetConnectionString("AlgoTecturePostgresUser");
         
         optionsBuilder.UseNpgsql(connectionString, 
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName));
