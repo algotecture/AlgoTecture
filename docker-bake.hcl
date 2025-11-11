@@ -7,9 +7,7 @@ variable "REGISTRY" {
   default = "ghcr.io"
 }
 
-variable "IMAGE_NS" {
-  default = "sipakov"
-}
+variable "IMAGE_NS" {}
 
 variable "BUILD_CONFIGURATION" {
   default = "Release"
