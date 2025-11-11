@@ -1,0 +1,74 @@
+name: Publish Docker Images to GHCR
+
+on:
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NS: ${{ github.repository_owner }}
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate appsettings from templates
+        shell: bash
+        run: |
+          set -e
+          # copy all templates -> real appsettings.json
+          while IFS= read -r -d '' f; do
+            cp "$f" "${f%.Template.json}.json"
+          done < <(find src -name "appsettings.Template.json" -print0)
+
+          repl() { [ -n "$2" ] && find src -name "appsettings.json" -exec sed -i "s|$1|$2|g" {} + || true; }
+          repl "__DB_HOST__"              "${{ secrets.DB_HOST }}"
+          repl "__DB_USER__"              "${{ secrets.DB_USER }}"
+          repl "__DB_PASS__"              "${{ secrets.DB_PASS }}"
+          repl "__RABBIT_HOST__"          "${{ secrets.RABBIT_HOST }}"
+          repl "__RABBIT_USER__"          "${{ secrets.RABBIT_USER }}"
+          repl "__RABBIT_PASS__"          "${{ secrets.RABBIT_PASS }}"
+          repl "__REDIS_HOST__"           "${{ secrets.REDIS_HOST }}"
+          repl "__SEQ_URL__"              "${{ secrets.SEQ_URL }}"
+          repl "__GATEWAY_URL__"          "${{ secrets.GATEWAY_URL }}"
+          repl "__BOTF_TOKEN__"           "${{ secrets.BOTF_TOKEN }}"
+          repl "__DEEPSEEK_API_KEY__"     "${{ secrets.DEEPSEEK_API_KEY }}"
+          repl "__DEEPSEEK_BASE_URL__"    "${{ secrets.DEEPSEEK_BASE_URL }}"
+          repl "__DEEPSEEK_MODEL__"       "${{ secrets.DEEPSEEK_MODEL }}"
+          repl "__GEO_ADMIN_BASE_URL__"   "${{ secrets.GEO_ADMIN_BASE_URL }}"
+
+          sed -i "s|__DB_IDENTITY_NAME__|${{ secrets.DB_IDENTITY_NAME }}|g" src/Services/Identity/AlgoTecture.Identity.Api/appsettings.json
+          sed -i "s|__DB_USER_NAME__|${{ secrets.DB_USER_NAME }}|g"       src/Services/User/AlgoTecture.User.Api/appsettings.json
+          sed -i "s|__DB_SPACE_NAME__|${{ secrets.DB_SPACE_NAME }}|g"     src/Services/Space/AlgoTecture.Space.Api/appsettings.json
+          sed -i "s|__DB_RESERVATION_NAME__|${{ secrets.DB_RESERVATION_NAME }}|g" src/Services/Reservation/AlgoTecture.Reservation.Api/appsettings.json
+          sed -i "s|__DB_TELEGRAM_NAME__|${{ secrets.DB_TELEGRAM_NAME }}|g" src/Services/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.json
+
+          sed -i "s|__IDENTITY_API_URL__|${{ secrets.IDENTITY_API_URL }}|g"     src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
+          sed -i "s|__USER_API_URL__|${{ secrets.USER_API_URL }}|g"             src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
+          sed -i "s|__SPACE_API_URL__|${{ secrets.SPACE_API_URL }}|g"           src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
+          sed -i "s|__RESERVATION_API_URL__|${{ secrets.RESERVATION_API_URL }}|g" src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push images (bake)
+        uses: docker/bake-action@v5
+        with:
+          files: ./docker-bake.hcl
+          push: true
+        env:
+          REGISTRY: ${{ env.REGISTRY }}
+          IMAGE_NS: ${{ env.IMAGE_NS }}
+          GIT_SHA: ${{ github.sha }}

@@ -1,94 +1,29 @@
-name: Deploy to staging
+name: Deploy to Server
 
 on:
-  workflow_dispatch: 
-
-permissions:
-  contents: read
-  packages: write  
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to deploy (latest or specific SHA)"
+        required: false
+        default: "latest"
 
 jobs:
-  build-test-push:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup .NET 8
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Build & Test
-        run: |
-          dotnet restore
-          dotnet build -c Release
-          dotnet test -c Release --no-build --verbosity normal
-
-      - name: Login to GHCR
-        run: echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Lowercase repo owner
-        id: lc
-        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
-
-      - name: Build images
-        run: |
-          GIT_SHA=${GITHUB_SHA::7}
-          OWNER="${{ steps.lc.outputs.OWNER_LC }}"
-          docker build -t ghcr.io/$OWNER/algotecture-identity:latest -t ghcr.io/$OWNER/algotecture-identity:$GIT_SHA ./src/Services/Identity/AlgoTecture.Identity.Api
-          docker build -t ghcr.io/$OWNER/algotecture-user:latest -t ghcr.io/$OWNER/algotecture-user:$GIT_SHA ./src/Services/User/AlgoTecture.User.Api
-          docker build -t ghcr.io/$OWNER/algotecture-space:latest -t ghcr.io/$OWNER/algotecture-space:$GIT_SHA ./src/Services/Space/AlgoTecture.Space.Api
-          docker build -t ghcr.io/$OWNER/algotecture-reservation:latest -t ghcr.io/$OWNER/algotecture-reservation:$GIT_SHA ./src/Services/Reservation/AlgoTecture.Reservation.Api
-          docker build -t ghcr.io/$OWNER/algotecture-telegram-bot:latest -t ghcr.io/$OWNER/algotecture-telegram-bot:$GIT_SHA ./src/TelegramBot
-          docker build -t ghcr.io/$OWNER/algotecture-gateway:latest -t ghcr.io/$OWNER/algotecture-gateway:$GIT_SHA ./src/ApiGateway
-
-      - name: Push images
-        run: |
-          GIT_SHA=${GITHUB_SHA::7}
-          OWNER="${{ steps.lc.outputs.OWNER_LC }}"
-          docker push ghcr.io/$OWNER/algotecture-identity:latest
-          docker push ghcr.io/$OWNER/algotecture-identity:$GIT_SHA
-          docker push ghcr.io/$OWNER/algotecture-user:latest
-          docker push ghcr.io/$OWNER/algotecture-user:$GIT_SHA
-          docker push ghcr.io/$OWNER/algotecture-space:latest
-          docker push ghcr.io/$OWNER/algotecture-space:$GIT_SHA
-          docker push ghcr.io/$OWNER/algotecture-reservation:latest
-          docker push ghcr.io/$OWNER/algotecture-reservation:$GIT_SHA
-          docker push ghcr.io/$OWNER/algotecture-telegram-bot:latest
-          docker push ghcr.io/$OWNER/algotecture-telegram-bot:$GIT_SHA
-          docker push ghcr.io/$OWNER/algotecture-gateway:latest
-          docker push ghcr.io/$OWNER/algotecture-gateway:$GIT_SHA
-
   deploy:
-    needs: build-test-push
     runs-on: ubuntu-latest
-
     steps:
-      - name: Deploy via SSH to DigitalOcean
-        uses: appleboy/ssh-action@v1.0.0
+      - name: SSH deploy (compose pull/up)
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.DO_HOST }}
-          username: ${{ secrets.DO_USER }}
-          key: ${{ secrets.DO_SSH_KEY }}
-          port: ${{ secrets.DO_SSH_PORT || 22 }}
+          host: ${{ secrets.PROD_SERVER_HOST }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key: ${{ secrets.PROD_SERVER_SSH_KEY }}
           script: |
-            set -e
-            mkdir -p /opt/algotecture
+            # login to GHCR (private)
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+            # если используешь docker-compose.yml с latest — просто pull/up:
             cd /opt/algotecture
-
-            # Обновим compose файл из репо только при первом развёртывании.
-            # Если compose уже лежит на сервере — этот шаг можно убрать.
-            # Ниже команда просто создаёт файлы, если их нет (можно скопировать руками один раз).
-            if [ ! -f docker-compose.yml ]; then
-              echo "docker-compose.yml not found. Please upload it once."
-              exit 1
-            fi
-
-            # Логин к GHCR с помощью персонального токена или PAT,
-            # но для pull можно сохранить логин на сервере однажды вручную (см. шаги ниже).
-            # Здесь предполагается, что docker уже авторизован к ghcr.io.
-
             docker compose pull
-            docker compose up -d --remove-orphans
+            docker compose up -d
+            docker image prune -f
