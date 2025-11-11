@@ -1,6 +1,0 @@
-﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Publish AlgoTecture.TelegramBot to DigitalOcean" type="DotNetPublishAndUpload" factoryName="Publish to custom server">
-    <riderPublish configuration="Release" platform="Any CPU" server_id="ca4f7d56-3f29-4443-91d1-1ab318c74a62" serverName="AlgoTecture TelegramBot DigitalOcean" target_framework="net8.0" uuid_high="-2269184469798596829" uuid_low="-8434412240507782621" />
-    <method v="2" />
-  </configuration>
-</component>
