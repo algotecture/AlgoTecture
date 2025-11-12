@@ -34,6 +34,20 @@ services:
       - ./volumes/redis:/data
     ports:
       - "6379:6379"
+      
+  seq:
+    image: datalust/seq:2024.3
+    container_name: algotecture_seq
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINUSERNAME=admin
+      - SEQ_FIRSTRUN_ADMINPASSWORD=12345678
+    volumes:
+      - ./volumes/seq:/data
+    ports:
+      - "5101:80"    # UI
+      - "5341:5341"  # ingestion endpoint for Serilog
 
 volumes:
   pg_data:
