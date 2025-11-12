@@ -22,16 +22,22 @@ jobs:
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
 
+            echo "🔐 Logging into GHCR..."
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
+            echo "📂 Switching to /opt/algotecture"
             cd /opt/algotecture
-            echo "Deploying images with tag: $TAG"
+            echo "Deploying application images with tag: $TAG"
 
-            # обновляем теги на нужные версии
             sed -i "s/:latest/:$TAG/g" docker-compose.app.yml
 
-            docker compose pull
-            docker compose up -d
+            echo "📦 Pulling updated images..."
+            docker compose -f docker-compose.app.yml pull
+
+            echo "🚀 Restarting application services..."
+            docker compose -f docker-compose.app.yml up -d
+
+            echo "🧹 Cleaning up old images..."
             docker image prune -f
 
-            echo "✅ Deployment complete."
+            echo "✅ Application deployment complete."

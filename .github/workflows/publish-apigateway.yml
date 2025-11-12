@@ -1,0 +1,51 @@
+﻿name: Publish AlgoTecture ApiGateway Image
+
+on:
+  workflow_dispatch: {}
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NS: ${{ github.repository_owner }}
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  publish-apigateway:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate appsettings from template
+        shell: bash
+        run: |
+          set -e
+          TEMPLATE="src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.Template.json"
+          TARGET="src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json"
+          cp "$TEMPLATE" "$TARGET"
+
+          # заменить плейсхолдеры из секретов
+          sed -i "s|__IDENTITY_API_URL__|${{ secrets.IDENTITY_API_URL }}|g" "$TARGET"
+          sed -i "s|__USER_API_URL__|${{ secrets.USER_API_URL }}|g" "$TARGET"
+          sed -i "s|__SPACE_API_URL__|${{ secrets.SPACE_API_URL }}|g" "$TARGET"
+          sed -i "s|__RESERVATION_API_URL__|${{ secrets.RESERVATION_API_URL }}|g" "$TARGET"
+          sed -i "s|__SEQ_URL__|${{ secrets.SEQ_URL }}|g" "$TARGET"
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push ApiGateway image
+        run: |
+          docker build \
+            -t $REGISTRY/$IMAGE_NS/algotecture-apigateway:latest \
+            -f src/Services/ApiGateway/AlgoTecture.ApiGateway/Dockerfile .
+
+          docker push $REGISTRY/$IMAGE_NS/algotecture-apigateway:latest
