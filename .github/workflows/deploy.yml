@@ -1,10 +1,10 @@
-name: Deploy to Server
+name: Deploy to Server (Production)
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Tag to deploy (latest or specific SHA)"
+        description: "Docker image tag (e.g. latest or SHA)"
         required: false
         default: "latest"
 
@@ -12,18 +12,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH deploy (compose pull/up)
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
           username: ${{ secrets.PROD_SERVER_USER }}
           key: ${{ secrets.PROD_SERVER_SSH_KEY }}
           script: |
-            # login to GHCR (private)
-            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+            set -e
+            TAG="${{ github.event.inputs.tag || 'latest' }}"
 
-            # если используешь docker-compose.yml с latest — просто pull/up:
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
+            echo "Deploying images with tag: $TAG"
+
+            # обновляем теги на нужные версии
+            sed -i "s/:latest/:$TAG/g" docker-compose.app.yml
+
             docker compose pull
             docker compose up -d
             docker image prune -f
+
+            echo "✅ Deployment complete."
