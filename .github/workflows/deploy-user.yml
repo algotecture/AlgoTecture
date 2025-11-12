@@ -1,0 +1,30 @@
+﻿name: Deploy User Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Docker tag (default latest)"
+        required: false
+        default: "latest"
+
+jobs:
+  deploy-user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Deploy User
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_SERVER_HOST }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+          script: |
+            set -e
+            TAG="${{ github.event.inputs.tag || 'latest' }}"
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            cd /opt/algotecture
+            echo "🚀 Deploying User Service..."
+            docker compose pull user
+            docker compose up -d user
+            docker image prune -f
