@@ -21,8 +21,17 @@ jobs:
         shell: bash
         run: |
           set -e
+
           TEMPLATE=src/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.Template.json
           TARGET=src/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.json
+
+          echo "Using template: $TEMPLATE"
+          echo "Output: $TARGET"
+
+          if [ ! -f "$TEMPLATE" ]; then
+            echo "❌ ERROR: Template file not found: $TEMPLATE"
+            exit 1
+          fi
 
           cp "$TEMPLATE" "$TARGET"
 
@@ -39,6 +48,9 @@ jobs:
           repl "__DEEPSEEK_MODEL__"        "${{ secrets.DEEPSEEK_MODEL }}"
           repl "__GEO_ADMIN_BASE_URL__"    "${{ secrets.GEO_ADMIN_BASE_URL }}"
           repl "__GATEWAY_BASE_URL__"      "${{ secrets.GATEWAY_BASE_URL }}"
+
+          echo "Generated appsettings.json:"
+          cat "$TARGET"
 
       - name: Login to GHCR
         uses: docker/login-action@v3
