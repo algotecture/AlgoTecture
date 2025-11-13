@@ -21,10 +21,12 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
+            
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-
+            
             cd /opt/algotecture
-            echo "🚀 Deploying Reservation Service..."
-            docker compose pull reservation
-            docker compose up -d reservation
+            
+            docker compose -f docker-compose.app.yml pull reservation
+            docker compose -f docker-compose.app.yml up -d reservation
+            
             docker image prune -f

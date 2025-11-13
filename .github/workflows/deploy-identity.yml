@@ -21,10 +21,12 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
+            
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-
+            
             cd /opt/algotecture
-            echo "🚀 Deploying Identity Service..."
-            docker compose pull identity
-            docker compose up -d identity
+            
+            docker compose -f docker-compose.app.yml pull identity
+            docker compose -f docker-compose.app.yml up -d identity
+            
             docker image prune -f

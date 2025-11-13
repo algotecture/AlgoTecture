@@ -21,10 +21,12 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
+            
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-
+            
             cd /opt/algotecture
-            echo "🚀 Deploying Space Service..."
-            docker compose pull space
-            docker compose up -d space
+            
+            docker compose -f docker-compose.app.yml pull space
+            docker compose -f docker-compose.app.yml up -d space
+            
             docker image prune -f
