@@ -20,6 +20,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 🔥 ВСТРОЕНА ОЧИСТКА DOCKER КЕША ПЕРЕД СБОРКОЙ
+      - name: Clean Docker cache (important before build)
+        run: |
+          echo "🧹 Cleaning Docker builder cache..."
+          docker builder prune -af || true
+
+          echo "🧹 Cleaning Docker system cache..."
+          docker system prune -af || true
+
+          echo "🧹 Cleaning unused images..."
+          docker image prune -af || true
+
+          echo "🧹 Cleaning old containers..."
+          docker container prune -f || true
+
+          echo "🧹 Cleaning orphaned volumes..."
+          docker volume prune -f || true
+
+          echo "🧹 Cleaning buildx metadata..."
+          docker buildx prune -af || true
+
+          echo "⚡ Docker cleanup completed."
+
+      # -------------------------------
+      #      GENERATE APPSETTINGS
+      # -------------------------------
       - name: Generate appsettings from templates
         shell: bash
         run: |
@@ -56,6 +82,9 @@ jobs:
           sed -i "s|__SPACE_API_URL__|${{ secrets.SPACE_API_URL }}|g"           src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
           sed -i "s|__RESERVATION_API_URL__|${{ secrets.RESERVATION_API_URL }}|g" src/Services/ApiGateway/AlgoTecture.ApiGateway/appsettings.json
 
+      # -------------------------------
+      #           LOGIN GHCR
+      # -------------------------------
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -63,6 +92,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # -------------------------------
+      #         BUILD & PUSH
+      # -------------------------------
       - name: Build & Push images (bake)
         uses: docker/bake-action@v5
         with:
