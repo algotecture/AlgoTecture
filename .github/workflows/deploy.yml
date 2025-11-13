@@ -21,23 +21,32 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
+            COMPOSE_FILE="docker-compose.app.yml"
 
             echo "🔐 Logging into GHCR..."
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
             echo "📂 Switching to /opt/algotecture"
             cd /opt/algotecture
-            echo "Deploying application images with tag: $TAG"
 
-            sed -i "s/:latest/:$TAG/g" docker-compose.app.yml
+            echo "🔄 Resetting compose file to use :latest placeholders"
+            # Replace all tags back to :latest to avoid accumulating many tags
+            sed -i -E 's/(ghcr\.io\/[^:]+):[a-zA-Z0-9_.-]+/\1:latest/g' "$COMPOSE_FILE"
+
+            if [ "$TAG" != "latest" ]; then
+              echo "🎯 Applying tag: $TAG"
+              sed -i "s/:latest/:$TAG/g" "$COMPOSE_FILE"
+            fi
 
             echo "📦 Pulling updated images..."
-            docker compose -f docker-compose.app.yml pull
+            docker compose -f "$COMPOSE_FILE" pull
 
-            echo "🚀 Restarting application services..."
-            docker compose -f docker-compose.app.yml up -d
+            echo "🚀 Restarting all services..."
+            docker compose -f "$COMPOSE_FILE" up -d
 
-            echo "🧹 Cleaning up old images..."
-            docker image prune -f
+            echo "🧹 Cleaning Docker disk space..."
+            docker image prune -af
+            docker container prune -f
+            docker builder prune -af
 
-            echo "✅ Application deployment complete."
+            echo "🟢 Deployment finished successfully."
