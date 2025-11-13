@@ -234,7 +234,7 @@ public class MainController : ReservationControllerBase
             if (!labels.Any())
             {
                 _logger.LogWarning("No address matches found for user {UserId} and query '{Address}'", userId, address);
-                RowButton("Try again"!, Q(EnterAddress, sessionState));
+                RowButton("Try again", Q(EnterAddress, sessionState));
                 await SendOrUpdate();
                 return;
             }
@@ -583,7 +583,7 @@ public class MainController : ReservationControllerBase
 
             await DeletePreviousMessageIfNeeded(sessionState, chatId.Value);
             await DeletePreviousLocationMessageIfNeeded(sessionState, chatId.Value);
-            if (result.Id == Guid.Empty)
+            if (result!.Id == Guid.Empty)
             {
                 var markupWithNullResult = new InlineKeyboardMarkup([
                     [
@@ -703,13 +703,13 @@ public class MainController : ReservationControllerBase
     [On(Handle.Exception)]
     public void Exception(Exception ex)
     {
-        //_logger.LogError(ex, "Handle.Exception on telegram-bot");
+        _logger.LogError(ex, "Handle.Exception on telegram-bot");
     }
 
     [On(Handle.ChainTimeout)]
     void ChainTimeout(Exception ex)
     {
-        //_logger.LogError(ex, "Handle.Exception on telegram-bot");
+        _logger.LogError(ex, "Handle.Exception on telegram-bot");
     }
 
     [On(Handle.Unknown)]
@@ -731,7 +731,7 @@ public class MainController : ReservationControllerBase
             try
             {
                 var intent = await new IntentRecognitionService(
-                        new DeepSeekService(_deepSeekSettings.ApiKey, _deepSeekSettings.BaseUrl,
+                        new DeepSeekService(_deepSeekSettings.ApiKey!, _deepSeekSettings.BaseUrl,
                             _deepSeekSettings.Model))
                     .RecognizeIntentAsync(messageText);
 
