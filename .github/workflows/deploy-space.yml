@@ -4,15 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Docker tag (default latest)"
+        description: "Docker tag (default: latest)"
         required: false
         default: "latest"
 
 jobs:
   deploy-space:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy Space
+      - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
@@ -21,12 +22,18 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
-            
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            
+
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+                -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
-            
+
+            export POSTGRES_CONNECTION="${{ secrets.POSTGRES_CONNECTION_SPACE }}"
+            export SEQ_URL="${{ secrets.SEQ_URL }}"
+
+            envsubst < ./config/space/appsettings.Template.json > ./generated/space/appsettings.json
+
             docker compose -f docker-compose.app.yml pull space
             docker compose -f docker-compose.app.yml up -d space
-            
+
             docker image prune -f

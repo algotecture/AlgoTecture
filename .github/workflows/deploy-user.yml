@@ -4,15 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Docker tag (default latest)"
+        description: "Docker tag (default: latest)"
         required: false
         default: "latest"
 
 jobs:
   deploy-user:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy User
+      - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
@@ -21,12 +22,21 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
-            
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            
+
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+                -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
-            
+
+            export POSTGRES_CONNECTION="${{ secrets.POSTGRES_CONNECTION_USER }}"
+            export RABBIT_HOST="${{ secrets.RABBIT_HOST }}"
+            export RABBIT_USER="${{ secrets.RABBIT_USER }}"
+            export RABBIT_PASS="${{ secrets.RABBIT_PASS }}"
+            export SEQ_URL="${{ secrets.SEQ_URL }}"
+
+            envsubst < ./config/user/appsettings.Template.json > ./generated/user/appsettings.json
+
             docker compose -f docker-compose.app.yml pull user
             docker compose -f docker-compose.app.yml up -d user
-            
+
             docker image prune -f

@@ -11,8 +11,9 @@ on:
 jobs:
   deploy-identity:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy Identity
+      - name: Deploy to Production
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
@@ -20,13 +21,22 @@ jobs:
           key: ${{ secrets.PROD_SERVER_SSH_KEY }}
           script: |
             set -e
+
             TAG="${{ github.event.inputs.tag || 'latest' }}"
-            
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+              -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
-            
+
+            export POSTGRES_CONNECTION="${{ secrets.POSTGRES_CONNECTION_IDENTITY }}"
+            export SEQ_URL="${{ secrets.SEQ_URL }}"
+            export RABBIT_HOST="${{ secrets.RABBIT_HOST }}"
+            export RABBIT_USER="${{ secrets.RABBIT_USER }}"
+            export RABBIT_PASS="${{ secrets.RABBIT_PASS }}"
+
+            envsubst < ./config/identity/appsettings.Template.json > ./generated/identity/appsettings.json
+
             docker compose -f docker-compose.app.yml pull identity
             docker compose -f docker-compose.app.yml up -d identity
-            
+
             docker image prune -f

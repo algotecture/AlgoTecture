@@ -1,18 +1,19 @@
-﻿name: Deploy TelegramBot Service
+﻿name: Deploy Telegram Bot Service
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Docker tag (default latest)"
+        description: "Docker tag (default: latest)"
         required: false
         default: "latest"
 
 jobs:
   deploy-telegrambot:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy TelegramBot
+      - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
@@ -21,12 +22,27 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
-            
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            
+
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+                -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
-            
+
+            export POSTGRES_CONNECTION="${{ secrets.POSTGRES_CONNECTION_TELEGRAM }}"
+            export REDIS_CONNECTION="${{ secrets.REDIS_CONNECTION }}"
+            export RABBIT_HOST="${{ secrets.RABBIT_HOST }}"
+            export RABBIT_USER="${{ secrets.RABBIT_USER }}"
+            export RABBIT_PASS="${{ secrets.RABBIT_PASS }}"
+            export TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}"
+            export GEO_ADMIN_BASE_URL="${{ secrets.GEO_ADMIN_BASE_URL }}"
+            export DEEPSEEK_API_KEY="${{ secrets.DEEPSEEK_API_KEY }}"
+            export DEEPSEEK_MODEL="${{ secrets.DEEPSEEK_MODEL }}"
+            export GATEWAY_BASE_URL="${{ secrets.GATEWAY_BASE_URL }}"
+            export SEQ_URL="${{ secrets.SEQ_URL }}"
+
+            envsubst < ./config/telegrambot/appsettings.Template.json > ./generated/telegrambot/appsettings.json
+
             docker compose -f docker-compose.app.yml pull telegrambot
             docker compose -f docker-compose.app.yml up -d telegrambot
-            
+
             docker image prune -f

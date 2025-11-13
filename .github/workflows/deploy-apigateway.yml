@@ -1,18 +1,19 @@
-﻿name: Deploy ApiGateway Service
+﻿name: Deploy API Gateway
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Docker tag (default latest)"
+        description: "Docker tag (default: latest)"
         required: false
         default: "latest"
 
 jobs:
-  deploy-apigateway:
+  deploy-gateway:
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy ApiGateway
+      - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_SERVER_HOST }}
@@ -21,12 +22,21 @@ jobs:
           script: |
             set -e
             TAG="${{ github.event.inputs.tag || 'latest' }}"
-            
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-            
+
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+                -u "${{ github.actor }}" --password-stdin
+
             cd /opt/algotecture
-            
+
+            export IDENTITY_URL="${{ secrets.IDENTITY_URL }}"
+            export USER_URL="${{ secrets.USER_URL }}"
+            export SPACE_URL="${{ secrets.SPACE_URL }}"
+            export RESERVATION_URL="${{ secrets.RESERVATION_URL }}"
+            export SEQ_URL="${{ secrets.SEQ_URL }}"
+
+            envsubst < ./config/gateway/appsettings.Template.json > ./generated/gateway/appsettings.json
+
             docker compose -f docker-compose.app.yml pull apigateway
             docker compose -f docker-compose.app.yml up -d apigateway
-            
+
             docker image prune -f
