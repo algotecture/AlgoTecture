@@ -17,6 +17,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate appsettings.json from template
+        shell: bash
+        run: |
+          set -e
+          TEMPLATE=src/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.Template.json
+          TARGET=src/TelegramBot/AlgoTecture.TelegramBot.Api/appsettings.json
+
+          cp "$TEMPLATE" "$TARGET"
+
+          repl() { sed -i "s|$1|$2|g" "$TARGET"; }
+
+          repl "__DB_CONNECTION__"         "${{ secrets.POSTGRES_CONNECTION_TELEGRAM }}"
+          repl "__REDIS_CONNECTION__"      "${{ secrets.REDIS_CONNECTION }}"
+          repl "__RABBIT_HOST__"           "${{ secrets.RABBIT_HOST }}"
+          repl "__RABBIT_USER__"           "${{ secrets.RABBIT_USER }}"
+          repl "__RABBIT_PASS__"           "${{ secrets.RABBIT_PASS }}"
+          repl "__SEQ_URL__"               "${{ secrets.SEQ_URL }}"
+          repl "__BOTF_TOKEN__"            "${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          repl "__DEEPSEEK_API_KEY__"      "${{ secrets.DEEPSEEK_API_KEY }}"
+          repl "__DEEPSEEK_MODEL__"        "${{ secrets.DEEPSEEK_MODEL }}"
+          repl "__GEO_ADMIN_BASE_URL__"    "${{ secrets.GEO_ADMIN_BASE_URL }}"
+          repl "__GATEWAY_BASE_URL__"      "${{ secrets.GATEWAY_BASE_URL }}"
+
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
