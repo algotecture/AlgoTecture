@@ -12,6 +12,10 @@ AlgoTecture’s product is a decentralised data management framework that enable
 
 Service or Product Short Description
 
+## Developer Onboarding
+
+A detailed overview of the architecture, services, CI/CD pipelines, and local development workflow is available in the [Developer Onboarding Guide](docs/developer-onboarding.md).
+
 
 ## [Owner Declaration Form](https://docs.google.com/forms/d/e/1FAIpQLSfWlzitjaanswORgW8kdxa-Y74ESpP7UStYQfxFpjL0cBx2Ow/viewform) 
 
